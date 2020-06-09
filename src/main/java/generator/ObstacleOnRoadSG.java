@@ -12,23 +12,23 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
     }
 
     @Override
-    public Model generate(int scenarioId) {
-        Model model = super.generate(scenarioId);
+    public Model generate() {
+        Model model = super.generate();
 
-        Surrounding obstacle = getObstacle(scenarioId);
+        Surrounding obstacle = getObstacle();
 
         model.getVehicle().addHas_in_the_front(obstacle);
 
         return model;
     }
 
-    private Surrounding getObstacle(int scenarioId) {
+    private Surrounding getObstacle() {
         Random rand = new Random();
         Surrounding obstacle;
         if(rand.nextInt(2) == 0)
-            obstacle = factory.createRock(getUniqueName("obstacle", scenarioId));
+            obstacle = factory.createRock(ObjectNamer.getName("obstacle"));
         else
-            obstacle = factory.createTree(getUniqueName("obstacle", scenarioId));
+            obstacle = factory.createTree(ObjectNamer.getName("obstacle"));
         return obstacle;
     }
 

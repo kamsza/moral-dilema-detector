@@ -11,12 +11,12 @@ public class PedestrianOnCrosswalkSG extends BaseScenarioGenerator {
     }
 
     @Override
-    public Model generate(int scenarioId) {
-        Model model = super.generate(scenarioId);
+    public Model generate() {
+        Model model = super.generate();
 
-        Pedestrian pedestrian = factory.createPedestrian(getUniqueName("pedestrian", scenarioId));
+        Pedestrian pedestrian = factory.createPedestrian(ObjectNamer.getName("pedestrian"));
 
-        Street_crossing pedestrianLocation = factory.createStreet_crossing(getUniqueName("street_crossing", scenarioId));
+        Street_crossing pedestrianLocation = factory.createStreet_crossing(ObjectNamer.getName("street_crossing"));
 
         model.getScenario().addHas_pedestrian(pedestrian);
 

@@ -10,10 +10,10 @@ public class AnimalOnRoadSG extends BaseScenarioGenerator {
     }
 
     @Override
-    public Model generate(int scenarioId) {
-        Model model = super.generate(scenarioId);
+    public Model generate() {
+        Model model = super.generate();
 
-        Animal animal = factory.createAnimalSubclass(getUniqueName("animal", scenarioId));
+        Animal animal = factory.createAnimalSubclass(ObjectNamer.getName("animal"));
 
         model.getVehicle().addHas_in_the_front(animal);
 

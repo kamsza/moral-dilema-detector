@@ -1,5 +1,6 @@
 package generator;
 
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.*;
 
 import java.util.ArrayList;
@@ -8,75 +9,42 @@ import java.util.Map;
 import java.util.Random;
 
 public class BaseScenarioGenerator {
-    String baseIRI;
-    MyFactory factory;
-    Random rand = new Random();
-
-    Map<String, Integer> idMap = new HashMap<>();
-
+    protected String baseIRI;
+    protected MyFactory factory;
+    protected Random rand = new Random();
 
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
-    }
 
-    /**
-     * If two variables created by factory will have the same name, they will be merged into one
-     * so using this method to create variable names is highly advisable
-     * @param name name of a variable
-     * @return string name_id, where id is unique number
-     */
-    protected String getUniqueName(String name) {
-        int id = idMap.getOrDefault(name, 0);
-        idMap.put(name, id + 1);
-        if(id == 0)
-            return name;
-        else
-            return name + "_" + id;
-    }
-
-    /**
-     * This method should be used, if we want to create many scenarios
-     * @param name name of a variable
-     * @param scenarioNr number of scenario
-     * @return string scenarioNr_name_id, where id is unique number
-     */
-    protected String getUniqueName(String name, int scenarioNr) {
-        return getUniqueName(scenarioNr + "_" + name);
-    }
-
-    /**
-     * generate one basic scenario
-     */
-    public Model generate(){
-        return generate(0);
+        ObjectNamer.setInitScenarioId(factory.getAllScenarioInstances().size());
     }
 
     /**
      * ancillary method to create many scenarios
      */
     // generate basic scenario with id
-    protected Model generate(int scenarioId) {
+    public Model generate() {
         // get new individuals
-        Scenario scenario = factory.createScenario(getUniqueName("scenario", scenarioId));
+        Scenario scenario = factory.createScenario(ObjectNamer.getName("scenario"));
 
-        Weather weather = factory.createWeatherSubclass(getUniqueName("weather", scenarioId));
+        Weather weather = factory.createWeatherSubclass(ObjectNamer.getName("weather"));
 
-        Time time = factory.createTimeSubclass(getUniqueName("time", scenarioId));
+        Time time = factory.createTimeSubclass(ObjectNamer.getName("time"));
 
-        Road_type roadType = factory.createRoad_typeSubclass(getUniqueName("road_type", scenarioId));
+        Road_type roadType = factory.createRoad_typeSubclass(ObjectNamer.getName("road_type"));
 
-        Driver driver = factory.createDriver(getUniqueName("driver", scenarioId));
+        Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
 
         Map<String, Surrounding> surrounding = new HashMap<>();
-        surrounding.put("LEFT", factory.createSurroundingSubclass(getUniqueName("surrounding", scenarioId)));
-        surrounding.put("RIGHT", factory.createSurroundingSubclass(getUniqueName("surrounding", scenarioId)));
+        surrounding.put("LEFT", factory.createSurroundingSubclass(ObjectNamer.getName("surrounding")));
+        surrounding.put("RIGHT", factory.createSurroundingSubclass(ObjectNamer.getName("surrounding")));
 
-        Vehicle vehicle = factory.createVehicleSubclass(getUniqueName("vehicle", scenarioId));
+        Vehicle vehicle = factory.createVehicleSubclass(ObjectNamer.getName("vehicle"));
 
         ArrayList<Passenger> passengers = new ArrayList<>();
         for(int i = 0; i < rand.nextInt(5); i++)
-            passengers.add(factory.createPassengerSubclass(getUniqueName("passenger", scenarioId)));
+            passengers.add(factory.createPassengerSubclass(ObjectNamer.getName("passenger")));
 
         // set object properties
         scenario.addHas_vehicle(vehicle);
@@ -96,30 +64,6 @@ public class BaseScenarioGenerator {
         roadType.addHas_speed_limit_kmph(70);
         roadType.addHas_lanes(2);
 
-        // adding decisions and actions
-        Decision decision_1 = factory.createDecision(getUniqueName("decision", scenarioId));
-        Turn_left action_1 = factory.createTurn_left(getUniqueName("turn_left", scenarioId));
-
-        decision_1.addHas_action(action_1);
-
-        Decision decision_2 = factory.createDecision(getUniqueName("decision", scenarioId));
-        Turn_right action_2 = factory.createTurn_right(getUniqueName("turn_right", scenarioId));
-        decision_2.addHas_action(action_2);
-
-        Decision decision_3 = factory.createDecision(getUniqueName("decision", scenarioId));
-        Follow action_3 = factory.createFollow(getUniqueName("follow", scenarioId));
-        decision_3.addHas_action(action_3);
-
-        scenario.addHas_decision(decision_1);
-        scenario.addHas_decision(decision_2);
-        scenario.addHas_decision(decision_3);
-
-        HashMap<Decision, Action> actionByDecision = new HashMap<>();
-        actionByDecision.put(decision_1, action_1);
-        actionByDecision.put(decision_2, action_2);
-        actionByDecision.put(decision_3, action_3);
-
-
         // save in a model
         Model model = new Model();
 
@@ -131,7 +75,6 @@ public class BaseScenarioGenerator {
         model.setSurrounding(surrounding);
         model.setVehicle(vehicle);
         model.setPassengers(passengers);
-        model.setActionByDecision(actionByDecision);
 
         return model;
     }
@@ -139,12 +82,14 @@ public class BaseScenarioGenerator {
     /**
      * generate numOfScenarios basic scenario, with IDs starting from startingId
      */
-    public ArrayList<Model> generate(int numOfScenarios, int startingId) {
+
+    public ArrayList<Model> generate(int numOfScenarios) {
         ArrayList<Model> models = new ArrayList<>();
 
         for(int i = 0; i < numOfScenarios; i++)
-            models.add(generate(startingId + i));
+            models.add(generate());
 
         return models;
     }
+
 }

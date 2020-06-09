@@ -1,11 +1,14 @@
 import generator.AnimalOnRoadSG;
 import generator.BaseScenarioGenerator;
+import generator.DecisionGenerator;
+import generator.Model;
 import generator.PedestrianIllegallyCrossingSG;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import project.Decision;
 import project.MyFactory;
 
 import java.io.File;
@@ -14,7 +17,7 @@ import java.io.FileNotFoundException;
 public class GeneratorMain {
 
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
         String fileName = "traffic_ontology.owl";
         String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
 
@@ -28,19 +31,10 @@ public class GeneratorMain {
         MyFactory factory = new MyFactory(ontology);
         String baseIRI = "http://webprotege.stanford.edu/";
 
-        BaseScenarioGenerator generator;
-       generator = new AnimalOnRoadSG(factory, baseIRI);
-//        generator = new CarApproachingSG(factory, baseIRI);
-//        generator = new CarOvertakingSG(factory, baseIRI);
-//        generator = new ObstacleOnRoadSG(factory, baseIRI);
-//        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
-//        generator = new PedestrianOnCrosswalkSG(factory, baseIRI);
-        generator.generate();
-
-
-
-        //       factory.saveOwlOntology();
+        BaseScenarioGenerator generator = new AnimalOnRoadSG(factory, baseIRI);
+        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
+        Model model = generator.generate();
+        decisionGenerator.generate(model);
+        factory.saveOwlOntology();
     }
-
-
 }
