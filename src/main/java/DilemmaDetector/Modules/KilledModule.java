@@ -1,6 +1,7 @@
 package DilemmaDetector.Modules;
 
 import DilemmaDetector.IMoralDilemmaDetectorModule;
+import generator.Model;
 import project.*;
 import project.MyFactory;
 
@@ -36,5 +37,10 @@ public class KilledModule implements IMoralDilemmaDetectorModule {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isMoralDilemma(Model model) {
+        return isMoralDilemma(model.getScenario());     // we need consequences in model
     }
 }

@@ -4,7 +4,6 @@ import project.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Model {
@@ -16,7 +15,7 @@ public class Model {
     private Vehicle vehicle;
     private ArrayList<Passenger> passengers = new ArrayList<>();
     private Map<String, Surrounding> surrounding = new HashMap<>();
-    private Map<Decision, Action> actionByDecision = new HashMap<Decision, Action>();
+    private Map<Decision, Action> actionByDecision = new HashMap<>();
 
 
     public Scenario getScenario() {
@@ -54,6 +53,7 @@ public class Model {
     public Map<Decision, Action> getActionByDecision() {
         return actionByDecision;
     }
+
     protected void setScenario(Scenario scenario) {
         this.scenario = scenario;
     }

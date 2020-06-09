@@ -1,6 +1,7 @@
 package DilemmaDetector.Modules;
 
 import DilemmaDetector.IMoralDilemmaDetectorModule;
+import generator.Model;
 import project.*;
 
 import java.util.ArrayList;
@@ -35,5 +36,10 @@ public class InjuredModule implements IMoralDilemmaDetectorModule {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isMoralDilemma(Model model) {
+        return isMoralDilemma(model.getScenario());    // we need consequences in model
     }
 }

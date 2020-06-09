@@ -11,10 +11,10 @@ import project.MyFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Main2 {
+public class GeneratorMain {
 
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException {
         String fileName = "traffic_ontology.owl";
         String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
 

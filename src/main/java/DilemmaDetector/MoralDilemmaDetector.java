@@ -1,5 +1,6 @@
 package DilemmaDetector;
 
+import generator.Model;
 import project.*;
 
 import java.util.ArrayList;
@@ -33,6 +34,15 @@ public class MoralDilemmaDetector{
     public boolean detectMoralDilemma(Scenario scenario){
         for(IMoralDilemmaDetectorModule module : detectorModules){
             if(module.isMoralDilemma(scenario)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean detectMoralDilemma(Model model){
+        for(IMoralDilemmaDetectorModule module : detectorModules){
+            if(module.isMoralDilemma(model)){
                 return true;
             }
         }

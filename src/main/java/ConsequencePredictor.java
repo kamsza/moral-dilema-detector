@@ -15,13 +15,9 @@ public class ConsequencePredictor {
     }
 
     public void predict(Model scenarioModel){
-
-        Scenario scenario = scenarioModel.getScenario();
-
         boolean slippery_road = false;
 
         if (scenarioModel.getWeather() instanceof Heavy_rain){
-//            System.out.println("Jest heavy rain");
             slippery_road = true;
         }
 
@@ -57,9 +53,53 @@ public class ConsequencePredictor {
                 decision.addHas_consequence(intact);
             }
         }
+    }
 
-        System.out.println(slippery_road);
-        System.out.println(big_speed);
+    public void predict(Scenario scenario) {
+        boolean slippery_road = false;
+        for (Weather weather : scenario.getHas_weather()) {
+            if (factory.getHeavy_rain(weather.getOwlIndividual().getIRI().toString()) != null) {
+                slippery_road = true;
+                break;
+            }
+        }
+
+        boolean big_speed = false;
+        for (Vehicle vehicle : scenario.getHas_vehicle()) {
+            try {
+                if (Long.parseLong(vehicle.getVehicle_has_speed_kmph().toArray()[0].toString()) > 50) {
+                    big_speed = true;
+                    break;
+                }
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
+        }
+
+        for (Decision decision : scenario.getHas_decision()) {
+            for (Action action : decision.getHas_action()) {
+                HashSet<Living_entity> victims = detectCollisions(action);
+
+                if (slippery_road && big_speed) {
+                    Killed killed = factory.createKilled("killed_1");
+                    for (Living_entity living_entity : victims) {
+                        killed.addHealth_consequence_to(living_entity);
+                    }
+                    decision.addHas_consequence(killed);
+                } else if (slippery_road || big_speed) {
+                    Injured injured = factory.createInjured("injured_1");
+                    for (Living_entity living_entity : victims) {
+                        injured.addHealth_consequence_to(living_entity);
+                    }
+                    decision.addHas_consequence(injured);
+                } else {
+                    Intact intact = factory.createIntact("intact_1");
+                    for (Living_entity living_entity : victims) {
+                        intact.addHealth_consequence_to(living_entity);
+                    }
+                    decision.addHas_consequence(intact);
+                }
+            }
+        }
     }
 
     private HashSet<Living_entity> detectCollisions(Action action, Model scenarioModel){
@@ -69,15 +109,39 @@ public class ConsequencePredictor {
 
         if (action instanceof Turn_left){
             for(Entity entity : main_vehicle.getHas_on_the_left()){
-                updateVictims(entity, result, main_vehicle);
+                updateVictims(entity, result, scenarioModel);
             }
         }
         else if(action instanceof Turn_right){
             for(Entity entity : main_vehicle.getHas_on_the_right()){
-                updateVictims(entity, result, main_vehicle);
+                updateVictims(entity, result, scenarioModel);
             }
         }
         else if(action instanceof Follow){
+            for(Entity entity : main_vehicle.getHas_in_the_front()){
+                updateVictims(entity, result, scenarioModel);
+            }
+        }
+
+        return result;
+    }
+
+    private HashSet<Living_entity> detectCollisions(Action action){
+        HashSet<Living_entity> result = new HashSet<>();
+
+        Vehicle main_vehicle = factory.getVehicle("http://www.w3.org/2003/11/0_vehicle");
+
+        if(factory.getTurn_left(action.getOwlIndividual().getIRI().toString()) != null) {
+            for(Entity entity : main_vehicle.getHas_on_the_left()){
+                updateVictims(entity, result, main_vehicle);
+            }
+        }
+        else if(factory.getTurn_right(action.getOwlIndividual().getIRI().toString()) != null){
+            for(Entity entity : main_vehicle.getHas_on_the_right()){
+                updateVictims(entity, result, main_vehicle);
+            }
+        }
+        else if(factory.getFollow(action.getOwlIndividual().getIRI().toString()) != null){
             for(Entity entity : main_vehicle.getHas_in_the_front()){
                 updateVictims(entity, result, main_vehicle);
             }
@@ -88,6 +152,7 @@ public class ConsequencePredictor {
 
     private void updateVictims(Entity entity, HashSet<Living_entity> result, Vehicle main_vehicle){
         Vehicle vehicle = factory.getVehicle(entity.getOwlIndividual().getIRI().toString());
+
         if (vehicle != null) {
             result.addAll(vehicle.getVehicle_has_passenger());
             result.addAll(vehicle.getVehicle_has_driver());
@@ -100,5 +165,22 @@ public class ConsequencePredictor {
         }
         result.addAll(main_vehicle.getVehicle_has_passenger());
         result.addAll(main_vehicle.getVehicle_has_driver());
+    }
+
+    private void updateVictims(Entity entity, HashSet<Living_entity> result, Model scenarioModel){
+        Vehicle vehicle = factory.getVehicle(entity.getOwlIndividual().getIRI().toString());
+
+        if (vehicle != null) {
+            result.addAll(vehicle.getVehicle_has_passenger());
+            result.addAll(vehicle.getVehicle_has_driver());
+        }
+        else{
+            Living_entity living_entity = factory.getLiving_entity(entity.getOwlIndividual().getIRI().toString());
+            if(living_entity != null){
+                result.add(living_entity);
+            }
+        }
+        result.addAll(scenarioModel.getPassengers());
+        result.add(scenarioModel.getDriver());
     }
 }
