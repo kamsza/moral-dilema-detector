@@ -1,10 +1,8 @@
 import DilemmaDetector.Modules.InjuredModule;
 import DilemmaDetector.Modules.KilledModule;
-import DilemmaDetector.Modules.MaterialValueModule;
+import DilemmaDetector.Modules.SWRLInferredModule;
 import DilemmaDetector.MoralDilemmaDetector;
-import generator.AnimalOnRoadSG;
-import generator.BaseScenarioGenerator;
-import generator.Model;
+import generator.*;
 import org.swrlapi.parser.SWRLParseException;
 import project.*;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -28,13 +26,15 @@ public class Main {
 //        generator = new ObstacleOnRoadSG(factory, baseIRI);
 //        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
 //        generator = new PedestrianOnCrosswalkSG(factory, baseIRI);
-        return generator.generate();
+        Model model = generator.generate();
+        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
+        decisionGenerator.generate(model);
+        return model;
     }
 
-    public static void main(String[] args) throws OWLOntologyCreationException {
+    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException {
         // Create OWLOntology instance using the OWLAPI
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
-        //OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("Ontology/changed_ontology.owl"));
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
         MyFactory factory = new MyFactory(ontology);
@@ -42,12 +42,7 @@ public class Main {
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 
-        Model scenarioModel = getModelFromGenerator(factory);
-        Scenario scenario = scenarioModel.getScenario();
-
-        ConsequencePredictor consequencePredictor = new ConsequencePredictor(factory);
-        consequencePredictor.predict(scenarioModel);
-        //consequencePredictor.predict(scenario);
+        ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory);
 
         MoralDilemmaDetector mdd = builder
                 //.addModule(new SWRLInferredModule(ontology, factory))
@@ -56,9 +51,12 @@ public class Main {
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
-        System.out.println(scenario.getOwlIndividual());
-        System.out.println(mdd.detectMoralDilemma(scenario));
-        //System.out.println(mdd.detectMoralDilemma(scenarioModel));
+        for(int i=0; i<5; i++) {
+            Model scenarioModel = getModelFromGenerator(factory);
+            consequenceGenerator.predict(scenarioModel);
+            System.out.println(scenarioModel.getScenario().getOwlIndividual());
+            System.out.println(mdd.detectMoralDilemma(scenarioModel));
+        }
     }
 
     public static void testQuery(OWLOntology ontology) throws SQWRLException, SWRLParseException {

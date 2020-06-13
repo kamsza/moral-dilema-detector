@@ -31,15 +31,6 @@ public class MoralDilemmaDetector{
     }
 
     // If any module detects moral dilemma then we return true
-    public boolean detectMoralDilemma(Scenario scenario){
-        for(IMoralDilemmaDetectorModule module : detectorModules){
-            if(module.isMoralDilemma(scenario)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean detectMoralDilemma(Model model){
         for(IMoralDilemmaDetectorModule module : detectorModules){
             if(module.isMoralDilemma(model)){
@@ -49,13 +40,13 @@ public class MoralDilemmaDetector{
         return false;
     }
 
-    public ArrayList<Boolean> detectMoralDilemmas(Collection<? extends Scenario> scenarios){
+    public ArrayList<Boolean> detectMoralDilemmas(Collection<Model> models){
         ArrayList<Boolean> result = new ArrayList<>();
 
-        for(Scenario scenario : scenarios){
+        for(Model model : models){
             boolean dilemma = false;
             for(IMoralDilemmaDetectorModule module : detectorModules){
-                if(module.isMoralDilemma(scenario)){
+                if(module.isMoralDilemma(model)){
                     result.add(true);
                     dilemma = true;
                     break;

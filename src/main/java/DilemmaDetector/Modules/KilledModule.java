@@ -16,7 +16,8 @@ public class KilledModule implements IMoralDilemmaDetectorModule {
     }
 
     @Override
-    public boolean isMoralDilemma(Scenario scenario) {
+    public boolean isMoralDilemma(Model model) {
+        Scenario scenario = model.getScenario();
         ArrayList<Integer> killed = new ArrayList<>();
 
         int index = 0;
@@ -37,10 +38,5 @@ public class KilledModule implements IMoralDilemmaDetectorModule {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean isMoralDilemma(Model model) {
-        return isMoralDilemma(model.getScenario());     // we need consequences in model
     }
 }

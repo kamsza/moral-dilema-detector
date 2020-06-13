@@ -14,7 +14,8 @@ public class MaterialValueModule implements IMoralDilemmaDetectorModule {
     }
 
     @Override
-    public boolean isMoralDilemma(Scenario scenario) {
+    public boolean isMoralDilemma(Model model) {
+        Scenario scenario = model.getScenario();
         ArrayList<Long> value = new ArrayList<>();
 
         int index = 0;
@@ -36,10 +37,5 @@ public class MaterialValueModule implements IMoralDilemmaDetectorModule {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean isMoralDilemma(Model model) {
-        return isMoralDilemma(model.getScenario()); // we need consequences in model
     }
 }
