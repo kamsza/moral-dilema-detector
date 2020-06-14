@@ -1,1 +1,1 @@
-"# moral-dilema-detector" 
+# moral-dilemma-detector
