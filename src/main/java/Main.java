@@ -18,11 +18,11 @@ public class Main {
 
     public static Model getModelFromGenerator(MyFactory factory){
         BaseScenarioGenerator generator;
-        generator = new AnimalOnRoadSG(factory, baseIRI);
+        //generator = new AnimalOnRoadSG(factory, baseIRI);
 //        generator = new CarApproachingSG(factory, baseIRI);
 //        generator = new CarOvertakingSG(factory, baseIRI);
 //        generator = new ObstacleOnRoadSG(factory, baseIRI);
-//        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
+        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
 //        generator = new PedestrianOnCrosswalkSG(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -45,13 +45,13 @@ public class Main {
         MoralDilemmaDetector mdd = builder
                 //.addModule(new SWRLInferredModule(ontology, factory))
                 .addModule(new KilledModule(factory))
-                //.addModule(new LightlyInjuredModule(factory))
-                //.addModule(new SeverelyInjuredModule(factory))
-                //.addModule(new InjuredModule(factory))
+                .addModule(new LightlyInjuredModule(factory))
+                .addModule(new SeverelyInjuredModule(factory))
+//                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
-        for(int i=0; i<5; i++) {
+        for(int i=0; i<10; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
             consequenceGenerator.predict(scenarioModel);
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
