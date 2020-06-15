@@ -1,6 +1,4 @@
-import DilemmaDetector.Modules.InjuredModule;
-import DilemmaDetector.Modules.KilledModule;
-import DilemmaDetector.Modules.SWRLInferredModule;
+import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
@@ -48,7 +46,9 @@ public class Main {
         MoralDilemmaDetector mdd = builder
                 //.addModule(new SWRLInferredModule(ontology, factory))
                 .addModule(new KilledModule(factory))
-                .addModule(new InjuredModule(factory))
+                //.addModule(new LightlyInjuredModule(factory))
+                //.addModule(new SeverelyInjuredModule(factory))
+                //.addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 

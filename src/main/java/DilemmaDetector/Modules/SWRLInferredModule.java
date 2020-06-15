@@ -8,6 +8,7 @@ import project.Scenario;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.factory.SWRLAPIFactory;
 
+// Module detecting moral dilemmas using SWRL rules from ontology
 public class SWRLInferredModule implements IMoralDilemmaDetectorModule {
     MyFactory factory;
     OWLOntology ontology;
