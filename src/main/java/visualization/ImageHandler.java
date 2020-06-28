@@ -18,10 +18,11 @@ class ImageHandler {
     public static BufferedImage getImage(Object o) {
         String classFullName = o.getClass().getName();
         int lastIdxDot = classFullName.lastIndexOf('.');
-        String className = classFullName.substring(lastIdxDot + 1);
+        String className = classFullName.substring(lastIdxDot + 1).replace("Default", "");
 
         String currentDirectory = System.getProperty("user.dir");
         String filePath = currentDirectory + "/src/main/resources/img/" + className + ".png";
+         System.out.println("FILE PAH: " + filePath);
         BufferedImage image = null;
 
         try {

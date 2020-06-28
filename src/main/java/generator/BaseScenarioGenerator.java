@@ -40,7 +40,7 @@ public class BaseScenarioGenerator {
         surrounding.put("LEFT", factory.createSurroundingSubclass(ObjectNamer.getName("surrounding")));
         surrounding.put("RIGHT", factory.createSurroundingSubclass(ObjectNamer.getName("surrounding")));
 
-        Vehicle vehicle = factory.createVehicleSubclass(ObjectNamer.getName("vehicle"));
+        Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle"));
 
         ArrayList<Passenger> passengers = new ArrayList<>();
         for(int i = 0; i < rand.nextInt(5); i++)

@@ -1,6 +1,8 @@
 package visualization;
 
+import generator.Model;
 import org.swrlapi.drools.owl.individuals.I;
+import project.Vehicle;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,12 +11,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-class Road extends JPanel {
+class RoadPanel extends JPanel {
     int width, height;
+    Vehicle vehicle;
 
-    Road(int width, int height) {
+    RoadPanel(int width, int height, Vehicle vehicle) {
         this.width = width;
         this.height = height;
+        this.vehicle = vehicle;
         setBackground(Color.GRAY);
         setPreferredSize(new Dimension(width, height));
     }
@@ -38,14 +42,10 @@ class Road extends JPanel {
     }
 
     private void drawEntities(Graphics g) {
-        String currentDirectory = System.getProperty("user.dir");
-        BufferedImage car;
-        try {
-            car = ImageIO.read(new File(currentDirectory + "/src/main/resources/img/suvR.png"));
-            g.drawImage(car, width/2 - car.getWidth()/2, height/2, this);
-        } catch(IOException ex) {
-            ex.printStackTrace();
-        }
+        BufferedImage vehImg = ImageHandler.getImage(vehicle);
+        int x = (int)(width/2 - vehImg.getWidth()/2);
+        int y = (int)(0.75*height - vehImg.getHeight()/2);
+        g.drawImage(vehImg, x, y, this);
     }
 
 
