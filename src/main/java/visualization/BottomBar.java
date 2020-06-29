@@ -23,7 +23,7 @@ class BottomBar extends JPanel {
 
         String time = model.getTime().toString().replace("()", "");
         String weather = model.getWeather().toString().replace("()", "");
-        String labelStr = "time: " + time + "          weather: " + weather;
+        String labelStr = "time: " + time + "          weather: " + weather + "          vehicle speed: " + model.getVehicle().getVehicle_has_speed_kmph().iterator().next().toString() + "km/h";
 
         JLabel label = new JLabel(labelStr);
         label.setForeground(Color.WHITE);

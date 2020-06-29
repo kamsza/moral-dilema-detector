@@ -1,15 +1,10 @@
 package visualization;
 
-import generator.Model;
-import org.swrlapi.drools.owl.individuals.I;
 import project.Vehicle;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 class RoadPanel extends JPanel {
     int width, height;
@@ -19,6 +14,7 @@ class RoadPanel extends JPanel {
         this.width = width;
         this.height = height;
         this.vehicle = vehicle;
+        System.out.println(vehicle.getHas_in_the_front().iterator().next().getClass().toString());
         setBackground(Color.GRAY);
         setPreferredSize(new Dimension(width, height));
     }
@@ -46,6 +42,11 @@ class RoadPanel extends JPanel {
         int x = (int)(width/2 - vehImg.getWidth()/2);
         int y = (int)(0.75*height - vehImg.getHeight()/2);
         g.drawImage(vehImg, x, y, this);
+
+        BufferedImage animal = ImageHandler.getImage("Animal");
+        int x2 = (int)(width/2 - vehImg.getWidth()/2 + 200);
+        int y2 = (int)(height - animal.getHeight());
+        g.drawImage(animal, x2, y2, this);
     }
 
 

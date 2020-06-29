@@ -12,17 +12,11 @@ import java.time.format.DateTimeFormatter;
 class ImageHandler {
     /**
      * Returns .png image as BufferedImage from resources/img
-     * that has the same name as class of given object
-     * or img/no_image.png if such image don't exists
+     * @name name of a file in format name.png
      */
-    public static BufferedImage getImage(Object o) {
-        String classFullName = o.getClass().getName();
-        int lastIdxDot = classFullName.lastIndexOf('.');
-        String className = classFullName.substring(lastIdxDot + 1).replace("Default", "");
-
+    public static BufferedImage getImage(String name) {
         String currentDirectory = System.getProperty("user.dir");
-        String filePath = currentDirectory + "/src/main/resources/img/" + className + ".png";
-         System.out.println("FILE PAH: " + filePath);
+        String filePath = currentDirectory + "/src/main/resources/img/" + name + ".png";
         BufferedImage image = null;
 
         try {
@@ -34,12 +28,26 @@ class ImageHandler {
                 String defaultFilePath = currentDirectory + "/src/main/resources/img/no_image.png";
                 File defaultImageFile = new File(defaultFilePath);
                 image = ImageIO.read(defaultImageFile);
+                System.out.println("VISUALIZER: no image for: " + name);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return image;
+    }
+
+    /**
+     * Returns .png image as BufferedImage from resources/img
+     * that has the same name as class of given object
+     * or img/no_image.png if such image don't exists
+     */
+    public static BufferedImage getImage(Object o) {
+        String classFullName = o.getClass().getName();
+        int lastIdxDot = classFullName.lastIndexOf('.');
+        String className = classFullName.substring(lastIdxDot + 1).replace("Default", "");
+
+        return getImage(className);
     }
 
     /**

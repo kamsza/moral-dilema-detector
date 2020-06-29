@@ -28,9 +28,9 @@ public class Visualization{
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
         background.setPreferredSize(new Dimension(width, height));
 
-        JPanel surroundingUp = new SurroundingPanel(width, panel_height, model.getSurrounding().get("LEFT"));
+        JPanel surroundingUp = new SurroundingPanel(width, panel_height, model.getSurrounding().get("LEFT"), SurroundingPos.TOP);
         JPanel road = new RoadPanel(width, panel_height, model.getVehicle());
-        JPanel surroundingDown = new SurroundingPanel(width, panel_height, model.getSurrounding().get("RIGHT"));
+        JPanel surroundingDown = new SurroundingPanel(width, panel_height, model.getSurrounding().get("RIGHT"), SurroundingPos.BOTTOM);
         JPanel bottomBar = new BottomBar(width, bar_height, model);
 
         background.add(surroundingUp);
