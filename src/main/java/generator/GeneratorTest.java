@@ -1,16 +1,10 @@
 package generator;
 
-import generator.AnimalOnRoadSG;
-import generator.BaseScenarioGenerator;
-import generator.DecisionGenerator;
-import generator.Model;
-import generator.PedestrianIllegallyCrossingSG;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.Decision;
 import project.MyFactory;
 
 import java.io.File;

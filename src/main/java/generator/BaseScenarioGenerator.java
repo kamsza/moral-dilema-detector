@@ -1,9 +1,5 @@
 package generator;
 
-<<<<<<< HEAD
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.*;
-=======
 import project.Driver;
 import project.Lane;
 import project.MyFactory;
@@ -14,7 +10,6 @@ import project.Surrounding;
 import project.Time;
 import project.Vehicle;
 import project.Weather;
->>>>>>> generator
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
