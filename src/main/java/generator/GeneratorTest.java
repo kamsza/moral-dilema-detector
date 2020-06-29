@@ -15,11 +15,12 @@ import project.MyFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 
 public class GeneratorTest {
 
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         String fileName = "traffic_ontology.owl";
         String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
 

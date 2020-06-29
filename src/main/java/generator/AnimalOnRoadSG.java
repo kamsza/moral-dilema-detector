@@ -3,6 +3,8 @@ package generator;
 import project.Animal;
 import project.MyFactory;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class AnimalOnRoadSG extends BaseScenarioGenerator {
 
     public AnimalOnRoadSG(MyFactory factory, String baseIRI) {
@@ -10,10 +12,10 @@ public class AnimalOnRoadSG extends BaseScenarioGenerator {
     }
 
     @Override
-    public Model generate() {
+    public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Model model = super.generate();
 
-        Animal animal = factory.createAnimalSubclass(ObjectNamer.getName("animal"));
+        Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
 
         model.getVehicle().addHas_in_the_front(animal);
 

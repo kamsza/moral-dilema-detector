@@ -3,6 +3,7 @@ package generator;
 import project.MyFactory;
 import project.Surrounding;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class ObstacleOnRoadSG extends BaseScenarioGenerator {
@@ -12,7 +13,7 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
     }
 
     @Override
-    public Model generate() {
+    public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Model model = super.generate();
 
         Surrounding obstacle = getObstacle();
