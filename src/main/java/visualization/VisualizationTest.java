@@ -33,7 +33,6 @@ public class VisualizationTest {
             String baseIRI = "http://webprotege.stanford.edu/";
 
             BaseScenarioGenerator generator = new AnimalOnRoadSG(factory, baseIRI);
-            DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
 
             Model model = generator.generate();
             Visualization.getImage(model);

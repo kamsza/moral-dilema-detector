@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import project.*;
 import project.impl.*;
+import visualization.Visualization;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -119,7 +120,7 @@ public class RandomSubclassGenerator {
         Method method = factory.getClass().getDeclaredMethod(methodName, String.class);
         // TODO change created instances name
         @SuppressWarnings("unchecked")
-        T subclassInstance = (T) method.invoke(factory, "reflect_" + randomSubclassName);
+        T subclassInstance = (T) method.invoke(factory, iriName);
         return subclassInstance;
     }
 
