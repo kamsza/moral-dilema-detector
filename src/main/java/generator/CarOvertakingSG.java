@@ -4,6 +4,8 @@ import project.Driver;
 import project.MyFactory;
 import project.Vehicle;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class CarOvertakingSG extends BaseScenarioGenerator {
 
     public CarOvertakingSG(MyFactory factory, String baseIRI) {
@@ -11,7 +13,7 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
     }
 
     @Override
-    public Model generate() {
+    public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Model model = super.generate();
 
         Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle"));

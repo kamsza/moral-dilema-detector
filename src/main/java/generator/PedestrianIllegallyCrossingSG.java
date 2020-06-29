@@ -4,6 +4,8 @@ import project.Illegal_pedestrian_crossings;
 import project.MyFactory;
 import project.Pedestrian;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class PedestrianIllegallyCrossingSG extends BaseScenarioGenerator {
 
     public PedestrianIllegallyCrossingSG(MyFactory factory, String baseIRI) {
@@ -14,7 +16,7 @@ public class PedestrianIllegallyCrossingSG extends BaseScenarioGenerator {
     Illegal_pedestrian_crossings pedestrianLocation;
 
     @Override
-    public Model generate() {
+    public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Model model = super.generate();
 
         pedestrian = factory.createPedestrian(ObjectNamer.getName("pedestrian"));

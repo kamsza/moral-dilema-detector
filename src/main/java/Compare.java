@@ -1,3 +1,4 @@
+import generator.RandomSubclassGenerator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -10,13 +11,14 @@ import project.Vehicle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 
 
 public class Compare {
     private static String baseIRI = "http://webprotege.stanford.edu/";
 
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         String fileName = "traffic_ontology.owl";
         String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
 
@@ -28,9 +30,10 @@ public class Compare {
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
         compareSolutions(ontology, manager);
         MyFactory factory = new MyFactory(ontology);
+        RandomSubclassGenerator subclassGenerator = new RandomSubclassGenerator(factory);
         Scenario s = factory.createScenario("A");
         Time t = factory.createTime("T");
-        Vehicle v = factory.createVehicleSubclass(baseIRI + "RandomVehicleSubclass");
+        Vehicle v = subclassGenerator.generateVehicleSubclass(baseIRI + "RandomVehicleSubclass");
         System.out.println(v.getClass());
         factory.saveOwlOntology();
     }

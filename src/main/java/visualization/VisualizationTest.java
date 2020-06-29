@@ -4,6 +4,7 @@ import generator.AnimalOnRoadSG;
 import generator.BaseScenarioGenerator;
 import generator.DecisionGenerator;
 import generator.Model;
+import generator.RandomSubclassGenerator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -13,10 +14,11 @@ import project.MyFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 
 public class VisualizationTest {
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
             String fileName = "traffic_ontology.owl";
             String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
 

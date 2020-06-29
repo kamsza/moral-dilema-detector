@@ -1,12 +1,18 @@
 package generator;
 
+import org.protege.owl.codegeneration.CodeGenerationRuntimeException;
 import org.protege.owl.codegeneration.impl.WrappedIndividualImpl;
+import org.protege.owl.codegeneration.inference.CodeGenerationInference;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import project.*;
 import project.impl.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -23,8 +29,8 @@ public class RandomSubclassGenerator {
     private OWLDataFactory dataFactory;
     private Random random;
 
-    public RandomSubclassGenerator(OWLOntology ontology, MyFactory factory, OWLReasoner reasoner) {
-        this.ontology = ontology;
+    public RandomSubclassGenerator(MyFactory factory, OWLReasoner reasoner) {
+        this.ontology = factory.getOwlOntology();
         this.factory = factory;
         this.reasoner = reasoner;
         manager = ontology.getOWLOntologyManager();
@@ -32,8 +38,8 @@ public class RandomSubclassGenerator {
         random = new Random();
     }
 
-    public RandomSubclassGenerator(OWLOntology ontology, MyFactory factory) {
-        this(ontology, factory, new StructuralReasonerFactory().createReasoner(ontology));
+    public RandomSubclassGenerator(MyFactory factory) {
+        this(factory, new StructuralReasonerFactory().createReasoner(factory.getOwlOntology()));
     }
 
     // default method for basic IRI
@@ -43,7 +49,7 @@ public class RandomSubclassGenerator {
 
     // method for customized IRI
     public Vehicle generateVehicleSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultVehicle.class, iriName);
+        return generateSubclass(DefaultVehicle.class, Vocabulary.CLASS_VEHICLE, iriName);
     }
 
     public Weather generateWeatherSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -51,7 +57,7 @@ public class RandomSubclassGenerator {
     }
 
     public Weather generateWeatherSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultWeather.class, iriName);
+        return generateSubclass(DefaultWeather.class, Vocabulary.CLASS_WEATHER, iriName);
     }
 
     public Animal generateAnimalSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -59,7 +65,7 @@ public class RandomSubclassGenerator {
     }
 
     public Animal generateAnimalSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultAnimal.class, iriName);
+        return generateSubclass(DefaultAnimal.class, Vocabulary.CLASS_ANIMAL, iriName);
     }
 
     public Time generateTimeSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -67,7 +73,7 @@ public class RandomSubclassGenerator {
     }
 
     public Time generateTimeSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultTime.class, iriName);
+        return generateSubclass(DefaultTime.class, Vocabulary.CLASS_TIME, iriName);
     }
 
     public Road_type generateRoadTypeSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -75,7 +81,7 @@ public class RandomSubclassGenerator {
     }
 
     public Road_type generateRoadTypeSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultRoad_type.class, iriName);
+        return generateSubclass(DefaultRoad_type.class, Vocabulary.CLASS_ROAD_TYPE, iriName);
     }
 
     public Surrounding generateSurroundingSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -83,7 +89,7 @@ public class RandomSubclassGenerator {
     }
 
     public Surrounding generateSurroundingSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultSurrounding.class, iriName);
+        return generateSubclass(DefaultSurrounding.class, Vocabulary.CLASS_SURROUNDING, iriName);
     }
 
     public Passenger generatePassengerSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
@@ -91,13 +97,11 @@ public class RandomSubclassGenerator {
     }
 
     public Passenger generatePassengerSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultPassenger.class, iriName);
+        return generateSubclass(DefaultPassenger.class, Vocabulary.CLASS_PASSENGER, iriName);
     }
 
 
-    private <T extends WrappedIndividualImpl> T generateSubclass(Class<T> clazz, String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        String iriString = iriPrefix + iriName;
-        OWLClass type = dataFactory.getOWLClass(IRI.create(iriString));
+    private <T extends WrappedIndividualImpl> T generateSubclass(Class<T> clazz, OWLClass type, String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<String> classNames = getSubclassesNames(type);
         String randomSubclassName = classNames.get(random.nextInt(classNames.size()));
 
