@@ -29,9 +29,9 @@ public class GeneratorTest {
         String baseIRI = "http://webprotege.stanford.edu/";
 
         BaseScenarioGenerator generator = new AnimalOnRoadSG(factory, baseIRI);
-        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
-        Model model = generator.generate();
-        decisionGenerator.generate(model);
+        // DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
+        generator.generate();
+        //decisionGenerator.generate(model);
         factory.saveOwlOntology();
     }
 }
