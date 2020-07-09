@@ -19,7 +19,7 @@ public class Model {
     private Map<Side, Surrounding> surrounding = new HashMap<>();
     private Map<Side, Map<Integer, Lane>> lanes = new HashMap<>();
     private Map<Lane, ArrayList<Entity>> entities = new HashMap<>();
-    private Map<Lane, ArrayList<Entity>> vehicles = new HashMap<>();
+    private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
     private Map<Decision, Action> actionByDecision = new HashMap<>();
 
     public Scenario getScenario() {
@@ -102,11 +102,11 @@ public class Model {
         this.entities = entities;
     }
 
-    public Map<Lane, ArrayList<Entity>> getVehicles() {
+    public Map<Lane, ArrayList<Vehicle>> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(Map<Lane, ArrayList<Entity>> vehicles) {
+    public void setVehicles(Map<Lane, ArrayList<Vehicle>> vehicles) {
         this.vehicles = vehicles;
     }
 

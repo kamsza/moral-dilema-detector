@@ -1,6 +1,7 @@
 package generator;
 
 import project.Illegal_pedestrian_crossings;
+import project.Lane;
 import project.MyFactory;
 import project.Pedestrian;
 
@@ -12,20 +13,22 @@ public class PedestrianIllegallyCrossingSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
-    Pedestrian pedestrian;
-    Illegal_pedestrian_crossings pedestrianLocation;
-
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        // model
         Model model = super.generate();
 
-        pedestrian = factory.createPedestrian(ObjectNamer.getName("pedestrian"));
+        // create objects
+        Pedestrian pedestrian = factory.createPedestrian(ObjectNamer.getName("pedestrian"));
+        Illegal_pedestrian_crossings pedestrianLocation = factory.createIllegal_pedestrian_crossings(ObjectNamer.getName("illegal_pedestrian_crossing"));
 
-        pedestrianLocation = factory.createIllegal_pedestrian_crossings(ObjectNamer.getName("illegal_pedestrian_crossing"));
-
+        // add to ontology
+        pedestrian.addPedestrian_has_location(pedestrianLocation);
         model.getScenario().addHas_pedestrian(pedestrian);
 
-        pedestrian.addPedestrian_has_location(pedestrianLocation);
+        // add to model
+        Lane lane  = model.getLanes().get(Model.Side.CENTER).get(0);
+        model.getEntities().get(lane).add(pedestrian);
 
         return model;
     }

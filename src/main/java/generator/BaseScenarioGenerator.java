@@ -79,6 +79,7 @@ public class BaseScenarioGenerator {
     private void addRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Map<Model.Side, Map<Integer, Lane>> lanes = new HashMap<>();
         Map<Lane, ArrayList<Entity>> entities = new HashMap<>();
+        Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
         int lanes_num = rand.nextInt(4) + 1;
         int veh_pos =  rand.nextInt((lanes_num + 1) / 2) ;
@@ -88,6 +89,7 @@ public class BaseScenarioGenerator {
 
         Lane lane_0 = factory.createLane(ObjectNamer.getName("lane_0"));
         entities.put(lane_0, new ArrayList<Entity>() {});
+        vehicles.put(lane_0, new ArrayList<Vehicle>() {});
         lanes.put(Model.Side.CENTER, Map.of(0, lane_0));
 
         Map<Integer, Lane> lanes_right = new HashMap<>();
@@ -95,6 +97,7 @@ public class BaseScenarioGenerator {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_right_" + i));
             lanes_right.put(i, lane);
             entities.put(lane, new ArrayList<Entity>() {});
+            vehicles.put(lane, new ArrayList<Vehicle>() {});
         }
         lanes.put(Model.Side.RIGHT, lanes_right);
 
@@ -103,6 +106,7 @@ public class BaseScenarioGenerator {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_left_" + i));
             lanes_left.put(i, lane);
             entities.put(lane, new ArrayList<Entity>() {});
+            vehicles.put(lane, new ArrayList<Vehicle>() {});
         }
         lanes.put(Model.Side.LEFT, lanes_left);
 
@@ -121,6 +125,7 @@ public class BaseScenarioGenerator {
         model.setRoadType(roadType);
         model.setLanes(lanes);
         model.setEntities(entities);
+        model.setVehicles(vehicles);
     }
 
     private void addSurrounding(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
