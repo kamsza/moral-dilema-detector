@@ -20,6 +20,8 @@ public class Model {
     private Map<Side, Map<Integer, Lane>> lanes = new HashMap<>();
     private Map<Lane, ArrayList<Entity>> entities = new HashMap<>();
     private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
+    private Map<Lane, ArrayList<Pedestrian>> pedestrians = new HashMap<>();
+    private Map<Lane, ArrayList<Animal>> animals = new HashMap<>();
     private Map<Decision, Action> actionByDecision = new HashMap<>();
 
     public Scenario getScenario() {
@@ -108,6 +110,22 @@ public class Model {
 
     public void setVehicles(Map<Lane, ArrayList<Vehicle>> vehicles) {
         this.vehicles = vehicles;
+    }
+
+    public Map<Lane, ArrayList<Pedestrian>> getPedestrians() {
+        return pedestrians;
+    }
+
+    public void setPedestrians(Map<Lane, ArrayList<Pedestrian>> pedestrians) {
+        this.pedestrians = pedestrians;
+    }
+
+    public Map<Lane, ArrayList<Animal>> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(Map<Lane, ArrayList<Animal>> animals) {
+        this.animals = animals;
     }
 
     public Map<Decision, Action> getActionByDecision() {

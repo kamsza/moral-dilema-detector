@@ -25,7 +25,7 @@ public class AnimalOnRoadSG extends BaseScenarioGenerator {
 
         // add to model
         Lane lane  = model.getLanes().get(Model.Side.CENTER).get(0);
-        model.getEntities().get(lane).add(animal);
+        model.getAnimals().get(lane).add(animal);
 
         return model;
     }

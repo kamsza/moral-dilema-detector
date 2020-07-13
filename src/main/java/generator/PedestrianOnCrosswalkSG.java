@@ -28,7 +28,7 @@ public class PedestrianOnCrosswalkSG extends BaseScenarioGenerator {
 
         // add to model
         Lane lane  = model.getLanes().get(Model.Side.CENTER).get(0);
-        model.getEntities().get(lane).add(pedestrian);
+        model.getPedestrians().get(lane).add(pedestrian);
 
         return model;
     }
