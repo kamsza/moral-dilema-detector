@@ -2,7 +2,7 @@ package generator;
 
 import project.Driver;
 import project.Lane;
-import project.MyFactory;
+import project.OWLFactory;
 import project.Passenger;
 import project.Road_type;
 import project.Scenario;
@@ -19,11 +19,11 @@ import java.util.Random;
 
 public class BaseScenarioGenerator {
     protected String baseIRI;
-    protected MyFactory factory;
+    protected OWLFactory factory;
     protected Random rand = new Random();
     protected RandomSubclassGenerator subclassGenerator;
 
-    public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
+    public BaseScenarioGenerator(OWLFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
         this.subclassGenerator = new RandomSubclassGenerator(factory);
@@ -71,7 +71,7 @@ public class BaseScenarioGenerator {
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(roadType);
         vehicle.addHas_on_the_right(surrounding.get("RIGHT"));
-        vehicle.addHas_on_the_left(lane);
+        // vehicle.addHas_on_the_left(lane);
         for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 
