@@ -2,15 +2,12 @@ package visualization;
 
 import generator.AnimalOnRoadSG;
 import generator.BaseScenarioGenerator;
-import generator.DecisionGenerator;
 import generator.Model;
-import generator.RandomSubclassGenerator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +26,7 @@ public class VisualizationTest {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
 
-            MyFactory factory = new MyFactory(ontology);
+            OWLFactory factory = new OWLFactory(ontology);
             String baseIRI = "http://webprotege.stanford.edu/";
 
             BaseScenarioGenerator generator = new AnimalOnRoadSG(factory, baseIRI);
