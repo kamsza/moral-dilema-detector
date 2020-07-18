@@ -1,0 +1,477 @@
+[
+    {
+        "name": "FRONT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 499.24704248626153,
+                    "centerY": 650.675260229533,
+                    "width": 76.34049368210606,
+                    "length": 41.20148864438164
+                },
+                "metadata": {
+                    "speedX": 0.25162394315712383,
+                    "speedY": -0.09572043977397512,
+                    "accelX": -0.09402215210063272,
+                    "accelY": 0.1441150419999842
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "8-7bTNGWUlWqADUHKbnjqg_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 479.4757081698751,
+                    "centerY": 643.2959413025492,
+                    "width": 84.76972471666613,
+                    "length": 37.29211038536812
+                },
+                "metadata": {
+                    "speedX": 0.022421804250443756,
+                    "speedY": -0.09586272760146458,
+                    "accelX": -4.1794584173653114e-13,
+                    "accelY": 4.1870852970094446e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "FsNFk3PanpdmdhRZ7ssgKw_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 714.0467821342133,
+                    "centerY": 585.9870383226091,
+                    "width": 29.005257926161676,
+                    "length": 22.795323234558737
+                },
+                "metadata": {
+                    "speedX": -0.0001780359106243236,
+                    "speedY": -0.0005254226751407795,
+                    "accelX": 4.770601280273433e-13,
+                    "accelY": -6.339582219101228e-14
+                },
+                "type": "TYPE_SIGN",
+                "id": "G0qaOGP_GBEh_ik0uOY87A_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 1911.1826186543246,
+                    "centerY": 744.7273446028203,
+                    "width": 169.5719924087556,
+                    "length": 17.634762691350716
+                },
+                "metadata": {
+                    "speedX": -0.010812914010487883,
+                    "speedY": -0.01929591505799494,
+                    "accelX": -1.08776364076609e-14,
+                    "accelY": 4.268530460625761e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "R_VsxykINBZEaoVVQdAPdA_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 728.4524540371451,
+                    "centerY": 562.509056009023,
+                    "width": 23.630876490927335,
+                    "length": 21.447540830391404
+                },
+                "metadata": {
+                    "speedX": 0.003323790099292726,
+                    "speedY": -0.006883861758332547,
+                    "accelX": -1.9800957533997458e-13,
+                    "accelY": -1.5099296983084323e-13
+                },
+                "type": "TYPE_SIGN",
+                "id": "SPMlMu0aQQOvZCaiqAKCrA_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 67.06790522900513,
+                    "centerY": 629.4705626544189,
+                    "width": 207.7672488395093,
+                    "length": 134.13581045801027
+                },
+                "metadata": {
+                    "speedX": -0.006889945013138159,
+                    "speedY": 0.03262841161092147,
+                    "accelX": 3.2642983402625745e-13,
+                    "accelY": -1.2759029737501753e-12
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "SnwlazQcof-qak374dgUsA_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 1866.9506495617134,
+                    "centerY": 825.5927494850073,
+                    "width": 328.00250850924704,
+                    "length": 106.09870087657305
+                },
+                "metadata": {
+                    "speedX": 2.533568425762856e-28,
+                    "speedY": 2.026855076082858e-27,
+                    "accelX": -2.8150757303292375e-28,
+                    "accelY": -2.2520605841404958e-27
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "YA5DaaM-3c0m2CvGtUt8aA_FRONT"
+            },
+            {
+                "box": {
+                    "centerX": 1552.7263384055086,
+                    "centerY": 745.0797732528704,
+                    "width": 176.14577215590487,
+                    "length": 213.60676358634646
+                },
+                "metadata": {
+                    "speedX": 0.018329102436267744,
+                    "speedY": -0.016845804235905242,
+                    "accelX": -5.72761092987633e-13,
+                    "accelY": 1.9722819167532136e-14
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "hLMM21TleJblWvb6u9DdAw_FRONT"
+            }
+        ]
+    },
+    {
+        "name": "FRONT_LEFT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 1517.0790794351697,
+                    "centerY": 616.1615943202194,
+                    "width": 191.17324159112422,
+                    "length": 626.7082309022219
+                },
+                "metadata": {
+                    "speedX": -0.006889945013138159,
+                    "speedY": 0.03262841161092147,
+                    "accelX": 3.2642983402625745e-13,
+                    "accelY": -1.2759029737501753e-12
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "SnwlazQcof-qak374dgUsA_FRONT_LEFT"
+            },
+            {
+                "box": {
+                    "centerX": 375.0337132856249,
+                    "centerY": 605.5277420599692,
+                    "width": 401.8847221136926,
+                    "length": 750.0674265712498
+                },
+                "metadata": {
+                    "speedX": 0.0,
+                    "speedY": -2.0268547406102848e-27,
+                    "accelX": 0.0,
+                    "accelY": 2.25206058426339e-27
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "pCIpQVLcav8I4aZQmxG8ZQ_FRONT_LEFT"
+            }
+        ]
+    },
+    {
+        "name": "FRONT_RIGHT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 1843.900380363965,
+                    "centerY": 1005.3053465714506,
+                    "width": 503.9993762011826,
+                    "length": 152.19923927206992
+                },
+                "metadata": {
+                    "speedX": -0.17278341291459035,
+                    "speedY": -0.05775644968685656,
+                    "accelX": 0.3110392824315672,
+                    "accelY": -0.20880809145613885
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "EwfRRWAifjzr6EZK8k2dMA_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 295.66870005153675,
+                    "centerY": 760.0729923531494,
+                    "width": 147.896018984619,
+                    "length": 74.08029764377795
+                },
+                "metadata": {
+                    "speedX": 0.0,
+                    "speedY": 1.0134273703051424e-27,
+                    "accelX": 0.0,
+                    "accelY": -1.126030292131695e-27
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "RTdkemMSTMa3JpdMGAcdig_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 244.9217854172872,
+                    "centerY": 750.6537647687366,
+                    "width": 162.23496974257137,
+                    "length": 75.59793773588694
+                },
+                "metadata": {
+                    "speedX": -0.010812914010487883,
+                    "speedY": -0.01929591505799494,
+                    "accelX": -1.08776364076609e-14,
+                    "accelY": 4.268530460625761e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "R_VsxykINBZEaoVVQdAPdA_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 302.0299106048659,
+                    "centerY": 827.7378993574605,
+                    "width": 315.66553924010157,
+                    "length": 370.34598315691545
+                },
+                "metadata": {
+                    "speedX": 2.533568425762856e-28,
+                    "speedY": 2.026855076082858e-27,
+                    "accelX": -2.8150757303292375e-28,
+                    "accelY": -2.2520605841404958e-27
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "YA5DaaM-3c0m2CvGtUt8aA_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 1636.9497265690422,
+                    "centerY": 867.4205108255505,
+                    "width": 295.5183734875733,
+                    "length": 162.6981980429723
+                },
+                "metadata": {
+                    "speedX": 0.001968295469224581,
+                    "speedY": -0.0011747353169485515,
+                    "accelX": -3.9730918899647013e-14,
+                    "accelY": 5.497967467293543e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "hRryisPj50dcwjqAaeJ2qQ_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 1515.1947613260984,
+                    "centerY": 1028.628888370035,
+                    "width": 502.74222325993003,
+                    "length": 809.6104773478032
+                },
+                "metadata": {
+                    "speedX": -0.04419100910555123,
+                    "speedY": 0.027725466427521373,
+                    "accelX": 2.471572171605432e-14,
+                    "accelY": -1.3235288156835858e-12
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "iHJA0VqzApH34jxiPdhoeA_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 1041.7895934935873,
+                    "centerY": 1000.5569471315143,
+                    "width": 558.8861057369714,
+                    "length": 200.5181507987179
+                },
+                "metadata": {
+                    "speedX": -0.02625834281600379,
+                    "speedY": 0.022864491919490665,
+                    "accelX": 8.846554035743278e-15,
+                    "accelY": -1.1012548767989702e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "pBgCQS7AUpYFOwhT0sCVyg_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 252.5857210511437,
+                    "centerY": 616.5019240259761,
+                    "width": 47.852801179300286,
+                    "length": 27.34580301903827
+                },
+                "metadata": {
+                    "speedX": 0.0032185794266679055,
+                    "speedY": 0.00022852433566663524,
+                    "accelX": 2.8499771379471525e-14,
+                    "accelY": 1.6258658796907526e-13
+                },
+                "type": "TYPE_SIGN",
+                "id": "pt5py7khvvxTFwodJAV2vw_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 1541.929857397518,
+                    "centerY": 860.3562143524013,
+                    "width": 307.55119260789456,
+                    "length": 236.6202059534428
+                },
+                "metadata": {
+                    "speedX": 0.02070060645316256,
+                    "speedY": 0.043244088853989913,
+                    "accelX": 1.112242130637773e-13,
+                    "accelY": -1.0248112005380313e-12
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "u9qvFlUviXk49iQLcq_gew_FRONT_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 373.50410225072415,
+                    "centerY": 755.6880149105557,
+                    "width": 149.3868604183582,
+                    "length": 96.74514767628443
+                },
+                "metadata": {
+                    "speedX": -0.022587582325973733,
+                    "speedY": -0.014593408266024286,
+                    "accelX": -3.886175718019867e-13,
+                    "accelY": 1.1413188757951866e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "zZaTlJXPZtrVXLCHMrZfKA_FRONT_RIGHT"
+            }
+        ]
+    },
+    {
+        "name": "SIDE_LEFT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 338.1957305592246,
+                    "centerY": 39.771768359742524,
+                    "width": 79.54353671948505,
+                    "length": 74.35740022707375
+                },
+                "metadata": {
+                    "speedX": 0.0020305319635774846,
+                    "speedY": -0.0030467724979308247,
+                    "accelX": -0.00043815528021931663,
+                    "accelY": 0.0006574432135807456
+                },
+                "type": "TYPE_SIGN",
+                "id": "Xm5giQIS5bV342unsdU2XQ_SIDE_LEFT",
+                "detectionDifficultyLevel": "LEVEL_2",
+                "trackingDifficultyLevel": "LEVEL_2"
+            },
+            {
+                "box": {
+                    "centerX": 828.970228490125,
+                    "centerY": 120.72062547146719,
+                    "width": 38.41811279801382,
+                    "length": 26.600469530901478
+                },
+                "metadata": {
+                    "speedX": 0.002786046744266896,
+                    "speedY": 0.009380769648606072,
+                    "accelX": -1.487185990565453e-13,
+                    "accelY": -1.337504272476894e-12
+                },
+                "type": "TYPE_SIGN",
+                "id": "hP8eCiE_u5GPRv6wnv1M0w_SIDE_LEFT"
+            },
+            {
+                "box": {
+                    "centerX": 1659.7827256578917,
+                    "centerY": 207.84147350072016,
+                    "width": 415.6829470014403,
+                    "length": 520.4345486842167
+                },
+                "metadata": {
+                    "speedX": 0.0,
+                    "speedY": -2.0268547406102848e-27,
+                    "accelX": 0.0,
+                    "accelY": 2.25206058426339e-27
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "pCIpQVLcav8I4aZQmxG8ZQ_SIDE_LEFT"
+            },
+            {
+                "box": {
+                    "centerX": 933.615575426405,
+                    "centerY": 162.89705375082923,
+                    "width": 21.375165358499174,
+                    "length": 16.9699035079517
+                },
+                "metadata": {
+                    "speedX": -0.0016520808658041937,
+                    "speedY": -0.005115379095528195,
+                    "accelX": -2.2280880468276937e-14,
+                    "accelY": -1.3317077127673145e-12
+                },
+                "type": "TYPE_SIGN",
+                "id": "qZSJRFIlMdD3YUrSt_ALMA_SIDE_LEFT"
+            }
+        ]
+    },
+    {
+        "name": "SIDE_RIGHT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 449.6305883110789,
+                    "centerY": 169.64515640727132,
+                    "width": 99.38899017003166,
+                    "length": 99.04820984060962
+                },
+                "metadata": {
+                    "speedX": -0.021234856448880596,
+                    "speedY": 0.0008572013655988606,
+                    "accelX": 7.639130050491768e-14,
+                    "accelY": 5.6367734468309e-14
+                },
+                "type": "TYPE_SIGN",
+                "id": "BwJOPNQvx-THbV3nUp9zcA_SIDE_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 167.21977420430215,
+                    "centerY": 622.333194074352,
+                    "width": 508.43911799607145,
+                    "length": 255.59307601334092
+                },
+                "metadata": {
+                    "speedX": -0.17278341291459035,
+                    "speedY": -0.05775644968685656,
+                    "accelX": 0.3110392824315672,
+                    "accelY": -0.20880809145613885
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "EwfRRWAifjzr6EZK8k2dMA_SIDE_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 0.6781303752773056,
+                    "centerY": 498.4131595067534,
+                    "width": 306.58884849901494,
+                    "length": 1.3562607505546111
+                },
+                "metadata": {
+                    "speedX": 0.001968295469224581,
+                    "speedY": -0.0011747353169485515,
+                    "accelX": -3.9730918899647013e-14,
+                    "accelY": 5.497967467293543e-13
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "hRryisPj50dcwjqAaeJ2qQ_SIDE_RIGHT"
+            },
+            {
+                "box": {
+                    "centerX": 198.08298741664998,
+                    "centerY": 649.123930023062,
+                    "width": 473.752139953876,
+                    "length": 396.16597483329997
+                },
+                "metadata": {
+                    "speedX": -0.04419100910555123,
+                    "speedY": 0.027725466427521373,
+                    "accelX": 2.471572171605432e-14,
+                    "accelY": -1.3235288156835858e-12
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "iHJA0VqzApH34jxiPdhoeA_SIDE_RIGHT"
+            }
+        ]
+    }
+]
