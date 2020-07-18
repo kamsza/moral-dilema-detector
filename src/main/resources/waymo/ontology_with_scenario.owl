@@ -2861,6 +2861,49 @@
     
 
 
+    <!-- ALPHA_waymo_lane_0 -->
+
+    <owl:NamedIndividual rdf:about="ALPHA_waymo_lane_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ALPHA_waymo_pedestrian_0 -->
+
+    <owl:NamedIndividual rdf:about="ALPHA_waymo_pedestrian_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="ALPHA_waymo_lane_0"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.321</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.132</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.45</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.231</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.123</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2.5</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ALPHA_waymo_scenario -->
+
+    <owl:NamedIndividual rdf:about="ALPHA_waymo_scenario">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_pedestrian rdf:resource="ALPHA_waymo_pedestrian_0"/>
+        <webprotege:has_vehicle rdf:resource="ALPHA_waymo_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="ALPHA_waymo_lane_0"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ALPHA_waymo_vehicle_main -->
+
+    <owl:NamedIndividual rdf:about="ALPHA_waymo_vehicle_main">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="ALPHA_waymo_lane_0"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#waymo_lane_0 -->
 
     <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#waymo_lane_0"/>

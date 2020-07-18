@@ -1,4 +1,4 @@
-package mapper.model.waymo.lidar;
+package waymoadapter.model.lidar;
 
 public enum Type {
     TYPE_PEDESTRIAN,
