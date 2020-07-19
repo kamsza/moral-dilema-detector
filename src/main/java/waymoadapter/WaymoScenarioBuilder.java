@@ -67,7 +67,7 @@ public class WaymoScenarioBuilder {
     }
 
     private Cyclist getNewCyclistInstance() {
-        return factory.createCyclist(versionTag + "_waymo_cyclist_" + (nextVehicleId++));
+        return factory.createCyclist(versionTag + "_waymo_cyclist_" + (nextCyclistId++));
     }
 
     public WaymoScenarioBuilder addPedestrian(Label label) {
@@ -93,7 +93,8 @@ public class WaymoScenarioBuilder {
         entity.addAccelerationY(label.metadata.accelY.floatValue());
         entity.addWidth(label.box.width.floatValue());
         entity.addLength(label.box.length.floatValue());
-        // TODO entity.addDistance();
+
+        // entity.addDistance(label.box.centerY);
     }
 
     public Scenario buildAndSave() throws OWLOntologyStorageException {
