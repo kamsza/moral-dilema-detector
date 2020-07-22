@@ -1,23 +1,20 @@
-import generator.AnimalOnRoadSG;
-import generator.BaseScenarioGenerator;
-import generator.DecisionGenerator;
-import generator.Model;
-import generator.PedestrianIllegallyCrossingSG;
+package generator;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.Decision;
 import project.MyFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 
-public class GeneratorMain {
+public class GeneratorTest {
 
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         String fileName = "traffic_ontology.owl";
         String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
 

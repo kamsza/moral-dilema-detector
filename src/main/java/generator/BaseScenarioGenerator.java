@@ -1,8 +1,17 @@
 package generator;
 
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.*;
+import project.Driver;
+import project.Lane;
+import project.MyFactory;
+import project.Passenger;
+import project.Road_type;
+import project.Scenario;
+import project.Surrounding;
+import project.Time;
+import project.Vehicle;
+import project.Weather;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +21,12 @@ public class BaseScenarioGenerator {
     protected String baseIRI;
     protected MyFactory factory;
     protected Random rand = new Random();
+    protected RandomSubclassGenerator subclassGenerator;
 
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
+        this.subclassGenerator = new RandomSubclassGenerator(factory);
 
         ObjectNamer.setInitScenarioId(factory.getAllScenarioInstances().size());
     }
@@ -24,27 +35,33 @@ public class BaseScenarioGenerator {
      * ancillary method to create many scenarios
      */
     // generate basic scenario with id
-    public Model generate() {
+    public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        // create model
+        Model model = new Model();
+
         // get new individuals
         Scenario scenario = factory.createScenario(ObjectNamer.getName("scenario"));
 
-        Weather weather = factory.createWeatherSubclass(ObjectNamer.getName("weather"));
+        Weather weather = subclassGenerator.generateWeatherSubclass(ObjectNamer.getName("weather"));
 
-        Time time = factory.createTimeSubclass(ObjectNamer.getName("time"));
+        Time time = subclassGenerator.generateTimeSubclass(ObjectNamer.getName("time"));
 
-        Road_type roadType = factory.createRoad_typeSubclass(ObjectNamer.getName("road_type"));
+        Road_type roadType = subclassGenerator.generateRoadTypeSubclass(ObjectNamer.getName("road_type"));
 
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
 
-        Map<String, Surrounding> surrounding = new HashMap<>();
-        surrounding.put("LEFT", factory.createSurroundingSubclass(ObjectNamer.getName("surrounding")));
-        surrounding.put("RIGHT", factory.createSurroundingSubclass(ObjectNamer.getName("surrounding")));
+        Lane lane = factory.createLane(ObjectNamer.getName("lane"));
 
-        Vehicle vehicle = factory.createVehicleSubclass(ObjectNamer.getName("vehicle"));
+        Map<String, Surrounding> surrounding = new HashMap<>();
+        surrounding.put("LEFT", subclassGenerator.generateSurroundingSubclass(ObjectNamer.getName("surrounding")));
+        surrounding.put("RIGHT", subclassGenerator.generateSurroundingSubclass(ObjectNamer.getName("surrounding")));
+
+
+        Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle"));
 
         ArrayList<Passenger> passengers = new ArrayList<>();
-        for(int i = 0; i < rand.nextInt(5); i++)
-            passengers.add(factory.createPassengerSubclass(ObjectNamer.getName("passenger")));
+        for (int i = 0; i < rand.nextInt(5); i++)
+            passengers.add(subclassGenerator.generatePassengerSubclass(ObjectNamer.getName("passenger")));
 
         // set object properties
         scenario.addHas_vehicle(vehicle);
@@ -54,8 +71,8 @@ public class BaseScenarioGenerator {
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(roadType);
         vehicle.addHas_on_the_right(surrounding.get("RIGHT"));
-        vehicle.addHas_on_the_left(surrounding.get("LEFT"));
-        for(Passenger passenger : passengers)
+        vehicle.addHas_on_the_left(lane);
+        for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 
         // set data properties
@@ -65,9 +82,7 @@ public class BaseScenarioGenerator {
         roadType.addHas_lanes(2);
 
         // save in a model
-        Model model = new Model();
-
-        model.setScenario(scenario) ;
+        model.setScenario(scenario);
         model.setWeather(weather);
         model.setTime(time);
         model.setRoadType(roadType);
@@ -83,10 +98,10 @@ public class BaseScenarioGenerator {
      * generate numOfScenarios basic scenario, with IDs starting from startingId
      */
 
-    public ArrayList<Model> generate(int numOfScenarios) {
+    public ArrayList<Model> generate(int numOfScenarios) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         ArrayList<Model> models = new ArrayList<>();
 
-        for(int i = 0; i < numOfScenarios; i++)
+        for (int i = 0; i < numOfScenarios; i++)
             models.add(generate());
 
         return models;

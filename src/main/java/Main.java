@@ -11,12 +11,13 @@ import org.swrlapi.sqwrl.SQWRLResult;
 import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 public class Main {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static Model getModelFromGenerator(MyFactory factory){
+    public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator generator;
         //generator = new AnimalOnRoadSG(factory, baseIRI);
 //        generator = new CarApproachingSG(factory, baseIRI);
@@ -30,7 +31,7 @@ public class Main {
         return model;
     }
 
-    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // Create OWLOntology instance using the OWLAPI
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
