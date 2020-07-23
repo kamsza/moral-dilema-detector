@@ -25,6 +25,13 @@ public class Vector2{
         return this;
     }
 
+    public Vector2 sub(Vector2 other){
+        this.x -= other.x;
+        this.y -= other.y;
+        return this;
+    }
+
+
     public Vector2 mul(double other){
         this.x *= other;
         this.y *= other;

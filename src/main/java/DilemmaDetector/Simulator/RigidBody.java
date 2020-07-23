@@ -9,9 +9,18 @@ public class RigidBody {
         this.acceleration.add(acceleration);
     }
 
+    public void setPosition(Vector2 position){
+        this.position = position;
+    }
+
+    public void setSpeed(Vector2 speed){
+        this.speed = speed;
+    }
+
     public void setAcceleration(Vector2 acceleration) {
         this.acceleration = acceleration;
     }
+
 
     public Vector2 getPosition() {
         return position;
@@ -24,6 +33,8 @@ public class RigidBody {
     public Vector2 getAcceleration() {
         return acceleration;
     }
+
+
 
     public void update(){};
     private void updatePosition(){};
