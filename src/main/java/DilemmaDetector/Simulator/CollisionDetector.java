@@ -16,51 +16,23 @@ public class CollisionDetector {
     private static final double TIME_PART = 0.1;
 
     private Model model;
-    private Map<RigidBody, Vehicle> vehicles = null;
-    private Map<RigidBody, Animal> animals = null;
-    private Map<RigidBody, Pedestrian> pedestrians = null;
+    private Map<RigidBody, Vehicle> vehicles;
+    private Map<RigidBody, Animal> animals;
+    private Map<RigidBody, Pedestrian> pedestrians;
     private RigidBody mainVehicle;
 
-    public CollisionDetector(Model model) {
+    public CollisionDetector(Model model,
+                             RigidBody mainVehicle,
+                             Map<RigidBody, Vehicle> vehicles,
+                             Map<RigidBody, Animal> animals,
+                             Map<RigidBody, Pedestrian> pedestrians) {
         this.model = model;
-        this.mainVehicle = RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle());
-        vehicles = new HashMap<>();
-        animals = new HashMap<>();
-        pedestrians = new HashMap<>();
-        createRigidBodies(model);
+        this.mainVehicle = mainVehicle;
+        this.vehicles = vehicles;
+        this.animals = animals;
+        this.pedestrians = pedestrians;
     }
 
-
-    public void createRigidBodies(Model model) {
-        Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
-        Map<Lane, ArrayList<Animal>> animalMap = model.getAnimals();
-        Map<Lane, ArrayList<Pedestrian>> pedestrianMap = model.getPedestrians();
-
-        Iterator<Map.Entry<Model.Side, Map<Integer, Lane>>> iterator = model.getLanes().entrySet().iterator();
-
-        while (iterator.hasNext()) {
-            Map.Entry<Model.Side, Map<Integer, Lane>> parentPair = iterator.next();
-            Model.Side side = parentPair.getKey();
-            Iterator<Map.Entry<Integer, Lane>> child = (parentPair.getValue()).entrySet().iterator();
-            while (child.hasNext()) {
-                Map.Entry childPair = child.next();
-                Integer number = (Integer) childPair.getKey();
-                Lane lane = (Lane) childPair.getValue();
-                for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForVehicle(vehicle, side, lane, number);
-                    vehicles.put(rigidBody, vehicle);
-                }
-                for (Animal animal : animalMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForAnimal(animal, side, lane, number);
-                    animals.put(rigidBody, animal);
-                }
-                for (Pedestrian pedestrian : pedestrianMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForPedestrian(pedestrian, side, lane, number);
-                    pedestrians.put(rigidBody, pedestrian);
-                }
-            }
-        }
-    }
 
     public void detectCollisionInTime(Decision decision) {
         double currentTime = 0;
