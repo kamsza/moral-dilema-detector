@@ -3,12 +3,46 @@ package DilemmaDetector.Simulator;
 import generator.Model;
 import project.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 public class RigidBodyMapper {
 
     //TODO get lane width from ontology? is it in centimeters
     public static final int LANE_WIDTH = 300;
+
+
+    public static void createRigidBodies(Model model, Map<RigidBody, Vehicle> vehicles, Map<RigidBody, Animal> animals, Map<RigidBody, Pedestrian> pedestrians) {
+        Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
+        Map<Lane, ArrayList<Animal>> animalMap = model.getAnimals();
+        Map<Lane, ArrayList<Pedestrian>> pedestrianMap = model.getPedestrians();
+
+        Iterator<Map.Entry<Model.Side, Map<Integer, Lane>>> iterator = model.getLanes().entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<Model.Side, Map<Integer, Lane>> parentPair = iterator.next();
+            Model.Side side = parentPair.getKey();
+            Iterator<Map.Entry<Integer, Lane>> child = (parentPair.getValue()).entrySet().iterator();
+            while (child.hasNext()) {
+                Map.Entry childPair = child.next();
+                Integer number = (Integer) childPair.getKey();
+                Lane lane = (Lane) childPair.getValue();
+                for (Vehicle vehicle : vehicleMap.get(lane)) {
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForVehicle(vehicle, side, lane, number);
+                    vehicles.put(rigidBody, vehicle);
+                }
+                for (Animal animal : animalMap.get(lane)) {
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForAnimal(animal, side, lane, number);
+                    animals.put(rigidBody, animal);
+                }
+                for (Pedestrian pedestrian : pedestrianMap.get(lane)) {
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForPedestrian(pedestrian, side, lane, number);
+                    pedestrians.put(rigidBody, pedestrian);
+                }
+            }
+        }
+    }
 
     public static RigidBody rigidBodyForMainVehicle(Vehicle mainVehicle) {
         RigidBody rigidBody = new RigidBody();

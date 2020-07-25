@@ -3,17 +3,15 @@ package DilemmaDetector.Simulator;
 import generator.Model;
 import project.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+
 import java.util.Map;
 
 public class CollisionDetector {
 
     //3 seconds lasts each period when we check moves of all entities in model
-    private static final double MOVING_TIME = 3.0;
+    private double MOVING_TIME = 3.0;
     //each TIME_PART we check if there is a collision between main vehicle and some different entity
-    private static final double TIME_PART = 0.1;
+    private double TIME_PART = 0.1;
 
     private Model model;
     private Map<RigidBody, Vehicle> vehicles;
@@ -33,6 +31,13 @@ public class CollisionDetector {
         this.pedestrians = pedestrians;
     }
 
+    public void setMOVING_TIME(double MOVING_TIME) {
+        this.MOVING_TIME = MOVING_TIME;
+    }
+
+    public void setTIME_PART(double TIME_PART) {
+        this.TIME_PART = TIME_PART;
+    }
 
     public void detectCollisionInTime(Decision decision) {
         double currentTime = 0;
