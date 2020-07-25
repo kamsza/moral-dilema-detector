@@ -34,8 +34,8 @@ public class SimulatorEngine {
     // TODO wstrzykiwanie decyzji
     public void simulate(Decision decision)
     {
-        collisionDetector.setMOVING_TIME(MOVING_TIME);
-        collisionDetector.setTIME_PART(TIME_PART);
+        collisionDetector.SetMovingTime(MOVING_TIME);
+        collisionDetector.setTimePart(TIME_PART);
         collisionDetector.detectCollisionInTime(decision);
     }
 

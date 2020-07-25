@@ -9,9 +9,9 @@ import java.util.Map;
 public class CollisionDetector {
 
     //3 seconds lasts each period when we check moves of all entities in model
-    private double MOVING_TIME = 3.0;
-    //each TIME_PART we check if there is a collision between main vehicle and some different entity
-    private double TIME_PART = 0.1;
+    private double movingTime = 3.0;
+    //each timePart we check if there is a collision between main vehicle and some different entity
+    private double timePart = 0.1;
 
     private Model model;
     private Map<RigidBody, Vehicle> vehicles;
@@ -31,18 +31,18 @@ public class CollisionDetector {
         this.pedestrians = pedestrians;
     }
 
-    public void setMOVING_TIME(double MOVING_TIME) {
-        this.MOVING_TIME = MOVING_TIME;
+    public void SetMovingTime(double movingTime) {
+        this.movingTime = movingTime;
     }
 
-    public void setTIME_PART(double TIME_PART) {
-        this.TIME_PART = TIME_PART;
+    public void setTimePart(double timePart) {
+        this.timePart = timePart;
     }
 
     public void detectCollisionInTime(Decision decision) {
         double currentTime = 0;
-        while (currentTime < MOVING_TIME) {
-            currentTime += TIME_PART;
+        while (currentTime < movingTime) {
+            currentTime += timePart;
             if (detectCollisionInMoment()) {
                 System.out.println("Collision in decision " + decision.toString());
                 return;
@@ -54,8 +54,8 @@ public class CollisionDetector {
 
     public boolean detectCollisionInMoment() {
         //s = v0*t + at^2/2
-        Vector2 mainVehiclePositionChange = mainVehicle.getSpeed().mul(TIME_PART).add((mainVehicle.getAcceleration().mul(TIME_PART * TIME_PART).mul(0.5)));
-        Vector2 mainVehicleNewSpeed = mainVehicle.getSpeed().add(mainVehicle.getAcceleration().mul(TIME_PART)); //v = v0 + at
+        Vector2 mainVehiclePositionChange = mainVehicle.getSpeed().mul(timePart).add((mainVehicle.getAcceleration().mul(timePart * timePart).mul(0.5)));
+        Vector2 mainVehicleNewSpeed = mainVehicle.getSpeed().add(mainVehicle.getAcceleration().mul(timePart)); //v = v0 + at
 
         if (!vehicles.isEmpty()) {
             for (Map.Entry<RigidBody, Vehicle> entry : vehicles.entrySet()) {
@@ -80,8 +80,8 @@ public class CollisionDetector {
     }
 
     public boolean detectCollisionWithVehicleInMoment(RigidBody rigidBody, Vehicle vehicle, Vector2 mainVehiclePositionChange) {
-        Vector2 positionChange = rigidBody.getSpeed().mul(TIME_PART).add(rigidBody.getAcceleration().mul(TIME_PART * TIME_PART).mul(0.5));
-        Vector2 newSpeed = rigidBody.getSpeed().add(rigidBody.getAcceleration().mul(TIME_PART));
+        Vector2 positionChange = rigidBody.getSpeed().mul(timePart).add(rigidBody.getAcceleration().mul(timePart * timePart).mul(0.5));
+        Vector2 newSpeed = rigidBody.getSpeed().add(rigidBody.getAcceleration().mul(timePart));
         Vector2 newPosition = positionChange.sub(mainVehiclePositionChange);
         boolean isCollision = false;
         Double vehicleWidth = RigidBodyMapper.getProperty(vehicle, "width");
@@ -96,8 +96,8 @@ public class CollisionDetector {
     }
 
     public boolean detectCollisionWithAnimalInMoment(RigidBody rigidBody, Animal animal, Vector2 mainVehiclePositionChange) {
-        Vector2 positionChange = rigidBody.getSpeed().mul(TIME_PART).add(rigidBody.getAcceleration().mul(TIME_PART * TIME_PART).mul(0.5));
-        Vector2 newSpeed = rigidBody.getSpeed().add(rigidBody.getAcceleration().mul(TIME_PART));
+        Vector2 positionChange = rigidBody.getSpeed().mul(timePart).add(rigidBody.getAcceleration().mul(timePart * timePart).mul(0.5));
+        Vector2 newSpeed = rigidBody.getSpeed().add(rigidBody.getAcceleration().mul(timePart));
         Vector2 newPosition = positionChange.sub(mainVehiclePositionChange);
         boolean isCollision = false;
         Double animalWidth = RigidBodyMapper.getProperty(animal, "width");
@@ -112,8 +112,8 @@ public class CollisionDetector {
     }
 
     public boolean detectCollisionWithPedestrianInMoment(RigidBody rigidBody, Pedestrian pedestrian, Vector2 mainVehiclePositionChange) {
-        Vector2 positionChange = rigidBody.getSpeed().mul(TIME_PART).add(rigidBody.getAcceleration().mul(TIME_PART * TIME_PART).mul(0.5));
-        Vector2 newSpeed = rigidBody.getSpeed().add(rigidBody.getAcceleration().mul(TIME_PART));
+        Vector2 positionChange = rigidBody.getSpeed().mul(timePart).add(rigidBody.getAcceleration().mul(timePart * timePart).mul(0.5));
+        Vector2 newSpeed = rigidBody.getSpeed().add(rigidBody.getAcceleration().mul(timePart));
         Vector2 newPosition = positionChange.sub(mainVehiclePositionChange);
         boolean isCollision = false;
         Double pedestrianWidth = RigidBodyMapper.getProperty(pedestrian, "width");
