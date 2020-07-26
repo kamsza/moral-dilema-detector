@@ -1,0 +1,908 @@
+[
+    {
+        "box": {
+            "centerX": -15.761544755165232,
+            "centerY": 3.824796180202611,
+            "centerZ": 3.1089491239688414,
+            "width": 0.9419047762296565,
+            "length": 0.20967587542600083,
+            "height": 0.8199999999999932,
+            "heading": -2.895374473862487
+        },
+        "metadata": {
+            "speedX": 2.533568425762856e-28,
+            "speedY": -2.026855076082858e-27,
+            "accelX": -2.8150757303292375e-28,
+            "accelY": 2.2520605841404958e-27
+        },
+        "type": "TYPE_SIGN",
+        "id": "3dQxLh8bCbHlzAy_QUPoyw",
+        "numLidarPointsInBox": 13
+    },
+    {
+        "box": {
+            "centerX": 46.91053176679816,
+            "centerY": 10.002227391247288,
+            "centerZ": 1.3417332196565042,
+            "width": 0.6502751322038365,
+            "length": 0.6005002665916914,
+            "height": 1.670000000000016,
+            "heading": 0.8764169437705354
+        },
+        "metadata": {
+            "speedX": 0.25162394315712383,
+            "speedY": -0.09572043977397512,
+            "accelX": -0.09402215210063272,
+            "accelY": 0.1441150419999842
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "8-7bTNGWUlWqADUHKbnjqg",
+        "numLidarPointsInBox": 18
+    },
+    {
+        "box": {
+            "centerX": -41.66776600070989,
+            "centerY": -18.62329105585195,
+            "centerZ": 0.3847693997124395,
+            "width": 0.8365666776755165,
+            "length": 0.6744514215055569,
+            "height": 2.3400000000000034,
+            "heading": -1.9877999525671504
+        },
+        "metadata": {
+            "speedX": 5.067137690207145e-28,
+            "speedY": 0.0,
+            "accelX": -5.6301514603512395e-28,
+            "accelY": 0.0
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "8UByKWrQFaMuwa5AMNUrug",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 26
+    },
+    {
+        "box": {
+            "centerX": 4.378824316630926,
+            "centerY": -11.674134170181787,
+            "centerZ": 2.491148530005944,
+            "width": 0.5251708732803291,
+            "length": 0.09815591417692988,
+            "height": 0.5500000000000114,
+            "heading": 1.888898104986115
+        },
+        "metadata": {
+            "speedX": -0.021234856448880596,
+            "speedY": 0.0008572013655988606,
+            "accelX": 7.639130050491768e-14,
+            "accelY": 5.6367734468309e-14
+        },
+        "type": "TYPE_SIGN",
+        "id": "BwJOPNQvx-THbV3nUp9zcA",
+        "numLidarPointsInBox": 126
+    },
+    {
+        "box": {
+            "centerX": -54.41067760131227,
+            "centerY": -5.652359564001017,
+            "centerZ": -0.2300876479831402,
+            "width": 1.612959852137126,
+            "length": 3.269999592140341,
+            "height": 1.200000000000017,
+            "heading": -1.634684365386586
+        },
+        "metadata": {
+            "speedX": 5.067137690207145e-28,
+            "speedY": -2.0268547406102848e-27,
+            "accelX": -5.6301514603512395e-28,
+            "accelY": 2.25206058426339e-27
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "CmDsBxLuZ_x3w5BY_IKYig",
+        "numLidarPointsInBox": 36
+    },
+    {
+        "box": {
+            "centerX": -8.133377660840779,
+            "centerY": -6.906246278551407,
+            "centerZ": 0.7005380781276358,
+            "width": 0.7148077684575946,
+            "length": 0.4293157976341144,
+            "height": 1.8499999999999943,
+            "heading": -0.3045139917813806
+        },
+        "metadata": {
+            "speedX": -0.14376675454776075,
+            "speedY": -0.08363278251549644,
+            "accelX": -0.032585148292088424,
+            "accelY": 0.11231540604510866
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "D6NXf_Db4-uzdooBBTGvdg",
+        "numLidarPointsInBox": 223
+    },
+    {
+        "box": {
+            "centerX": 4.631139086197436,
+            "centerY": -8.238831636572286,
+            "centerZ": 0.6325555440249673,
+            "width": 0.8091393639766878,
+            "length": 0.6050340925871324,
+            "height": 1.8700000000000045,
+            "heading": 2.1759435448888595
+        },
+        "metadata": {
+            "speedX": -0.17278341291459035,
+            "speedY": -0.05775644968685656,
+            "accelX": 0.3110392824315672,
+            "accelY": -0.20880809145613885
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "EwfRRWAifjzr6EZK8k2dMA",
+        "numLidarPointsInBox": 182
+    },
+    {
+        "box": {
+            "centerX": -61.503850652725305,
+            "centerY": -1.1751520266861917,
+            "centerZ": 0.2392344713404384,
+            "width": 2.2187568427387117,
+            "length": 4.307135478585872,
+            "height": 1.8100000000000023,
+            "heading": -1.9994370360442275
+        },
+        "metadata": {
+            "speedX": 0.0,
+            "speedY": 2.0268547406102848e-27,
+            "accelX": 0.0,
+            "accelY": -2.25206058426339e-27
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "F8RGBMchc3W1-vx69uHWXg",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 81
+    },
+    {
+        "box": {
+            "centerX": 46.538457652106445,
+            "centerY": 10.356218242566683,
+            "centerZ": 1.5108432465004853,
+            "width": 0.7289033267385523,
+            "length": 0.6531362593982591,
+            "height": 1.8400000000000034,
+            "heading": 0.32209338247283403
+        },
+        "metadata": {
+            "speedX": 0.022421804250443756,
+            "speedY": -0.09586272760146458,
+            "accelX": -4.1794584173653114e-13,
+            "accelY": 4.1870852970094446e-13
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "FsNFk3PanpdmdhRZ7ssgKw",
+        "numLidarPointsInBox": 13
+    },
+    {
+        "box": {
+            "centerX": 48.49868347508709,
+            "centerY": 5.423029108027549,
+            "centerZ": 2.7670786321211835,
+            "width": 0.512548531905996,
+            "length": 0.11215719155012045,
+            "height": 0.6599999999999966,
+            "heading": -3.0499053070889306
+        },
+        "metadata": {
+            "speedX": -0.0001780359106243236,
+            "speedY": -0.0005254226751407795,
+            "accelX": 4.770601280273433e-13,
+            "accelY": -6.339582219101228e-14
+        },
+        "type": "TYPE_SIGN",
+        "id": "G0qaOGP_GBEh_ik0uOY87A",
+        "numLidarPointsInBox": 21
+    },
+    {
+        "box": {
+            "centerX": -46.92738785780239,
+            "centerY": -9.516179900510906,
+            "centerZ": 0.12159645676342734,
+            "width": 2.4698165712433138,
+            "length": 4.660016341480805,
+            "height": 1.740000000000009,
+            "heading": -1.4200724406790108
+        },
+        "metadata": {
+            "speedX": -0.0504033112705141,
+            "speedY": -0.27838176089192024,
+            "accelX": 0.0407893831976513,
+            "accelY": 0.22528322116222757
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "GajzX06eclec3Ebg_izolg",
+        "numLidarPointsInBox": 27
+    },
+    {
+        "box": {
+            "centerX": -35.29633652710254,
+            "centerY": -17.111427155645288,
+            "centerZ": -0.015503433008234424,
+            "width": 0.7304763808040785,
+            "length": 0.45574569132436255,
+            "height": 1.1899999999999977,
+            "heading": -2.752048315773924
+        },
+        "metadata": {
+            "speedX": -0.25217509335994814,
+            "speedY": -0.13509547790287657,
+            "accelX": 0.44095391381122556,
+            "accelY": 0.15467989870069576
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "HmSNKt-z0YxyuioszkcAVA",
+        "numLidarPointsInBox": 39
+    },
+    {
+        "box": {
+            "centerX": -57.18357507678593,
+            "centerY": -4.363000830215242,
+            "centerZ": 0.07190095994053536,
+            "width": 1.826590028786762,
+            "length": 4.085829089663933,
+            "height": 1.80111899438117,
+            "heading": -1.953020229542484
+        },
+        "metadata": {
+            "speedX": 2.533568425762856e-28,
+            "speedY": 2.026855076082858e-27,
+            "accelX": -2.8150757303292375e-28,
+            "accelY": -2.2520605841404958e-27
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "ITyhijoTu6Lh9WhsBmYl2g",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 43
+    },
+    {
+        "box": {
+            "centerX": -24.4323877831157,
+            "centerY": -22.175295850118346,
+            "centerZ": -0.24392824584418804,
+            "width": 0.6702220975751014,
+            "length": 0.6662173406710751,
+            "height": 1.2700000000000102,
+            "heading": -2.7427471844184246
+        },
+        "metadata": {
+            "speedX": -0.008582667275941534,
+            "speedY": 0.0022743635511089516,
+            "accelX": -1.6618838393062728e-13,
+            "accelY": -2.3931555811863294e-14
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "K2XGcP3nUb4hUhSqK6WopA",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 17
+    },
+    {
+        "box": {
+            "centerX": -10.7362822133,
+            "centerY": -12.909666343486606,
+            "centerZ": 2.1837133509603746,
+            "width": 0.419158957331128,
+            "length": 0.07687633061371989,
+            "height": 0.5500000000000114,
+            "heading": 1.5768228110734128
+        },
+        "metadata": {
+            "speedX": 0.009790842731584521,
+            "speedY": -0.009461532549296792,
+            "accelX": -1.044026536752664e-13,
+            "accelY": -7.733976095151013e-13
+        },
+        "type": "TYPE_SIGN",
+        "id": "LKzoHHU1XPCsto5GeIYEXg",
+        "numLidarPointsInBox": 48
+    },
+    {
+        "box": {
+            "centerX": -37.15202557126213,
+            "centerY": -21.090161676287607,
+            "centerZ": -0.2367725632849158,
+            "width": 0.818227861048837,
+            "length": 0.6195581948221329,
+            "height": 1.7299999999999898,
+            "heading": -2.7741165928443987
+        },
+        "metadata": {
+            "speedX": 2.533568425762856e-28,
+            "speedY": -2.0268547406102848e-27,
+            "accelX": -2.8150757303292375e-28,
+            "accelY": 2.25206058426339e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "N1grJJDZbHZmCtEMrL03aw",
+        "numLidarPointsInBox": 31
+    },
+    {
+        "box": {
+            "centerX": -35.69456013696981,
+            "centerY": -18.56386772606129,
+            "centerZ": 0.09567929935593611,
+            "width": 0.6151728282366671,
+            "length": 0.5313087273259233,
+            "height": 1.2700000000000102,
+            "heading": -2.7450710813031862
+        },
+        "metadata": {
+            "speedX": 0.15885234968734613,
+            "speedY": -0.09044469211931691,
+            "accelX": 0.2298216867712501,
+            "accelY": -0.19429160055452077
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "RPR0jIq-2KwuOE_sDfpnaQ",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 30
+    },
+    {
+        "box": {
+            "centerX": 23.553330606535383,
+            "centerY": -11.327252682449398,
+            "centerZ": 0.5459088294713297,
+            "width": 0.6608599117664332,
+            "length": 0.5832729378702637,
+            "height": 1.6400000000000148,
+            "heading": -0.16326591777234523
+        },
+        "metadata": {
+            "speedX": 0.0,
+            "speedY": 1.0134273703051424e-27,
+            "accelX": 0.0,
+            "accelY": -1.126030292131695e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "RTdkemMSTMa3JpdMGAcdig",
+        "numLidarPointsInBox": 7
+    },
+    {
+        "box": {
+            "centerX": 24.045462590585885,
+            "centerY": -10.950637577156158,
+            "centerZ": 0.6512222048239096,
+            "width": 0.7249458466733926,
+            "length": 0.49472384187116736,
+            "height": 1.8199999999999932,
+            "heading": -1.4057720377446543
+        },
+        "metadata": {
+            "speedX": -0.010812914010487883,
+            "speedY": -0.01929591505799494,
+            "accelX": -1.08776364076609e-14,
+            "accelY": 4.268530460625761e-13
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "R_VsxykINBZEaoVVQdAPdA",
+        "numLidarPointsInBox": 22
+    },
+    {
+        "box": {
+            "centerX": 48.559049349651104,
+            "centerY": 5.097065431131341,
+            "centerZ": 3.303833601795759,
+            "width": 0.4841393892440289,
+            "length": 0.11321019607401459,
+            "height": 0.5369462453643337,
+            "heading": -3.0499053070879056
+        },
+        "metadata": {
+            "speedX": 0.003323790099292726,
+            "speedY": -0.006883861758332547,
+            "accelX": -1.9800957533997458e-13,
+            "accelY": -1.5099296983084323e-13
+        },
+        "type": "TYPE_SIGN",
+        "id": "SPMlMu0aQQOvZCaiqAKCrA",
+        "numLidarPointsInBox": 18
+    },
+    {
+        "box": {
+            "centerX": 16.925045322959704,
+            "centerY": 9.010532026928558,
+            "centerZ": 2.0661996557674627,
+            "width": 2.155388526932574,
+            "length": 4.864710804605326,
+            "height": 1.4799999999999898,
+            "heading": -0.9157004369838275
+        },
+        "metadata": {
+            "speedX": -0.006889945013138159,
+            "speedY": 0.03262841161092147,
+            "accelX": 3.2642983402625745e-13,
+            "accelY": -1.2759029737501753e-12
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "SnwlazQcof-qak374dgUsA",
+        "numLidarPointsInBox": 1927
+    },
+    {
+        "box": {
+            "centerX": -20.174472279868496,
+            "centerY": -6.285161457337381,
+            "centerZ": 1.174499591976769,
+            "width": 3.2163033175422204,
+            "length": 8.85702821644142,
+            "height": 3.159999999999968,
+            "heading": -0.3098296203346096
+        },
+        "metadata": {
+            "speedX": 0.36077161870053104,
+            "speedY": -0.4220563633366631,
+            "accelX": 3.7109334552941346e-15,
+            "accelY": 8.202363912690186e-13
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "Tc7sa2nmi8ptALYACUW8fA",
+        "numLidarPointsInBox": 880
+    },
+    {
+        "box": {
+            "centerX": -36.904126996767445,
+            "centerY": -18.490805821826143,
+            "centerZ": -0.05819361072752827,
+            "width": 0.7460462748351576,
+            "length": 0.7052532307409326,
+            "height": 1.490000000000009,
+            "heading": -0.11587292278796113
+        },
+        "metadata": {
+            "speedX": -0.4416302634508941,
+            "speedY": 0.30626956330896493,
+            "accelX": 0.3647765501299179,
+            "accelY": -0.08518337728502433
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "TpDYjPZTjaljzpfQ7F6EtA",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 31
+    },
+    {
+        "box": {
+            "centerX": -33.40652187131673,
+            "centerY": -22.52303288992698,
+            "centerZ": -0.21910530010916318,
+            "width": 0.8163704332069814,
+            "length": 0.6984653675942426,
+            "height": 1.8400000000000034,
+            "heading": -2.3904246980111084
+        },
+        "metadata": {
+            "speedX": 5.067136851525712e-28,
+            "speedY": -2.0268547406102848e-27,
+            "accelX": -5.630151460658475e-28,
+            "accelY": 2.25206058426339e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "WK7LosnUo-STD8zY1PM7BQ",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 14
+    },
+    {
+        "box": {
+            "centerX": -10.739154936403793,
+            "centerY": -12.928419301742906,
+            "centerZ": 2.778415981038137,
+            "width": 0.42024826907775165,
+            "length": 0.07770567184383789,
+            "height": 0.539999999999992,
+            "heading": 1.5768228110764673
+        },
+        "metadata": {
+            "speedX": 0.009853797218144274,
+            "speedY": -0.009572259413548527,
+            "accelX": 9.757299526595227e-14,
+            "accelY": -1.2899886598700928e-12
+        },
+        "type": "TYPE_SIGN",
+        "id": "XNdmE5GeRjJ6gDHGNpQHxA",
+        "numLidarPointsInBox": 57
+    },
+    {
+        "box": {
+            "centerX": -4.73701239660295,
+            "centerY": 20.5144530890866,
+            "centerZ": 3.819264570358996,
+            "width": 0.8389155914009281,
+            "length": 0.13377416637393677,
+            "height": 0.75,
+            "heading": -0.5221009289320597
+        },
+        "metadata": {
+            "speedX": 0.0020305319635774846,
+            "speedY": -0.0030467724979308247,
+            "accelX": -0.00043815528021931663,
+            "accelY": 0.0006574432135807456
+        },
+        "type": "TYPE_SIGN",
+        "id": "Xm5giQIS5bV342unsdU2XQ",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 0
+    },
+    {
+        "box": {
+            "centerX": 16.314518127936026,
+            "centerY": -7.497641423327877,
+            "centerZ": 0.7499385261274938,
+            "width": 2.232747032364862,
+            "length": 5.196993050516608,
+            "height": 1.8600000000000136,
+            "heading": -0.37968648039696173
+        },
+        "metadata": {
+            "speedX": 2.533568425762856e-28,
+            "speedY": 2.026855076082858e-27,
+            "accelX": -2.8150757303292375e-28,
+            "accelY": -2.2520605841404958e-27
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "YA5DaaM-3c0m2CvGtUt8aA",
+        "numLidarPointsInBox": 740
+    },
+    {
+        "box": {
+            "centerX": 26.524592827729066,
+            "centerY": -7.376997319961447,
+            "centerZ": 0.6076538713399486,
+            "width": 2.2634218364857563,
+            "length": 4.8642107616299795,
+            "height": 1.8000000000000114,
+            "heading": -0.31654405316730116
+        },
+        "metadata": {
+            "speedX": 0.018329102436267744,
+            "speedY": -0.016845804235905242,
+            "accelX": -5.72761092987633e-13,
+            "accelY": 1.9722819167532136e-14
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "hLMM21TleJblWvb6u9DdAw",
+        "numLidarPointsInBox": 405
+    },
+    {
+        "box": {
+            "centerX": -0.2818022381306946,
+            "centerY": 27.369139580818228,
+            "centerZ": 3.260498099614267,
+            "width": 0.4778634899340904,
+            "length": 0.05334007905061883,
+            "height": 0.4900000000000091,
+            "heading": -0.6351429856695172
+        },
+        "metadata": {
+            "speedX": 0.002786046744266896,
+            "speedY": 0.009380769648606072,
+            "accelX": -1.487185990565453e-13,
+            "accelY": -1.337504272476894e-12
+        },
+        "type": "TYPE_SIGN",
+        "id": "hP8eCiE_u5GPRv6wnv1M0w",
+        "numLidarPointsInBox": 16
+    },
+    {
+        "box": {
+            "centerX": 7.571761103530662,
+            "centerY": -11.923013096518844,
+            "centerZ": 0.6218473425349771,
+            "width": 0.6306767077172898,
+            "length": 0.7893412923488349,
+            "height": 1.6903039513688611,
+            "heading": -1.6315192181166125
+        },
+        "metadata": {
+            "speedX": 0.001968295469224581,
+            "speedY": -0.0011747353169485515,
+            "accelX": -3.9730918899647013e-14,
+            "accelY": 5.497967467293543e-13
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "hRryisPj50dcwjqAaeJ2qQ",
+        "numLidarPointsInBox": 139
+    },
+    {
+        "box": {
+            "centerX": 5.712346994185282,
+            "centerY": -7.325637771791662,
+            "centerZ": 0.5330056222616406,
+            "width": 1.854419006843574,
+            "length": 4.2221166569187325,
+            "height": 1.5699999999999932,
+            "heading": -0.5144053423427306
+        },
+        "metadata": {
+            "speedX": -0.04419100910555123,
+            "speedY": 0.027725466427521373,
+            "accelX": 2.471572171605432e-14,
+            "accelY": -1.3235288156835858e-12
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "iHJA0VqzApH34jxiPdhoeA",
+        "numLidarPointsInBox": 3137
+    },
+    {
+        "box": {
+            "centerX": -59.315355318984075,
+            "centerY": -3.016324921101841,
+            "centerZ": -0.019044905395560363,
+            "width": 1.8462245975822782,
+            "length": 3.6508137829090628,
+            "height": 1.6500000000000057,
+            "heading": -1.9554265800345598
+        },
+        "metadata": {
+            "speedX": 0.0,
+            "speedY": -2.0268547406102848e-27,
+            "accelX": 0.0,
+            "accelY": 2.25206058426339e-27
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "k28iLacrQJwlwJYLjqSK9Q",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 60
+    },
+    {
+        "box": {
+            "centerX": -34.352303567549825,
+            "centerY": -22.18806484637753,
+            "centerZ": -0.3222154884573456,
+            "width": 0.8163704332051811,
+            "length": 0.698465367594929,
+            "height": 1.8400000000000034,
+            "heading": -2.0994310185150353
+        },
+        "metadata": {
+            "speedX": 0.0,
+            "speedY": -2.026855076082858e-27,
+            "accelX": 0.0,
+            "accelY": 2.2520605841404958e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "kGIX_BhX9GNpEiKF9sMNbQ",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 17
+    },
+    {
+        "box": {
+            "centerX": -8.798736132706836,
+            "centerY": -7.975630019984237,
+            "centerZ": 0.6238554899945257,
+            "width": 2.3599392345790613,
+            "length": 4.985460697791415,
+            "height": 1.7700000000000102,
+            "heading": -0.6284549479120933
+        },
+        "metadata": {
+            "speedX": 8.254877440233815e-05,
+            "speedY": 0.0011536724505281923,
+            "accelX": -0.00011963591005960575,
+            "accelY": -0.0016719891304131393
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "kxIh2wwwJomZkXm2DQ66MQ",
+        "numLidarPointsInBox": 1709
+    },
+    {
+        "box": {
+            "centerX": -52.221530152717605,
+            "centerY": -6.734462369227913,
+            "centerZ": -0.23935542898377093,
+            "width": 1.4803727172158998,
+            "length": 3.2156757234943196,
+            "height": 1.1899999999999977,
+            "heading": -1.5763269470538461
+        },
+        "metadata": {
+            "speedX": 5.067137690207145e-28,
+            "speedY": 0.0,
+            "accelX": -5.6301514603512395e-28,
+            "accelY": 0.0
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "nSLeezJ2VNPRTj0zOlHjCg",
+        "numLidarPointsInBox": 91
+    },
+    {
+        "box": {
+            "centerX": 6.51051772475148,
+            "centerY": -5.427742650330401,
+            "centerZ": 0.7982490773810014,
+            "width": 1.0103156935268691,
+            "length": 0.618071828847312,
+            "height": 1.8600000000000136,
+            "heading": -2.3168531495790217
+        },
+        "metadata": {
+            "speedX": -0.02625834281600379,
+            "speedY": 0.022864491919490665,
+            "accelX": 8.846554035743278e-15,
+            "accelY": -1.1012548767989702e-13
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "pBgCQS7AUpYFOwhT0sCVyg",
+        "numLidarPointsInBox": 615
+    },
+    {
+        "box": {
+            "centerX": 6.217273630061754,
+            "centerY": 10.222807749481944,
+            "centerZ": 2.1454281596964506,
+            "width": 2.2063356203586704,
+            "length": 5.101972215538367,
+            "height": 1.740000000000009,
+            "heading": -0.9921867194367779
+        },
+        "metadata": {
+            "speedX": 0.0,
+            "speedY": -2.0268547406102848e-27,
+            "accelX": 0.0,
+            "accelY": 2.25206058426339e-27
+        },
+        "type": "TYPE_VEHICLE",
+        "id": "pCIpQVLcav8I4aZQmxG8ZQ",
+        "numLidarPointsInBox": 4312
+    },
+    {
+        "box": {
+            "centerX": -40.850372481376326,
+            "centerY": -18.926305934808624,
+            "centerZ": 0.3782707201715141,
+            "width": 0.7173336065864496,
+            "length": 0.5803385943915527,
+            "height": 2.3400000000000034,
+            "heading": -1.9877999525683432
+        },
+        "metadata": {
+            "speedX": 0.0,
+            "speedY": 2.0268547406102848e-27,
+            "accelX": 0.0,
+            "accelY": -2.25206058426339e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "piKGc-Tfm1hTR7B9YpnWpA",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 19
+    },
+    {
+        "box": {
+            "centerX": 26.81747148206705,
+            "centerY": -12.39509984821234,
+            "centerZ": 2.1893230015563176,
+            "width": 0.5606638190245974,
+            "length": 0.08777614682726302,
+            "height": 0.6160625681767442,
+            "heading": 1.597415181378616
+        },
+        "metadata": {
+            "speedX": 0.0032185794266679055,
+            "speedY": 0.00022852433566663524,
+            "accelX": 2.8499771379471525e-14,
+            "accelY": 1.6258658796907526e-13
+        },
+        "type": "TYPE_SIGN",
+        "id": "pt5py7khvvxTFwodJAV2vw",
+        "numLidarPointsInBox": 33
+    },
+    {
+        "box": {
+            "centerX": 0.8876121937191783,
+            "centerY": 52.87253688527926,
+            "centerZ": 3.237333236904476,
+            "width": 0.4503017398633701,
+            "length": 0.07613298490651199,
+            "height": 0.535531914893653,
+            "heading": -2.0756847843412247
+        },
+        "metadata": {
+            "speedX": -0.0016520808658041937,
+            "speedY": -0.005115379095528195,
+            "accelX": -2.2280880468276937e-14,
+            "accelY": -1.3317077127673145e-12
+        },
+        "type": "TYPE_SIGN",
+        "id": "qZSJRFIlMdD3YUrSt_ALMA",
+        "numLidarPointsInBox": 4
+    },
+    {
+        "box": {
+            "centerX": -38.42534757858812,
+            "centerY": -20.13880271718881,
+            "centerZ": -0.502738159624613,
+            "width": 0.4663362961506497,
+            "length": 0.5277109049470924,
+            "height": 1.960000000000008,
+            "heading": -2.0772152610594565
+        },
+        "metadata": {
+            "speedX": -1.6776393771371787e-34,
+            "speedY": -1.0134273703051424e-27,
+            "accelX": -3.0723557541217347e-38,
+            "accelY": 1.126030292131695e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "rKJx2VZsDAVXjAPSKinsyg",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 11
+    },
+    {
+        "box": {
+            "centerX": 8.271993637210471,
+            "centerY": -12.04301392423804,
+            "centerZ": 0.6202603417069668,
+            "width": 0.9030706966436318,
+            "length": 1.2697713364227463,
+            "height": 1.7903039513688555,
+            "heading": -1.6315192181167446
+        },
+        "metadata": {
+            "speedX": 0.02070060645316256,
+            "speedY": 0.043244088853989913,
+            "accelX": 1.112242130637773e-13,
+            "accelY": -1.0248112005380313e-12
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "u9qvFlUviXk49iQLcq_gew",
+        "numLidarPointsInBox": 159
+    },
+    {
+        "box": {
+            "centerX": -32.41856629975882,
+            "centerY": -22.731317491392474,
+            "centerZ": -0.25134352895423717,
+            "width": 0.8098273769557021,
+            "length": 0.9287632185919209,
+            "height": 1.7800000000000011,
+            "heading": -1.846269257719042
+        },
+        "metadata": {
+            "speedX": 2.533568425762856e-28,
+            "speedY": -2.0268547406102848e-27,
+            "accelX": -2.8150757303292375e-28,
+            "accelY": 2.25206058426339e-27
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "zFosdDXMuapdXJWHZQAH7w",
+        "detectionDifficultyLevel": "LEVEL_2",
+        "trackingDifficultyLevel": "LEVEL_2",
+        "numLidarPointsInBox": 11
+    },
+    {
+        "box": {
+            "centerX": 23.16524572320668,
+            "centerY": -12.09740172633974,
+            "centerZ": 0.5814670119561924,
+            "width": 0.7564976285457766,
+            "length": 0.8183471466769404,
+            "height": 1.6599999999999966,
+            "heading": -1.5986437062840513
+        },
+        "metadata": {
+            "speedX": -0.022587582325973733,
+            "speedY": -0.014593408266024286,
+            "accelX": -3.886175718019867e-13,
+            "accelY": 1.1413188757951866e-13
+        },
+        "type": "TYPE_PEDESTRIAN",
+        "id": "zZaTlJXPZtrVXLCHMrZfKA",
+        "numLidarPointsInBox": 19
+    }
+]
