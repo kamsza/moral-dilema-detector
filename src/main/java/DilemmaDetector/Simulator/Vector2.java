@@ -35,18 +35,16 @@ public class Vector2{
     }
 
     public Vector2 sub(Vector2 other){
-        Vector2 result = new Vector2(x, y);
-        result.x -= other.x;
+        this.x -= other.x;
         this.y -= other.y;
-        return result;
+        return this;
     }
 
 
     public Vector2 mul(double other){
-        Vector2 result = new Vector2(x, y);
-        result.x *= other;
-        result.y *= other;
-        return result;
+        this.x *= other;
+        this.y *= other;
+        return this;
     }
 
     @Override

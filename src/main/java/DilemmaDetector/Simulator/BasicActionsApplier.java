@@ -8,7 +8,7 @@ public class BasicActionsApplier {
     static public void CarBreaking(RigidBody car, Class weatherType){
         double frictionCoefficient = getTireRoadFriction(weatherType);
         Vector2 breaking = car.getSpeed().getNormalized().mul(-1);
-        breaking = breaking.mul(GRAVITY * frictionCoefficient);
+        breaking.mul(GRAVITY * frictionCoefficient);
         car.setAcceleration(breaking);
     }
 
