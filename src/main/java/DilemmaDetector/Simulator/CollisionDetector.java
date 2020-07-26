@@ -26,19 +26,6 @@ public class CollisionDetector {
         this.pedestrians = pedestrians;
     }
 
-//    public void detectCollisionInTime(Decision decision) {
-//        double currentTime = 0;
-//        while (currentTime < movingTime) {
-//            currentTime += timePart;
-//            if (detectCollisionInMoment()) {
-//                System.out.println("Collision in decision " + decision.toString());
-//                return;
-//            }
-//        }
-//        System.out.println("No collision in decision  " + decision.toString());
-//    }
-
-
     public boolean detectCollisionInMoment() {
         if (!vehicles.isEmpty()) {
             for (Map.Entry<RigidBody, Vehicle> entry : vehicles.entrySet()) {

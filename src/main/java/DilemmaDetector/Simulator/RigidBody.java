@@ -1,5 +1,7 @@
 package DilemmaDetector.Simulator;
 
+import java.util.Objects;
+
 public class RigidBody {
     private Vector2 position = null;
     private Vector2 speed = null;
@@ -69,4 +71,8 @@ public class RigidBody {
         speed.add(new Vector2(acceleration).mul(deltaTime));
     };
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, speed, acceleration);
+    }
 }

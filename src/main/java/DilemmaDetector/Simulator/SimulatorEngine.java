@@ -1,10 +1,7 @@
 package DilemmaDetector.Simulator;
 
 import generator.Model;
-import project.Animal;
-import project.Decision;
-import project.Pedestrian;
-import project.Vehicle;
+import project.*;
 import project.impl.DefaultDecision;
 
 import java.util.HashMap;
@@ -25,7 +22,7 @@ public class SimulatorEngine {
     private Map<RigidBody, Pedestrian> pedestrians = new HashMap<>();
 
     private List<RigidBody> actors = new LinkedList<>();
-    
+
     private RigidBody mainVehicle;
     private CollisionDetector collisionDetector;
 
@@ -33,15 +30,32 @@ public class SimulatorEngine {
         this.model = model;
         this.mainVehicle = RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle());
         RigidBodyMapper.createRigidBodies(model, vehicles, animals, pedestrians);
+        actors.addAll(vehicles.keySet());
+        actors.addAll(animals.keySet());
+        actors.addAll(pedestrians.keySet());
         collisionDetector = new CollisionDetector(model, mainVehicle, vehicles, animals, pedestrians);
     }
 
 
     public void simulate(Decision decision)
     {
-        collisionDetector.detectCollisionInMoment();
-        // TODO wstrzykiwanie decyzji
-        // TODO update na wszystkich obiektach
+        double currentTime = 0;
+        while (currentTime < MOVING_TIME) {
+            currentTime += TIME_PART;
+            // TODO wstrzykiwanie decyzji
+            //  BasicActionsApplier.CarTurning(mainVehicle, Sunny.class, false);
+            mainVehicle.update(TIME_PART);
+            for (RigidBody actor : actors) {
+                actor.update(TIME_PART);
+                //TODO: IDEA: we can detect every collision here based only on rigidbodies
+                //      and then set get from maps what was hit
+            }
+
+            if (collisionDetector.detectCollisionInMoment()) {
+                System.out.println("Collision in decision " + decision.toString());
+                return;
+            }
+        }
     }
 
 }

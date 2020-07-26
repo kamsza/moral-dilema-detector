@@ -1,5 +1,7 @@
 package DilemmaDetector.Simulator;
 
+import java.util.Objects;
+
 public class Vector2{
     public double x;
     public double y;
@@ -45,5 +47,19 @@ public class Vector2{
         result.x *= other;
         result.y *= other;
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Vector2){
+            return ((Vector2)obj).x == this.x &&
+                    ((Vector2)obj).y == this.y;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
