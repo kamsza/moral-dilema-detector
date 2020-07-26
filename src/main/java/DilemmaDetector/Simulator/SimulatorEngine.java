@@ -8,6 +8,8 @@ import project.Vehicle;
 import project.impl.DefaultDecision;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class SimulatorEngine {
@@ -21,6 +23,9 @@ public class SimulatorEngine {
     private Map<RigidBody, Vehicle> vehicles = new HashMap<>();
     private Map<RigidBody, Animal> animals = new HashMap<>();
     private Map<RigidBody, Pedestrian> pedestrians = new HashMap<>();
+
+    private List<RigidBody> actors = new LinkedList<>();
+    
     private RigidBody mainVehicle;
     private CollisionDetector collisionDetector;
 
@@ -31,12 +36,12 @@ public class SimulatorEngine {
         collisionDetector = new CollisionDetector(model, mainVehicle, vehicles, animals, pedestrians);
     }
 
-    // TODO wstrzykiwanie decyzji
+
     public void simulate(Decision decision)
     {
-        collisionDetector.SetMovingTime(MOVING_TIME);
-        collisionDetector.setTimePart(TIME_PART);
-        collisionDetector.detectCollisionInTime(decision);
+        collisionDetector.detectCollisionInMoment();
+        // TODO wstrzykiwanie decyzji
+        // TODO update na wszystkich obiektach
     }
 
 }

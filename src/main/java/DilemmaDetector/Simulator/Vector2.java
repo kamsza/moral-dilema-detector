@@ -8,7 +8,14 @@ public class Vector2{
         this.y = y;
     }
 
-    static public Vector2 zero = new Vector2(0,0);
+    public Vector2(Vector2 other){
+        this.x = other.x;
+        this.y = other.y;
+    }
+
+    public static Vector2 zero(){
+        return new Vector2(0,0);
+    }
 
     public double getMagnitude(){
         return Math.sqrt(x*x + y*y);
@@ -26,15 +33,17 @@ public class Vector2{
     }
 
     public Vector2 sub(Vector2 other){
-        this.x -= other.x;
+        Vector2 result = new Vector2(x, y);
+        result.x -= other.x;
         this.y -= other.y;
-        return this;
+        return result;
     }
 
 
     public Vector2 mul(double other){
-        this.x *= other;
-        this.y *= other;
-        return this;
+        Vector2 result = new Vector2(x, y);
+        result.x *= other;
+        result.y *= other;
+        return result;
     }
 }
