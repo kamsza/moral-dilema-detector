@@ -6,18 +6,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class Visualization{
+public class Visualization {
     private int width, height;
 
     JFrame frame;
     JPanel background;
 
     private Visualization(Model model) {
-        int panel_height = 200;
-        int bar_height = 100;
+        int panel_height = 190;
+        int bar_height = 80;
+        int scaleHeight = 50;
 
         width = 1000;
-        height = 3*panel_height + bar_height;
+        height = 3 * panel_height + bar_height + scaleHeight;
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,9 +33,11 @@ public class Visualization{
         JPanel road = new RoadPanel(width, panel_height, model.getVehicle());
         JPanel surroundingDown = new SurroundingPanel(width, panel_height, model.getSurrounding().get(Model.Side.RIGHT), SurroundingPos.BOTTOM);
         JPanel bottomBar = new BottomBar(width, bar_height, model);
+        JPanel distanceMeter = new DistanceScale(width, scaleHeight, 15, 5);
 
         background.add(surroundingUp);
         background.add(road);
+        background.add(distanceMeter);
         background.add(surroundingDown);
         background.add(bottomBar);
 
@@ -53,7 +56,7 @@ public class Visualization{
         vs.frame.pack();
         try {
             ImageHandler.saveImage(vs.background);
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println("Unable to create visualization for: " + model.toString());
         } finally {
             vs.frame.dispose();
