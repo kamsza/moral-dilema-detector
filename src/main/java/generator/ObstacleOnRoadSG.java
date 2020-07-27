@@ -20,6 +20,7 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
 
         // create objects
         Surrounding obstacle = getObstacle();
+        obstacle.addDistance(new RandomDistanceGenerator().getRandomDistance());
 
         // add to ontology
         model.getVehicle().addHas_in_the_front(obstacle);

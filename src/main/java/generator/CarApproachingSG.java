@@ -1,6 +1,5 @@
 package generator;
 
-import project.Animal;
 import project.Driver;
 import project.Lane;
 import project.MyFactory;
@@ -27,17 +26,19 @@ public class CarApproachingSG extends BaseScenarioGenerator {
         model.getScenario().addHas_vehicle(vehicle);
         model.getVehicle().addHas_at_the_back(vehicle);
 
+        vehicle.addLength(500F);
+        vehicle.addDistance(new RandomDistanceGenerator().getRandomDistance());
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(model.getRoadType());
         vehicle.addVehicle_has_speed_kmph(80);
         if(model.getLanes().get(Model.Side.RIGHT).isEmpty())
             vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.RIGHT));
-        else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
+//        else
+//            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
         if(model.getLanes().get(Model.Side.LEFT).isEmpty())
             vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.LEFT));
-        else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
+//        else
+//            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
         vehicle.addHas_in_the_front(vehicle);
 
         // add to model

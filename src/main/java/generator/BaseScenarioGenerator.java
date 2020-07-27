@@ -1,20 +1,9 @@
 package generator;
 
-import project.Driver;
-import project.Entity;
-import project.Lane;
-import project.MyFactory;
-import project.Passenger;
-import project.Road_type;
-import project.Scenario;
-import project.Surrounding;
-import project.Time;
-import project.Vehicle;
-import project.Weather;
+import project.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -80,6 +69,8 @@ public class BaseScenarioGenerator {
         Map<Model.Side, Map<Integer, Lane>> lanes = new HashMap<>();
         Map<Lane, ArrayList<Entity>> entities = new HashMap<>();
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
+        Map<Lane, ArrayList<Animal>> animals = new HashMap<>();
+        Map<Lane, ArrayList<Pedestrian>> pedestrians = new HashMap<>();
 
         int lanes_num = rand.nextInt(4) + 1;
         int veh_pos =  rand.nextInt((lanes_num + 1) / 2) ;
@@ -90,6 +81,8 @@ public class BaseScenarioGenerator {
         Lane lane_0 = factory.createLane(ObjectNamer.getName("lane_0"));
         entities.put(lane_0, new ArrayList<Entity>() {});
         vehicles.put(lane_0, new ArrayList<Vehicle>() {});
+        animals.put(lane_0, new ArrayList<Animal>() {});
+        pedestrians.put(lane_0, new ArrayList<Pedestrian>() {});
         lanes.put(Model.Side.CENTER, Map.of(0, lane_0));
 
         Map<Integer, Lane> lanes_right = new HashMap<>();
@@ -126,6 +119,8 @@ public class BaseScenarioGenerator {
         model.setLanes(lanes);
         model.setEntities(entities);
         model.setVehicles(vehicles);
+        model.setAnimals(animals);
+        model.setPedestrians(pedestrians);
     }
 
     private void addSurrounding(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -158,14 +153,16 @@ public class BaseScenarioGenerator {
         // add object properties
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(model.getRoadType());
+        vehicle.addDistance(0F);
+        vehicle.addLength(500F);
         if(model.getLanes().get(Model.Side.RIGHT).isEmpty())
             vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.RIGHT));
-        else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
+//        else
+//            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
         if(model.getLanes().get(Model.Side.LEFT).isEmpty())
             vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.LEFT));
-        else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
+//        else
+//            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
         for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 

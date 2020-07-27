@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import project.MyFactory;
 import project.OWLFactory;
 
 import java.io.File;
@@ -26,7 +27,7 @@ public class VisualizationTest {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
             OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
 
-            OWLFactory factory = new OWLFactory(ontology);
+            MyFactory factory = new MyFactory(ontology);
             String baseIRI = "http://webprotege.stanford.edu/";
 
             BaseScenarioGenerator generator = new AnimalOnRoadSG(factory, baseIRI);
