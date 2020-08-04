@@ -1,4 +1,4 @@
 package commonadapter.interfaces;
 
-public interface ScenarioPedestrian extends ScenarioEntity {
+public interface Pedestrian extends Entity {
 }

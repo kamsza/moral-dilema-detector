@@ -1,6 +1,8 @@
 package commonadapter.interfaces;
 
-public interface ScenarioEntity {
+
+
+public interface Entity {
 
     Float getSpeedX();
     void setSpeedX(Float speedX);

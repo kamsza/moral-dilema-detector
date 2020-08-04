@@ -1,17 +1,14 @@
 package commonadapter.interfaces;
 
-import project.Scenario;
 
-public interface ScenarioBuilder {
+public class OntologyScenarioBuilder {
 
-    Scenario build();
+    project.Scenario buildOntologyScenario(Scenario scenario) {
 
-    ScenarioBuilder addPedestrian(ScenarioPedestrian scenarioPedestrian);
+        // TODO
+        return null;
+    }
 
-    ScenarioBuilder addCyclist(ScenarioCyclist scenarioCyclist);
 
-    ScenarioBuilder addVehicle(ScenarioVehicle scenarioVehicle);
-
-    // possibly more addSomething-methods in the future
 
 }
