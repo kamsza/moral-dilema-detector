@@ -3,7 +3,7 @@ package DilemmaDetector.Simulator;
 import project.*;
 
 public class BasicActionsApplier {
-    final static protected double GRAVITY = 9.81;
+    final static private double GRAVITY = 9.81;
 
     static public void CarBreaking(RigidBody car, Class weatherType){
         double frictionCoefficient = getTireRoadFriction(weatherType);
