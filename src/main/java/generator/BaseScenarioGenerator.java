@@ -2,7 +2,7 @@ package generator;
 
 import project.Driver;
 import project.Lane;
-import project.OWLFactory;
+import project.MyFactory;
 import project.Passenger;
 import project.Road_type;
 import project.Scenario;
@@ -19,11 +19,11 @@ import java.util.Random;
 
 public class BaseScenarioGenerator {
     protected String baseIRI;
-    protected OWLFactory factory;
+    protected MyFactory factory;
     protected Random rand = new Random();
     protected RandomSubclassGenerator subclassGenerator;
 
-    public BaseScenarioGenerator(OWLFactory factory, String baseIRI) {
+    public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
         this.subclassGenerator = new RandomSubclassGenerator(factory);
