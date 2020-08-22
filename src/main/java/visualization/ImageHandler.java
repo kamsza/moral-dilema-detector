@@ -51,6 +51,29 @@ class ImageHandler {
     }
 
     /**
+     * Returns .png image as BufferedImage from resources/img
+     * that has the same name as class of given object
+     * or img/no_image.png if such image don't exists
+     * resize image to match new dimensions - scale
+     * parameter is a percent by which old dimensions should be changed
+     */
+    public static BufferedImage getImage(Object o, double scale) {
+        BufferedImage img = ImageHandler.getImage(o);
+
+        int newHeight = (int)(scale * img.getHeight());
+        int newWidth = (int)(scale * img.getWidth());
+
+        Image tmp = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
+    }
+
+    /**
      * Function exports JPanel as .png image file in format: vis__dd_MM_yyyy__HH_mm_ss
      * (where dd_MM_yyyy__HH_mm_ss is current date and time) to resources/vis_out directory
      */
@@ -66,6 +89,8 @@ class ImageHandler {
         String currentTime = dtf.format(now);
 
         String filePath = currentDirectory + "/src/main/resources/vis_out/vis__" + currentTime + ".png";
-        ImageIO.write(img, "png", new File(filePath));
+        File newFile = new File(filePath);
+        newFile.mkdirs();
+        ImageIO.write(img, "png", newFile);
     }
 }

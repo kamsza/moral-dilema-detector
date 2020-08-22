@@ -6,40 +6,58 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-public class Visualization{
-    private int width, height;
+public class Visualization {
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
+
+    private static final int LANE_HEIGHT = 54;
+    private static final int BOTTOM_BAR_HEIGHT = 150;
+    private static final int DISTANCE_BAR_HEIGHT = 30;
+
+    private int lanesNum;
 
     JFrame frame;
     JPanel background;
 
     private Visualization(Model model) {
-        int panel_height = 200;
-        int bar_height = 100;
-
-        width = 1000;
-        height = 3*panel_height + bar_height;
-
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(width + 16, height + 39);
+        frame.setSize(WIDTH + 16, HEIGHT + 39);
         frame.setResizable(false);
 
         background = new JPanel();
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
-        background.setPreferredSize(new Dimension(width, height));
+        background.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        JPanel surroundingUp = new SurroundingPanel(width, panel_height, model.getSurrounding().get("LEFT"), SurroundingPos.TOP);
-        JPanel road = new RoadPanel(width, panel_height, model.getVehicle());
-        JPanel surroundingDown = new SurroundingPanel(width, panel_height, model.getSurrounding().get("RIGHT"), SurroundingPos.BOTTOM);
-        JPanel bottomBar = new BottomBar(width, bar_height, model);
+        lanesNum = model.getRoadType().getHas_lanes().iterator().next();
+        int roadHeight = lanesNum * LANE_HEIGHT;
+        JPanel road = new RoadPanel(WIDTH, roadHeight, LANE_HEIGHT, model);
+
+        int surroundingHeight = getSurroundingPanelHeight();
+        JPanel surroundingUp = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.LEFT);
+
+        JPanel surroundingDown = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.RIGHT);
+
+        JPanel bottomBar = new BottomBar(WIDTH, BOTTOM_BAR_HEIGHT, model);
+        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT, 25, 5);
 
         background.add(surroundingUp);
         background.add(road);
+        background.add(distanceMeter);
         background.add(surroundingDown);
         background.add(bottomBar);
 
         frame.add(background);
         frame.setVisible(false);
+    }
+
+    private int getSurroundingPanelHeight() {
+        int height = HEIGHT;
+        height -= BOTTOM_BAR_HEIGHT;
+        height -= DISTANCE_BAR_HEIGHT;
+        height -= lanesNum * LANE_HEIGHT;
+        height /= 2;
+        return height;
     }
 
     /**
@@ -53,7 +71,7 @@ public class Visualization{
         vs.frame.pack();
         try {
             ImageHandler.saveImage(vs.background);
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println("Unable to create visualization for: " + model.toString());
         } finally {
             vs.frame.dispose();
