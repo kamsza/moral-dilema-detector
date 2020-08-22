@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -87,8 +89,16 @@ class ImageHandler {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd_MM_yyyy__HH_mm_ss");
         LocalDateTime now = LocalDateTime.now();
         String currentTime = dtf.format(now);
+        String filename = "vis__" + currentTime + ".png";
 
-        String filePath = currentDirectory + "/src/main/resources/vis_out/vis__" + currentTime + ".png";
+        String filePath = currentDirectory + "/src/main/resources/vis_out/" + filename;
+        int counter = 1;
+        while(Files.exists(Paths.get(filePath))) {
+            filename = "vis__" + currentTime + "_" + counter + ".png";
+            filePath = currentDirectory + "/src/main/resources/vis_out/" + filename;
+            counter++;
+        }
+
         File newFile = new File(filePath);
         newFile.mkdirs();
         ImageIO.write(img, "png", newFile);

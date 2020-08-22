@@ -7,12 +7,13 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Visualization {
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
 
-    private static final int LANE_HEIGHT = 54;
-    private static final int BOTTOM_BAR_HEIGHT = 150;
-    private static final int DISTANCE_BAR_HEIGHT = 30;
+    public static final int LANE_HEIGHT = 54;
+    public static final int LANE_DIST = 2500;
+    public static final int BOTTOM_BAR_HEIGHT = 150;
+    public static final int DISTANCE_BAR_HEIGHT = 30;
 
     private int lanesNum;
 
@@ -30,8 +31,7 @@ public class Visualization {
         background.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         lanesNum = model.getRoadType().getHas_lanes().iterator().next();
-        int roadHeight = lanesNum * LANE_HEIGHT;
-        JPanel road = new RoadPanel(WIDTH, roadHeight, LANE_HEIGHT, model);
+        JPanel road = new RoadPanel(lanesNum * LANE_HEIGHT, model);
 
         int surroundingHeight = getSurroundingPanelHeight();
         JPanel surroundingUp = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.LEFT);
@@ -39,7 +39,7 @@ public class Visualization {
         JPanel surroundingDown = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.RIGHT);
 
         JPanel bottomBar = new BottomBar(WIDTH, BOTTOM_BAR_HEIGHT, model);
-        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT, 25, 5);
+        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT, LANE_DIST / 100, 5);
 
         background.add(surroundingUp);
         background.add(road);
