@@ -1,27 +1,37 @@
 package generator;
 
-import project.*;
+import project.Action;
+import project.Decision;
+import project.Driver;
+import project.Entity;
+import project.Lane;
+import project.Living_entity;
+import project.Passenger;
+import project.Road_type;
+import project.Scenario;
+import project.Surrounding;
+import project.Time;
+import project.Vehicle;
+import project.Weather;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Model {
-    public enum Side {LEFT, CENTER, RIGHT};
     private Scenario scenario;
+
     private Weather weather;
     private Time time;
     private Road_type roadType;
     private Driver driver;
     private Vehicle vehicle;
-
     private ArrayList<Passenger> passengers = new ArrayList<>();
     private Map<Side, Surrounding> surrounding = new HashMap<>();
-    private Map<Side, Map<Integer, Lane>> lanes = new HashMap<>();
-    private Map<Lane, ArrayList<Entity>> entities = new HashMap<>();
+    private Map<Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
+    private Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
     private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
-    private Map<Lane, ArrayList<Pedestrian>> pedestrians = new HashMap<>();
-    private Map<Lane, ArrayList<Animal>> animals = new HashMap<>();
     private Map<Decision, Action> actionByDecision = new HashMap<>();
 
     public Scenario getScenario() {
@@ -88,19 +98,19 @@ public class Model {
         this.surrounding = surrounding;
     }
 
-    public Map<Side, Map<Integer, Lane>> getLanes() {
+    public Map<Side, TreeMap<Integer, Lane>> getLanes() {
         return lanes;
     }
 
-    public void setLanes(Map<Side, Map<Integer, Lane>> lanes) {
+    public void setLanes(Map<Side, TreeMap<Integer, Lane>> lanes) {
         this.lanes = lanes;
     }
 
-    public Map<Lane, ArrayList<Entity>> getEntities() {
+    public Map<Lane, ArrayList<Living_entity>> getEntities() {
         return entities;
     }
 
-    public void setEntities(Map<Lane, ArrayList<Entity>> entities) {
+    public void setEntities(Map<Lane, ArrayList<Living_entity>> entities) {
         this.entities = entities;
     }
 
@@ -112,22 +122,6 @@ public class Model {
         this.vehicles = vehicles;
     }
 
-    public Map<Lane, ArrayList<Pedestrian>> getPedestrians() {
-        return pedestrians;
-    }
-
-    public void setPedestrians(Map<Lane, ArrayList<Pedestrian>> pedestrians) {
-        this.pedestrians = pedestrians;
-    }
-
-    public Map<Lane, ArrayList<Animal>> getAnimals() {
-        return animals;
-    }
-
-    public void setAnimals(Map<Lane, ArrayList<Animal>> animals) {
-        this.animals = animals;
-    }
-
     public Map<Decision, Action> getActionByDecision() {
         return actionByDecision;
     }
@@ -135,4 +129,6 @@ public class Model {
     public void setActionByDecision(Map<Decision, Action> actionByDecision) {
         this.actionByDecision = actionByDecision;
     }
+
+    public enum Side {LEFT, CENTER, RIGHT}
 }

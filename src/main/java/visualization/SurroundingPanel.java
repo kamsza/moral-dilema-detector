@@ -1,27 +1,23 @@
 package visualization;
 
+import generator.Model;
 import project.Surrounding;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-
-enum SurroundingPos {
-    TOP,
-    BOTTOM
-}
-
 class SurroundingPanel extends JPanel {
     int width, height;
-    SurroundingPos position;
-    Surrounding surrounding;
+    Model model;
+    Model.Side side;
 
-    SurroundingPanel(int width, int height, Surrounding surrounding, SurroundingPos position) {
+    SurroundingPanel(int width, int height, Model model, Model.Side side) {
         this.width = width;
         this.height = height;
-        this.position = position;
-        this.surrounding = surrounding;
+        this.side = side;
+        this.model = model;
+
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(width, height));
     }
@@ -30,8 +26,10 @@ class SurroundingPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        Surrounding surrounding = model.getSurrounding().get(side);
+
         BufferedImage surrImg = ImageHandler.getImage(surrounding);
-        int imHeight = position == SurroundingPos.BOTTOM ? 20 : height - 20 - surrImg.getHeight();
+        int imHeight = side == Model.Side.RIGHT ? 20 : height - 20 - surrImg.getHeight();
         g.drawImage(surrImg, width/2 - surrImg.getWidth()/2, imHeight, this);
     }
 }

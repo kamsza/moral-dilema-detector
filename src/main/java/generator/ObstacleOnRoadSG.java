@@ -13,6 +13,8 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
+    // TODO
+    /*
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // model
@@ -41,5 +43,5 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
             obstacle = factory.createTree(ObjectNamer.getName("obstacle"));
         return obstacle;
     }
-
+    */
 }

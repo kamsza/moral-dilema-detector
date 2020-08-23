@@ -13,6 +13,8 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
+    //TODO
+    /*
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // model
@@ -42,6 +44,5 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
 
         return model;
     }
-
-
+     */
 }

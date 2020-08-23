@@ -7,33 +7,39 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Visualization {
-    private int width, height;
+    public static final int WIDTH = 1280;
+    public static final int HEIGHT = 720;
+
+    public static final int LANE_HEIGHT = 54;
+    public static final int LANE_DIST = 2500;
+    public static final int BOTTOM_BAR_HEIGHT = 150;
+    public static final int DISTANCE_BAR_HEIGHT = 30;
+
+    private int lanesNum;
 
     JFrame frame;
     JPanel background;
 
     private Visualization(Model model) {
-        int panel_height = 190;
-        int bar_height = 80;
-        int scaleHeight = 50;
-
-        width = 1000;
-        height = 3 * panel_height + bar_height + scaleHeight;
-
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(width + 16, height + 39);
+        frame.setSize(WIDTH + 16, HEIGHT + 39);
         frame.setResizable(false);
 
         background = new JPanel();
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
-        background.setPreferredSize(new Dimension(width, height));
+        background.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        JPanel surroundingUp = new SurroundingPanel(width, panel_height, model.getSurrounding().get(Model.Side.LEFT), SurroundingPos.TOP);
-        JPanel road = new RoadPanel(width, panel_height, model.getVehicle());
-        JPanel surroundingDown = new SurroundingPanel(width, panel_height, model.getSurrounding().get(Model.Side.RIGHT), SurroundingPos.BOTTOM);
-        JPanel bottomBar = new BottomBar(width, bar_height, model);
-        JPanel distanceMeter = new DistanceScale(width, scaleHeight, 15, 5);
+        lanesNum = model.getRoadType().getHas_lanes().iterator().next();
+        JPanel road = new RoadPanel(lanesNum * LANE_HEIGHT, model);
+
+        int surroundingHeight = getSurroundingPanelHeight();
+        JPanel surroundingUp = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.LEFT);
+
+        JPanel surroundingDown = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.RIGHT);
+
+        JPanel bottomBar = new BottomBar(WIDTH, BOTTOM_BAR_HEIGHT, model);
+        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT, LANE_DIST / 100, 5);
 
         background.add(surroundingUp);
         background.add(road);
@@ -43,6 +49,15 @@ public class Visualization {
 
         frame.add(background);
         frame.setVisible(false);
+    }
+
+    private int getSurroundingPanelHeight() {
+        int height = HEIGHT;
+        height -= BOTTOM_BAR_HEIGHT;
+        height -= DISTANCE_BAR_HEIGHT;
+        height -= lanesNum * LANE_HEIGHT;
+        height /= 2;
+        return height;
     }
 
     /**

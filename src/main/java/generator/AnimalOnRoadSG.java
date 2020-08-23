@@ -12,6 +12,8 @@ public class AnimalOnRoadSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
+    // TODO
+    /*
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // model
@@ -26,8 +28,9 @@ public class AnimalOnRoadSG extends BaseScenarioGenerator {
 
         // add to model
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
-        model.getAnimals().get(lane).add(animal);
+        model.getEntities().get(lane).add(animal);
 
         return model;
     }
+    */
 }
