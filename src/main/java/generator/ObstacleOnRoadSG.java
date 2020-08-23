@@ -1,5 +1,6 @@
 package generator;
 
+import project.Lane;
 import project.MyFactory;
 import project.Surrounding;
 
@@ -12,13 +13,23 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
+    // TODO
+    /*
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        // model
         Model model = super.generate();
 
+        // create objects
         Surrounding obstacle = getObstacle();
+        obstacle.addDistance(new RandomDistanceGenerator().getRandomDistance());
 
+        // add to ontology
         model.getVehicle().addHas_in_the_front(obstacle);
+
+        // add to model
+        Lane lane  = model.getLanes().get(Model.Side.CENTER).get(0);
+        model.getEntities().get(lane).add(obstacle);
 
         return model;
     }
@@ -32,5 +43,5 @@ public class ObstacleOnRoadSG extends BaseScenarioGenerator {
             obstacle = factory.createTree(ObjectNamer.getName("obstacle"));
         return obstacle;
     }
-
+    */
 }

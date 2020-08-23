@@ -1121,7 +1121,7 @@
     <!-- http://webprotege.stanford.edu/bar_on_road -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/bar_on_road">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bar_on_road</rdfs:label>
     </owl:Class>
     
@@ -1150,6 +1150,15 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/based_on_type_of_road">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/speed_limit"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">based_on_type_of_road</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/between_lanes -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/between_lanes">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:label>between_lanes</rdfs:label>
     </owl:Class>
     
 
@@ -1202,7 +1211,7 @@
     <!-- http://webprotege.stanford.edu/bushes -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/bushes">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bushes</rdfs:label>
     </owl:Class>
     
@@ -1250,7 +1259,7 @@
     <!-- http://webprotege.stanford.edu/central_nature_strip -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/central_nature_strip">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/between_lanes"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">central_nature_strip</rdfs:label>
     </owl:Class>
     
@@ -1364,7 +1373,7 @@
     <!-- http://webprotege.stanford.edu/cycling_path -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/cycling_path">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cycling_path</rdfs:label>
     </owl:Class>
     
@@ -1409,7 +1418,7 @@
     <!-- http://webprotege.stanford.edu/ditch -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/ditch">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ditch</rdfs:label>
     </owl:Class>
     
@@ -1483,7 +1492,7 @@
     <!-- http://webprotege.stanford.edu/emergency_lane -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/emergency_lane">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/trash"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">emergency_lane</rdfs:label>
     </owl:Class>
     
@@ -1528,7 +1537,7 @@
     <!-- http://webprotege.stanford.edu/field -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/field">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">field</rdfs:label>
     </owl:Class>
     
@@ -1573,7 +1582,7 @@
     <!-- http://webprotege.stanford.edu/forest -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/forest">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">forest</rdfs:label>
     </owl:Class>
     
@@ -1859,7 +1868,7 @@
     <!-- http://webprotege.stanford.edu/noise_barrier -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/noise_barrier">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">noise_barrier</rdfs:label>
     </owl:Class>
     
@@ -1870,6 +1879,15 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/non_living_entity">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">non_living_entity</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/on_the_lane -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/on_the_lane">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:label>on_the_lane</rdfs:label>
     </owl:Class>
     
 
@@ -1888,6 +1906,15 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/on_the_right">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/preposition"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on_the_right</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/on_the_side -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/on_the_side">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:label>on_the_side</rdfs:label>
     </owl:Class>
     
 
@@ -1967,7 +1994,7 @@
     <!-- http://webprotege.stanford.edu/pavement -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/pavement">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pavement</rdfs:label>
     </owl:Class>
     
@@ -2004,7 +2031,7 @@
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/pedestrian_crossing">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/legal_pedestrian_crossings"/>
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pedestrian_crossing</rdfs:label>
     </owl:Class>
     
@@ -2097,7 +2124,7 @@
     <!-- http://webprotege.stanford.edu/railway -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/railway">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">railway</rdfs:label>
     </owl:Class>
     
@@ -2160,7 +2187,7 @@
     <!-- http://webprotege.stanford.edu/road_sign_post -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/road_sign_post">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">road_sign_post</rdfs:label>
     </owl:Class>
     
@@ -2187,7 +2214,8 @@
     <!-- http://webprotege.stanford.edu/rock -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/rock">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rock</rdfs:label>
     </owl:Class>
     
@@ -2255,7 +2283,7 @@
     <!-- http://webprotege.stanford.edu/security_side_barrier -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/security_side_barrier">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">security_side_barrier</rdfs:label>
     </owl:Class>
     
@@ -2327,7 +2355,7 @@
     <!-- http://webprotege.stanford.edu/speed_bump -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/speed_bump">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">speed_bump</rdfs:label>
     </owl:Class>
     
@@ -2399,7 +2427,7 @@
     <!-- http://webprotege.stanford.edu/street_lamp -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/street_lamp">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">street_lamp</rdfs:label>
     </owl:Class>
     
@@ -2408,7 +2436,7 @@
     <!-- http://webprotege.stanford.edu/street_tidy -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/street_tidy">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">street_tidy</rdfs:label>
     </owl:Class>
     
@@ -2525,7 +2553,7 @@
     <!-- http://webprotege.stanford.edu/traffic_island -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/traffic_island">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/between_lanes"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">traffic_island</rdfs:label>
     </owl:Class>
     
@@ -2576,7 +2604,7 @@
     <!-- http://webprotege.stanford.edu/tree -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/tree">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tree</rdfs:label>
     </owl:Class>
     
@@ -2729,7 +2757,7 @@
     <!-- http://webprotege.stanford.edu/wall -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/wall">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">wall</rdfs:label>
     </owl:Class>
     
@@ -2766,7 +2794,7 @@
     <!-- http://webprotege.stanford.edu/cliff/edge -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/cliff/edge">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">edge</rdfs:label>
     </owl:Class>
     
@@ -2804,7 +2832,9 @@
 
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane -->
 
-    <owl:Class rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    <owl:Class rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+    </owl:Class>
     
 
 
