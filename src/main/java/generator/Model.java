@@ -6,6 +6,7 @@ import project.Driver;
 import project.Entity;
 import project.Lane;
 import project.Living_entity;
+import project.Non_living_entity;
 import project.Passenger;
 import project.Road_type;
 import project.Scenario;
@@ -31,6 +32,7 @@ public class Model {
     private Map<Side, Surrounding> surrounding = new HashMap<>();
     private Map<Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
     private Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
+    private Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
     private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
     private Map<Decision, Action> actionByDecision = new HashMap<>();
 
@@ -112,6 +114,14 @@ public class Model {
 
     public void setEntities(Map<Lane, ArrayList<Living_entity>> entities) {
         this.entities = entities;
+    }
+
+    public Map<Lane, ArrayList<Non_living_entity>> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Map<Lane, ArrayList<Non_living_entity>> objects) {
+        this.objects = objects;
     }
 
     public Map<Lane, ArrayList<Vehicle>> getVehicles() {

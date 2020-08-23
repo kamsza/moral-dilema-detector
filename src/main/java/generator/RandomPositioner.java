@@ -40,7 +40,11 @@ public class RandomPositioner {
         return lane;
     }
 
-    public int getRandomDistance(Model model, Lane lane, float interval) {
+    public float getRandomDistance() {
+        return (float) rand.nextInt(maxDist);
+    }
+
+    public float getRandomDistance(Model model, Lane lane, float interval) {
         int distance = rand.nextInt(maxDist);
         int startDistance = distance;
 
@@ -63,7 +67,7 @@ public class RandomPositioner {
                 distance = distance - 2 * maxDist;
             }
         }
-        return distance;
+        return (float) distance;
     }
 
     private <E extends Entity> boolean hasCollision(List<E> objectsOnLane, int distance, float objectSize) {

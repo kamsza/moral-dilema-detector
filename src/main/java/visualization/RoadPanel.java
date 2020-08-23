@@ -4,6 +4,7 @@ import generator.Model;
 import project.Entity;
 import project.Lane;
 import project.Living_entity;
+import project.Non_living_entity;
 import project.Vehicle;
 
 import javax.swing.*;
@@ -61,12 +62,7 @@ class RoadPanel extends JPanel {
         Lane mainLane = model.getLanes().get(Model.Side.CENTER).get(0);
         int Y = MAIN_VEHICLE_LANE * LANE_HEIGHT;
 
-        ArrayList<Vehicle> vehicles = model.getVehicles().get(mainLane);
-        drawVehicles(g, vehicles, Y);
-
-        ArrayList<Living_entity> entities = model.getEntities().get(mainLane);
-        drawEntities(g, entities, Y);
-
+        drawObjectsOnLane(g, mainLane, Y);
         drawMainCar(g, Y);
     }
 
@@ -82,12 +78,7 @@ class RoadPanel extends JPanel {
         int Y = (MAIN_VEHICLE_LANE - 1) * LANE_HEIGHT;
 
         for (Lane lane : lanes.values()) {
-            ArrayList<Vehicle> vehicles = model.getVehicles().get(lane);
-            drawVehicles(g, vehicles, Y);
-
-            ArrayList<Living_entity> entities = model.getEntities().get(lane);
-            drawEntities(g, entities, Y);
-
+            drawObjectsOnLane(g, lane, Y);
             Y -= LANE_HEIGHT;
         }
     }
@@ -97,17 +88,23 @@ class RoadPanel extends JPanel {
         int Y = (MAIN_VEHICLE_LANE + 1) * LANE_HEIGHT;
 
         for (Lane lane : lanes.values()) {
-            ArrayList<Vehicle> vehicles = model.getVehicles().get(lane);
-            drawVehicles(g, vehicles, Y);
-
-            ArrayList<Living_entity> entities = model.getEntities().get(lane);
-            drawEntities(g, entities, Y);
-
+            drawObjectsOnLane(g, lane, Y);
             Y += LANE_HEIGHT;
         }
     }
 
-    private void drawVehicles(Graphics g, List<Vehicle> vehicles, int Y) {
+    private void drawObjectsOnLane(Graphics g, Lane lane, int Y) {
+        ArrayList<Non_living_entity> objects = model.getObjects().get(lane);
+        drawObjects(g, objects, Y);
+
+        ArrayList<Living_entity> entities = model.getEntities().get(lane);
+        drawEntities(g, entities, Y);
+
+        ArrayList<Vehicle> vehicles = model.getVehicles().get(lane);
+        drawVehicles(g, vehicles, Y);
+    }
+
+    private <V extends Vehicle> void drawVehicles(Graphics g, List<V> vehicles, int Y) {
         for (Vehicle vehicle : vehicles) {
             BufferedImage img;
             if (vehicle.getSpeedY().iterator().next() > 0)
@@ -121,10 +118,20 @@ class RoadPanel extends JPanel {
         }
     }
 
-    private void drawEntities(Graphics g, List<Living_entity> entities, int Y) {
+    private <E extends Living_entity> void drawEntities(Graphics g, List<E> entities, int Y) {
         for (Entity entity : entities) {
             BufferedImage img = ImageHandler.getImage(entity);
             float distance = entity.getDistance().iterator().next();
+            int x = (int) ((WIDTH - img.getWidth()) / 2 + distance * SCALE);
+            int y = Y + (LANE_HEIGHT - img.getHeight()) / 2;
+            g.drawImage(img, x, y, this);
+        }
+    }
+
+    private <E extends Non_living_entity> void drawObjects(Graphics g, List<E> objects, int Y) {
+        for (Entity object : objects) {
+            BufferedImage img = ImageHandler.getImage(object);
+            float distance = object.getDistance().iterator().next();
             int x = (int) ((WIDTH - img.getWidth()) / 2 + distance * SCALE);
             int y = Y + (LANE_HEIGHT - img.getHeight()) / 2;
             g.drawImage(img, x, y, this);

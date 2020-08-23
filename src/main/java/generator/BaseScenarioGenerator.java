@@ -5,6 +5,9 @@ import project.Driver;
 import project.Lane;
 import project.Living_entity;
 import project.MyFactory;
+import project.Non_living_entity;
+import project.On_the_lane;
+import project.On_the_road;
 import project.Passenger;
 import project.Road_type;
 import project.Scenario;
@@ -30,6 +33,8 @@ public class BaseScenarioGenerator {
 
     private int lanesCount;
     private int mainVehicleLaneId;
+    private int lanesMovingLeftCount;
+    int lanesMovingRightCount;
 
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
@@ -51,7 +56,9 @@ public class BaseScenarioGenerator {
         addRoad(model);
         addEnvData(model);
         addSurrounding(model);
+        addObjectOnRoad(model);
         addMainVehicle(model);
+        addObjectsOnLane(model);
         addVehicles(model);
         addAnimals(model);
 
@@ -75,10 +82,13 @@ public class BaseScenarioGenerator {
     private void addRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Map<Model.Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
         Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
+        Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
         lanesCount = rand.nextInt(4) + 1;
         mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1) / 2);
+        lanesMovingLeftCount = Math.min(mainVehicleLaneId, 1 + rand.nextInt((lanesCount + 1) / 2));
+        lanesMovingRightCount = lanesCount - lanesMovingLeftCount;
 
         // create objects
         Road_type roadType = subclassGenerator.generateRoadTypeSubclass(ObjectNamer.getName("road_type"));
@@ -86,29 +96,30 @@ public class BaseScenarioGenerator {
         // main lane
         Lane lane_0 = factory.createLane(ObjectNamer.getName("lane_0"));
         entities.put(lane_0, new ArrayList<Living_entity>() {});
+        objects.put(lane_0, new ArrayList<Non_living_entity>() {});
         vehicles.put(lane_0, new ArrayList<Vehicle>() {});
         TreeMap<Integer, Lane> lane_center = new TreeMap<>() {{ put(0, lane_0); }};
         lanes.put(Model.Side.CENTER, lane_center);
 
         // right lanes
         TreeMap<Integer, Lane> lanes_right = new TreeMap<>();
-        for (int i = 1; i < lanesCount - mainVehicleLaneId; i++) {
+        for (int i = 1; i <= lanesMovingRightCount; i++) {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_right_" + i));
             lanes_right.put(i, lane);
             entities.put(lane, new ArrayList<Living_entity>() {});
+            objects.put(lane, new ArrayList<Non_living_entity>() {});
             vehicles.put(lane, new ArrayList<Vehicle>() {});
         }
         lanes.put(Model.Side.RIGHT, lanes_right);
 
         // left lanes
         TreeMap<Integer, Lane> lanes_left = new TreeMap<>();
-        for (int i = 1; i <= mainVehicleLaneId; i++) {
+        for (int i = 1; i <= lanesMovingLeftCount; i++) {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_left_" + i));
             lanes_left.put(i, lane);
-            entities.put(lane, new ArrayList<Living_entity>() {
-            });
-            vehicles.put(lane, new ArrayList<Vehicle>() {
-            });
+            entities.put(lane, new ArrayList<Living_entity>() {});
+            objects.put(lane, new ArrayList<Non_living_entity>() {});
+            vehicles.put(lane, new ArrayList<Vehicle>() {});
         }
         lanes.put(Model.Side.LEFT, lanes_left);
 
@@ -126,6 +137,7 @@ public class BaseScenarioGenerator {
         model.setRoadType(roadType);
         model.setLanes(lanes);
         model.setEntities(entities);
+        model.setObjects(objects);
         model.setVehicles(vehicles);
     }
 
@@ -140,6 +152,45 @@ public class BaseScenarioGenerator {
 
         // add to model
         model.setSurrounding(surrounding);
+    }
+
+    private void addObjectOnRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        boolean exists = rand.nextBoolean();
+
+        if(!exists)
+            return;
+
+        On_the_road object = subclassGenerator.generateSurroundingOnRoadSubclass(ObjectNamer.getName("surrounding"));
+
+        float distance = randomPositioner.getRandomDistance();
+        object.addDistance(distance);
+
+        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
+            model.getObjects().get(lane.getValue()).add(object);
+
+        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
+            model.getObjects().get(lane.getValue()).add(object);
+
+        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
+            model.getObjects().get(lane.getValue()).add(object);
+    }
+
+    private void addObjectsOnLane(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        int objectsCount = rand.nextInt(3);
+        for(int i = 0; i < objectsCount; i++) {
+            On_the_lane object = subclassGenerator.generateSurroundingOnLaneSubclass(ObjectNamer.getName("surrounding"));
+
+            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            Lane lane = randomPositioner.getLane(model, laneNo);
+            float distance = randomPositioner.getRandomDistance(model, lane, 20F);
+
+            object.addDistance(distance);
+            object.addLength(20F);
+            object.addWidth(50F);
+
+            // add to model
+            model.getObjects().get(lane).add(object);
+        }
     }
 
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -184,8 +235,6 @@ public class BaseScenarioGenerator {
     }
 
     private void addVehicles(Model model) {
-        int lanesMovingRightCount = Math.max(lanesCount - mainVehicleLaneId, rand.nextInt((lanesCount+1)/2));
-        int lanesMovingLeftCount = lanesCount - lanesMovingRightCount;
         int vehiclesCount = rand.nextInt(2*lanesCount);
         float vehicleLength = 500F;
 

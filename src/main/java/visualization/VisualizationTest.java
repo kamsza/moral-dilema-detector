@@ -31,7 +31,7 @@ public class VisualizationTest {
         String baseIRI = "http://webprotege.stanford.edu/";
 
         BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 50; i++) {
             Model model = generator.generate();
             Visualization.getImage(model);
         }

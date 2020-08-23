@@ -93,6 +93,22 @@ public class RandomSubclassGenerator {
         return generateSubclass(DefaultOn_the_side.class, Vocabulary.CLASS_ON_THE_SIDE, iriName);
     }
 
+    public On_the_road generateSurroundingOnRoadSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        return generateSurroundingOnRoadSubclass("surrounding");
+    }
+
+    public On_the_road generateSurroundingOnRoadSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        return generateSubclass(DefaultOn_the_road.class, Vocabulary.CLASS_ON_THE_ROAD, iriName);
+    }
+
+    public On_the_lane generateSurroundingOnLaneSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        return generateSurroundingOnLaneSubclass("surrounding");
+    }
+
+    public On_the_lane generateSurroundingOnLaneSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        return generateSubclass(DefaultOn_the_lane.class, Vocabulary.CLASS_ON_THE_LANE, iriName);
+    }
+
     public Passenger generatePassengerSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         return generatePassengerSubclass("passenger");
     }
