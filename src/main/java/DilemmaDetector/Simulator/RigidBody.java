@@ -64,11 +64,11 @@ public class RigidBody {
 
     private void updatePosition(double deltaTime) {
         //s = v0*t + at^2/2
-        speed.mul(deltaTime).add(new Vector2(acceleration).mul(deltaTime * deltaTime).mul(0.5));
+        this.position = position.add(speed.mul(deltaTime).add(new Vector2(acceleration).mul(deltaTime * deltaTime).mul(0.5)));
     };
 
     private void updateSpeed(double deltaTime) {
-        speed.add(new Vector2(acceleration).mul(deltaTime));
+        this.speed = speed.add(new Vector2(acceleration).mul(deltaTime));
     };
 
     @Override
