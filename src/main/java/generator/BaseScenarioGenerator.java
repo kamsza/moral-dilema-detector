@@ -158,16 +158,16 @@ public class BaseScenarioGenerator {
         // add object properties
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(model.getRoadType());
-//        if(model.getLanes().get(Model.Side.RIGHT).isEmpty())
-//            vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.RIGHT));
-//        else
-//            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
-//        if(model.getLanes().get(Model.Side.LEFT).isEmpty())
-//            vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.LEFT));
-//        else
-//            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
-//        for (Passenger passenger : passengers)
-//            vehicle.addVehicle_has_passenger(passenger);
+        if(model.getLanes().get(Model.Side.RIGHT).isEmpty())
+            vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.RIGHT));
+        else
+            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
+        if(model.getLanes().get(Model.Side.LEFT).isEmpty())
+            vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.LEFT));
+        else
+            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
+        for (Passenger passenger : passengers)
+            vehicle.addVehicle_has_passenger(passenger);
 
         // add data properties
         vehicle.addVehicle_has_speed_kmph(70);
