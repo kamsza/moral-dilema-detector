@@ -90,7 +90,7 @@ public class RandomSubclassGenerator {
     }
 
     public Surrounding generateSurroundingSubclass(String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return generateSubclass(DefaultSurrounding.class, Vocabulary.CLASS_SURROUNDING, iriName);
+        return generateSubclass(DefaultOn_the_side.class, Vocabulary.CLASS_ON_THE_SIDE, iriName);
     }
 
     public Passenger generatePassengerSubclass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {

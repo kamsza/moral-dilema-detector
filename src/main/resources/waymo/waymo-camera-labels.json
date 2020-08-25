@@ -1,0 +1,217 @@
+[
+    {
+        "name": "FRONT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 1875.489705,
+                    "centerY": 821.69859,
+                    "width": 262.10984999999994,
+                    "length": 89.02059000000008
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "2b47a269-226d-4cde-b880-8f100246c1f5"
+            },
+            {
+                "box": {
+                    "centerX": 479.37681,
+                    "centerY": 610.11594,
+                    "width": 22.10564999999997,
+                    "length": 14.526569999999992
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "32757d94-8ccb-495b-9a48-d94f39bfe144"
+            },
+            {
+                "box": {
+                    "centerX": 1558.7641200000003,
+                    "centerY": 737.6971199999998,
+                    "width": 164.21339999999998,
+                    "length": 189.4770000000001
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "4a0a0cee-899a-4d10-958b-993fbdf199bd"
+            },
+            {
+                "box": {
+                    "centerX": 497.6929200000001,
+                    "centerY": 626.53728,
+                    "width": 32.84267999999997,
+                    "length": 22.105650000000026
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "76fa5c40-aed9-4594-bce1-4362fe68036c"
+            },
+            {
+                "box": {
+                    "centerX": 57.3167925,
+                    "centerY": 634.11636,
+                    "width": 107.37030000000004,
+                    "length": 114.633585
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "d6091cc6-c818-49a0-871a-e9f53f6db4fe"
+            }
+        ]
+    },
+    {
+        "name": "FRONT_LEFT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 336.7953675,
+                    "centerY": 577.2732599999999,
+                    "width": 335.37429,
+                    "length": 673.590735
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "10d93724-e520-4bca-8972-b98febdf5183"
+            },
+            {
+                "box": {
+                    "centerX": 1509.5000999999997,
+                    "centerY": 610.1159399999999,
+                    "width": 167.37135,
+                    "length": 603.8000399999999
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "56fe2495-f934-4bcb-ba4e-09fe0b3e7a1d"
+            }
+        ]
+    },
+    {
+        "name": "SIDE_LEFT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 1693.1180924999999,
+                    "centerY": 169.4240175,
+                    "width": 338.848035,
+                    "length": 453.76381500000025
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "e0edf55f-bb70-4613-bea1-852ea0c24aaf"
+            }
+        ]
+    },
+    {
+        "name": "FRONT_RIGHT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 297.47889,
+                    "centerY": 823.59336,
+                    "width": 264.00461999999993,
+                    "length": 322.74249
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "6520bd43-1d37-41d4-88b2-77a70ae9882b"
+            },
+            {
+                "box": {
+                    "centerX": 270.9518637660819,
+                    "centerY": 685.2751499999999,
+                    "width": 43.57970999999998,
+                    "length": 34.737449999999995
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "694842f7-48be-40c1-a6f6-447f3c67eb7c"
+            },
+            {
+                "box": {
+                    "centerX": 1548.02709,
+                    "centerY": 770.5398,
+                    "width": 116.84415000000001,
+                    "length": 113.05460999999991
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "8b18eb6b-6133-4f30-9572-b5d0be48ffaf"
+            },
+            {
+                "box": {
+                    "centerX": 1044.64986,
+                    "centerY": 998.54379,
+                    "width": 541.2726299999999,
+                    "length": 142.10775000000012
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "8e19fa2c-5cf3-4e9e-9c2c-a137fbd31536"
+            },
+            {
+                "box": {
+                    "centerX": 373.90128000000004,
+                    "centerY": 694.1174099999998,
+                    "width": 27.15836999999999,
+                    "length": 40.421760000000006
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "9e94e442-22ac-4324-8e0e-43056474e2ea"
+            },
+            {
+                "box": {
+                    "centerX": 236.84625,
+                    "centerY": 687.1699199999999,
+                    "width": 32.84267999999997,
+                    "length": 30.947910000000007
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "aa27d7ed-990d-4d2c-9818-fd37c4afeafa"
+            },
+            {
+                "box": {
+                    "centerX": 1644.6603599999999,
+                    "centerY": 781.90842,
+                    "width": 116.84415000000001,
+                    "length": 102.31757999999991
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "e0486eed-6f17-4161-8eec-52694e46c448"
+            },
+            {
+                "box": {
+                    "centerX": 1860.03255,
+                    "centerY": 845.6990099999999,
+                    "width": 154.73955,
+                    "length": 116.8441499999999
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "ed463039-fed3-48eb-a3fa-bdeb4e163c87"
+            },
+            {
+                "box": {
+                    "centerX": 1539.483825,
+                    "centerY": 1054.1651425,
+                    "width": 451.6697150000001,
+                    "length": 761.03235
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "f7d17280-6e78-459c-b7cb-56ccf5f4181b"
+            }
+        ]
+    },
+    {
+        "name": "SIDE_RIGHT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 150.7921125,
+                    "centerY": 680.793635,
+                    "width": 410.41273,
+                    "length": 301.584225
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "8d6aa626-8d43-43de-ba7e-339a5a2d391f"
+            },
+            {
+                "box": {
+                    "centerX": 159.16067999999996,
+                    "centerY": 480.63999,
+                    "width": 185.68745999999993,
+                    "length": 161.68703999999997
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "9480bef8-7b99-43fe-8d75-fcc1b713eec8"
+            }
+        ]
+    }
+]
