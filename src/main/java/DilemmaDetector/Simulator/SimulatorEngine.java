@@ -14,7 +14,7 @@ public class SimulatorEngine {
     //3 seconds lasts each period when we check moves of all entities in model
     private static final double MOVING_TIME = 3.0;
     //each TIME_PART we check if there is a collision between main vehicle and some different entity
-    private static final double TIME_PART = 0.1;
+    private static final double TIME_PART = 0.01;
 
     private Model model;
 
@@ -36,6 +36,11 @@ public class SimulatorEngine {
         double currentTime = 0;
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;
+            if(decision instanceof Turn_left){ //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
+            }else if(decision instanceof Turn_right){ //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
+            }else if(decision instanceof Follow){} //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
             // TODO wstrzykiwanie decyzji
             //  BasicActionsApplier.CarTurning(mainVehicle, Sunny.class, false);
             mainVehicle.getRigidBody().update(TIME_PART);
