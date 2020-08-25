@@ -1,20 +1,22 @@
 package DilemmaDetector.Simulator.Test;
 
-import DilemmaDetector.Simulator.ActionsApplierWithMemory;
-import DilemmaDetector.Simulator.BasicActionsApplier;
+import DilemmaDetector.Simulator.ChangeLaneActionApplier;
 import DilemmaDetector.Simulator.RigidBody;
 import DilemmaDetector.Simulator.Vector2;
 import project.Sunny;
 
-import java.time.format.DecimalStyle;
-
 public class DecisionTester {
     private RigidBody car = new RigidBody();
-    private ActionsApplierWithMemory actionsApplier= new ActionsApplierWithMemory();
+    private ChangeLaneActionApplier actionsApplier= new ChangeLaneActionApplier();
 
     private void everyTickAction(double deltaTime){
         car.update(deltaTime);
-        System.out.println("Pos: " + car.getPosition() + " | Speed: " + car.getSpeed() + " = " + car.getSpeed().getMagnitude() + " | Acc: " + car.getAcceleration());
+        System.out.println(
+                "Pos: " + car.getPosition() +
+                " | PrevPos: " + car.getPreviousPosition() +
+                " | Speed: " + car.getSpeed() +
+                " = " + car.getSpeed().getMagnitude() +
+                " | Acc: " + car.getAcceleration());
     }
 
     private void testChangeLane(){
@@ -23,7 +25,7 @@ public class DecisionTester {
         car.setPosition(Vector2.zero());
         car.setAcceleration(Vector2.zero());
 
-        double TIME_PART = 0.1;
+        double TIME_PART = 0.01;
 
         System.out.println("Changing lane from 0 to 100 coord Y");
 

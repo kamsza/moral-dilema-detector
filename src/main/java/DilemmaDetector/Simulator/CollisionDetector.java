@@ -1,85 +1,51 @@
 package DilemmaDetector.Simulator;
 
-import generator.Model;
-import project.*;
-
-
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CollisionDetector {
 
-    private Model model;
-    private Map<RigidBody, Vehicle> vehicles;
-    private Map<RigidBody, Animal> animals;
-    private Map<RigidBody, Pedestrian> pedestrians;
-    private RigidBody mainVehicle;
+    private List<Actor> actors;
+    private Actor mainVehicle;
 
-    public CollisionDetector(Model model,
-                             RigidBody mainVehicle,
-                             Map<RigidBody, Vehicle> vehicles,
-                             Map<RigidBody, Animal> animals,
-                             Map<RigidBody, Pedestrian> pedestrians) {
-        this.model = model;
+    public CollisionDetector(Actor mainVehicle,
+                             List<Actor> actors) {
         this.mainVehicle = mainVehicle;
-        this.vehicles = vehicles;
-        this.animals = animals;
-        this.pedestrians = pedestrians;
+        this.actors = actors;
     }
 
-    public boolean detectCollisionInMoment() {
-        if (!vehicles.isEmpty()) {
-            for (Map.Entry<RigidBody, Vehicle> entry : vehicles.entrySet()) {
-                if (detectCollisionWithVehicleInMoment(entry.getKey(), entry.getValue(), Vector2.zero()))
-                    return true;
-            }
-        }
-        if (!animals.isEmpty()) {
-            for (Map.Entry<RigidBody, Animal> entry : animals.entrySet()) {
-                if (detectCollisionWithAnimalInMoment(entry.getKey(), entry.getValue(), Vector2.zero()))
-                    return true;
-            }
+    public List<Actor> detectCollisionInMoment() {
+        List<Actor> collidedActors = new LinkedList<>();
+        for (Actor entry : actors) {
+            if (detectCollisionWithRigidbodyInMoment(entry.getRigidBody()))
+                collidedActors.add(entry);
         }
 
-        if (!pedestrians.isEmpty()) {
-            for (Map.Entry<RigidBody, Pedestrian> entry : pedestrians.entrySet()) {
-                if (detectCollisionWithPedestrianInMoment(entry.getKey(), entry.getValue(), Vector2.zero()))
-                    return true;
-            }
-        }
-        return false;
+        return collidedActors;
     }
 
-    public boolean detectCollisionWithVehicleInMoment(RigidBody rigidBody, Vehicle vehicle, Vector2 previousPosition) {
-        //TODO: is previous position needed?
-        //TODO: if it is, the whole call chain needs to be refactored
+
+    public boolean detectCollisionWithRigidbodyInMoment(RigidBody rigidBody) {
         boolean isCollision = false;
-        Double vehicleWidth = RigidBodyMapper.getProperty(vehicle, "width");
-        if (rigidBody.getPosition().y < 0 && previousPosition.y > 0 &&
-                rigidBody.getPosition().x + previousPosition.x < (vehicleWidth + mainVehicle.getWidth()) / 2) {
+        double vehicleWidth = rigidBody.getWidth();
+        double vehicleLength = rigidBody.getLength();
+        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
+        if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
             isCollision = true;
         }
         return isCollision;
     }
 
-    public boolean detectCollisionWithAnimalInMoment(RigidBody rigidBody, Animal animal, Vector2 previousPosition) {
-        boolean isCollision = false;
-        Double vehicleWidth = RigidBodyMapper.getProperty(animal, "width");
-        if (rigidBody.getPosition().y < 0 && previousPosition.y > 0 &&
-                rigidBody.getPosition().x + previousPosition.x < (vehicleWidth + mainVehicle.getWidth()) / 2) {
-            isCollision = true;
-        }
-        return isCollision;
+    /*
+    Returns distance between centres of rigidBodies as Vector2
+     */
+    private Vector2 getDistanceBetweenRigidBodies(RigidBody mainVehicle, RigidBody rigidBody) {
+        double xDistance = Math.abs(rigidBody.getPosition().x - mainVehicle.getPosition().x);
+        double yDistance = Math.abs(rigidBody.getPosition().y - mainVehicle.getPosition().y);
+        return new Vector2(xDistance, yDistance);
     }
 
-    public boolean detectCollisionWithPedestrianInMoment(RigidBody rigidBody, Pedestrian pedestrian, Vector2 previousPosition) {
-        boolean isCollision = false;
-        Double vehicleWidth = RigidBodyMapper.getProperty(pedestrian, "width");
-        if (rigidBody.getPosition().y < 0 && previousPosition.y > 0 &&
-                rigidBody.getPosition().x + previousPosition.x < (vehicleWidth + mainVehicle.getWidth()) / 2) {
-            isCollision = true;
-        }
-        return isCollision;
-    }
 
 }
 

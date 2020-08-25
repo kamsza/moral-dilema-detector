@@ -3,9 +3,7 @@ package DilemmaDetector.Simulator;
 import generator.Model;
 import project.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class RigidBodyMapper {
 
@@ -13,35 +11,33 @@ public class RigidBodyMapper {
     public static final int LANE_WIDTH = 300;
 
 
-    public static void createRigidBodies(Model model, Map<RigidBody, Vehicle> vehicles, Map<RigidBody, Animal> animals, Map<RigidBody, Pedestrian> pedestrians) {
+    public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
         Map<Lane, ArrayList<Animal>> animalMap = model.getAnimals();
         Map<Lane, ArrayList<Pedestrian>> pedestrianMap = model.getPedestrians();
 
-        Iterator<Map.Entry<Model.Side, Map<Integer, Lane>>> iterator = model.getLanes().entrySet().iterator();
+        List<Actor> result = new LinkedList<>();
 
-        while (iterator.hasNext()) {
-            Map.Entry<Model.Side, Map<Integer, Lane>> parentPair = iterator.next();
+        for (Map.Entry<Model.Side, Map<Integer, Lane>> parentPair : model.getLanes().entrySet()) {
             Model.Side side = parentPair.getKey();
-            Iterator<Map.Entry<Integer, Lane>> child = (parentPair.getValue()).entrySet().iterator();
-            while (child.hasNext()) {
-                Map.Entry childPair = child.next();
-                Integer number = (Integer) childPair.getKey();
+            for (Map.Entry childPair : (parentPair.getValue()).entrySet()) {
+                Integer laneNumber = (Integer) childPair.getKey();
                 Lane lane = (Lane) childPair.getValue();
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForVehicle(vehicle, side, lane, number);
-                    vehicles.put(rigidBody, vehicle);
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForVehicle(vehicle, side, lane, laneNumber);
+                    result.add(new Actor(vehicle, rigidBody));
                 }
                 for (Animal animal : animalMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForAnimal(animal, side, lane, number);
-                    animals.put(rigidBody, animal);
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForAnimal(animal, side, lane, laneNumber);
+                    result.add(new Actor(animal, rigidBody));
                 }
                 for (Pedestrian pedestrian : pedestrianMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForPedestrian(pedestrian, side, lane, number);
-                    pedestrians.put(rigidBody, pedestrian);
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForPedestrian(pedestrian, side, lane, laneNumber);
+                    result.add(new Actor(pedestrian, rigidBody));
                 }
             }
         }
+        return result;
     }
 
     public static RigidBody rigidBodyForMainVehicle(Vehicle mainVehicle) {
