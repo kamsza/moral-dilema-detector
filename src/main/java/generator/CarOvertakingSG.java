@@ -29,10 +29,10 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
         vehicle.addVehicle_has_location(model.getRoadType());
         vehicle.addVehicle_has_speed_kmph(80);
         vehicle.addHas_on_the_right(model.getVehicle());
-        if(model.getLanes().get(Model.Side.LEFT).size() == 2)
-            vehicle.addHas_on_the_left(model.getLanes().get(Model.Side.LEFT).get(2));
-        else
-            vehicle.addHas_on_the_left(model.getSurrounding().get(Model.Side.LEFT));
+//        if(model.getLanes().get(Model.Side.LEFT).size() == 2)
+//            vehicle.addHas_on_the_left(model.getLanes().get(Model.Side.LEFT).get(2));
+//        else
+//            vehicle.addHas_on_the_left(model.getSurrounding().get(Model.Side.LEFT));
 
         // add to model
         Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);

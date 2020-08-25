@@ -17,23 +17,17 @@ public class SimulatorEngine {
     private static final double TIME_PART = 0.1;
 
     private Model model;
-    private Map<RigidBody, Vehicle> vehicles = new HashMap<>();
-    private Map<RigidBody, Animal> animals = new HashMap<>();
-    private Map<RigidBody, Pedestrian> pedestrians = new HashMap<>();
 
-    private List<RigidBody> actors = new LinkedList<>();
+    private List<Actor> actors;
 
-    private RigidBody mainVehicle;
+    private Actor mainVehicle;
     private CollisionDetector collisionDetector;
 
     public SimulatorEngine(Model model) {
         this.model = model;
-        this.mainVehicle = RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle());
-        RigidBodyMapper.createRigidBodies(model, vehicles, animals, pedestrians);
-        actors.addAll(vehicles.keySet());
-        actors.addAll(animals.keySet());
-        actors.addAll(pedestrians.keySet());
-        collisionDetector = new CollisionDetector(model, mainVehicle, vehicles, animals, pedestrians);
+        this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
+        this.actors = RigidBodyMapper.createActors(model);
+        collisionDetector = new CollisionDetector(mainVehicle, this.actors);
     }
 
 
@@ -44,14 +38,13 @@ public class SimulatorEngine {
             currentTime += TIME_PART;
             // TODO wstrzykiwanie decyzji
             //  BasicActionsApplier.CarTurning(mainVehicle, Sunny.class, false);
-            mainVehicle.update(TIME_PART);
-            for (RigidBody actor : actors) {
-                actor.update(TIME_PART);
-                //TODO: IDEA: we can detect every collision here based only on rigidbodies
-                //      and then set get from maps what was hit
+            mainVehicle.getRigidBody().update(TIME_PART);
+            for (Actor actor : actors) {
+                actor.getRigidBody().update(TIME_PART);
+
             }
 
-            if (collisionDetector.detectCollisionInMoment()) {
+            if (!collisionDetector.detectCollisionInMoment().isEmpty()) {
                 System.out.println("Collision in decision " + decision.toString());
                 return;
             }

@@ -1,97 +1,41 @@
 package DilemmaDetector.Simulator;
 
-import generator.Model;
-import project.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CollisionDetector {
 
-    //3 seconds lasts each period when we check moves of all entities in model
-    private static final double MOVING_TIME = 3.0;
-    //each TIME_PART we check if there is a collision between main vehicle and some different entity
-    private static final double TIME_PART = 0.1;
+    private List<Actor> actors;
+    private Actor mainVehicle;
 
-    private Model model;
-    private Map<RigidBody, Vehicle> vehicles = null;
-    private Map<RigidBody, Animal> animals = null;
-    private Map<RigidBody, Pedestrian> pedestrians = null;
-    private RigidBody mainVehicle;
-
-    public CollisionDetector(Model model,
-                             RigidBody mainVehicle,
-                             Map<RigidBody, Vehicle> vehicles,
-                             Map<RigidBody, Animal> animals,
-                             Map<RigidBody, Pedestrian> pedestrians) {
-        this.model = model;
+    public CollisionDetector(Actor mainVehicle,
+                             List<Actor> actors) {
         this.mainVehicle = mainVehicle;
-        this.vehicles = vehicles;
-        this.animals = animals;
-        this.pedestrians = pedestrians;
+        this.actors = actors;
     }
 
-    public boolean detectCollisionInMoment() {
-        if (!vehicles.isEmpty()) {
-            for (Map.Entry<RigidBody, Vehicle> entry : vehicles.entrySet()) {
-                if (detectCollisionWithVehicleInMoment(entry.getKey(), entry.getValue()))
-                    return true;
-            }
-        }
-        if (!animals.isEmpty()) {
-            for (Map.Entry<RigidBody, Animal> entry : animals.entrySet()) {
-                if (detectCollisionWithAnimalInMoment(entry.getKey(), entry.getValue()))
-                    return true;
-            }
+    public List<Actor> detectCollisionInMoment() {
+        List<Actor> collidedActors = new LinkedList<>();
+        for (Actor entry : actors) {
+            if (detectCollisionWithRigidbodyInMoment(entry.getRigidBody()))
+                collidedActors.add(entry);
         }
 
-        if (!pedestrians.isEmpty()) {
-            for (Map.Entry<RigidBody, Pedestrian> entry : pedestrians.entrySet()) {
-                if (detectCollisionWithPedestrianInMoment(entry.getKey(), entry.getValue()))
-                    return true;
-            }
-        }
-        return false;
+        return collidedActors;
     }
 
-    public boolean detectCollisionWithVehicleInMoment(RigidBody rigidBody, Vehicle vehicle) {
+
+    public boolean detectCollisionWithRigidbodyInMoment(RigidBody rigidBody) {
         boolean isCollision = false;
-        double vehicleWidth = RigidBodyMapper.getProperty(vehicle, "width");
-        Double vehicleLength = RigidBodyMapper.getProperty(vehicle, "length");
-        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle, rigidBody);
-        if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getWidth()) /2
-                && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getLength()) /2) {
+        double vehicleWidth = rigidBody.getWidth();
+        double vehicleLength = rigidBody.getLength();
+        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
+        if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
             isCollision = true;
         }
         return isCollision;
     }
-
-    public boolean detectCollisionWithAnimalInMoment(RigidBody rigidBody, Animal animal) {
-        boolean isCollision = false;
-        double animalWidth = RigidBodyMapper.getProperty(animal, "width");
-        Double animalLength = RigidBodyMapper.getProperty(animal, "length");
-        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle, rigidBody);
-        if(distanceBetweenRigidBodies.x < (animalWidth + mainVehicle.getWidth()) /2
-                && distanceBetweenRigidBodies.y < (animalLength + mainVehicle.getLength()) /2) {
-            isCollision = true;
-        }
-        return isCollision;
-    }
-
-    public boolean detectCollisionWithPedestrianInMoment(RigidBody rigidBody, Pedestrian pedestrian) {
-        boolean isCollision = false;
-        double pedestrianWidth = RigidBodyMapper.getProperty(pedestrian, "width");
-        Double pedestrianLength = RigidBodyMapper.getProperty(pedestrian, "length");
-        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle, rigidBody);
-        if(distanceBetweenRigidBodies.x < (pedestrianWidth + mainVehicle.getWidth()) /2
-                && distanceBetweenRigidBodies.y < (pedestrianLength + mainVehicle.getLength()) /2) {
-            isCollision = true;
-        }
-        return isCollision;
-    }
-
 
     /*
     Returns distance between centres of rigidBodies as Vector2
