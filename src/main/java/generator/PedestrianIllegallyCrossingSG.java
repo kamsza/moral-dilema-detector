@@ -13,6 +13,8 @@ public class PedestrianIllegallyCrossingSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
+    // TODO
+    /*
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // model
@@ -28,9 +30,9 @@ public class PedestrianIllegallyCrossingSG extends BaseScenarioGenerator {
 
         // add to model
         Lane lane  = model.getLanes().get(Model.Side.CENTER).get(0);
-        model.getPedestrians().get(lane).add(pedestrian);
+        model.getEntities().get(lane).add(pedestrian);
 
         return model;
     }
-
+    */
 }

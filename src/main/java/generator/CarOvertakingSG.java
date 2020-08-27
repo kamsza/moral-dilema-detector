@@ -13,6 +13,8 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
         super(factory, baseIRI);
     }
 
+    //TODO
+    /*
     @Override
     public Model generate() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // model
@@ -25,6 +27,8 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
         // add to ontology
         model.getVehicle().addHas_on_the_left(vehicle);
 
+        vehicle.addLength(500F);
+        vehicle.addDistance(new RandomDistanceGenerator().getRandomDistance());
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(model.getRoadType());
         vehicle.addVehicle_has_speed_kmph(80);
@@ -40,6 +44,5 @@ public class CarOvertakingSG extends BaseScenarioGenerator {
 
         return model;
     }
-
-
+     */
 }

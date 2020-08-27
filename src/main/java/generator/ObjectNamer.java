@@ -21,19 +21,19 @@ class ObjectNamer {
      * @param name name of a variable
      * @return string with unique name, containing scenario id and unique identifier if needed
      */
-     static String getName(String name) {
-         if(name.equals("scenario"))
-             scenario_id++;
+    static String getName(String name) {
+        if(name.equals("scenario"))
+            scenario_id++;
 
-         if(scenario_id != 0)
-             name = scenario_id + "_" + name;
+        if(scenario_id != 0)
+            name = scenario_id + "_" + name;
 
-         int id = idMap.getOrDefault(name, 0);
-         idMap.put(name, id + 1);
+        int id = idMap.getOrDefault(name, 0);
+        idMap.put(name, id + 1);
 
-         if(id != 0)
-             return name + "_" + id;
+        if(id != 0)
+            return name + "_" + id;
 
-         return name;
+        return name;
     }
 }
