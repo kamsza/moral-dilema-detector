@@ -13,12 +13,43 @@ public class RigidBodyMapper {
 
     public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
-        Map<Lane, ArrayList<Animal>> animalMap = model.getAnimals();
-        Map<Lane, ArrayList<Pedestrian>> pedestrianMap = model.getPedestrians();
+
+        /*
+        iterowanie po mapie encji, żeby oddzielić pieszych od zwierząt i zrobić dwie tymczasowe
+        rozdzielone listy tak jak było do tej pory
+        Możliwe inne rozwiązanie dokonujące podziału dopiero przy tworzeniu RigidBody
+         */
+
+        Map<Lane, ArrayList<Animal>> animalMap = new HashMap<>(); // model.getAnimals();
+        for(Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()){
+            animalMap.put(entry.getKey(), new ArrayList<>());
+        }
+        for (Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()) {
+            for (Living_entity living_entity : entry.getValue()) {
+
+                if(living_entity instanceof Animal){
+                    ArrayList<Animal> currentAnimalList = animalMap.get(entry.getKey());
+                    currentAnimalList.add((Animal)living_entity);
+                }
+            }
+        }
+
+        Map<Lane, ArrayList<Pedestrian>> pedestrianMap = new HashMap<>(); //model.getPedestrians();
+        for(Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()){
+            pedestrianMap.put(entry.getKey(), new ArrayList<>());
+        }
+        for (Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()) {
+            for (Living_entity living_entity : entry.getValue()) {
+                if(living_entity instanceof Pedestrian){
+                    ArrayList<Pedestrian> currentPedestrianList = pedestrianMap.get(entry.getKey());
+                    currentPedestrianList.add((Pedestrian) living_entity);
+                }
+            }
+        }
 
         List<Actor> result = new LinkedList<>();
 
-        for (Map.Entry<Model.Side, Map<Integer, Lane>> parentPair : model.getLanes().entrySet()) {
+        for (Map.Entry<Model.Side, TreeMap<Integer, Lane>> parentPair : model.getLanes().entrySet()) {
             Model.Side side = parentPair.getKey();
             for (Map.Entry childPair : (parentPair.getValue()).entrySet()) {
                 Integer laneNumber = (Integer) childPair.getKey();
@@ -211,8 +242,8 @@ public class RigidBodyMapper {
                     return returnValue;
                 }
             case "length":
-                if (entity.hasWidth()) {
-                    Iterator<? extends Float> iterator = entity.getWidth().iterator();
+                if (entity.hasLength()) {
+                    Iterator<? extends Float> iterator = entity.getLength().iterator();
                     while (iterator.hasNext()) {
                         returnValue = (double) iterator.next();
                     }
