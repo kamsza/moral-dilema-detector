@@ -5,6 +5,7 @@ import project.*;
 import project.MyFactory;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,51 +18,72 @@ public class ConsequenceGenerator {
         random = new Random();
     }
 
-    public void predict(Model scenarioModel){
+    public void predict(Model scenarioModel) {
         boolean slippery_road = false;
 
-        if (scenarioModel.getWeather() instanceof Heavy_rain){
+        if (scenarioModel.getWeather() instanceof Heavy_rain) {
             slippery_road = true;
         }
-
-        boolean big_speed = false;
 
         Vehicle vehicle = scenarioModel.getVehicle();
 
         int speed_limit = 50;
-        for(Integer limit : scenarioModel.getRoadType().getHas_speed_limit_kmph()){
+        for (Integer limit : scenarioModel.getRoadType().getHas_speed_limit_kmph()) {
             speed_limit = limit;
         }
 
-        if (Long.parseLong(vehicle.getVehicle_has_speed_kmph().toArray()[0].toString()) > speed_limit)
-            big_speed = true;
+        double severInjuryProbability = severInjuryProbability(speed_limit);
+        double minorInjuryProbability = minorInjuryProbability(speed_limit);
+        double fatalInjuryProbability = fatalInjuryProbability(speed_limit);
 
         for (Map.Entry<Decision, Action> entry : scenarioModel.getActionByDecision().entrySet()) {
             Decision decision = entry.getKey();
             Action action = entry.getValue();
+            System.out.println(decision.getOwlIndividual());
+
 
             HashSet<Living_entity> victims = detectCollisions(action, scenarioModel);
+            HashSet<Living_entity> victimsCopy = new HashSet<Living_entity>(victims);
 
-            if (slippery_road && big_speed) {
-                Killed killed = factory.createKilled(ObjectNamer.getName("killed"));
-                for (Living_entity living_entity : victims) {
+            Killed killed = factory.createKilled(ObjectNamer.getName("killed"));
+            Severly_injured severelyInjured = factory.createSeverly_injured(ObjectNamer.getName("severely_injured"));
+            Lightly_injured lightlyInjured = factory.createLightly_injured(ObjectNamer.getName("lightly_injured"));
+            Intact intact = factory.createIntact(ObjectNamer.getName("intact"));
+
+
+            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
+                Living_entity living_entity = iterator.next();
+                if (random.nextInt() % 100 + 1 < fatalInjuryProbability) {
+                    System.out.println("In killed");
                     killed.addHealth_consequence_to(living_entity);
+                    iterator.remove();
                 }
-                decision.addHas_consequence(killed);
-            } else if (slippery_road || big_speed) {
-                Injured injured = factory.createInjured(ObjectNamer.getName("injured"));
-                for (Living_entity living_entity : victims) {
-                    injured.addHealth_consequence_to(living_entity);
-                }
-                decision.addHas_consequence(injured);
-            } else {
-                Intact intact = factory.createIntact(ObjectNamer.getName("intact"));
-                for (Living_entity living_entity : victims) {
-                    intact.addHealth_consequence_to(living_entity);
-                }
-                decision.addHas_consequence(intact);
             }
-        }
+
+            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
+                Living_entity living_entity = iterator.next();
+                if (random.nextInt() % 100 + 1 < severInjuryProbability) {
+                    System.out.println("In sev injured");
+                    severelyInjured.addHealth_consequence_to(living_entity);
+                    iterator.remove();
+                }
+            }
+            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
+                Living_entity living_entity = iterator.next();
+                if (random.nextInt() % 100 + 1 < minorInjuryProbability) {
+                    System.out.println("In light injured");
+                    lightlyInjured.addHealth_consequence_to(living_entity);
+                    iterator.remove();
+                }
+            }
+
+            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
+                Living_entity living_entity = iterator.next();
+                System.out.println("In intact");
+                intact.addHealth_consequence_to(living_entity);
+                iterator.remove();
+                }
+            }
     }
 
 
