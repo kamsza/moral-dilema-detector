@@ -41,7 +41,6 @@ public class BaseScenarioGenerator {
         this.baseIRI = baseIRI;
         this.factory = factory;
         this.rand = new Random();
-        this.randomPositioner = new RandomPositioner();
         this.subclassGenerator = new RandomSubclassGenerator(factory);
 
         ObjectNamer.setInitScenarioId(factory.getAllScenarioInstances().size());
@@ -89,6 +88,7 @@ public class BaseScenarioGenerator {
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
         lanesCount = rand.nextInt(4) + 1;
+        this.randomPositioner = new RandomPositioner(lanesCount);
         mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1) / 2);
         lanesMovingLeftCount = Math.min(mainVehicleLaneId, 1 + rand.nextInt((lanesCount + 1) / 2));
         lanesMovingRightCount = lanesCount - lanesMovingLeftCount;
@@ -160,7 +160,7 @@ public class BaseScenarioGenerator {
     private void addObjectOnRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         boolean exists = rand.nextBoolean();
 
-        if(!exists)
+        if (!exists)
             return;
 
         On_the_road object = subclassGenerator.generateSurroundingOnRoadSubclass(ObjectNamer.getName("surrounding"));
@@ -168,24 +168,25 @@ public class BaseScenarioGenerator {
         float distance = randomPositioner.getRandomDistance();
         object.addDistance(distance);
 
-        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
+        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
             model.getObjects().get(lane.getValue()).add(object);
 
-        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
+        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
             model.getObjects().get(lane.getValue()).add(object);
 
-        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
+        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
             model.getObjects().get(lane.getValue()).add(object);
     }
 
     private void addObjectsOnLane(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int objectsCount = rand.nextInt(3);
-        for(int i = 0; i < objectsCount; i++) {
+        for (int i = 0; i < objectsCount; i++) {
             On_the_lane object = subclassGenerator.generateSurroundingOnLaneSubclass(ObjectNamer.getName("surrounding"));
 
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            float entitySize = 20f;
+            int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             Lane lane = randomPositioner.getLane(model, laneNo);
-            float distance = randomPositioner.getRandomDistance(model, lane, 20F);
+            float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
             object.addDistance(distance);
             object.addLength(20F);
@@ -238,16 +239,18 @@ public class BaseScenarioGenerator {
     }
 
     private void addVehicles(Model model) {
-        int vehiclesCount = rand.nextInt(2*lanesCount);
+        int vehiclesCount = randomPositioner.getVehiclesCount();
         float vehicleLength = 500F;
 
-        while(vehiclesCount > 0) {
+        while (vehiclesCount > 0) {
             int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
-            Lane vehicleLane = randomPositioner.getLane(model, laneNo);
-            float vehicleDistance = randomPositioner.getRandomDistance(model, vehicleLane, vehicleLength);
+            if (laneNo == -1) {
+                // no more places for new entities
+                break;
+            }
 
-            if(vehicleDistance == 0)
-                continue;
+            Lane vehicleLane = randomPositioner.getLane(model, laneNo);
+            float vehicleDistance = randomPositioner.getRandomDistance(laneNo, vehicleLength);
 
             vehiclesCount -= 1;
 
@@ -263,8 +266,8 @@ public class BaseScenarioGenerator {
             vehicle.addVehicle_has_location(model.getRoadType());
 
             // add data properties
-            float vehicleSpeed = (float)(50 + rand.nextInt(90));
-            if(laneNo < lanesMovingLeftCount)
+            float vehicleSpeed = (float) (50 + rand.nextInt(90));
+            if (laneNo < lanesMovingLeftCount)
                 vehicleSpeed *= -1;
 
             vehicle.addDistance(vehicleDistance);
@@ -282,13 +285,11 @@ public class BaseScenarioGenerator {
     private void addAnimals(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int animalsCount = rand.nextInt(3);
 
-        while(animalsCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+        while (animalsCount > 0) {
+            float entitySize = 20f;
+            int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             Lane lane = randomPositioner.getLane(model, laneNo);
-            float distance = randomPositioner.getRandomDistance(model, lane, 20F);
-
-            if (distance == 0)
-                continue;
+            float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
             animalsCount -= 1;
 
@@ -302,7 +303,7 @@ public class BaseScenarioGenerator {
             animal.addDistance(distance);
             animal.addLength(20F);
             animal.addSpeedY(0F);
-            animal.addSpeedX((float)rand.nextInt(15));
+            animal.addSpeedX((float) rand.nextInt(15));
             animal.addAccelerationY(0F);
             animal.addAccelerationX(0F);
 
