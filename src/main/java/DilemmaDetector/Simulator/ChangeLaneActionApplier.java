@@ -4,7 +4,11 @@ public class ChangeLaneActionApplier extends BasicActionsApplier {
 
     private float offsetToMiddle = 0;
 
-    public void CarChangeLanes(RigidBody car, Class weatherType, float startLaneCoordY, float endLaneCoordY, float laneWidth){
+    public void CarChangeLanes(RigidBody car, Class weatherType, int startLane, int endLane, float laneWidth){
+        CarChangeCoordY(car, weatherType, startLane * laneWidth, endLane*laneWidth);
+    }
+
+    public void CarChangeCoordY(RigidBody car, Class weatherType, float startLaneCoordY, float endLaneCoordY){
 //        Lanes goes:
 //        ----------------------------------------------------------------
 //        -1
