@@ -9,6 +9,7 @@ import project.Non_living_entity;
 import project.On_the_lane;
 import project.On_the_road;
 import project.Passenger;
+import project.Person;
 import project.Road_type;
 import project.Scenario;
 import project.Surrounding;
@@ -58,9 +59,11 @@ public class BaseScenarioGenerator {
         addSurrounding(model);
         addObjectOnRoad(model);
         addMainVehicle(model);
+        addPeopleOnPedestrianCrossing(model);
         addObjectsOnLane(model);
         addVehicles(model);
         addAnimals(model);
+        addPeopleIllegallyCrossingTheStreet(model);
 
         return model;
     }
@@ -306,5 +309,86 @@ public class BaseScenarioGenerator {
             // add to model
             model.getEntities().get(lane).add(animal);
         }
+    }
+
+    private void addPeopleOnPedestrianCrossing(Model model) {
+        int peopleCount = rand.nextInt(10);
+
+        On_the_road object = factory.createPedestrian_crossing(ObjectNamer.getName("surrounding"));
+
+        float distance = randomPositioner.getRandomDistance();
+        float length = 400F;
+        object.addDistance(distance);
+        object.addLength(length);
+
+        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
+            model.getObjects().get(lane.getValue()).add(object);
+
+        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
+            model.getObjects().get(lane.getValue()).add(object);
+
+        for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
+            model.getObjects().get(lane.getValue()).add(object);
+
+        while(peopleCount > 0) {
+            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            Lane lane = randomPositioner.getLane(model, laneNo);
+            float personDistance = distance - length/2 + rand.nextInt((int)length);
+
+            if (distance == 0)
+                continue;
+
+            peopleCount -= 1;
+
+            // create objects
+            Person person = factory.createPerson(ObjectNamer.getName("animal"));
+
+            // add to scenario
+            // TODO: ??
+
+            // add data properties
+            person.addDistance(personDistance);
+            person.addLength(20F);
+            person.addSpeedY(0F);
+            person.addSpeedX((float)rand.nextInt(15));
+            person.addAccelerationY(0F);
+            person.addAccelerationX(0F);
+
+            // add to model
+            model.getEntities().get(lane).add(person);
+        }
+    }
+
+    private void addPeopleIllegallyCrossingTheStreet(Model model) {
+        int peopleCount = rand.nextInt(3);
+
+        while(peopleCount > 0) {
+            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            Lane lane = randomPositioner.getLane(model, laneNo);
+            float distance = randomPositioner.getRandomDistance(model, lane, 20F);
+
+            if (distance == 0)
+                continue;
+
+            peopleCount -= 1;
+
+            // create objects
+            Person person = factory.createPerson(ObjectNamer.getName("animal"));
+
+            // add to scenario
+            // TODO: ??
+
+            // add data properties
+            person.addDistance(distance);
+            person.addLength(20F);
+            person.addSpeedY(0F);
+            person.addSpeedX((float)rand.nextInt(15));
+            person.addAccelerationY(0F);
+            person.addAccelerationX(0F);
+
+            // add to model
+            model.getEntities().get(lane).add(person);
+        }
+
     }
 }
