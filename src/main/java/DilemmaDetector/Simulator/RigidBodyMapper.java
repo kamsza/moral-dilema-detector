@@ -8,44 +8,12 @@ import java.util.*;
 public class RigidBodyMapper {
 
     //TODO get lane width from ontology? is it in centimeters
-    public static final int LANE_WIDTH = 300;
+    public static final int LANE_WIDTH = 300 / 100;
 
 
     public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
-
-        /*
-        iterowanie po mapie encji, żeby oddzielić pieszych od zwierząt i zrobić dwie tymczasowe
-        rozdzielone listy tak jak było do tej pory
-        Możliwe inne rozwiązanie dokonujące podziału dopiero przy tworzeniu RigidBody
-         */
-
-        Map<Lane, ArrayList<Animal>> animalMap = new HashMap<>(); // model.getAnimals();
-        for(Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()){
-            animalMap.put(entry.getKey(), new ArrayList<>());
-        }
-        for (Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()) {
-            for (Living_entity living_entity : entry.getValue()) {
-
-                if(living_entity instanceof Animal){
-                    ArrayList<Animal> currentAnimalList = animalMap.get(entry.getKey());
-                    currentAnimalList.add((Animal)living_entity);
-                }
-            }
-        }
-
-        Map<Lane, ArrayList<Pedestrian>> pedestrianMap = new HashMap<>(); //model.getPedestrians();
-        for(Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()){
-            pedestrianMap.put(entry.getKey(), new ArrayList<>());
-        }
-        for (Map.Entry<Lane, ArrayList<Living_entity>> entry : model.getEntities().entrySet()) {
-            for (Living_entity living_entity : entry.getValue()) {
-                if(living_entity instanceof Pedestrian){
-                    ArrayList<Pedestrian> currentPedestrianList = pedestrianMap.get(entry.getKey());
-                    currentPedestrianList.add((Pedestrian) living_entity);
-                }
-            }
-        }
+        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
 
         List<Actor> result = new LinkedList<>();
 
@@ -55,16 +23,12 @@ public class RigidBodyMapper {
                 Integer laneNumber = (Integer) childPair.getKey();
                 Lane lane = (Lane) childPair.getValue();
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForVehicle(vehicle, side, lane, laneNumber);
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
                     result.add(new Actor(vehicle, rigidBody));
                 }
-                for (Animal animal : animalMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForAnimal(animal, side, lane, laneNumber);
-                    result.add(new Actor(animal, rigidBody));
-                }
-                for (Pedestrian pedestrian : pedestrianMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForPedestrian(pedestrian, side, lane, laneNumber);
-                    result.add(new Actor(pedestrian, rigidBody));
+                for (Living_entity entity : livingEntityMap.get(lane)) {
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber);
+                    result.add(new Actor(entity, rigidBody));
                 }
             }
         }
@@ -77,12 +41,12 @@ public class RigidBodyMapper {
 
         double accelX, accelY, speedX, speedY, width, length;
 
-        accelX = getProperty(mainVehicle, "accelX");
-        accelY = getProperty(mainVehicle, "accelY");
-        speedX = getProperty(mainVehicle, "speedX");
-        speedY = getProperty(mainVehicle, "speedY");
-        width = getProperty(mainVehicle, "width");
-        length = getProperty(mainVehicle, "length");
+        accelX = getProperty(mainVehicle, "accelX") / 100;
+        accelY = getProperty(mainVehicle, "accelY") / 100;
+        speedX = getProperty(mainVehicle, "speedX") / 100;
+        speedY = getProperty(mainVehicle, "speedY") / 100;
+        width = getProperty(mainVehicle, "width") / 100;
+        length = getProperty(mainVehicle, "length") / 100;
 
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
@@ -92,101 +56,30 @@ public class RigidBodyMapper {
         return rigidBody;
     }
 
-    public static RigidBody rigidBodyForVehicle(Vehicle vehicle, Model.Side side, Lane lane, Integer integer) {
+    public static RigidBody rigidBodyForEntity(Entity entity, Model.Side side, int laneNumber) {
         RigidBody rigidBody = new RigidBody();
 
         double positionX;
         double positionY;
         double accelX, accelY, speedX, speedY, width, length;
 
-        Object[] pos = vehicle.getDistance().toArray();
-        positionY = (double) pos[0];
-
-        //Vehicles on left side have negative position X
-        if (side == Model.Side.LEFT) {
-            positionX = integer * LANE_WIDTH * (-1);
-        } else if (side == Model.Side.RIGHT) {
-            positionX = integer * LANE_WIDTH;
-        } else {
-            positionX = 0;
-        }
-
-        accelX = getProperty(vehicle, "accelX");
-        accelY = getProperty(vehicle, "accelY");
-        speedX = getProperty(vehicle, "speedX");
-        speedY = getProperty(vehicle, "speedY");
-        width = getProperty(vehicle, "width");
-        length = getProperty(vehicle, "length");
-
-        rigidBody.setPosition(new Vector2(positionX, positionY));
-        rigidBody.setSpeed(new Vector2(speedX, speedY));
-        rigidBody.setAcceleration(new Vector2(accelX, accelY));
-        rigidBody.setLength(length);
-        rigidBody.setWidth(width);
-
-        return rigidBody;
-    }
-
-
-    public static RigidBody rigidBodyForPedestrian(Pedestrian pedestrian, Model.Side side, Lane lane, Integer integer) {
-        RigidBody rigidBody = new RigidBody();
-
-        double positionX;
-        double positionY;
-        double accelX, accelY, speedX, speedY, width, length;
-
-        Object[] pos = pedestrian.getDistance().toArray();
-        positionY = (double) pos[0];
-
-        //Entities on left side have negative position X
-        if (side == Model.Side.LEFT) {
-            positionX = integer * LANE_WIDTH * (-1);
-        } else if (side == Model.Side.RIGHT) {
-            positionX = integer * LANE_WIDTH;
-        } else {
-            positionX = 0;
-        }
-
-        accelX = getProperty(pedestrian, "accelX");
-        accelY = getProperty(pedestrian, "accelY");
-        speedX = getProperty(pedestrian, "speedX");
-        speedY = getProperty(pedestrian, "speedY");
-        width = getProperty(pedestrian, "width");
-        length = getProperty(pedestrian, "length");
-
-        rigidBody.setPosition(new Vector2(positionX, positionY));
-        rigidBody.setSpeed(new Vector2(speedX, speedY));
-        rigidBody.setAcceleration(new Vector2(accelX, accelY));
-        rigidBody.setLength(length);
-        rigidBody.setWidth(width);
-
-        return rigidBody;
-    }
-
-    public static RigidBody rigidBodyForAnimal(Animal animal, Model.Side side, Lane lane, Integer integer) {
-        RigidBody rigidBody = new RigidBody();
-
-        double positionX;
-        double positionY;
-        double accelX, accelY, speedX, speedY, width, length;
-
-        Object[] pos = animal.getDistance().toArray();
-        positionY = (double) pos[0];
+        Object[] pos = entity.getDistance().toArray();
+        positionX = (double) pos[0]; // TODO: is it in cm? If so divide by 100 to get meters
 
         if (side == Model.Side.LEFT) {
-            positionX = integer * LANE_WIDTH * (-1);
+            positionY = laneNumber * LANE_WIDTH * (-1);
         } else if (side == Model.Side.RIGHT) {
-            positionX = integer * LANE_WIDTH;
+            positionY = laneNumber * LANE_WIDTH;
         } else {
-            positionX = 0;
+            positionY = 0;
         }
 
-        accelX = getProperty(animal, "accelX");
-        accelY = getProperty(animal, "accelY");
-        speedX = getProperty(animal, "speedX");
-        speedY = getProperty(animal, "speedY");
-        width = getProperty(animal, "width");
-        length = getProperty(animal, "length");
+        accelX = getProperty(entity, "accelX") / 100;
+        accelY = getProperty(entity, "accelY") / 100;
+        speedX = getProperty(entity, "speedX") / 100;
+        speedY = getProperty(entity, "speedY") / 100;
+        width = getProperty(entity, "width") / 100;
+        length = getProperty(entity, "length") / 100;
 
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setSpeed(new Vector2(speedX, speedY));
