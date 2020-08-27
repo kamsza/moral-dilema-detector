@@ -332,7 +332,7 @@ public class BaseScenarioGenerator {
             model.getObjects().get(lane.getValue()).add(object);
 
         while(peopleCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            int laneNo = randomPositioner.getRandomLaneNumber(1f);
             Lane lane = randomPositioner.getLane(model, laneNo);
             float personDistance = distance - length/2 + rand.nextInt((int)length);
 
@@ -364,9 +364,10 @@ public class BaseScenarioGenerator {
         int peopleCount = rand.nextInt(3);
 
         while(peopleCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            float entitySize = 20F;
+            int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             Lane lane = randomPositioner.getLane(model, laneNo);
-            float distance = randomPositioner.getRandomDistance(model, lane, 20F);
+            float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
             if (distance == 0)
                 continue;
