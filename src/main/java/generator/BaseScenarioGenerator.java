@@ -255,7 +255,7 @@ public class BaseScenarioGenerator {
             animal.addAccelerationX(0F);
 
             // add to model
-            model.getEntities().get(lane).add(animal);
+            model.getLivingEntities().get(lane).add(animal);
         }
     }
 }

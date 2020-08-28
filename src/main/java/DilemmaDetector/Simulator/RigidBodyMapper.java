@@ -8,12 +8,12 @@ import java.util.*;
 public class RigidBodyMapper {
 
     //TODO get lane width from ontology? is it in centimeters
-    public static final int LANE_WIDTH = 300 / 100;
+    public static final double LANE_WIDTH = PhysicsUtils.CmToMeters(300);
 
 
     public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
-        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
+        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getLivingEntities();
 
         List<Actor> result = new LinkedList<>();
 
@@ -41,12 +41,12 @@ public class RigidBodyMapper {
 
         double accelX, accelY, speedX, speedY, width, length;
 
-        accelX = getProperty(mainVehicle, "accelX") / 100;
-        accelY = getProperty(mainVehicle, "accelY") / 100;
-        speedX = getProperty(mainVehicle, "speedX") / 100;
-        speedY = getProperty(mainVehicle, "speedY") / 100;
-        width = getProperty(mainVehicle, "width") / 100;
-        length = getProperty(mainVehicle, "length") / 100;
+        accelX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelX"));
+        accelY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelY"));
+        speedX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedX"));
+        speedY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedY"));
+        width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));
+        length = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "length"));
 
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
@@ -74,12 +74,12 @@ public class RigidBodyMapper {
             positionY = 0;
         }
 
-        accelX = getProperty(entity, "accelX") / 100;
-        accelY = getProperty(entity, "accelY") / 100;
-        speedX = getProperty(entity, "speedX") / 100;
-        speedY = getProperty(entity, "speedY") / 100;
-        width = getProperty(entity, "width") / 100;
-        length = getProperty(entity, "length") / 100;
+        accelX = PhysicsUtils.CmToMeters(getProperty(entity, "accelX"));
+        accelY = PhysicsUtils.CmToMeters(getProperty(entity, "accelY"));
+        speedX = PhysicsUtils.CmToMeters(getProperty(entity, "speedX"));
+        speedY = PhysicsUtils.CmToMeters(getProperty(entity, "speedY"));
+        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
+        length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
 
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setSpeed(new Vector2(speedX, speedY));

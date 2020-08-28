@@ -106,7 +106,7 @@ public class Model {
         this.lanes = lanes;
     }
 
-    public Map<Lane, ArrayList<Living_entity>> getEntities() {
+    public Map<Lane, ArrayList<Living_entity>> getLivingEntities() {
         return entities;
     }
 
