@@ -1,5 +1,8 @@
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
+import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.RigidBodyMapper;
+import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
 import project.*;
@@ -12,6 +15,8 @@ import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -19,12 +24,13 @@ public class Main {
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator generator;
-        //generator = new AnimalOnRoadSG(factory, baseIRI);
+//        generator = new AnimalOnRoadSG(factory, baseIRI);
 //        generator = new CarApproachingSG(factory, baseIRI);
 //        generator = new CarOvertakingSG(factory, baseIRI);
 //        generator = new ObstacleOnRoadSG(factory, baseIRI);
-        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
+//        generator = new CarApproachingSG(factory, baseIRI);
 //        generator = new PedestrianOnCrosswalkSG(factory, baseIRI);
+        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -41,21 +47,28 @@ public class Main {
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 
-        ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory);
-
         MoralDilemmaDetector mdd = builder
                 //.addModule(new SWRLInferredModule(ontology, factory))
                 .addModule(new KilledModule(factory))
-                .addModule(new LightlyInjuredModule(factory))
-                .addModule(new SeverelyInjuredModule(factory))
+//                .addModule(new LightlyInjuredModule(factory))
+//                .addModule(new SeverelyInjuredModule(factory))
 //                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
         for(int i=0; i<10; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
-            consequenceGenerator.predict(scenarioModel);
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
+            SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel);
+            ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory, scenarioModel, RigidBodyMapper.createActors(scenarioModel));
+            Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll();
+            System.out.println("Collided entities:");
+            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()){
+                for(Actor actor : entry.getValue()){
+                    System.out.println(actor);
+                }
+            }
+            consequenceGenerator.predict(collidedEntities, new Actor(scenarioModel.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(scenarioModel.getVehicle())));
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
         }
     }

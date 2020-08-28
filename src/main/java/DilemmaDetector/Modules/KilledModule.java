@@ -33,7 +33,6 @@ public class KilledModule implements IMoralDilemmaDetectorModule {
             index++;
         }
 
-        System.out.println(killed.size());
         for(int x : killed){
             if(x == 0)
                 return false;

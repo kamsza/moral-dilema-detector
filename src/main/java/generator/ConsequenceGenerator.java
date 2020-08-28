@@ -1,134 +1,97 @@
 package generator;
 
+import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.RigidBodyMapper;
 import generator.Model;
 import project.*;
 import project.MyFactory;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ConsequenceGenerator {
     MyFactory factory;
     Random random;
+    Model model;
+    List<Actor> actors;
 
-    public ConsequenceGenerator(MyFactory factory){
+    public ConsequenceGenerator(MyFactory factory, Model model, List<Actor> actors){
         this.factory = factory;
+        this.model = model;
+        this.actors = actors;
         random = new Random();
     }
 
-    public void predict(Model scenarioModel) {
-        boolean slippery_road = false;
-
-        if (scenarioModel.getWeather() instanceof Heavy_rain) {
-            slippery_road = true;
-        }
-
-        Vehicle vehicle = scenarioModel.getVehicle();
-
-        int speed_limit = 50;
-        for (Integer limit : scenarioModel.getRoadType().getHas_speed_limit_kmph()) {
-            speed_limit = limit;
-        }
-
-        double severInjuryProbability = severInjuryProbability(speed_limit);
-        double minorInjuryProbability = minorInjuryProbability(speed_limit);
-        double fatalInjuryProbability = fatalInjuryProbability(speed_limit);
-
-        for (Map.Entry<Decision, Action> entry : scenarioModel.getActionByDecision().entrySet()) {
+    public void predict(Map<Decision, List<Actor>> collidedEntities, Actor mainVehicle) {
+        for (Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
             Decision decision = entry.getKey();
-            Action action = entry.getValue();
             System.out.println(decision.getOwlIndividual());
-
-
-            HashSet<Living_entity> victims = detectCollisions(action, scenarioModel);
-            HashSet<Living_entity> victimsCopy = new HashSet<Living_entity>(victims);
 
             Killed killed = factory.createKilled(ObjectNamer.getName("killed"));
             Severly_injured severelyInjured = factory.createSeverly_injured(ObjectNamer.getName("severely_injured"));
             Lightly_injured lightlyInjured = factory.createLightly_injured(ObjectNamer.getName("lightly_injured"));
             Intact intact = factory.createIntact(ObjectNamer.getName("intact"));
 
+            double severInjuryProbability;
+            double minorInjuryProbability;
+            double fatalInjuryProbability;
+            for(Actor actor : entry.getValue()) {
+                List<Living_entity> victims = getVictims(actor);
+                victims.addAll(model.getPassengers());
+                victims.add(model.getDriver());
 
-            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
-                Living_entity living_entity = iterator.next();
-                if (random.nextInt() % 100 + 1 < fatalInjuryProbability) {
-                    System.out.println("In killed");
-                    killed.addHealth_consequence_to(living_entity);
-                    iterator.remove();
-                }
-            }
+                double speed = Math.abs(actor.getRigidBody().getSpeed().getMagnitude() - mainVehicle.getRigidBody().getSpeed().getMagnitude());
+                System.out.println("Collided with relative speed: " + speed);
+                severInjuryProbability = severInjuryProbability(speed);
+                minorInjuryProbability = minorInjuryProbability(speed);
+                fatalInjuryProbability = fatalInjuryProbability(speed);
 
-            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
-                Living_entity living_entity = iterator.next();
-                if (random.nextInt() % 100 + 1 < severInjuryProbability) {
-                    System.out.println("In sev injured");
-                    severelyInjured.addHealth_consequence_to(living_entity);
-                    iterator.remove();
+                double maxProbability = fatalInjuryProbability;
+                if (severInjuryProbability > maxProbability) {
+                    maxProbability = severInjuryProbability;
                 }
-            }
-            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
-                Living_entity living_entity = iterator.next();
-                if (random.nextInt() % 100 + 1 < minorInjuryProbability) {
-                    System.out.println("In light injured");
-                    lightlyInjured.addHealth_consequence_to(living_entity);
-                    iterator.remove();
+                if (minorInjuryProbability > maxProbability) {
+                    maxProbability = minorInjuryProbability;
                 }
-            }
 
-            for (Iterator<Living_entity> iterator = victimsCopy.iterator(); iterator.hasNext(); ) {
-                Living_entity living_entity = iterator.next();
-                System.out.println("In intact");
-                intact.addHealth_consequence_to(living_entity);
-                iterator.remove();
+                if (maxProbability == fatalInjuryProbability) {
+                    for (Living_entity living_entity : victims)
+                        killed.addHealth_consequence_to(living_entity);
+                } else if (maxProbability == severInjuryProbability) {
+                    for (Living_entity living_entity : victims)
+                        severelyInjured.addHealth_consequence_to(living_entity);
+                } else if (maxProbability == minorInjuryProbability) {
+                    for (Living_entity living_entity : victims)
+                        lightlyInjured.addHealth_consequence_to(living_entity);
                 }
             }
+            // not collided LivingEntities which are in this scenario are intact
+            for(Actor actor : actors){
+                if(!entry.getValue().contains(actor)) {
+                    for(Living_entity living_entity : getVictims(actor)) {
+                        intact.addHealth_consequence_to(living_entity);
+                    }
+                }
+            }
+        }
     }
 
-
-    private HashSet<Living_entity> detectCollisions(Action action, Model scenarioModel){
-        HashSet<Living_entity> result = new HashSet<>();
-
-        Vehicle main_vehicle = scenarioModel.getVehicle();
-
-        if (action instanceof Turn_left){
-            for(Entity entity : main_vehicle.getHas_on_the_left()){
-                updateVictims(entity, result, scenarioModel);
-            }
-        }
-        else if(action instanceof Turn_right){
-            for(Entity entity : main_vehicle.getHas_on_the_right()){
-                updateVictims(entity, result, scenarioModel);
-            }
-        }
-        else if(action instanceof Follow){
-            for(Entity entity : main_vehicle.getHas_in_the_front()){
-                updateVictims(entity, result, scenarioModel);
-            }
-        }
-
-        return result;
-    }
-
-    private void updateVictims(Entity entity, HashSet<Living_entity> result, Model scenarioModel){
-        Vehicle vehicle = factory.getVehicle(entity.getOwlIndividual().getIRI().toString());
+    private List<Living_entity> getVictims(Actor actor){
+        Vehicle vehicle = factory.getVehicle(actor.getEntity());
+        Living_entity living_entity = factory.getLiving_entity(actor.getEntity());
+        List<Living_entity> result = new ArrayList<>();
 
         if (vehicle != null) {
             result.addAll(vehicle.getVehicle_has_passenger());
             result.addAll(vehicle.getVehicle_has_driver());
         }
-        else{
-            Living_entity living_entity = factory.getLiving_entity(entity.getOwlIndividual().getIRI().toString());
-            if(living_entity != null){
-                result.add(living_entity);
-            }
+        else if(living_entity != null){
+            result.add(living_entity);
         }
-        result.addAll(scenarioModel.getPassengers());
-        result.add(scenarioModel.getDriver());
+
+        return result;
     }
 
-    private double minorInjuryProbability(int speed){
+    private double minorInjuryProbability(double speed){
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 82.5, speed);
@@ -151,7 +114,7 @@ public class ConsequenceGenerator {
         return probability;
     }
 
-    private double severInjuryProbability(int speed){
+    private double severInjuryProbability(double speed){
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 14.7, speed);
@@ -174,7 +137,7 @@ public class ConsequenceGenerator {
         return probability;
     }
 
-    private double fatalInjuryProbability(int speed){
+    private double fatalInjuryProbability(double speed){
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 2.7, speed);

@@ -23,8 +23,10 @@ public class RigidBodyMapper {
                 Integer laneNumber = (Integer) childPair.getKey();
                 Lane lane = (Lane) childPair.getValue();
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
-                    result.add(new Actor(vehicle, rigidBody));
+                    if(vehicle != model.getVehicle()) {
+                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
+                        result.add(new Actor(vehicle, rigidBody));
+                    }
                 }
                 for (Living_entity entity : livingEntityMap.get(lane)) {
                     RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber);
@@ -64,7 +66,7 @@ public class RigidBodyMapper {
         double accelX, accelY, speedX, speedY, width, length;
 
         Object[] pos = entity.getDistance().toArray();
-        positionX = (double) pos[0]; // TODO: is it in cm? If so divide by 100 to get meters
+        positionX = (float) pos[0]; // TODO: is it in cm? If so divide by 100 to get meters
 
         if (side == Model.Side.LEFT) {
             positionY = laneNumber * LANE_WIDTH * (-1);

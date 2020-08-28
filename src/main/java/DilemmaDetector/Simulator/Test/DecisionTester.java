@@ -27,11 +27,11 @@ public class DecisionTester {
 
         double TIME_PART = 0.01;
 
-        System.out.println("Changing lane from 0 to 100 coord Y");
+        System.out.println("Changing lane from 0 to -10");
 
         while (currentTime < 10) {
             currentTime += TIME_PART;
-            actionsApplier.CarChangeLanes(car, Sunny.class, 0, -100, 25);
+            actionsApplier.CarChangeLanes(car, Sunny.class, 0, -10, 25);
             everyTickAction(TIME_PART);
         }
     }
