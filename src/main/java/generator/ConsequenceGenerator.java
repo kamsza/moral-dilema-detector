@@ -1,6 +1,7 @@
 package generator;
 
 import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.RigidBodyMapper;
 import generator.Model;
 import project.*;
 import project.MyFactory;
@@ -11,10 +12,12 @@ public class ConsequenceGenerator {
     MyFactory factory;
     Random random;
     Model model;
+    List<Actor> actors;
 
-    public ConsequenceGenerator(MyFactory factory, Model model){
+    public ConsequenceGenerator(MyFactory factory, Model model, List<Actor> actors){
         this.factory = factory;
         this.model = model;
+        this.actors = actors;
         random = new Random();
     }
 
@@ -43,28 +46,30 @@ public class ConsequenceGenerator {
                 fatalInjuryProbability = fatalInjuryProbability(speed);
 
                 double maxProbability = fatalInjuryProbability;
-                if(severInjuryProbability > maxProbability){
+                if (severInjuryProbability > maxProbability) {
                     maxProbability = severInjuryProbability;
                 }
-                if(minorInjuryProbability > maxProbability){
+                if (minorInjuryProbability > maxProbability) {
                     maxProbability = minorInjuryProbability;
                 }
 
-                if(maxProbability == fatalInjuryProbability){
-                    for (Living_entity living_entity: victims)
+                if (maxProbability == fatalInjuryProbability) {
+                    for (Living_entity living_entity : victims)
                         killed.addHealth_consequence_to(living_entity);
-                }
-                else if(maxProbability == severInjuryProbability){
-                    for (Living_entity living_entity: victims)
+                } else if (maxProbability == severInjuryProbability) {
+                    for (Living_entity living_entity : victims)
                         severelyInjured.addHealth_consequence_to(living_entity);
-                }
-                else if(maxProbability == minorInjuryProbability){
-                    for (Living_entity living_entity: victims)
+                } else if (maxProbability == minorInjuryProbability) {
+                    for (Living_entity living_entity : victims)
                         lightlyInjured.addHealth_consequence_to(living_entity);
                 }
-                else{   //TODO work out when to add intact
-                    for (Living_entity living_entity: victims)
+            }
+            // not collided LivingEntities which are in this scenario are intact
+            for(Actor actor : actors){
+                if(!entry.getValue().contains(actor)) {
+                    for(Living_entity living_entity : getVictims(actor)) {
                         intact.addHealth_consequence_to(living_entity);
+                    }
                 }
             }
         }
