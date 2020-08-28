@@ -79,7 +79,7 @@ class RoadPanel extends JPanel {
 
         for (Lane lane : lanes.values()) {
             drawObjectsOnLane(g, lane, Y);
-            Y += LANE_HEIGHT;
+            Y -= LANE_HEIGHT;
         }
     }
 
