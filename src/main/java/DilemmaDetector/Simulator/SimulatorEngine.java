@@ -29,21 +29,21 @@ public class SimulatorEngine {
 
     public Map<Decision, List<Actor>> simulateAll(){
         Map<Decision, List<Actor>> collided = new HashMap<>();
-        for(Decision decision : this.model.getActionByDecision().keySet()) {
-            collided.put(decision, simulate(decision));
+        for(Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
+            collided.put(entry.getKey(), simulate(entry.getValue()));
         }
         return collided;
     }
 
-    public List<Actor> simulate(Decision decision) {
+    public List<Actor> simulate(Action action) {
         double currentTime = 0;
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;
-            if(decision instanceof Turn_left){ //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
+            if(action instanceof Turn_left){
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
-            }else if(decision instanceof Turn_right){ //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
+            }else if(action instanceof Turn_right){
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
-            }else if(decision instanceof Follow){} //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
+            }else if(action instanceof Follow){}
 
             mainVehicle.getRigidBody().update(TIME_PART);
             for (Actor actor : actors) {
@@ -53,7 +53,7 @@ public class SimulatorEngine {
             List<Actor> collided = collisionDetector.detectCollisionInMoment();
 
             if (!collided.isEmpty()) {
-                System.out.println("Collision in decision " + decision.toString());
+                System.out.println("Collision in action: " + action.toString());
                 return collided;
             }
         }

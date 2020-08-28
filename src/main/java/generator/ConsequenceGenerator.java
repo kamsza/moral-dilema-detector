@@ -37,6 +37,7 @@ public class ConsequenceGenerator {
                 victims.add(model.getDriver());
 
                 double speed = Math.abs(actor.getRigidBody().getSpeed().getMagnitude() - mainVehicle.getRigidBody().getSpeed().getMagnitude());
+                System.out.println("Collided with relative speed: " + speed);
                 severInjuryProbability = severInjuryProbability(speed);
                 minorInjuryProbability = minorInjuryProbability(speed);
                 fatalInjuryProbability = fatalInjuryProbability(speed);
@@ -57,11 +58,14 @@ public class ConsequenceGenerator {
                     for (Living_entity living_entity: victims)
                         severelyInjured.addHealth_consequence_to(living_entity);
                 }
-                else{
+                else if(maxProbability == minorInjuryProbability){
                     for (Living_entity living_entity: victims)
                         lightlyInjured.addHealth_consequence_to(living_entity);
                 }
-
+                else{   //TODO work out when to add intact
+                    for (Living_entity living_entity: victims)
+                        intact.addHealth_consequence_to(living_entity);
+                }
             }
         }
     }

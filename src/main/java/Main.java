@@ -57,11 +57,11 @@ public class Main {
 
         for(int i=0; i<10; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
+            System.out.println(scenarioModel.getScenario().getOwlIndividual());
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel);
             ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory, scenarioModel);
             Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll();
             consequenceGenerator.predict(collidedEntities, new Actor(scenarioModel.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(scenarioModel.getVehicle())));
-            System.out.println(scenarioModel.getScenario().getOwlIndividual());
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
         }
     }

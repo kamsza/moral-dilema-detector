@@ -23,8 +23,10 @@ public class RigidBodyMapper {
                 Integer laneNumber = (Integer) childPair.getKey();
                 Lane lane = (Lane) childPair.getValue();
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
-                    result.add(new Actor(vehicle, rigidBody));
+                    if(vehicle != model.getVehicle()) {
+                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
+                        result.add(new Actor(vehicle, rigidBody));
+                    }
                 }
                 for (Living_entity entity : livingEntityMap.get(lane)) {
                     RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber);
