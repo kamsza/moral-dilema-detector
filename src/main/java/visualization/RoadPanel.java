@@ -64,7 +64,7 @@ class RoadPanel extends JPanel {
         ArrayList<Vehicle> vehicles = model.getVehicles().get(mainLane);
         drawVehicles(g, vehicles, Y);
 
-        ArrayList<Living_entity> entities = model.getEntities().get(mainLane);
+        ArrayList<Living_entity> entities = model.getLivingEntities().get(mainLane);
         drawEntities(g, entities, Y);
 
         drawMainCar(g, Y);
@@ -85,7 +85,7 @@ class RoadPanel extends JPanel {
             ArrayList<Vehicle> vehicles = model.getVehicles().get(lane);
             drawVehicles(g, vehicles, Y);
 
-            ArrayList<Living_entity> entities = model.getEntities().get(lane);
+            ArrayList<Living_entity> entities = model.getLivingEntities().get(lane);
             drawEntities(g, entities, Y);
 
             Y -= LANE_HEIGHT;
@@ -100,7 +100,7 @@ class RoadPanel extends JPanel {
             ArrayList<Vehicle> vehicles = model.getVehicles().get(lane);
             drawVehicles(g, vehicles, Y);
 
-            ArrayList<Living_entity> entities = model.getEntities().get(lane);
+            ArrayList<Living_entity> entities = model.getLivingEntities().get(lane);
             drawEntities(g, entities, Y);
 
             Y += LANE_HEIGHT;
