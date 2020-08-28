@@ -1,5 +1,8 @@
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
+import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.RigidBodyMapper;
+import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
 import project.*;
@@ -12,6 +15,8 @@ import org.swrlapi.sqwrl.exceptions.SQWRLException;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -41,8 +46,6 @@ public class Main {
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 
-        ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory);
-
         MoralDilemmaDetector mdd = builder
                 //.addModule(new SWRLInferredModule(ontology, factory))
                 .addModule(new KilledModule(factory))
@@ -54,7 +57,10 @@ public class Main {
 
         for(int i=0; i<10; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
-            consequenceGenerator.predict(scenarioModel);
+            SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel);
+            ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory, scenarioModel);
+            Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll();
+            consequenceGenerator.predict(collidedEntities, new Actor(scenarioModel.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(scenarioModel.getVehicle())));
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
         }

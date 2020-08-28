@@ -64,7 +64,7 @@ public class RigidBodyMapper {
         double accelX, accelY, speedX, speedY, width, length;
 
         Object[] pos = entity.getDistance().toArray();
-        positionX = (double) pos[0]; // TODO: is it in cm? If so divide by 100 to get meters
+        positionX = (float) pos[0]; // TODO: is it in cm? If so divide by 100 to get meters
 
         if (side == Model.Side.LEFT) {
             positionY = laneNumber * LANE_WIDTH * (-1);

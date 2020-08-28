@@ -4,10 +4,7 @@ import generator.Model;
 import project.*;
 import project.impl.DefaultDecision;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SimulatorEngine {
 
@@ -30,30 +27,36 @@ public class SimulatorEngine {
         collisionDetector = new CollisionDetector(mainVehicle, this.actors);
     }
 
+    public Map<Decision, List<Actor>> simulateAll(){
+        Map<Decision, List<Actor>> collided = new HashMap<>();
+        for(Decision decision : this.model.getActionByDecision().keySet()) {
+            collided.put(decision, simulate(decision));
+        }
+        return collided;
+    }
 
-    public void simulate(Decision decision)
-    {
+    public List<Actor> simulate(Decision decision) {
         double currentTime = 0;
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;
             if(decision instanceof Turn_left){ //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
             }else if(decision instanceof Turn_right){ //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
-                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
             }else if(decision instanceof Follow){} //factory.getTurn_left(decision.getOwlIndividual().getIRI().toString()) != null
-            // TODO wstrzykiwanie decyzji
-            //  BasicActionsApplier.CarTurning(mainVehicle, Sunny.class, false);
+
             mainVehicle.getRigidBody().update(TIME_PART);
             for (Actor actor : actors) {
                 actor.getRigidBody().update(TIME_PART);
-
             }
 
-            if (!collisionDetector.detectCollisionInMoment().isEmpty()) {
+            List<Actor> collided = collisionDetector.detectCollisionInMoment();
+
+            if (!collided.isEmpty()) {
                 System.out.println("Collision in decision " + decision.toString());
-                return;
+                return collided;
             }
         }
+        return new ArrayList<>();
     }
-
 }
