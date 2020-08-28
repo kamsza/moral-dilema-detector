@@ -183,7 +183,7 @@ public class BaseScenarioGenerator {
         for (int i = 0; i < objectsCount; i++) {
             On_the_lane object = subclassGenerator.generateSurroundingOnLaneSubclass(ObjectNamer.getName("surrounding"));
 
-            float entitySize = 20f;
+            float entitySize = 20.0F;
             int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             Lane lane = randomPositioner.getLane(model, laneNo);
             float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
@@ -243,7 +243,7 @@ public class BaseScenarioGenerator {
         float vehicleLength = 500F;
 
         while (vehiclesCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
+            int laneNo = randomPositioner.getRandomLaneNumber(vehicleLength);
             if (laneNo == -1) {
                 // no more places for new entities
                 break;

@@ -31,8 +31,8 @@ public class RandomPositioner {
     private int lanesCount;
     private int vehicleCount;
     private Random rand;
-    Map<Integer, List<EntityWithSize>> entities = new HashMap<>();
-    Map<Integer, Float> maxSpaceOnLane = new HashMap<>();
+    private Map<Integer, List<EntityWithSize>> entities = new HashMap<>();
+    private Map<Integer, Float> maxSpaceOnLane = new HashMap<>();
 
     public RandomPositioner(int lanesCount) {
         this.rand = new Random();
@@ -62,7 +62,6 @@ public class RandomPositioner {
         int laneNo = rand.nextInt(lanesCount);
         // if lane is full, check whether others have free space
         if (maxSpaceOnLane.get(laneNo) < entitySize) {
-            System.out.println("NO SPACE on lane");
             laneNo = getNextFreeLaneNo(entitySize);
         }
         return laneNo;
@@ -70,8 +69,9 @@ public class RandomPositioner {
 
     private int getNextFreeLaneNo(float entitySize) {
         for (int i = 0; i < lanesCount; i++) {
-            if (maxSpaceOnLane.get(i) > entitySize)
+            if (maxSpaceOnLane.get(i) > entitySize) {
                 return i;
+            }
         }
         // no place for new entity
         System.out.println("NO MORE PLACES ON ROAD");
@@ -97,8 +97,6 @@ public class RandomPositioner {
     }
 
     public float getRandomDistance(int laneNo, float entitySize) {
-        // add margin to entity
-//        entitySize = entitySize * 1.1F;
         int distance = rand.nextInt(maxDist);
 
         if (rand.nextBoolean()) {
@@ -118,31 +116,33 @@ public class RandomPositioner {
             entitiesOnLane.add(i, new EntityWithSize(distance, entitySize));
 
         } else {
-            distance = (int) getNextDistance(entitiesOnLane, entitySize);
+            distance = (int) getNextDistance(entitiesOnLane, entitySize, laneNo);
         }
         updateMaxSpaceOnLane(laneNo);
         return distance;
 
     }
 
-    private float getNextDistance(List<EntityWithSize> entitiesOnLane, float entitySize) {
+    private float getNextDistance(List<EntityWithSize> entitiesOnLane, float entitySize, int laneNo) {
         for (int i = 1; i < entitiesOnLane.size(); i++) {
-            float start = entitiesOnLane.get(i - 1).getEndDistance() + entitySize / 2;
-            float end = entitiesOnLane.get(i).getStartDistance() - entitySize / 2;
+            float start = entitiesOnLane.get(i - 1).getEndDistance();
+            float end = entitiesOnLane.get(i).getStartDistance();
             float spaceBetween = end - start;
             if (spaceBetween > entitySize) {
-                float distance = rand.nextInt((int) spaceBetween) + start;
+                float bound = spaceBetween - entitySize; // to avoid overlapping
+                float distance = rand.nextInt((int) bound) + start + entitySize / 2;
                 entitiesOnLane.add(i, new EntityWithSize(distance, entitySize));
                 return distance;
             }
         }
 
         // no place on lane
+        System.out.println("NO PLACE ON LANE");
         return 0;
     }
 
     private void updateMaxSpaceOnLane(int laneNo) {
-        float maxGap = maxSpaceOnLane.get(laneNo);
+        float maxGap = 0;
         List<EntityWithSize> entitiesOnLane = entities.get(laneNo);
 
         for (int i = 1; i < entitiesOnLane.size(); i++) {
@@ -150,6 +150,7 @@ public class RandomPositioner {
             if (spaceBetween > maxGap)
                 maxGap = spaceBetween;
         }
+        maxSpaceOnLane.put(laneNo, maxGap);
     }
 
 }
