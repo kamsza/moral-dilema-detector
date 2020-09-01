@@ -49,7 +49,6 @@ public class RigidBodyMapper {
         speedY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "length"));
-
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
@@ -66,7 +65,8 @@ public class RigidBodyMapper {
         double accelX, accelY, speedX, speedY, width, length;
 
         Object[] pos = entity.getDistance().toArray();
-        positionX = (float) pos[0]; // TODO: is it in cm? If so divide by 100 to get meters
+        positionX = (float) pos[0];// It is in cm, so we change it to meters
+        positionX = PhysicsUtils.CmToMeters(positionX);
 
         if (side == Model.Side.LEFT) {
             positionY = laneNumber * LANE_WIDTH * (-1);
@@ -82,13 +82,11 @@ public class RigidBodyMapper {
         speedY = PhysicsUtils.CmToMeters(getProperty(entity, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
-
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
-
         return rigidBody;
     }
 

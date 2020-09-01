@@ -39,6 +39,13 @@ public class SimulatorEngine {
         double currentTime = 0;
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;
+            System.out.println(
+                    "Pos: " + mainVehicle.getRigidBody().getPosition() +
+                            " | PrevPos: " + mainVehicle.getRigidBody().getPreviousPosition() +
+                            " | Speed: " + mainVehicle.getRigidBody().getSpeed() +
+                            " = " + mainVehicle.getRigidBody().getSpeed().getMagnitude() +
+                            " | Acc: " + mainVehicle.getRigidBody().getAcceleration());
+
             if(action instanceof Turn_left){
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
             }else if(action instanceof Turn_right){

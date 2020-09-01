@@ -23,14 +23,16 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator generator;
+//        BaseScenarioGenerator generator;
+        SimplestPossibleScenarioGenerator generator = new SimplestPossibleScenarioGenerator(factory, baseIRI);
 //        generator = new AnimalOnRoadSG(factory, baseIRI);
 //        generator = new CarApproachingSG(factory, baseIRI);
 //        generator = new CarOvertakingSG(factory, baseIRI);
 //        generator = new ObstacleOnRoadSG(factory, baseIRI);
 //        generator = new CarApproachingSG(factory, baseIRI);
 //        generator = new PedestrianOnCrosswalkSG(factory, baseIRI);
-        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
+//        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
+
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -56,7 +58,7 @@ public class Main {
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel);
