@@ -2905,7 +2905,9 @@
 
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane -->
 
-    <owl:Class rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    <owl:Class rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
+    </owl:Class>
     
 
 
