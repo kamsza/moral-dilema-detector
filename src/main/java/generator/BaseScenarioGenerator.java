@@ -161,11 +161,11 @@ public class BaseScenarioGenerator {
         if (model.getLanes().get(Model.Side.RIGHT).isEmpty())
             vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.RIGHT));
         else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
+            //TODO vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
         if (model.getLanes().get(Model.Side.LEFT).isEmpty())
             vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.LEFT));
         else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
+            //TODO vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
         for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 

@@ -15,7 +15,7 @@ public class WaymoAdapterTest {
         WaymoScenarioBuilder builder = new WaymoScenarioBuilder(
                 resPath + "traffic_ontology.owl",
                 resPath + "waymo\\ontology_with_scenario.owl",
-                "ALPHA");
+                "BETA");
 
         Label label = new Label();
         label.metadata = new Metadata();
