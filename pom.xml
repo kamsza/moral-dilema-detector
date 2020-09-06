@@ -42,6 +42,11 @@
             <artifactId>core</artifactId>
             <version>3.3.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.zeroc</groupId>
+            <artifactId>ice</artifactId>
+            <version>3.7.2</version>
+        </dependency>
     </dependencies>
 
 </project>
