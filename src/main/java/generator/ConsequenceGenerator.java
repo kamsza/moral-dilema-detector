@@ -54,14 +54,22 @@ public class ConsequenceGenerator {
                 }
 
                 if (maxProbability == fatalInjuryProbability) {
-                    for (Living_entity living_entity : victims)
+                    decision.addHas_consequence(killed);
+                    for (Living_entity living_entity : victims) {
                         killed.addHealth_consequence_to(living_entity);
-                } else if (maxProbability == severInjuryProbability) {
-                    for (Living_entity living_entity : victims)
+                    }
+                }
+                else if (maxProbability == severInjuryProbability) {
+                    decision.addHas_consequence(severelyInjured);
+                    for (Living_entity living_entity : victims){
                         severelyInjured.addHealth_consequence_to(living_entity);
+                    }
                 } else if (maxProbability == minorInjuryProbability) {
-                    for (Living_entity living_entity : victims)
+                    decision.addHas_consequence(lightlyInjured);
+                    for (Living_entity living_entity : victims){
                         lightlyInjured.addHealth_consequence_to(living_entity);
+                    }
+
                 }
             }
             // not collided LivingEntities which are in this scenario are intact
@@ -69,6 +77,7 @@ public class ConsequenceGenerator {
                 if(!entry.getValue().contains(actor)) {
                     for(Living_entity living_entity : getVictims(actor)) {
                         intact.addHealth_consequence_to(living_entity);
+                        decision.addHas_consequence(intact);
                     }
                 }
             }

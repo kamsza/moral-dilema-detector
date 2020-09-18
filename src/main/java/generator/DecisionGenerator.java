@@ -20,7 +20,7 @@ public class DecisionGenerator {
     }
 
     public void generate(Model model){
-//         adding decisions and actions
+        // adding decisions and actions
         Decision decision_1 = factory.createDecision(ObjectNamer.getName("decision"));
         Turn_left action_1 = factory.createTurn_left(ObjectNamer.getName("turn_left"));
 
@@ -33,15 +33,15 @@ public class DecisionGenerator {
         Decision decision_3 = factory.createDecision(ObjectNamer.getName("decision"));
         Follow action_3 = factory.createFollow(ObjectNamer.getName("follow"));
         decision_3.addHas_action(action_3);
-
+//
         model.getScenario().addHas_decision(decision_1);
         model.getScenario().addHas_decision(decision_2);
         model.getScenario().addHas_decision(decision_3);
 
 
         HashMap<Decision, Action> actionByDecision = new HashMap<>();
-//        actionByDecision.put(decision_1, action_1);
-//        actionByDecision.put(decision_2, action_2);
+        actionByDecision.put(decision_1, action_1);
+        actionByDecision.put(decision_2, action_2);
         actionByDecision.put(decision_3, action_3);
 
         model.setActionByDecision(actionByDecision);

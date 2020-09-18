@@ -1,13 +1,17 @@
 package DilemmaDetector.Simulator.Test;
 
+import DilemmaDetector.Simulator.BasicActionsApplier;
 import DilemmaDetector.Simulator.ChangeLaneActionApplier;
 import DilemmaDetector.Simulator.RigidBody;
 import DilemmaDetector.Simulator.Vector2;
+import generator.BaseScenarioGenerator;
 import project.Sunny;
 
 public class DecisionTester {
     private RigidBody car = new RigidBody();
     private ChangeLaneActionApplier actionsApplier= new ChangeLaneActionApplier();
+
+
 
     private void everyTickAction(double deltaTime){
         car.update(deltaTime);
@@ -32,6 +36,8 @@ public class DecisionTester {
         while (currentTime < 10) {
             currentTime += TIME_PART;
             actionsApplier.CarChangeLanes(car, Sunny.class, 0, -10, 25);
+//            BasicActionsApplier.CarTurning(car, Sunny.class, true);
+//            BasicActionsApplier.CarBreaking(car, Sunny.class);
             everyTickAction(TIME_PART);
         }
     }

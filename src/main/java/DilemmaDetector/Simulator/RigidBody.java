@@ -3,26 +3,45 @@ package DilemmaDetector.Simulator;
 import java.util.Objects;
 
 public class RigidBody {
-    private Vector2 position = Vector2.zero();
-    private Vector2 previousPosition = Vector2.zero();
-    private Vector2 speed = Vector2.zero();
-    private Vector2 acceleration = Vector2.zero();
+    public Vector2 position = Vector2.zero();
+    public Vector2 previousPosition = Vector2.zero();
+    public Vector2 speed = Vector2.zero();
+    public Vector2 acceleration = Vector2.zero();
+
+
+    public RigidBody(RigidBody that) {
+        this(that.position, that.speed, that.acceleration, that.previousPosition);
+    }
+
+    public RigidBody(Vector2 position, Vector2 speed, Vector2 acceleration, Vector2 previousPosition){
+        this.position = position;
+        this.speed = speed;
+        this.acceleration = acceleration;
+        this.previousPosition = previousPosition;
+    }
 
     private Double width = 0.0;
     private Double length = 0.0;
 
-    public Vector2 getPreviousPosition() {
-        return previousPosition;
+    public RigidBody() {
+
     }
 
-    public void addAcceleration(Vector2 acceleration) {
-        this.acceleration.add(acceleration);
+    public Vector2 getPreviousPosition() {
+        return previousPosition;
     }
 
     public void setPosition(Vector2 position) {
         this.previousPosition.x = position.x;
         this.previousPosition.y = position.y; // to not point to the same reference
         this.position = position;
+    }
+
+
+
+    public void setPreviousPosition(Vector2 previousPosition){
+        this.previousPosition = previousPosition;
+
     }
 
     public void setSpeed(Vector2 speed) {
@@ -78,7 +97,6 @@ public class RigidBody {
 
     private void updateSpeed(double deltaTime) {
         speed.add(new Vector2(acceleration).mul(deltaTime));
-        //speed = speed.getNormalized().mul(20);
     };
 
     @Override

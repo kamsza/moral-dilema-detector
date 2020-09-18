@@ -232,15 +232,15 @@ public class SimplestPossibleScenarioGenerator {
     }
 
     private void addAnimals(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        int animalsCount = 1;
-
+        int animalsCount = 2;
+        int j = 0;
         while(animalsCount > 0) {
             int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
-            int mainVehicleLaneNo = model.getLanes().get(Model.Side.LEFT).size();
-            Lane lane = randomPositioner.getLane(model, mainVehicleLaneNo);
-            float distance = 1000;  //it is in centimeters
 
-            if (distance == 0)
+//            int mainVehicleLaneNo = model.getLanes().get(Model.Side.LEFT).size() +j;
+            Lane lane = randomPositioner.getLane(model, laneNo);
+            float distance = 2000;  //it is in centimeters
+           if (distance == 0)
                 continue;
 
             animalsCount -= 1;
