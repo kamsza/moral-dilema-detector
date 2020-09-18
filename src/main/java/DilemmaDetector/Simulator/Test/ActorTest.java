@@ -44,24 +44,21 @@ public class ActorTest {
         Visualization.getImage(scenarioModel);
 
         RigidBody rigidBody = RigidBodyMapper.rigidBodyForMainVehicle(scenarioModel.getVehicle());
-        RigidBody copy = new RigidBody(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.acceleration, rigidBody.previousPosition);
-
 
         for (int i = 0; i< 3; i++){
             System.out.println("\n\n\n DECISION " +i);
             int counter = 0;
-            rigidBody.setAcceleration(copy.acceleration);
-            rigidBody.setSpeed(copy.speed);
-            rigidBody.setPosition(copy.position);
-            rigidBody.setPreviousPosition(copy.previousPosition);
+
+            rigidBody.setToInitialValues();
+
             while (counter < 10){
+
                 rigidBody.update(1);
 
-                System.out.println("POSITION" + rigidBody.getPosition() + " PREV POS" + rigidBody.getPreviousPosition());
-                System.out.println("COPY  POSITION" + copy.getPosition() + " PREV POS" + copy.getPreviousPosition());
+                System.out.println("POSITION" + rigidBody.getPosition() + " PREV POS " + rigidBody.getPreviousPosition() +
+                        " SPEED " + rigidBody.getSpeed() + " ACCEL " + rigidBody.getAcceleration());
                 counter++;
             }
         }
-
     }
 }

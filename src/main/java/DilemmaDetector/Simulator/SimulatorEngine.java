@@ -11,7 +11,7 @@ public class SimulatorEngine {
     //3 seconds lasts each period when we check moves of all entities in model
     private static final double MOVING_TIME = 3.0;
     //each TIME_PART we check if there is a collision between main vehicle and some different entity
-    private static final double TIME_PART = 0.5;
+    private static final double TIME_PART = 0.01;
 
     private Model model;
 
@@ -39,6 +39,12 @@ public class SimulatorEngine {
     public List<Actor> simulate(Action action) {
         ChangeLaneActionApplier changeLaneActionApplier = new ChangeLaneActionApplier();
         double currentTime = 0;
+
+        mainVehicle.getRigidBody().setToInitialValues();
+        for (Actor actor : actors){
+            actor.getRigidBody().setToInitialValues();
+        }
+
 
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;

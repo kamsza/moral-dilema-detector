@@ -53,7 +53,7 @@ public class RigidBodyMapper {
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
-
+        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
         return rigidBody;
     }
@@ -89,7 +89,7 @@ public class RigidBodyMapper {
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
 
-//        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
+        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
         return rigidBody;
     }
