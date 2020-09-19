@@ -1,19 +1,24 @@
 package generator;
 
 import project.Animal;
+import project.Bicycle;
 import project.Driver;
 import project.Lane;
 import project.Living_entity;
+import project.Motorbike;
 import project.MyFactory;
 import project.Non_living_entity;
 import project.On_the_lane;
 import project.On_the_road;
 import project.Passenger;
+import project.Pedestrian;
+import project.Pedestrian_crossing;
 import project.Person;
 import project.Road_type;
 import project.Scenario;
 import project.Surrounding;
 import project.Time;
+import project.Truck;
 import project.Vehicle;
 import project.Weather;
 
@@ -31,6 +36,7 @@ public class BaseScenarioGenerator {
     protected Random rand;
     protected RandomPositioner randomPositioner;
     protected RandomSubclassGenerator subclassGenerator;
+    protected SizeManager sizeManager;
 
     private int lanesCount;
     private int mainVehicleLaneId;
@@ -42,6 +48,7 @@ public class BaseScenarioGenerator {
         this.factory = factory;
         this.rand = new Random();
         this.subclassGenerator = new RandomSubclassGenerator(factory);
+        this.sizeManager = new SizeManager();
 
         ObjectNamer.setInitScenarioId(factory.getAllScenarioInstances().size());
     }
@@ -60,7 +67,10 @@ public class BaseScenarioGenerator {
         addMainVehicle(model);
         addPeopleOnPedestrianCrossing(model);
         addObjectsOnLane(model);
-        addVehicles(model);
+        addCars(model);
+        addTrucks(model);
+        addMotorbikes(model);
+        addBicycles(model);
         addAnimals(model);
         addPeopleIllegallyCrossingTheStreet(model);
 
@@ -198,7 +208,7 @@ public class BaseScenarioGenerator {
     }
 
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        int pass_count = rand.nextInt() % 5;
+        int pass_count = rand.nextInt(6);
 
         // create objects
         Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle_main"));
@@ -238,55 +248,87 @@ public class BaseScenarioGenerator {
         model.setVehicle(vehicle);
     }
 
-    private void addVehicles(Model model) {
-        int vehiclesCount = randomPositioner.getVehiclesCount();
-        float vehicleLength = 500F;
-
-        while (vehiclesCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(vehicleLength);
-            if (laneNo == -1) {
-                // no more places for new entities
-                break;
-            }
-
-            Lane vehicleLane = randomPositioner.getLane(model, laneNo);
-            float vehicleDistance = randomPositioner.getRandomDistance(laneNo, vehicleLength);
-
-            vehiclesCount -= 1;
-
-            // create objects
-            Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle"));
-            Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
-
-            // add to scenario
-            model.getScenario().addHas_vehicle(vehicle);
-
-            // add object properties
-            vehicle.addVehicle_has_driver(driver);
-            vehicle.addVehicle_has_location(model.getRoadType());
-
-            // add data properties
-            float vehicleSpeed = (float) (50 + rand.nextInt(90));
-            if (laneNo < lanesMovingLeftCount)
-                vehicleSpeed *= -1;
-
-            vehicle.addDistance(vehicleDistance);
-            vehicle.addLength(500F);
-            vehicle.addSpeedY(vehicleSpeed);
-            vehicle.addSpeedX(0F);
-            vehicle.addAccelerationY(0F);
-            vehicle.addAccelerationX(0F);
-
-            // add to model
-            model.getVehicles().get(vehicleLane).add(vehicle);
+    private void addCars(Model model) {
+        // TODO: dlaczego randomPositioner zwraca ilość smochodów?
+        int carsCount = randomPositioner.getVehiclesCount();
+        while (carsCount > 0) {
+            Vehicle car = factory.createVehicle(ObjectNamer.getName("vehicle"));
+            addVehicle(model, car,  sizeManager.getLength("vehicle"));
+            carsCount--;
         }
     }
+
+    private void addTrucks(Model model) {
+        int trucksCount = rand.nextInt(3);
+        while (trucksCount > 0) {
+            Vehicle truck = factory.createTruck(ObjectNamer.getName("vehicle"));
+            addVehicle(model, truck, sizeManager.getLength("truck"));
+            trucksCount--;
+        }
+    }
+
+    private void addMotorbikes(Model model) {
+        int motorbikesCount = rand.nextInt(3);
+
+        while (motorbikesCount > 0) {
+            Vehicle motorbike = factory.createMotorbike(ObjectNamer.getName("vehicle"));
+            addVehicle(model, motorbike, sizeManager.getLength("motorbike"));
+            motorbikesCount--;
+        }
+    }
+
+    private void addBicycles(Model model) {
+        int bicyclesCount = rand.nextInt(3);
+
+        while (bicyclesCount > 0) {
+            Vehicle bicycle = factory.createBicycle(ObjectNamer.getName("vehicle"));
+            addVehicle(model, bicycle, sizeManager.getLength("bicycle"));
+            bicyclesCount--;
+        }
+    }
+
+    private void addVehicle(Model model, Vehicle vehicle, float vehicleLength) {
+        int laneNo = randomPositioner.getRandomLaneNumber(vehicleLength);
+        if (laneNo == -1) {
+            // no more places for new entities
+            return;
+        }
+
+        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
+        float vehicleDistance = randomPositioner.getRandomDistance(laneNo, vehicleLength);
+
+        // create objects
+        Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
+
+        // add to scenario
+        model.getScenario().addHas_vehicle(vehicle);
+
+        // add object properties
+        vehicle.addVehicle_has_driver(driver);
+        vehicle.addVehicle_has_location(model.getRoadType());
+
+        // add data properties
+        float vehicleSpeed = (float) (50 + rand.nextInt(90));
+        if (laneNo < lanesMovingLeftCount)
+            vehicleSpeed *= -1;
+
+        vehicle.addDistance(vehicleDistance);
+        vehicle.addLength(500F);
+        vehicle.addSpeedY(vehicleSpeed);
+        vehicle.addSpeedX(0F);
+        vehicle.addAccelerationY(0F);
+        vehicle.addAccelerationX(0F);
+
+        // add to model
+        model.getVehicles().get(vehicleLane).add(vehicle);
+    }
+
 
     private void addAnimals(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int animalsCount = rand.nextInt(3);
 
         while (animalsCount > 0) {
-            float entitySize = 20f;
+            float entitySize = sizeManager.getLength("animal");
             int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             Lane lane = randomPositioner.getLane(model, laneNo);
             float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
@@ -301,9 +343,10 @@ public class BaseScenarioGenerator {
 
             // add data properties
             animal.addDistance(distance);
-            animal.addLength(20F);
-            animal.addSpeedY(0F);
-            animal.addSpeedX((float) rand.nextInt(15));
+            animal.addLength(sizeManager.getLength("animal"));
+            animal.addWidth(sizeManager.getWidth("animal"));
+            animal.addSpeedY((float) rand.nextInt(10) - 5);
+            animal.addSpeedX((float) rand.nextInt(20) - 10);
             animal.addAccelerationY(0F);
             animal.addAccelerationX(0F);
 
@@ -318,9 +361,9 @@ public class BaseScenarioGenerator {
         On_the_road object = factory.createPedestrian_crossing(ObjectNamer.getName("surrounding"));
 
         float distance = randomPositioner.getRandomDistance();
-        float length = 400F;
         object.addDistance(distance);
-        object.addLength(length);
+        float width = sizeManager.getWidth("pedestrian_crossing");
+        object.addWidth(width);
 
         for(Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
             model.getObjects().get(lane.getValue()).add(object);
@@ -334,7 +377,7 @@ public class BaseScenarioGenerator {
         while(peopleCount > 0) {
             int laneNo = randomPositioner.getRandomLaneNumber(1f);
             Lane lane = randomPositioner.getLane(model, laneNo);
-            float personDistance = distance - length/2 + rand.nextInt((int)length);
+            float personDistance = distance - width/2 + rand.nextInt((int)width);
 
             if (distance == 0)
                 continue;
@@ -349,9 +392,10 @@ public class BaseScenarioGenerator {
 
             // add data properties
             person.addDistance(personDistance);
-            person.addLength(20F);
-            person.addSpeedY(0F);
-            person.addSpeedX((float)rand.nextInt(15));
+            person.addLength(sizeManager.getLength("person"));
+            person.addWidth(sizeManager.getWidth("person"));
+            person.addSpeedY((float) rand.nextInt(7) - 5);
+            person.addSpeedX((float) rand.nextInt(14) - 8);
             person.addAccelerationY(0F);
             person.addAccelerationX(0F);
 
@@ -364,7 +408,7 @@ public class BaseScenarioGenerator {
         int peopleCount = rand.nextInt(3);
 
         while(peopleCount > 0) {
-            float entitySize = 20F;
+            float entitySize = sizeManager.getLength("person");
             int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             Lane lane = randomPositioner.getLane(model, laneNo);
             float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
@@ -382,9 +426,10 @@ public class BaseScenarioGenerator {
 
             // add data properties
             person.addDistance(distance);
-            person.addLength(20F);
-            person.addSpeedY(0F);
-            person.addSpeedX((float)rand.nextInt(15));
+            person.addLength(sizeManager.getLength("person"));
+            person.addWidth(sizeManager.getWidth("person"));
+            person.addSpeedY((float) rand.nextInt(10) - 5);
+            person.addSpeedX((float) rand.nextInt(16) - 8);
             person.addAccelerationY(0F);
             person.addAccelerationX(0F);
 
