@@ -106,11 +106,7 @@ class RoadPanel extends JPanel {
 
     private <V extends Vehicle> void drawVehicles(Graphics g, List<V> vehicles, int Y) {
         for (Vehicle vehicle : vehicles) {
-            BufferedImage img;
-            if (vehicle.getSpeedY().iterator().next() > 0)
-                img = ImageHandler.getImage("vehicle");
-            else
-                img = ImageHandler.getImage("vehicleL");
+            BufferedImage img = ImageHandler.getImage(vehicle);
             float distance = vehicle.getDistance().iterator().next();
             int x = (int) ((WIDTH - img.getWidth()) / 2 + distance * SCALE);
             int y = Y + (LANE_HEIGHT - img.getHeight()) / 2;

@@ -28,7 +28,7 @@ public class DistanceScale extends JPanel {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
 
-        int iterationNum = (length / step);
+        int iterationNum = (length / 5);
         int scaledStep = (width / 2) / iterationNum;
         int startX = width / 2;
         int gapX = 0;
@@ -39,15 +39,17 @@ public class DistanceScale extends JPanel {
             g.fillRect(startX + gapX, yGap, barSize, barHeight);
             g.fillRect(startX - gapX, yGap, barSize, barHeight);
 
-            JLabel labelR = new JLabel(i * step + " m");
-            labelR.setFont(new Font(labelR.getName(), Font.PLAIN, textSize));
-            labelR.setBounds(startX + gapX, barHeight + yGap, 50, textSize + yGap);
-            this.add(labelR);
+            if(i % 5 == 0) {
+                JLabel labelR = new JLabel(i * 5 + " m");
+                labelR.setFont(new Font(labelR.getName(), Font.PLAIN, textSize));
+                labelR.setBounds(startX + gapX, barHeight + yGap, 50, textSize + yGap);
+                this.add(labelR);
 
-            JLabel labelL = new JLabel(i * step + " m");
-            labelL.setFont(new Font(labelL.getName(), Font.PLAIN, textSize));
-            labelL.setBounds(startX - gapX, barHeight + yGap, 50, textSize + yGap);
-            this.add(labelL);
+                JLabel labelL = new JLabel(i * 5 + " m");
+                labelL.setFont(new Font(labelL.getName(), Font.PLAIN, textSize));
+                labelL.setBounds(startX - gapX, barHeight + yGap, 50, textSize + yGap);
+                this.add(labelL);
+            }
 
             gapX += scaledStep;
         }

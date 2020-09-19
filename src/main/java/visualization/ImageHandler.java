@@ -1,5 +1,7 @@
 package visualization;
 
+import project.Entity;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 
 class ImageHandler {
     /**
@@ -44,12 +47,29 @@ class ImageHandler {
      * that has the same name as class of given object
      * or img/no_image.png if such image don't exists
      */
-    public static BufferedImage getImage(Object o) {
-        String classFullName = o.getClass().getName();
+    public static BufferedImage getImage(Entity e) {
+        String classFullName = e.getClass().getName();
         int lastIdxDot = classFullName.lastIndexOf('.');
         String className = classFullName.substring(lastIdxDot + 1).replace("Default", "");
 
-        return getImage(className);
+        BufferedImage image =  getImage(className);
+
+        Iterator speedXit = e.getSpeedX().iterator();
+        Iterator speedYit = e.getSpeedY().iterator();
+        if(speedXit.hasNext() && speedYit.hasNext()) {
+            float speedX = (float) speedXit.next();
+            float speedY = (float) speedYit.next();
+            if(speedX == 0 && speedY < 0) {
+                image = rotateImage(image, Math.PI);
+            }
+            else if(speedY != 0) {
+                double angle = Math.atan(-1 * speedX / speedY);
+                image = rotateImage(image, angle);
+            }
+        }
+
+
+        return image;
     }
 
     /**
@@ -59,8 +79,8 @@ class ImageHandler {
      * resize image to match new dimensions - scale
      * parameter is a percent by which old dimensions should be changed
      */
-    public static BufferedImage getImage(Object o, double scale) {
-        BufferedImage img = ImageHandler.getImage(o);
+    public static BufferedImage getImage(Entity e, double scale) {
+        BufferedImage img = ImageHandler.getImage(e);
 
         int newHeight = (int)(scale * img.getHeight());
         int newWidth = (int)(scale * img.getWidth());
@@ -73,6 +93,28 @@ class ImageHandler {
         g2d.dispose();
 
         return dimg;
+    }
+
+    private static BufferedImage rotateImage(BufferedImage image, double angle) {
+        if(angle == 0)
+            return image;
+        double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
+        int w = image.getWidth(), h = image.getHeight();
+        int neww = (int)Math.floor(w*cos+h*sin), newh = (int) Math.floor(h * cos + w * sin);
+        GraphicsConfiguration gc = getDefaultConfiguration();
+        BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.TRANSLUCENT);
+        Graphics2D g = result.createGraphics();
+        g.translate((neww - w) / 2, (newh - h) / 2);
+        g.rotate(angle, w / 2, h / 2);
+        g.drawRenderedImage(image, null);
+        g.dispose();
+        return result;
+    }
+
+    private static GraphicsConfiguration getDefaultConfiguration() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        return gd.getDefaultConfiguration();
     }
 
     /**
