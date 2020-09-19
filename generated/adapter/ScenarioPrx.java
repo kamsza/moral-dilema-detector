@@ -13,45 +13,42 @@
 // </auto-generated>
 //
 
-package commonadapter.communication.generated.adapter;
+package adapter;
 
-public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
+public interface ScenarioPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default int tmp(int a)
+    default String getName()
     {
-        return tmp(a, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return getName(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default int tmp(int a, java.util.Map<String, String> context)
+    default String getName(java.util.Map<String, String> context)
     {
-        return _iceI_tmpAsync(a, context, true).waitForResponse();
+        return _iceI_getNameAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> tmpAsync(int a)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getNameAsync()
     {
-        return _iceI_tmpAsync(a, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_getNameAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> tmpAsync(int a, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getNameAsync(java.util.Map<String, String> context)
     {
-        return _iceI_tmpAsync(a, context, false);
+        return _iceI_getNameAsync(context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_a -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_tmpAsync(int iceP_a, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getNameAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "tmp", null, sync, null);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeInt(iceP_a);
-                 }, istr -> {
-                     int ret;
-                     ret = istr.readInt();
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getName", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     String ret;
+                     ret = istr.readString();
                      return ret;
                  });
         return f;
@@ -63,9 +60,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioBuilderPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static ScenarioPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), ScenarioBuilderPrx.class, _ScenarioBuilderPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), ScenarioPrx.class, _ScenarioPrxI.class);
     }
 
     /**
@@ -75,9 +72,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioBuilderPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static ScenarioPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), ScenarioBuilderPrx.class, _ScenarioBuilderPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), ScenarioPrx.class, _ScenarioPrxI.class);
     }
 
     /**
@@ -87,9 +84,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioBuilderPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static ScenarioPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), ScenarioBuilderPrx.class, _ScenarioBuilderPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), ScenarioPrx.class, _ScenarioPrxI.class);
     }
 
     /**
@@ -100,9 +97,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioBuilderPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static ScenarioPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), ScenarioBuilderPrx.class, _ScenarioBuilderPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), ScenarioPrx.class, _ScenarioPrxI.class);
     }
 
     /**
@@ -110,9 +107,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static ScenarioBuilderPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static ScenarioPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, ScenarioBuilderPrx.class, _ScenarioBuilderPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, ScenarioPrx.class, _ScenarioPrxI.class);
     }
 
     /**
@@ -121,9 +118,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static ScenarioBuilderPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static ScenarioPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, ScenarioBuilderPrx.class, _ScenarioBuilderPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, ScenarioPrx.class, _ScenarioPrxI.class);
     }
 
     /**
@@ -132,9 +129,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default ScenarioBuilderPrx ice_context(java.util.Map<String, String> newContext)
+    default ScenarioPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (ScenarioBuilderPrx)_ice_context(newContext);
+        return (ScenarioPrx)_ice_context(newContext);
     }
 
     /**
@@ -143,9 +140,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default ScenarioBuilderPrx ice_adapterId(String newAdapterId)
+    default ScenarioPrx ice_adapterId(String newAdapterId)
     {
-        return (ScenarioBuilderPrx)_ice_adapterId(newAdapterId);
+        return (ScenarioPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -154,9 +151,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default ScenarioBuilderPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default ScenarioPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (ScenarioBuilderPrx)_ice_endpoints(newEndpoints);
+        return (ScenarioPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -165,9 +162,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default ScenarioBuilderPrx ice_locatorCacheTimeout(int newTimeout)
+    default ScenarioPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (ScenarioBuilderPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (ScenarioPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -176,9 +173,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default ScenarioBuilderPrx ice_invocationTimeout(int newTimeout)
+    default ScenarioPrx ice_invocationTimeout(int newTimeout)
     {
-        return (ScenarioBuilderPrx)_ice_invocationTimeout(newTimeout);
+        return (ScenarioPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -187,9 +184,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default ScenarioBuilderPrx ice_connectionCached(boolean newCache)
+    default ScenarioPrx ice_connectionCached(boolean newCache)
     {
-        return (ScenarioBuilderPrx)_ice_connectionCached(newCache);
+        return (ScenarioPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -198,9 +195,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default ScenarioBuilderPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default ScenarioPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (ScenarioBuilderPrx)_ice_endpointSelection(newType);
+        return (ScenarioPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -211,9 +208,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default ScenarioBuilderPrx ice_secure(boolean b)
+    default ScenarioPrx ice_secure(boolean b)
     {
-        return (ScenarioBuilderPrx)_ice_secure(b);
+        return (ScenarioPrx)_ice_secure(b);
     }
 
     /**
@@ -222,9 +219,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default ScenarioBuilderPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default ScenarioPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (ScenarioBuilderPrx)_ice_encodingVersion(e);
+        return (ScenarioPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -235,9 +232,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default ScenarioBuilderPrx ice_preferSecure(boolean b)
+    default ScenarioPrx ice_preferSecure(boolean b)
     {
-        return (ScenarioBuilderPrx)_ice_preferSecure(b);
+        return (ScenarioPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -246,9 +243,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default ScenarioBuilderPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default ScenarioPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (ScenarioBuilderPrx)_ice_router(router);
+        return (ScenarioPrx)_ice_router(router);
     }
 
     /**
@@ -257,9 +254,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default ScenarioBuilderPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default ScenarioPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (ScenarioBuilderPrx)_ice_locator(locator);
+        return (ScenarioPrx)_ice_locator(locator);
     }
 
     /**
@@ -268,9 +265,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default ScenarioBuilderPrx ice_collocationOptimized(boolean b)
+    default ScenarioPrx ice_collocationOptimized(boolean b)
     {
-        return (ScenarioBuilderPrx)_ice_collocationOptimized(b);
+        return (ScenarioPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -278,9 +275,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default ScenarioBuilderPrx ice_twoway()
+    default ScenarioPrx ice_twoway()
     {
-        return (ScenarioBuilderPrx)_ice_twoway();
+        return (ScenarioPrx)_ice_twoway();
     }
 
     /**
@@ -288,9 +285,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default ScenarioBuilderPrx ice_oneway()
+    default ScenarioPrx ice_oneway()
     {
-        return (ScenarioBuilderPrx)_ice_oneway();
+        return (ScenarioPrx)_ice_oneway();
     }
 
     /**
@@ -298,9 +295,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default ScenarioBuilderPrx ice_batchOneway()
+    default ScenarioPrx ice_batchOneway()
     {
-        return (ScenarioBuilderPrx)_ice_batchOneway();
+        return (ScenarioPrx)_ice_batchOneway();
     }
 
     /**
@@ -308,9 +305,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default ScenarioBuilderPrx ice_datagram()
+    default ScenarioPrx ice_datagram()
     {
-        return (ScenarioBuilderPrx)_ice_datagram();
+        return (ScenarioPrx)_ice_datagram();
     }
 
     /**
@@ -318,9 +315,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default ScenarioBuilderPrx ice_batchDatagram()
+    default ScenarioPrx ice_batchDatagram()
     {
-        return (ScenarioBuilderPrx)_ice_batchDatagram();
+        return (ScenarioPrx)_ice_batchDatagram();
     }
 
     /**
@@ -329,9 +326,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default ScenarioBuilderPrx ice_compress(boolean co)
+    default ScenarioPrx ice_compress(boolean co)
     {
-        return (ScenarioBuilderPrx)_ice_compress(co);
+        return (ScenarioPrx)_ice_compress(co);
     }
 
     /**
@@ -340,9 +337,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default ScenarioBuilderPrx ice_timeout(int t)
+    default ScenarioPrx ice_timeout(int t)
     {
-        return (ScenarioBuilderPrx)_ice_timeout(t);
+        return (ScenarioPrx)_ice_timeout(t);
     }
 
     /**
@@ -351,9 +348,9 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default ScenarioBuilderPrx ice_connectionId(String connectionId)
+    default ScenarioPrx ice_connectionId(String connectionId)
     {
-        return (ScenarioBuilderPrx)_ice_connectionId(connectionId);
+        return (ScenarioPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -362,13 +359,13 @@ public interface ScenarioBuilderPrx extends com.zeroc.Ice.ObjectPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default ScenarioBuilderPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default ScenarioPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (ScenarioBuilderPrx)_ice_fixed(connection);
+        return (ScenarioPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::adapter::ScenarioBuilder";
+        return "::adapter::Scenario";
     }
 }

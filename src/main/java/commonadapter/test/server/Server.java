@@ -1,5 +1,6 @@
 package commonadapter.test.server;
 
+import adapter.ScenarioFactory;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Identity;
 import com.zeroc.Ice.ObjectAdapter;
@@ -18,9 +19,9 @@ public class Server {
 
             ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("Adapter1", "tcp -h localhost -p 10000:udp -h localhost -p 10000");
 
-            ScenarioBuilderImpl servant = new ScenarioBuilderImpl();
+            ScenarioFactory factory = new ScenarioFactoryImpl();
 
-            adapter.add(servant, new Identity("builder1", "scenariobuilder"));
+            adapter.add(factory, new Identity("factory1", "factory"));
 
             adapter.activate();
 

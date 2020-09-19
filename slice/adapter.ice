@@ -1,13 +1,59 @@
 
-#ifndef CALC_ICE
-#define CALC_ICE
+#ifndef ICE
+#define ICE
 
 module adapter
 {
-  interface ScenarioBuilder
+  interface Scenario
   {
-    int tmp(int a);
+    string getName();
   };
+
+  interface Entity
+  {
+
+  };
+
+  interface Pedestrian extends Entity
+  {
+
+  };
+
+  interface Vehicle extends Entity
+  {
+
+  };
+
+  interface Cyclist extends Entity
+  {
+
+  };
+
+  interface Lane
+  {
+
+  };
+
+  interface Road
+  {
+
+  };
+
+  interface RoadPoint
+  {
+
+  };
+
+  interface Junction extends RoadPoint
+  {
+
+  };
+
+  interface ScenarioFactory
+  {
+    void createScenario(string name);
+  };
+
 };
 
 #endif

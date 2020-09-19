@@ -13,10 +13,10 @@
 // </auto-generated>
 //
 
-package commonadapter.communication.generated.adapter;
+package adapter;
 
 /** @hidden */
-public class _ScenarioBuilderPrxI extends com.zeroc.Ice._ObjectPrxI implements ScenarioBuilderPrx
+public class _ScenarioFactoryPrxI extends com.zeroc.Ice._ObjectPrxI implements ScenarioFactoryPrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;

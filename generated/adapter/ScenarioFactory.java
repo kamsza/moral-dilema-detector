@@ -13,17 +13,17 @@
 // </auto-generated>
 //
 
-package commonadapter.communication.generated.adapter;
+package adapter;
 
-public interface ScenarioBuilder extends com.zeroc.Ice.Object
+public interface ScenarioFactory extends com.zeroc.Ice.Object
 {
-    int tmp(int a, com.zeroc.Ice.Current current);
+    void createScenario(String name, com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
     {
         "::Ice::Object",
-        "::adapter::ScenarioBuilder"
+        "::adapter::ScenarioFactory"
     };
 
     @Override
@@ -40,7 +40,7 @@ public interface ScenarioBuilder extends com.zeroc.Ice.Object
 
     static String ice_staticId()
     {
-        return "::adapter::ScenarioBuilder";
+        return "::adapter::ScenarioFactory";
     }
 
     /**
@@ -50,28 +50,25 @@ public interface ScenarioBuilder extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_tmp(ScenarioBuilder obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_createScenario(ScenarioFactory obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        int iceP_a;
-        iceP_a = istr.readInt();
+        String iceP_name;
+        iceP_name = istr.readString();
         inS.endReadParams();
-        int ret = obj.tmp(iceP_a, current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeInt(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
+        obj.createScenario(iceP_name, current);
+        return inS.setResult(inS.writeEmptyParams());
     }
 
     /** @hidden */
     final static String[] _iceOps =
     {
+        "createScenario",
         "ice_id",
         "ice_ids",
         "ice_isA",
-        "ice_ping",
-        "tmp"
+        "ice_ping"
     };
 
     /** @hidden */
@@ -89,23 +86,23 @@ public interface ScenarioBuilder extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_createScenario(this, in, current);
             }
             case 1:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return _iceD_tmp(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
         }
 

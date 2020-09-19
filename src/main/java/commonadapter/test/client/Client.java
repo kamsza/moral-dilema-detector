@@ -1,10 +1,12 @@
 package commonadapter.test.client;
 
+import adapter.Scenario;
+import adapter.ScenarioFactoryPrx;
+import adapter.ScenarioPrx;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.LocalException;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
-import commonadapter.communication.generated.adapter.ScenarioBuilderPrx;
 
 public class Client {
 
@@ -17,9 +19,9 @@ public class Client {
 
             communicator = Util.initialize(args);
 
-            ObjectPrx base = communicator.stringToProxy("scenariobuilder/builder1:tcp -h localhost -p 10000");
+            ObjectPrx base = communicator.stringToProxy("factory/factory1:tcp -h localhost -p 10000");
 
-            ScenarioBuilderPrx obj = ScenarioBuilderPrx.checkedCast(base);
+            ScenarioFactoryPrx obj = ScenarioFactoryPrx.checkedCast(base);
             if (obj == null) throw new Error("Invalid proxy");
 
             String line = null;
@@ -37,10 +39,13 @@ public class Client {
                     {
                         break;
                     }
-                    if (line.equals("tmp"))
+                    if (line.equals("create"))
                     {
-                        int result = obj.tmp(100);
-                        System.out.println("RESULT = " + result);
+                        obj.createScenario("s1");
+                        ObjectPrx basePrx = communicator.stringToProxy("scenario/s1:tcp -h localhost -p 10000");
+
+                        ScenarioPrx scenario = ScenarioPrx.checkedCast(basePrx);
+                        System.out.println("RESULT = " + scenario.getName());
                     }
                 }
                 catch (java.io.IOException ex)
