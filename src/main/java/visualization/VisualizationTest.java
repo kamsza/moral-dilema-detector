@@ -1,8 +1,8 @@
 package visualization;
 
-import generator.AnimalOnRoadSG;
 import generator.BaseScenarioGenerator;
 import generator.Model;
+import generator.SimplestPossibleScenarioGenerator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -31,8 +31,10 @@ public class VisualizationTest {
         String baseIRI = "http://webprotege.stanford.edu/";
 
         BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
-        for(int i = 0; i < 5; i++) {
-            Model model = generator.generate();
+        SimplestPossibleScenarioGenerator simpliestGenerator = new SimplestPossibleScenarioGenerator(factory, baseIRI);
+        for(int i = 0; i < 1; i++) {
+//            Model model = generator.generate();
+            Model model = simpliestGenerator.generate();
             Visualization.getImage(model);
         }
 //        factory.saveOwlOntology();

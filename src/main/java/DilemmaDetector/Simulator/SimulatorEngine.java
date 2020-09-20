@@ -27,23 +27,43 @@ public class SimulatorEngine {
         collisionDetector = new CollisionDetector(mainVehicle, this.actors);
     }
 
-    public Map<Decision, List<Actor>> simulateAll(){
+    public Map<Decision, List<Actor>> simulateAll() {
         Map<Decision, List<Actor>> collided = new HashMap<>();
-        for(Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
+        for (Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
+            System.out.println(entry.getValue().getOwlIndividual().toString() + " \n \n");
             collided.put(entry.getKey(), simulate(entry.getValue()));
         }
         return collided;
     }
 
     public List<Actor> simulate(Action action) {
+        ChangeLaneActionApplier changeLaneActionApplier = new ChangeLaneActionApplier();
         double currentTime = 0;
+
+        mainVehicle.getRigidBody().setToInitialValues();
+        for (Actor actor : actors){
+            actor.getRigidBody().setToInitialValues();
+        }
+
+
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;
-            if(action instanceof Turn_left){
-                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
-            }else if(action instanceof Turn_right){
-                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
-            }else if(action instanceof Follow){}
+            System.out.println(
+                    "Pos: " + mainVehicle.getRigidBody().getPosition() +
+                            " | PrevPos: " + mainVehicle.getRigidBody().getPreviousPosition() +
+                            " | Speed: " + mainVehicle.getRigidBody().getSpeed() +
+                            " = " + mainVehicle.getRigidBody().getSpeed().getMagnitude() +
+                            " | Acc: " + mainVehicle.getRigidBody().getAcceleration());
+
+
+            if (action instanceof Turn_left) {
+//                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
+                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather().getClass(), 0, -1, 3);
+            } else if (action instanceof Turn_right) {
+//                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
+                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather().getClass(), 0, 1, 3);
+            } else if (action instanceof Follow) {
+            }
 
             mainVehicle.getRigidBody().update(TIME_PART);
             for (Actor actor : actors) {
@@ -53,7 +73,7 @@ public class SimulatorEngine {
             List<Actor> collided = collisionDetector.detectCollisionInMoment();
 
             if (!collided.isEmpty()) {
-                System.out.println("Collision in action: " + action.toString());
+                System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
                 return collided;
             }
         }

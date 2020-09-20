@@ -33,7 +33,7 @@ public class DecisionGenerator {
         Decision decision_3 = factory.createDecision(ObjectNamer.getName("decision"));
         Follow action_3 = factory.createFollow(ObjectNamer.getName("follow"));
         decision_3.addHas_action(action_3);
-
+//
         model.getScenario().addHas_decision(decision_1);
         model.getScenario().addHas_decision(decision_2);
         model.getScenario().addHas_decision(decision_3);
