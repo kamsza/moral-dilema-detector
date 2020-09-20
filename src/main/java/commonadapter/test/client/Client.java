@@ -1,8 +1,6 @@
 package commonadapter.test.client;
 
-import adapter.Scenario;
-import adapter.ScenarioFactoryPrx;
-import adapter.ScenarioPrx;
+import adapter.*;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.LocalException;
 import com.zeroc.Ice.ObjectPrx;
@@ -21,8 +19,8 @@ public class Client {
 
             ObjectPrx base = communicator.stringToProxy("factory/factory1:tcp -h localhost -p 10000");
 
-            ScenarioFactoryPrx obj = ScenarioFactoryPrx.checkedCast(base);
-            if (obj == null) throw new Error("Invalid proxy");
+            BaseFactoryPrx baseFactoryPrx = BaseFactoryPrx.checkedCast(base);
+            if (baseFactoryPrx == null) throw new Error("Invalid proxy");
 
             String line = null;
             java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
@@ -41,11 +39,20 @@ public class Client {
                     }
                     if (line.equals("create"))
                     {
-                        obj.createScenario("s1");
-                        ObjectPrx basePrx = communicator.stringToProxy("scenario/s1:tcp -h localhost -p 10000");
+                        String scenarioId = baseFactoryPrx.create(ItemType.SCENARIO);
+                        String vehicleId = baseFactoryPrx.create(ItemType.VEHICLE);
 
-                        ScenarioPrx scenario = ScenarioPrx.checkedCast(basePrx);
-                        System.out.println("RESULT = " + scenario.getName());
+                        ObjectPrx basePrx = communicator.stringToProxy(scenarioId + ":tcp -h localhost -p 10000");
+                        ScenarioPrx scenarioPrx = ScenarioPrx.checkedCast(basePrx);
+
+                        basePrx = communicator.stringToProxy(vehicleId + ":tcp -h localhost -p 10000");
+                        VehiclePrx vehiclePrx = VehiclePrx.checkedCast(basePrx);
+
+                        System.out.println(scenarioId + "::" + scenarioPrx.getId());
+                        System.out.println(vehicleId + "::" + vehiclePrx.getId());
+
+                        scenarioPrx.addVehicle(vehiclePrx.getId());
+                        scenarioPrx.addVehicle(vehicleId);
                     }
                 }
                 catch (java.io.IOException ex)

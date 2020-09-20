@@ -16,7 +16,7 @@
 package adapter;
 
 /** @hidden */
-public class _ScenarioFactoryPrxI extends com.zeroc.Ice._ObjectPrxI implements ScenarioFactoryPrx
+public class _BaseFactoryPrxI extends com.zeroc.Ice._ObjectPrxI implements BaseFactoryPrx
 {
     /** @hidden */
     public static final long serialVersionUID = 0L;

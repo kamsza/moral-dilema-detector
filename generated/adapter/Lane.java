@@ -15,12 +15,17 @@
 
 package adapter;
 
-public interface Lane extends com.zeroc.Ice.Object
+public interface Lane extends BaseItem
 {
+    int getWidth(com.zeroc.Ice.Current current);
+
+    void setWidth(int width, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
         "::Ice::Object",
+        "::adapter::BaseItem",
         "::adapter::Lane"
     };
 
@@ -39,5 +44,100 @@ public interface Lane extends com.zeroc.Ice.Object
     static String ice_staticId()
     {
         return "::adapter::Lane";
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getWidth(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        inS.readEmptyParams();
+        int ret = obj.getWidth(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeInt(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setWidth(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        int iceP_width;
+        iceP_width = istr.readInt();
+        inS.endReadParams();
+        obj.setWidth(iceP_width, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /** @hidden */
+    final static String[] _iceOps =
+    {
+        "getId",
+        "getWidth",
+        "ice_id",
+        "ice_ids",
+        "ice_isA",
+        "ice_ping",
+        "setWidth"
+    };
+
+    /** @hidden */
+    @Override
+    default java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceDispatch(com.zeroc.IceInternal.Incoming in, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
+    {
+        int pos = java.util.Arrays.binarySearch(_iceOps, current.operation);
+        if(pos < 0)
+        {
+            throw new com.zeroc.Ice.OperationNotExistException(current.id, current.facet, current.operation);
+        }
+
+        switch(pos)
+        {
+            case 0:
+            {
+                return BaseItem._iceD_getId(this, in, current);
+            }
+            case 1:
+            {
+                return _iceD_getWidth(this, in, current);
+            }
+            case 2:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+            }
+            case 3:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+            }
+            case 4:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 5:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 6:
+            {
+                return _iceD_setWidth(this, in, current);
+            }
+        }
+
+        assert(false);
+        throw new com.zeroc.Ice.OperationNotExistException(current.id, current.facet, current.operation);
     }
 }

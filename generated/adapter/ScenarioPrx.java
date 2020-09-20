@@ -15,26 +15,278 @@
 
 package adapter;
 
-public interface ScenarioPrx extends com.zeroc.Ice.ObjectPrx
+public interface ScenarioPrx extends BaseItemPrx
 {
-    default String getName()
+    default void addVehicle(String vehicleId)
     {
-        return getName(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        addVehicle(vehicleId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default String getName(java.util.Map<String, String> context)
+    default void addVehicle(String vehicleId, java.util.Map<String, String> context)
     {
-        return _iceI_getNameAsync(context, true).waitForResponse();
+        _iceI_addVehicleAsync(vehicleId, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.String> getNameAsync()
+    default java.util.concurrent.CompletableFuture<Void> addVehicleAsync(String vehicleId)
     {
-        return _iceI_getNameAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_addVehicleAsync(vehicleId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.String> getNameAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> addVehicleAsync(String vehicleId, java.util.Map<String, String> context)
     {
-        return _iceI_getNameAsync(context, false);
+        return _iceI_addVehicleAsync(vehicleId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_vehicleId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addVehicleAsync(String iceP_vehicleId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addVehicle", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_vehicleId);
+                 }, null);
+        return f;
+    }
+
+    default void addCyclist(String cyclistId)
+    {
+        addCyclist(cyclistId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void addCyclist(String cyclistId, java.util.Map<String, String> context)
+    {
+        _iceI_addCyclistAsync(cyclistId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addCyclistAsync(String cyclistId)
+    {
+        return _iceI_addCyclistAsync(cyclistId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addCyclistAsync(String cyclistId, java.util.Map<String, String> context)
+    {
+        return _iceI_addCyclistAsync(cyclistId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_cyclistId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addCyclistAsync(String iceP_cyclistId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addCyclist", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_cyclistId);
+                 }, null);
+        return f;
+    }
+
+    default void addPedestrian(String pedestrianId)
+    {
+        addPedestrian(pedestrianId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void addPedestrian(String pedestrianId, java.util.Map<String, String> context)
+    {
+        _iceI_addPedestrianAsync(pedestrianId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addPedestrianAsync(String pedestrianId)
+    {
+        return _iceI_addPedestrianAsync(pedestrianId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addPedestrianAsync(String pedestrianId, java.util.Map<String, String> context)
+    {
+        return _iceI_addPedestrianAsync(pedestrianId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_pedestrianId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addPedestrianAsync(String iceP_pedestrianId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addPedestrian", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_pedestrianId);
+                 }, null);
+        return f;
+    }
+
+    default void addLane(String laneId)
+    {
+        addLane(laneId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void addLane(String laneId, java.util.Map<String, String> context)
+    {
+        _iceI_addLaneAsync(laneId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addLaneAsync(String laneId)
+    {
+        return _iceI_addLaneAsync(laneId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addLaneAsync(String laneId, java.util.Map<String, String> context)
+    {
+        return _iceI_addLaneAsync(laneId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_laneId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addLaneAsync(String iceP_laneId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addLane", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_laneId);
+                 }, null);
+        return f;
+    }
+
+    default void addRoad(String roadId)
+    {
+        addRoad(roadId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void addRoad(String roadId, java.util.Map<String, String> context)
+    {
+        _iceI_addRoadAsync(roadId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addRoadAsync(String roadId)
+    {
+        return _iceI_addRoadAsync(roadId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addRoadAsync(String roadId, java.util.Map<String, String> context)
+    {
+        return _iceI_addRoadAsync(roadId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_roadId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addRoadAsync(String iceP_roadId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addRoad", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_roadId);
+                 }, null);
+        return f;
+    }
+
+    default void addRoadPoint(String roadPointId)
+    {
+        addRoadPoint(roadPointId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void addRoadPoint(String roadPointId, java.util.Map<String, String> context)
+    {
+        _iceI_addRoadPointAsync(roadPointId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addRoadPointAsync(String roadPointId)
+    {
+        return _iceI_addRoadPointAsync(roadPointId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addRoadPointAsync(String roadPointId, java.util.Map<String, String> context)
+    {
+        return _iceI_addRoadPointAsync(roadPointId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_roadPointId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addRoadPointAsync(String iceP_roadPointId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addRoadPoint", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_roadPointId);
+                 }, null);
+        return f;
+    }
+
+    default void addJunction(String junctionId)
+    {
+        addJunction(junctionId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void addJunction(String junctionId, java.util.Map<String, String> context)
+    {
+        _iceI_addJunctionAsync(junctionId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addJunctionAsync(String junctionId)
+    {
+        return _iceI_addJunctionAsync(junctionId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> addJunctionAsync(String junctionId, java.util.Map<String, String> context)
+    {
+        return _iceI_addJunctionAsync(junctionId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_junctionId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_addJunctionAsync(String iceP_junctionId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "addJunction", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_junctionId);
+                 }, null);
+        return f;
+    }
+
+    default void persist()
+    {
+        persist(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void persist(java.util.Map<String, String> context)
+    {
+        _iceI_persistAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> persistAsync()
+    {
+        return _iceI_persistAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> persistAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_persistAsync(context, false);
     }
 
     /**
@@ -43,14 +295,10 @@ public interface ScenarioPrx extends com.zeroc.Ice.ObjectPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getNameAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_persistAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getName", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     String ret;
-                     ret = istr.readString();
-                     return ret;
-                 });
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "persist", null, sync, null);
+        f.invoke(false, context, null, null, null);
         return f;
     }
 

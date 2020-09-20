@@ -15,7 +15,7 @@
 
 package adapter;
 
-public interface RoadPointPrx extends com.zeroc.Ice.ObjectPrx
+public interface RoadPointPrx extends BaseItemPrx
 {
     /**
      * Contacts the remote server to verify that the object implements this type.

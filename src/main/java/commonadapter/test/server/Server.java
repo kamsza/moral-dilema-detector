@@ -1,10 +1,11 @@
 package commonadapter.test.server;
 
-import adapter.ScenarioFactory;
+import adapter.BaseFactory;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Identity;
 import com.zeroc.Ice.ObjectAdapter;
 import com.zeroc.Ice.Util;
+import commonadapter.test.server.implementation.BaseFactoryImpl;
 
 public class Server {
 
@@ -19,13 +20,13 @@ public class Server {
 
             ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("Adapter1", "tcp -h localhost -p 10000:udp -h localhost -p 10000");
 
-            ScenarioFactory factory = new ScenarioFactoryImpl();
+            BaseFactory factory = new BaseFactoryImpl();
 
             adapter.add(factory, new Identity("factory1", "factory"));
 
             adapter.activate();
 
-            System.out.println("Entering event processing loop...");
+            System.out.println("server ready");
 
             communicator.waitForShutdown();
         }

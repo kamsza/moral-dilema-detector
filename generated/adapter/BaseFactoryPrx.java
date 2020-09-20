@@ -15,41 +15,45 @@
 
 package adapter;
 
-public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
+public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default void createScenario(String name)
+    default String create(ItemType type)
     {
-        createScenario(name, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return create(type, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void createScenario(String name, java.util.Map<String, String> context)
+    default String create(ItemType type, java.util.Map<String, String> context)
     {
-        _iceI_createScenarioAsync(name, context, true).waitForResponse();
+        return _iceI_createAsync(type, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> createScenarioAsync(String name)
+    default java.util.concurrent.CompletableFuture<java.lang.String> createAsync(ItemType type)
     {
-        return _iceI_createScenarioAsync(name, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_createAsync(type, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> createScenarioAsync(String name, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> createAsync(ItemType type, java.util.Map<String, String> context)
     {
-        return _iceI_createScenarioAsync(name, context, false);
+        return _iceI_createAsync(type, context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_name -
+     * @param iceP_type -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_createScenarioAsync(String iceP_name, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_createAsync(ItemType iceP_type, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "createScenario", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
-                     ostr.writeString(iceP_name);
-                 }, null);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "create", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     ItemType.ice_write(ostr, iceP_type);
+                 }, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
         return f;
     }
 
@@ -59,9 +63,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), ScenarioFactoryPrx.class, _ScenarioFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
     }
 
     /**
@@ -71,9 +75,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), ScenarioFactoryPrx.class, _ScenarioFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
     }
 
     /**
@@ -83,9 +87,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), ScenarioFactoryPrx.class, _ScenarioFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
     }
 
     /**
@@ -96,9 +100,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static ScenarioFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), ScenarioFactoryPrx.class, _ScenarioFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
     }
 
     /**
@@ -106,9 +110,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static ScenarioFactoryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static BaseFactoryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, ScenarioFactoryPrx.class, _ScenarioFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, BaseFactoryPrx.class, _BaseFactoryPrxI.class);
     }
 
     /**
@@ -117,9 +121,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static ScenarioFactoryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static BaseFactoryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, ScenarioFactoryPrx.class, _ScenarioFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, BaseFactoryPrx.class, _BaseFactoryPrxI.class);
     }
 
     /**
@@ -128,9 +132,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default ScenarioFactoryPrx ice_context(java.util.Map<String, String> newContext)
+    default BaseFactoryPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (ScenarioFactoryPrx)_ice_context(newContext);
+        return (BaseFactoryPrx)_ice_context(newContext);
     }
 
     /**
@@ -139,9 +143,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default ScenarioFactoryPrx ice_adapterId(String newAdapterId)
+    default BaseFactoryPrx ice_adapterId(String newAdapterId)
     {
-        return (ScenarioFactoryPrx)_ice_adapterId(newAdapterId);
+        return (BaseFactoryPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -150,9 +154,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default ScenarioFactoryPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default BaseFactoryPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (ScenarioFactoryPrx)_ice_endpoints(newEndpoints);
+        return (BaseFactoryPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -161,9 +165,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default ScenarioFactoryPrx ice_locatorCacheTimeout(int newTimeout)
+    default BaseFactoryPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (ScenarioFactoryPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (BaseFactoryPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -172,9 +176,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default ScenarioFactoryPrx ice_invocationTimeout(int newTimeout)
+    default BaseFactoryPrx ice_invocationTimeout(int newTimeout)
     {
-        return (ScenarioFactoryPrx)_ice_invocationTimeout(newTimeout);
+        return (BaseFactoryPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -183,9 +187,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default ScenarioFactoryPrx ice_connectionCached(boolean newCache)
+    default BaseFactoryPrx ice_connectionCached(boolean newCache)
     {
-        return (ScenarioFactoryPrx)_ice_connectionCached(newCache);
+        return (BaseFactoryPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -194,9 +198,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default ScenarioFactoryPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default BaseFactoryPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (ScenarioFactoryPrx)_ice_endpointSelection(newType);
+        return (BaseFactoryPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -207,9 +211,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default ScenarioFactoryPrx ice_secure(boolean b)
+    default BaseFactoryPrx ice_secure(boolean b)
     {
-        return (ScenarioFactoryPrx)_ice_secure(b);
+        return (BaseFactoryPrx)_ice_secure(b);
     }
 
     /**
@@ -218,9 +222,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default ScenarioFactoryPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default BaseFactoryPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (ScenarioFactoryPrx)_ice_encodingVersion(e);
+        return (BaseFactoryPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -231,9 +235,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default ScenarioFactoryPrx ice_preferSecure(boolean b)
+    default BaseFactoryPrx ice_preferSecure(boolean b)
     {
-        return (ScenarioFactoryPrx)_ice_preferSecure(b);
+        return (BaseFactoryPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -242,9 +246,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default ScenarioFactoryPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default BaseFactoryPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (ScenarioFactoryPrx)_ice_router(router);
+        return (BaseFactoryPrx)_ice_router(router);
     }
 
     /**
@@ -253,9 +257,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default ScenarioFactoryPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default BaseFactoryPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (ScenarioFactoryPrx)_ice_locator(locator);
+        return (BaseFactoryPrx)_ice_locator(locator);
     }
 
     /**
@@ -264,9 +268,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default ScenarioFactoryPrx ice_collocationOptimized(boolean b)
+    default BaseFactoryPrx ice_collocationOptimized(boolean b)
     {
-        return (ScenarioFactoryPrx)_ice_collocationOptimized(b);
+        return (BaseFactoryPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -274,9 +278,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default ScenarioFactoryPrx ice_twoway()
+    default BaseFactoryPrx ice_twoway()
     {
-        return (ScenarioFactoryPrx)_ice_twoway();
+        return (BaseFactoryPrx)_ice_twoway();
     }
 
     /**
@@ -284,9 +288,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default ScenarioFactoryPrx ice_oneway()
+    default BaseFactoryPrx ice_oneway()
     {
-        return (ScenarioFactoryPrx)_ice_oneway();
+        return (BaseFactoryPrx)_ice_oneway();
     }
 
     /**
@@ -294,9 +298,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default ScenarioFactoryPrx ice_batchOneway()
+    default BaseFactoryPrx ice_batchOneway()
     {
-        return (ScenarioFactoryPrx)_ice_batchOneway();
+        return (BaseFactoryPrx)_ice_batchOneway();
     }
 
     /**
@@ -304,9 +308,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default ScenarioFactoryPrx ice_datagram()
+    default BaseFactoryPrx ice_datagram()
     {
-        return (ScenarioFactoryPrx)_ice_datagram();
+        return (BaseFactoryPrx)_ice_datagram();
     }
 
     /**
@@ -314,9 +318,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default ScenarioFactoryPrx ice_batchDatagram()
+    default BaseFactoryPrx ice_batchDatagram()
     {
-        return (ScenarioFactoryPrx)_ice_batchDatagram();
+        return (BaseFactoryPrx)_ice_batchDatagram();
     }
 
     /**
@@ -325,9 +329,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default ScenarioFactoryPrx ice_compress(boolean co)
+    default BaseFactoryPrx ice_compress(boolean co)
     {
-        return (ScenarioFactoryPrx)_ice_compress(co);
+        return (BaseFactoryPrx)_ice_compress(co);
     }
 
     /**
@@ -336,9 +340,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default ScenarioFactoryPrx ice_timeout(int t)
+    default BaseFactoryPrx ice_timeout(int t)
     {
-        return (ScenarioFactoryPrx)_ice_timeout(t);
+        return (BaseFactoryPrx)_ice_timeout(t);
     }
 
     /**
@@ -347,9 +351,9 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default ScenarioFactoryPrx ice_connectionId(String connectionId)
+    default BaseFactoryPrx ice_connectionId(String connectionId)
     {
-        return (ScenarioFactoryPrx)_ice_connectionId(connectionId);
+        return (BaseFactoryPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -358,13 +362,13 @@ public interface ScenarioFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default ScenarioFactoryPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default BaseFactoryPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (ScenarioFactoryPrx)_ice_fixed(connection);
+        return (BaseFactoryPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::adapter::ScenarioFactory";
+        return "::adapter::BaseFactory";
     }
 }

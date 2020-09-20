@@ -15,8 +15,154 @@
 
 package adapter;
 
-public interface EntityPrx extends com.zeroc.Ice.ObjectPrx
+public interface EntityPrx extends BaseItemPrx
 {
+    default void setLane(String laneId)
+    {
+        setLane(laneId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setLane(String laneId, java.util.Map<String, String> context)
+    {
+        _iceI_setLaneAsync(laneId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLaneAsync(String laneId)
+    {
+        return _iceI_setLaneAsync(laneId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLaneAsync(String laneId, java.util.Map<String, String> context)
+    {
+        return _iceI_setLaneAsync(laneId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_laneId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLaneAsync(String iceP_laneId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLane", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_laneId);
+                 }, null);
+        return f;
+    }
+
+    default String getLaneId()
+    {
+        return getLaneId(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default String getLaneId(java.util.Map<String, String> context)
+    {
+        return _iceI_getLaneIdAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.String> getLaneIdAsync()
+    {
+        return _iceI_getLaneIdAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.String> getLaneIdAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getLaneIdAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getLaneIdAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getLaneId", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default float getDistance()
+    {
+        return getDistance(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default float getDistance(java.util.Map<String, String> context)
+    {
+        return _iceI_getDistanceAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Float> getDistanceAsync()
+    {
+        return _iceI_getDistanceAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Float> getDistanceAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getDistanceAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> _iceI_getDistanceAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getDistance", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     float ret;
+                     ret = istr.readFloat();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default void setDistance(float distance)
+    {
+        setDistance(distance, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setDistance(float distance, java.util.Map<String, String> context)
+    {
+        _iceI_setDistanceAsync(distance, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setDistanceAsync(float distance)
+    {
+        return _iceI_setDistanceAsync(distance, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setDistanceAsync(float distance, java.util.Map<String, String> context)
+    {
+        return _iceI_setDistanceAsync(distance, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_distance -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setDistanceAsync(float iceP_distance, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setDistance", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_distance);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

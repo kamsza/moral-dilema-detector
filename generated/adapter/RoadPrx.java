@@ -15,8 +15,81 @@
 
 package adapter;
 
-public interface RoadPrx extends com.zeroc.Ice.ObjectPrx
+public interface RoadPrx extends BaseItemPrx
 {
+    default void setStartAngle(float angle)
+    {
+        setStartAngle(angle, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setStartAngle(float angle, java.util.Map<String, String> context)
+    {
+        _iceI_setStartAngleAsync(angle, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setStartAngleAsync(float angle)
+    {
+        return _iceI_setStartAngleAsync(angle, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setStartAngleAsync(float angle, java.util.Map<String, String> context)
+    {
+        return _iceI_setStartAngleAsync(angle, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_angle -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setStartAngleAsync(float iceP_angle, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setStartAngle", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_angle);
+                 }, null);
+        return f;
+    }
+
+    default float getStartAngle()
+    {
+        return getStartAngle(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default float getStartAngle(java.util.Map<String, String> context)
+    {
+        return _iceI_getStartAngleAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Float> getStartAngleAsync()
+    {
+        return _iceI_getStartAngleAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Float> getStartAngleAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getStartAngleAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> _iceI_getStartAngleAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getStartAngle", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     float ret;
+                     ret = istr.readFloat();
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

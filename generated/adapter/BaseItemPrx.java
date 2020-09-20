@@ -15,26 +15,26 @@
 
 package adapter;
 
-public interface LanePrx extends BaseItemPrx
+public interface BaseItemPrx extends com.zeroc.Ice.ObjectPrx
 {
-    default int getWidth()
+    default String getId()
     {
-        return getWidth(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        return getId(com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default int getWidth(java.util.Map<String, String> context)
+    default String getId(java.util.Map<String, String> context)
     {
-        return _iceI_getWidthAsync(context, true).waitForResponse();
+        return _iceI_getIdAsync(context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getWidthAsync()
+    default java.util.concurrent.CompletableFuture<java.lang.String> getIdAsync()
     {
-        return _iceI_getWidthAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_getIdAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getWidthAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<java.lang.String> getIdAsync(java.util.Map<String, String> context)
     {
-        return _iceI_getWidthAsync(context, false);
+        return _iceI_getIdAsync(context, false);
     }
 
     /**
@@ -43,62 +43,26 @@ public interface LanePrx extends BaseItemPrx
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getWidthAsync(java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getIdAsync(java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getWidth", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getId", null, sync, null);
         f.invoke(true, context, null, null, istr -> {
-                     int ret;
-                     ret = istr.readInt();
+                     String ret;
+                     ret = istr.readString();
                      return ret;
                  });
         return f;
     }
 
-    default void setWidth(int width)
-    {
-        setWidth(width, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void setWidth(int width, java.util.Map<String, String> context)
-    {
-        _iceI_setWidthAsync(width, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> setWidthAsync(int width)
-    {
-        return _iceI_setWidthAsync(width, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> setWidthAsync(int width, java.util.Map<String, String> context)
-    {
-        return _iceI_setWidthAsync(width, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_width -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setWidthAsync(int iceP_width, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setWidth", null, sync, null);
-        f.invoke(false, context, null, ostr -> {
-                     ostr.writeInt(iceP_width);
-                 }, null);
-        return f;
-    }
-
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static LanePrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static BaseItemPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), LanePrx.class, _LanePrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), BaseItemPrx.class, _BaseItemPrxI.class);
     }
 
     /**
@@ -108,9 +72,9 @@ public interface LanePrx extends BaseItemPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static LanePrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static BaseItemPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), LanePrx.class, _LanePrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), BaseItemPrx.class, _BaseItemPrxI.class);
     }
 
     /**
@@ -120,9 +84,9 @@ public interface LanePrx extends BaseItemPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static LanePrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static BaseItemPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), LanePrx.class, _LanePrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), BaseItemPrx.class, _BaseItemPrxI.class);
     }
 
     /**
@@ -133,9 +97,9 @@ public interface LanePrx extends BaseItemPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static LanePrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static BaseItemPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), LanePrx.class, _LanePrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), BaseItemPrx.class, _BaseItemPrxI.class);
     }
 
     /**
@@ -143,9 +107,9 @@ public interface LanePrx extends BaseItemPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static LanePrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static BaseItemPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, LanePrx.class, _LanePrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, BaseItemPrx.class, _BaseItemPrxI.class);
     }
 
     /**
@@ -154,9 +118,9 @@ public interface LanePrx extends BaseItemPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static LanePrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static BaseItemPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, LanePrx.class, _LanePrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, BaseItemPrx.class, _BaseItemPrxI.class);
     }
 
     /**
@@ -165,9 +129,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default LanePrx ice_context(java.util.Map<String, String> newContext)
+    default BaseItemPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (LanePrx)_ice_context(newContext);
+        return (BaseItemPrx)_ice_context(newContext);
     }
 
     /**
@@ -176,9 +140,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default LanePrx ice_adapterId(String newAdapterId)
+    default BaseItemPrx ice_adapterId(String newAdapterId)
     {
-        return (LanePrx)_ice_adapterId(newAdapterId);
+        return (BaseItemPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -187,9 +151,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default LanePrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default BaseItemPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (LanePrx)_ice_endpoints(newEndpoints);
+        return (BaseItemPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -198,9 +162,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default LanePrx ice_locatorCacheTimeout(int newTimeout)
+    default BaseItemPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (LanePrx)_ice_locatorCacheTimeout(newTimeout);
+        return (BaseItemPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -209,9 +173,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default LanePrx ice_invocationTimeout(int newTimeout)
+    default BaseItemPrx ice_invocationTimeout(int newTimeout)
     {
-        return (LanePrx)_ice_invocationTimeout(newTimeout);
+        return (BaseItemPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -220,9 +184,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default LanePrx ice_connectionCached(boolean newCache)
+    default BaseItemPrx ice_connectionCached(boolean newCache)
     {
-        return (LanePrx)_ice_connectionCached(newCache);
+        return (BaseItemPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -231,9 +195,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default LanePrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default BaseItemPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (LanePrx)_ice_endpointSelection(newType);
+        return (BaseItemPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -244,9 +208,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default LanePrx ice_secure(boolean b)
+    default BaseItemPrx ice_secure(boolean b)
     {
-        return (LanePrx)_ice_secure(b);
+        return (BaseItemPrx)_ice_secure(b);
     }
 
     /**
@@ -255,9 +219,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default LanePrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default BaseItemPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (LanePrx)_ice_encodingVersion(e);
+        return (BaseItemPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -268,9 +232,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default LanePrx ice_preferSecure(boolean b)
+    default BaseItemPrx ice_preferSecure(boolean b)
     {
-        return (LanePrx)_ice_preferSecure(b);
+        return (BaseItemPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -279,9 +243,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default LanePrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default BaseItemPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (LanePrx)_ice_router(router);
+        return (BaseItemPrx)_ice_router(router);
     }
 
     /**
@@ -290,9 +254,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default LanePrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default BaseItemPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (LanePrx)_ice_locator(locator);
+        return (BaseItemPrx)_ice_locator(locator);
     }
 
     /**
@@ -301,9 +265,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default LanePrx ice_collocationOptimized(boolean b)
+    default BaseItemPrx ice_collocationOptimized(boolean b)
     {
-        return (LanePrx)_ice_collocationOptimized(b);
+        return (BaseItemPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -311,9 +275,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default LanePrx ice_twoway()
+    default BaseItemPrx ice_twoway()
     {
-        return (LanePrx)_ice_twoway();
+        return (BaseItemPrx)_ice_twoway();
     }
 
     /**
@@ -321,9 +285,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default LanePrx ice_oneway()
+    default BaseItemPrx ice_oneway()
     {
-        return (LanePrx)_ice_oneway();
+        return (BaseItemPrx)_ice_oneway();
     }
 
     /**
@@ -331,9 +295,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default LanePrx ice_batchOneway()
+    default BaseItemPrx ice_batchOneway()
     {
-        return (LanePrx)_ice_batchOneway();
+        return (BaseItemPrx)_ice_batchOneway();
     }
 
     /**
@@ -341,9 +305,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default LanePrx ice_datagram()
+    default BaseItemPrx ice_datagram()
     {
-        return (LanePrx)_ice_datagram();
+        return (BaseItemPrx)_ice_datagram();
     }
 
     /**
@@ -351,9 +315,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default LanePrx ice_batchDatagram()
+    default BaseItemPrx ice_batchDatagram()
     {
-        return (LanePrx)_ice_batchDatagram();
+        return (BaseItemPrx)_ice_batchDatagram();
     }
 
     /**
@@ -362,9 +326,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default LanePrx ice_compress(boolean co)
+    default BaseItemPrx ice_compress(boolean co)
     {
-        return (LanePrx)_ice_compress(co);
+        return (BaseItemPrx)_ice_compress(co);
     }
 
     /**
@@ -373,9 +337,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default LanePrx ice_timeout(int t)
+    default BaseItemPrx ice_timeout(int t)
     {
-        return (LanePrx)_ice_timeout(t);
+        return (BaseItemPrx)_ice_timeout(t);
     }
 
     /**
@@ -384,9 +348,9 @@ public interface LanePrx extends BaseItemPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default LanePrx ice_connectionId(String connectionId)
+    default BaseItemPrx ice_connectionId(String connectionId)
     {
-        return (LanePrx)_ice_connectionId(connectionId);
+        return (BaseItemPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -395,13 +359,13 @@ public interface LanePrx extends BaseItemPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default LanePrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default BaseItemPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (LanePrx)_ice_fixed(connection);
+        return (BaseItemPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::adapter::Lane";
+        return "::adapter::BaseItem";
     }
 }

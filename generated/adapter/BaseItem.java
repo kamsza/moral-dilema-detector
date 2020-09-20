@@ -15,15 +15,15 @@
 
 package adapter;
 
-public interface ScenarioFactory extends com.zeroc.Ice.Object
+public interface BaseItem extends com.zeroc.Ice.Object
 {
-    void createScenario(String name, com.zeroc.Ice.Current current);
+    String getId(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
     {
         "::Ice::Object",
-        "::adapter::ScenarioFactory"
+        "::adapter::BaseItem"
     };
 
     @Override
@@ -40,7 +40,7 @@ public interface ScenarioFactory extends com.zeroc.Ice.Object
 
     static String ice_staticId()
     {
-        return "::adapter::ScenarioFactory";
+        return "::adapter::BaseItem";
     }
 
     /**
@@ -50,21 +50,21 @@ public interface ScenarioFactory extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_createScenario(ScenarioFactory obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getId(BaseItem obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_name;
-        iceP_name = istr.readString();
-        inS.endReadParams();
-        obj.createScenario(iceP_name, current);
-        return inS.setResult(inS.writeEmptyParams());
+        inS.readEmptyParams();
+        String ret = obj.getId(current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /** @hidden */
     final static String[] _iceOps =
     {
-        "createScenario",
+        "getId",
         "ice_id",
         "ice_ids",
         "ice_isA",
@@ -86,7 +86,7 @@ public interface ScenarioFactory extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_createScenario(this, in, current);
+                return _iceD_getId(this, in, current);
             }
             case 1:
             {

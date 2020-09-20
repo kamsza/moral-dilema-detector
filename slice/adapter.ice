@@ -4,14 +4,48 @@
 
 module adapter
 {
-  interface Scenario
+  enum ItemType
   {
-    string getName();
+    SCENARIO,
+    VEHICLE,
+    CYCLIST,
+    PEDESTRIAN,
+    LANE,
+    ROAD,
+    ROADPOINT,
+    JUNCTION
   };
 
-  interface Entity
+  interface BaseItem
   {
+    string getId();
+  };
 
+  interface Scenario extends BaseItem
+  {
+    void addVehicle(string vehicleId);
+    void addCyclist(string cyclistId);
+    void addPedestrian(string pedestrianId);
+    void addLane(string laneId);
+    void addRoad(string roadId);
+    void addRoadPoint(string roadPointId);
+    void addJunction(string junctionId);
+
+    void persist();
+  };
+
+  interface Lane extends BaseItem
+  {
+    int getWidth();
+    void setWidth(int width);
+  };
+
+  interface Entity extends BaseItem
+  {
+    void setLane(string laneId);
+    string getLaneId();
+    float getDistance();
+    void setDistance(float distance);
   };
 
   interface Pedestrian extends Entity
@@ -29,17 +63,13 @@ module adapter
 
   };
 
-  interface Lane
+  interface Road extends BaseItem
   {
-
+    void setStartAngle(float angle);
+    float getStartAngle();
   };
 
-  interface Road
-  {
-
-  };
-
-  interface RoadPoint
+  interface RoadPoint extends BaseItem
   {
 
   };
@@ -49,10 +79,11 @@ module adapter
 
   };
 
-  interface ScenarioFactory
+  interface BaseFactory
   {
-    void createScenario(string name);
+    string create(ItemType type);
   };
+
 
 };
 
