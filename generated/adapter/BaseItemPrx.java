@@ -54,6 +54,42 @@ public interface BaseItemPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default void setId(String id)
+    {
+        setId(id, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setId(String id, java.util.Map<String, String> context)
+    {
+        _iceI_setIdAsync(id, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setIdAsync(String id)
+    {
+        return _iceI_setIdAsync(id, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setIdAsync(String id, java.util.Map<String, String> context)
+    {
+        return _iceI_setIdAsync(id, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_id -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setIdAsync(String iceP_id, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setId", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_id);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

@@ -31,8 +31,6 @@ public interface Scenario extends BaseItem
 
     void addJunction(String junctionId, com.zeroc.Ice.Current current);
 
-    void persist(com.zeroc.Ice.Current current);
-
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -184,21 +182,6 @@ public interface Scenario extends BaseItem
         return inS.setResult(inS.writeEmptyParams());
     }
 
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_persist(Scenario obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        obj.persist(current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
     /** @hidden */
     final static String[] _iceOps =
     {
@@ -214,7 +197,7 @@ public interface Scenario extends BaseItem
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "persist"
+        "setId"
     };
 
     /** @hidden */
@@ -280,7 +263,7 @@ public interface Scenario extends BaseItem
             }
             case 12:
             {
-                return _iceD_persist(this, in, current);
+                return BaseItem._iceD_setId(this, in, current);
             }
         }
 

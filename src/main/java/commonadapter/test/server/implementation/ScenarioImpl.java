@@ -2,12 +2,20 @@ package commonadapter.test.server.implementation;
 
 import adapter.Scenario;
 import com.zeroc.Ice.Current;
+import project.MyFactory;
 
 public class ScenarioImpl extends BaseItemImpl implements Scenario {
 
+    private project.Scenario scenario;
+
+    public ScenarioImpl(String id, MyFactory owlFactory) {
+        super(id, owlFactory);
+        this.scenario = owlFactory.createScenario(id);
+    }
+
     @Override
     public void addVehicle(String vehicleId, Current current) {
-        System.out.println("addveh. remotely invoked; id=" + vehicleId);
+
     }
 
     @Override
@@ -23,6 +31,8 @@ public class ScenarioImpl extends BaseItemImpl implements Scenario {
     @Override
     public void addLane(String laneId, Current current) {
 
+        project.Lane lane = owlFactory.getLane(laneId);
+        this.scenario.addHas_lane(lane);
     }
 
     @Override
@@ -37,11 +47,6 @@ public class ScenarioImpl extends BaseItemImpl implements Scenario {
 
     @Override
     public void addJunction(String junctionId, Current current) {
-
-    }
-
-    @Override
-    public void persist(Current current) {
 
     }
 }

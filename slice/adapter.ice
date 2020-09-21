@@ -19,6 +19,7 @@ module adapter
   interface BaseItem
   {
     string getId();
+    void setId(string id);
   };
 
   interface Scenario extends BaseItem
@@ -30,8 +31,6 @@ module adapter
     void addRoad(string roadId);
     void addRoadPoint(string roadPointId);
     void addJunction(string junctionId);
-
-    void persist();
   };
 
   interface Lane extends BaseItem
@@ -82,6 +81,7 @@ module adapter
   interface BaseFactory
   {
     string create(ItemType type);
+    string persist();
   };
 
 

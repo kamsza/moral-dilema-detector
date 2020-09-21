@@ -54,6 +54,7 @@ public interface Vehicle extends Entity
         "ice_isA",
         "ice_ping",
         "setDistance",
+        "setId",
         "setLane"
     };
 
@@ -103,6 +104,10 @@ public interface Vehicle extends Entity
                 return Entity._iceD_setDistance(this, in, current);
             }
             case 8:
+            {
+                return BaseItem._iceD_setId(this, in, current);
+            }
+            case 9:
             {
                 return Entity._iceD_setLane(this, in, current);
             }

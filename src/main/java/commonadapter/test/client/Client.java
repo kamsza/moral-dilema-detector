@@ -40,19 +40,17 @@ public class Client {
                     if (line.equals("create"))
                     {
                         String scenarioId = baseFactoryPrx.create(ItemType.SCENARIO);
-                        String vehicleId = baseFactoryPrx.create(ItemType.VEHICLE);
+                        String laneId = baseFactoryPrx.create(ItemType.LANE);
 
                         ObjectPrx basePrx = communicator.stringToProxy(scenarioId + ":tcp -h localhost -p 10000");
                         ScenarioPrx scenarioPrx = ScenarioPrx.checkedCast(basePrx);
 
-                        basePrx = communicator.stringToProxy(vehicleId + ":tcp -h localhost -p 10000");
-                        VehiclePrx vehiclePrx = VehiclePrx.checkedCast(basePrx);
+                        basePrx = communicator.stringToProxy(laneId + ":tcp -h localhost -p 10000");
+                        LanePrx lanePrx = LanePrx.checkedCast(basePrx);
 
-                        System.out.println(scenarioId + "::" + scenarioPrx.getId());
-                        System.out.println(vehicleId + "::" + vehiclePrx.getId());
+                        scenarioPrx.addLane(laneId);
 
-                        scenarioPrx.addVehicle(vehiclePrx.getId());
-                        scenarioPrx.addVehicle(vehicleId);
+                        baseFactoryPrx.persist();
                     }
                 }
                 catch (java.io.IOException ex)

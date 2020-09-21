@@ -133,6 +133,7 @@ public interface Entity extends BaseItem
         "ice_isA",
         "ice_ping",
         "setDistance",
+        "setId",
         "setLane"
     };
 
@@ -182,6 +183,10 @@ public interface Entity extends BaseItem
                 return _iceD_setDistance(this, in, current);
             }
             case 8:
+            {
+                return BaseItem._iceD_setId(this, in, current);
+            }
+            case 9:
             {
                 return _iceD_setLane(this, in, current);
             }

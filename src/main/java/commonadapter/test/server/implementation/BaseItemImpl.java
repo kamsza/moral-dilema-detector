@@ -2,10 +2,25 @@ package commonadapter.test.server.implementation;
 
 import adapter.BaseItem;
 import com.zeroc.Ice.Current;
+import project.MyFactory;
 
 public abstract class BaseItemImpl implements BaseItem {
+
+    protected String id;
+    protected MyFactory owlFactory;
+
+    public BaseItemImpl(String id, MyFactory owlFactory) {
+        this.id = id;
+        this.owlFactory = owlFactory;
+    }
+
     @Override
     public String getId(Current current) {
-        return current.id.category + "/" + current.id.name;
+        return id;
+    }
+
+    @Override
+    public void setId(String id, Current current) {
+        this.id = id;
     }
 }

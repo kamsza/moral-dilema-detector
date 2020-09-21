@@ -50,7 +50,8 @@ public interface Junction extends RoadPoint
         "ice_id",
         "ice_ids",
         "ice_isA",
-        "ice_ping"
+        "ice_ping",
+        "setId"
     };
 
     /** @hidden */
@@ -85,6 +86,10 @@ public interface Junction extends RoadPoint
             case 4:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 5:
+            {
+                return BaseItem._iceD_setId(this, in, current);
             }
         }
 
