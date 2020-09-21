@@ -1,7 +1,8 @@
-package commonadapter.test.server.implementation;
+package commonadapter.server.implementation;
 
 import adapter.Scenario;
 import com.zeroc.Ice.Current;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
 
 public class ScenarioImpl extends BaseItemImpl implements Scenario {

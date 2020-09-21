@@ -1,4 +1,4 @@
-package commonadapter.test.server.implementation;
+package commonadapter.server.implementation;
 
 import adapter.Road;
 import com.zeroc.Ice.Current;

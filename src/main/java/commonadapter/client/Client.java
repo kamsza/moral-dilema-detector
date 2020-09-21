@@ -1,4 +1,4 @@
-package commonadapter.test.client;
+package commonadapter.client;
 
 import adapter.*;
 import com.zeroc.Ice.Communicator;
@@ -51,6 +51,8 @@ public class Client {
                         scenarioPrx.addLane(laneId);
 
                         baseFactoryPrx.persist();
+
+                        System.out.println("created scenario id = " + scenarioId);
                     }
                 }
                 catch (java.io.IOException ex)

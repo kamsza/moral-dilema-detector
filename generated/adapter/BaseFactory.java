@@ -19,7 +19,7 @@ public interface BaseFactory extends com.zeroc.Ice.Object
 {
     String create(ItemType type, com.zeroc.Ice.Current current);
 
-    String persist(com.zeroc.Ice.Current current);
+    void persist(com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -77,11 +77,8 @@ public interface BaseFactory extends com.zeroc.Ice.Object
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
-        String ret = obj.persist(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeString(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
+        obj.persist(current);
+        return inS.setResult(inS.writeEmptyParams());
     }
 
     /** @hidden */

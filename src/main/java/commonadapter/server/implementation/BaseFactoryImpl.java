@@ -1,4 +1,4 @@
-package commonadapter.test.server.implementation;
+package commonadapter.server.implementation;
 
 import adapter.*;
 import com.zeroc.Ice.Current;
@@ -95,13 +95,11 @@ public class BaseFactoryImpl implements BaseFactory {
     }
 
     @Override
-    public String persist(Current current) {
+    public void persist(Current current) {
         try {
             this.owlFactory.saveOwlOntology();
         } catch (OWLOntologyStorageException e) {
             e.printStackTrace();
         }
-
-        return "";
     }
 }

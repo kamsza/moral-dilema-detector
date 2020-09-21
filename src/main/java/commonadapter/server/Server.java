@@ -1,11 +1,11 @@
-package commonadapter.test.server;
+package commonadapter.server;
 
 import adapter.BaseFactory;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Identity;
 import com.zeroc.Ice.ObjectAdapter;
 import com.zeroc.Ice.Util;
-import commonadapter.test.server.implementation.BaseFactoryImpl;
+import commonadapter.server.implementation.BaseFactoryImpl;
 
 public class Server {
 

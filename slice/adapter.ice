@@ -81,7 +81,7 @@ module adapter
   interface BaseFactory
   {
     string create(ItemType type);
-    string persist();
+    void persist();
   };
 
 

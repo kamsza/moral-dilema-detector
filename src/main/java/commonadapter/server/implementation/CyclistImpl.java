@@ -1,7 +1,6 @@
-package commonadapter.test.server.implementation;
+package commonadapter.server.implementation;
 
 import adapter.Cyclist;
-import com.zeroc.Ice.Current;
 import project.MyFactory;
 
 public class CyclistImpl extends EntityImpl implements Cyclist {
