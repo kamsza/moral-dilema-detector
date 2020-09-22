@@ -3,7 +3,6 @@ package generator;
 import project.Action;
 import project.Decision;
 import project.Driver;
-import project.Entity;
 import project.Lane;
 import project.Living_entity;
 import project.Non_living_entity;
@@ -23,6 +22,7 @@ import java.util.TreeMap;
 public class Model {
     private Scenario scenario;
 
+    private int lanesCount;
     private Weather weather;
     private Time time;
     private Road_type roadType;
@@ -42,6 +42,14 @@ public class Model {
 
     public void setScenario(Scenario scenario) {
         this.scenario = scenario;
+    }
+
+    public int getLanesCount() {
+        return lanesCount;
+    }
+
+    public void setLanesCount(int lanesCount) {
+        this.lanesCount = lanesCount;
     }
 
     public Weather getWeather() {

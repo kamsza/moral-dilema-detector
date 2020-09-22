@@ -1,6 +1,5 @@
 package visualization;
 
-import generator.AnimalOnRoadSG;
 import generator.BaseScenarioGenerator;
 import generator.Model;
 import org.semanticweb.owlapi.apibinding.OWLManager;

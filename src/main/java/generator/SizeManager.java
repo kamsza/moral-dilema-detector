@@ -16,14 +16,17 @@ import java.util.Map;
 
 public class SizeManager {
     private static final int PX_TO_METERS = 20;
-    private static final Map<String,Float>  lengthMap;
-    private static final Map<String,Float>  widthMap;
+    private static final Map<String,Float> lengthMap;
+    private static final Map<String,Float> widthMap;
 
     static {
         Map<String,Float> length = new HashMap<>();
         Map<String,Float> width = new HashMap<>();
 
         width.put("lane", 45F);
+
+        length.put("obstacle", 20F);
+        width.put("obstacle", 50F);
 
         length.put("person", 60F);
         width.put("person", 60F);
