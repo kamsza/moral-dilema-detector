@@ -39,6 +39,7 @@ public class SimulatorEngine {
     public List<Actor> simulate(Action action) {
         ChangeLaneActionApplier changeLaneActionApplier = new ChangeLaneActionApplier();
         double currentTime = 0;
+        int laneWidth = 3;
 
         mainVehicle.getRigidBody().setToInitialValues();
         for (Actor actor : actors){
@@ -57,12 +58,25 @@ public class SimulatorEngine {
 
 
             if (action instanceof Turn_left) {
-//                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
-                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather().getClass(), 0, -1, 3);
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
             } else if (action instanceof Turn_right) {
-//                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
-                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather().getClass(), 0, 1, 3);
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
             } else if (action instanceof Follow) {
+            }
+            else{
+                // changing lanes
+                // parsing String for now, have to change ontology to make use of instanceof
+                String[] string = action.getOwlIndividual().toString().split("_");
+                int sign; //positive for turning right, negative for left
+                if(string[3].equals("right")){
+                    sign = 1;
+                }
+                else{
+                    sign = -1;
+                }
+                int laneNumber = sign*Integer.parseInt(string[5].substring(0, string[5].length()-1));
+                System.out.println(laneNumber);
+                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather().getClass(), 0, laneNumber, laneWidth);
             }
 
             mainVehicle.getRigidBody().update(TIME_PART);
