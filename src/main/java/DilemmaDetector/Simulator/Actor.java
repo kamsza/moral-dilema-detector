@@ -20,6 +20,10 @@ public class Actor{
         return rigidBody;
     }
 
+    public String getEntityName() {
+        return entityName;
+    }
+
     public String getEntity() {
         return entityName;
     }

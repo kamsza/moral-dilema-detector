@@ -24,10 +24,10 @@ public class SimulatorEngine {
         this.model = model;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
         this.actors = RigidBodyMapper.createActors(model);
-        collisionDetector = new CollisionDetector(mainVehicle, this.actors);
+        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors);
     }
 
-    public Map<Decision, List<Actor>> simulateAll() {
+    public Map<Decision, List<Actor>> simulateAll(int lastLaneLeft, int lastLaneRight) {
         Map<Decision, List<Actor>> collided = new HashMap<>();
         for (Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
             System.out.println(entry.getValue().getOwlIndividual().toString() + " \n \n");
