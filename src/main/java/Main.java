@@ -16,8 +16,7 @@ import visualization.Visualization;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
 
@@ -56,31 +55,40 @@ public class Main {
                 .addModule(new LightlyInjuredModule(factory))
                 .addModule(new SeverelyInjuredModule(factory))
                 .addModule(new InjuredModule(factory))
-                //.addModule(new MaterialValueModule(factory))
+//                .addModule(new MaterialValueModule(factory))
                 .build();
 
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
+
+
+            Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
+            Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
+
+            int lastLeftLane  = leftLanes.size();
+            int lastRightLane = rightLanes.size();
+
+
             Visualization.getImage(scenarioModel);
 
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel);
             ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory, scenarioModel, RigidBodyMapper.createActors(scenarioModel));
-            Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll();
+            Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
             System.out.println("Collided entities:");
             for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()){
 //                System.out.println("DUPA " + entry.getKey().toString()); //dodalem
                 for(Actor actor : entry.getValue()){
-//                    System.out.println(actor);
+//                    System.out.printpln(actor);
                     System.out.println("ACTOR  " + actor.getEntity());
                 }
             }
 
-//            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
-//                System.out.println(entry.getKey().toString()+ "  " + entry.getValue().size());
-//                for (Actor a : entry.getValue()) System.out.println(a.getEntity());
-//            }
 
+            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
+                System.out.println(entry.getKey().toString()+ "  " + entry.getValue().size());
+                for (Actor a : entry.getValue()) System.out.println(a.getEntity());
+            }
             consequenceGenerator.predict(collidedEntities, new Actor(scenarioModel.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(scenarioModel.getVehicle())));
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
         }

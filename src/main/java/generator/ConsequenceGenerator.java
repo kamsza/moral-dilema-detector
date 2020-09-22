@@ -35,16 +35,32 @@ public class ConsequenceGenerator {
             double minorInjuryProbability;
             double fatalInjuryProbability;
             for(Actor actor : entry.getValue()) {
-                List<Living_entity> victims = getVictims(actor);
-                victims.addAll(model.getPassengers());
-                victims.add(model.getDriver());
+                double speed;
+                List<Living_entity> victims;
 
-                double speed = Math.abs(actor.getRigidBody().getSpeed().getMagnitude() - mainVehicle.getRigidBody().getSpeed().getMagnitude());
-                System.out.println("Collided with relative speed: " + speed);
+                //check if only collided vehicle is mainVehicle - it means that vehicle was out of road
+                if (mainVehicle.getEntityName().equals(actor.getEntityName())){
+                    victims = getVictims(actor);
+                    System.out.println("VICTIMS:::::::::::");
+                    for (Living_entity living_entity : victims){
+                        System.out.println(living_entity.getOwlIndividual().toString());
+                    }
+                    speed = Math.abs(mainVehicle.getRigidBody().getSpeed().getMagnitude());
+
+                }
+                else {
+                    victims = getVictims(actor);
+                    victims.addAll(model.getPassengers());
+                    victims.add(model.getDriver());
+//                    System.out.println("VICTIMS SIZE " + victims.size());
+//                    System.out.println("PASSENGER SIZE " + model.getPassengers().size());
+                    speed = Math.abs( actor.getRigidBody().getSpeed().getMagnitude() - mainVehicle.getRigidBody().getSpeed().getMagnitude());
+//                    System.out.println("Collided with relative speed: " + speed);
+                }
+
                 severInjuryProbability = severInjuryProbability(speed);
                 minorInjuryProbability = minorInjuryProbability(speed);
                 fatalInjuryProbability = fatalInjuryProbability(speed);
-
                 double maxProbability = fatalInjuryProbability;
                 if (severInjuryProbability > maxProbability) {
                     maxProbability = severInjuryProbability;
@@ -90,6 +106,7 @@ public class ConsequenceGenerator {
         List<Living_entity> result = new ArrayList<>();
 
         if (vehicle != null) {
+//            System.out.println("Get victims from vehicle");
             result.addAll(vehicle.getVehicle_has_passenger());
             result.addAll(vehicle.getVehicle_has_driver());
         }

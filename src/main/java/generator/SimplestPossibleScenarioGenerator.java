@@ -146,6 +146,8 @@ public class SimplestPossibleScenarioGenerator {
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int pass_count = rand.nextInt() % 5;
 
+        System.out.println("PASS COUNT   "  + pass_count);
+
         // create objects
         Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle_main"));
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
