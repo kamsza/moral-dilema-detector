@@ -12,31 +12,44 @@ public class ScenarioFactory {
         this.modelBuilder = new ModelBuilder(model);
     }
 
+    // CAR - ANIMAL SCENARIOS
     public ScenarioFactory animalOnRoad() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         modelBuilder.addAnimal(true);
         return this;
     }
 
+    public ScenarioFactory animalOnRoad(int[] objectsNum, double[] prob) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        modelBuilder.addAnimal(objectsNum, prob, true);
+        return this;
+    }
+
+    // CAR - CAR SCENARIOS
     public ScenarioFactory carApproaching() {
-        // TODO: dodac auto bezposrednio przed naszym pojazdem
-        modelBuilder.addCar();
+        modelBuilder.addApproachedVehicle ();
         return this;
     }
 
     public ScenarioFactory carOvertaking() {
         // TODO: dodac auto, ktore nas wyprzedza na lewym pasie
-        modelBuilder.addCar();
+        // TODO: chyba raczej które my wyprzedzamy ??
+        modelBuilder.addOvertakenVehicle();
         return this;
     }
 
+    // CAR - OBSTACLE SCENARIOS
     public ScenarioFactory obstacleOnRoad() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         modelBuilder.addObstacle(true);
         return this;
     }
 
-    public ScenarioFactory pedestrianOnCrossing() {
-        int peopleCount = 3;
-        modelBuilder.addPedestrianCrossing(peopleCount);
+    public ScenarioFactory obstacleOnRoad(int[] objectsNum, double[] prob) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        modelBuilder.addObstacle(objectsNum, prob, true);
+        return this;
+    }
+
+    // CAR - PERSON SCENARIOS
+    public ScenarioFactory pedestrianOnCrossing(int[] objectsNum, double[] prob) {
+        modelBuilder.addPedestrianCrossing(objectsNum, prob);
         return this;
     }
 
@@ -45,6 +58,12 @@ public class ScenarioFactory {
         return this;
     }
 
+    public ScenarioFactory pedestrianJaywalking(int[] objectsNum, double[] prob) {
+        modelBuilder.pedestrianJaywalking(objectsNum, prob, true);
+        return this;
+    }
+
+    // AUXILIARY FUNCTIONS
     public Model getModel() {
         return this.modelBuilder.getModel();
     }

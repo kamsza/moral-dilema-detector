@@ -160,6 +160,8 @@ public class BaseScenarioGenerator {
         roadType.addHas_speed_limit_kmph(50 + 10 * rand.nextInt(9));
         roadType.addLanes_num(lanesCount);
         roadType.addMain_vehicle_lane_id(lanes_left.size());
+        roadType.addLanes_lu_num(lanes_left.size());
+        roadType.addLanes_rd_num(lanesCount - lanes_left.size());
 
         // add to model
         model.setRoadType(roadType);
@@ -186,7 +188,7 @@ public class BaseScenarioGenerator {
         int pass_count = rand.nextInt(6);
 
         // create objects
-        Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle_main"));
+        Vehicle vehicle = factory.createCar(ObjectNamer.getName("vehicle_main"));
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
         ArrayList<Passenger> passengers = new ArrayList<>();
         for (int i = 0; i < pass_count; i++)

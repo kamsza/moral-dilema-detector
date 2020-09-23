@@ -23,6 +23,18 @@ public class ModelBuilder {
         this.randomPositioner = new RandomPositioner(model.getLanesCount());
     }
 
+    // CAR - ANIMAL SCENARIOS
+    public ModelBuilder addAnimal(int[] objectsNum, double[] prob) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        return addAnimal(objectsNum, prob, false);
+    }
+
+    public ModelBuilder addAnimal(int[] objectsNum, double[] prob, boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        int N = ProbRand.randInt(objectsNum, prob);
+        for(int i = 0; i < N; i++)
+            this.addAnimal(beforeMainCar);
+        return this;
+    }
+
     public ModelBuilder addAnimal(boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         float entitySize = sizeManager.getLength("animal");
         int laneNo;
@@ -51,23 +63,79 @@ public class ModelBuilder {
         return this;
     }
 
-    public ModelBuilder addCar() {
-        Vehicle car = factory.createVehicle(ObjectNamer.getName("vehicle"));
-        addVehicle(car, sizeManager.getLength("vehicle"));
+    // CAR - CAR SCENARIOS
+    public ModelBuilder addVehicles(int[] objectsNum, double[] prob) {
+        int N = ProbRand.randInt(objectsNum, prob);
 
+        for(int i = 0; i < N; i++) {
+            int r = ProbRand.randInt(new int[]{1, 2, 3, 4}, new double[]{0.6, 0.2, 0.1, 0.1});
+            Vehicle vehicle;
+            float entitySize;
+
+            switch (r) {
+                case 1:
+                    vehicle = factory.createTruck(ObjectNamer.getName("vehicle"));
+                    entitySize = sizeManager.getLength("truck");
+                    break;
+                case 2:
+                    vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
+                    entitySize = sizeManager.getLength("motorbike");
+                    break;
+                case 3:
+                    vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
+                    entitySize = sizeManager.getLength("bike");
+                    break;
+                default:
+                    vehicle = factory.createCar(ObjectNamer.getName("vehicle"));
+                    entitySize = sizeManager.getLength("car");
+                    break;
+            }
+
+            int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+            float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
+
+            this.addVehicle(vehicle, laneNo, distance);
+        }
         return this;
     }
 
-    public ModelBuilder addVehicle(Vehicle vehicle, float vehicleLength) {
-        int laneNo = randomPositioner.getRandomLaneNumber(vehicleLength);
-        if (laneNo == -1) {
-            // no more places for new entities
-            return this;
+    public ModelBuilder addOvertakenVehicle() {
+        // TODO
+        return this;
+    }
+
+    public ModelBuilder addApproachedVehicle() {
+        int r = ProbRand.randInt(new int[]{1, 2, 3, 4}, new double[]{0.6, 0.2, 0.1, 0.1});
+        Vehicle vehicle;
+        float entitySize;
+
+        switch(r) {
+            case 1:
+                vehicle = factory.createTruck(ObjectNamer.getName("vehicle"));
+                entitySize = sizeManager.getLength("truck");
+                break;
+            case 2:
+                vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
+                entitySize = sizeManager.getLength("motorbike");
+                break;
+            case 3:
+                vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
+                entitySize = sizeManager.getLength("bike");
+                break;
+            default:
+                vehicle = factory.createCar(ObjectNamer.getName("vehicle"));
+                entitySize = sizeManager.getLength("car");
+                break;
         }
 
-        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
-        float vehicleDistance = randomPositioner.getRandomDistance(laneNo, vehicleLength);
+        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+        float distance =  randomPositioner.getRandomDistance(laneNo, entitySize, false);
 
+        return addVehicle(vehicle, laneNo, distance);
+    }
+
+    public ModelBuilder addVehicle(Vehicle vehicle, int laneNo, float distance) {
+        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
 
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
 
@@ -78,11 +146,11 @@ public class ModelBuilder {
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
 
-//        TODO: dobrac sie do laneNo
-//        if (laneNo < lanesMovingLeftCount)
-//            vehicleSpeed *= -1;
+        if(laneNo < model.getRoadType().getLanes_lu_num().iterator().next()) {
+            vehicleSpeed *= -1;
+        }
 
-        vehicle.addDistance(vehicleDistance);
+        vehicle.addDistance(distance);
         vehicle.addLength(500F);
         vehicle.addSpeedY(vehicleSpeed);
         vehicle.addSpeedX(0F);
@@ -91,6 +159,21 @@ public class ModelBuilder {
 
         model.getVehicles().get(vehicleLane).add(vehicle);
 
+        return this;
+    }
+
+    // CAR - OBSTACLE SCENARIOS
+    public ModelBuilder addObstacle(int[] objectsNum, double[] prob) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        int N = ProbRand.randInt(objectsNum, prob);
+        for(int i = 0; i < N; i++)
+            this.addObstacle(false);
+        return this;
+    }
+
+    public ModelBuilder addObstacle(int[] objectsNum, double[] prob, boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        int N = ProbRand.randInt(objectsNum, prob);
+        for(int i = 0; i < N; i++)
+            this.addObstacle(beforeMainCar);
         return this;
     }
 
@@ -121,7 +204,16 @@ public class ModelBuilder {
         return this;
     }
 
+    // CAR - PERSON SCENARIOS
+    public ModelBuilder addPedestrianCrossing(int[] objectsNum, double[] prob) {
+        int N = ProbRand.randInt(objectsNum, prob);
+        return addPedestrianCrossing(N);
+    }
+
     public ModelBuilder addPedestrianCrossing(int peopleCount) {
+        if(peopleCount == 0)
+            return this;
+
         float distance = randomPositioner.getRandomDistance();
         float width = sizeManager.getWidth("pedestrian_crossing");
 
@@ -149,6 +241,18 @@ public class ModelBuilder {
             model.getEntities().get(lane).add(person);
         }
 
+        return this;
+    }
+
+    public ModelBuilder pedestrianJaywalking(int[] objectsNum, double[] prob) {
+        pedestrianJaywalking(objectsNum, prob, false);
+        return this;
+    }
+
+    public ModelBuilder pedestrianJaywalking(int[] objectsNum, double[] prob, boolean beforeMainCar) {
+        int N = ProbRand.randInt(objectsNum, prob);
+        for(int i = 0; i < N; i++)
+            pedestrianJaywalking(beforeMainCar);
         return this;
     }
 
@@ -180,6 +284,7 @@ public class ModelBuilder {
         return this;
     }
 
+    // AUXILIARY FUNCTIONS
     public Model getModel() {
         return this.model;
     }

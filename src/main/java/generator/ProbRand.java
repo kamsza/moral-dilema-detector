@@ -29,12 +29,12 @@ public class ProbRand {
         int[] prefix = new int[n+1];
         prefix[0] = 0;
         for (int i = 1; i <= n; i++)
-            prefix[i] = prefix[i - 1] + (int)(prob[i] * 100);
+            prefix[i] = prefix[i - 1] + (int)(prob[i-1] * 1000);
 
-        int r = rand.nextInt(3456) % prefix[n] + 1;
+        int r = rand.nextInt(prefix[n]) + 1;
         for (int i = 1; i <= n; i++)
             if(prefix[i-1] < r && prefix[i] >= r)
-                return arr[i];
+                return arr[i-1];
         return -1;
     }
 }
