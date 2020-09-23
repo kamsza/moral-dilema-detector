@@ -39,7 +39,7 @@ public class Visualization {
         JPanel surroundingDown = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.RIGHT);
 
         JPanel bottomBar = new BottomBar(WIDTH, BOTTOM_BAR_HEIGHT, model);
-        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT, LANE_DIST / 100, 1);
+        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT);
 
         background.add(surroundingUp);
         background.add(road);

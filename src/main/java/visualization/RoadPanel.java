@@ -1,6 +1,7 @@
 package visualization;
 
 import generator.Model;
+import generator.SizeManager;
 import project.Entity;
 import project.Lane;
 import project.Living_entity;
@@ -108,7 +109,7 @@ class RoadPanel extends JPanel {
         for (Vehicle vehicle : vehicles) {
             BufferedImage img = ImageHandler.getImage(vehicle);
             float distance = vehicle.getDistance().iterator().next();
-            int x = (int) ((WIDTH - img.getWidth()) / 2 + distance * SCALE);
+            int x = (int) ((WIDTH - img.getWidth()) / 2 + 0.01 * distance * SizeManager.METERS_TO_PX);
             int y = Y + (LANE_HEIGHT - img.getHeight()) / 2;
             g.drawImage(img, x, y, this);
         }
@@ -118,7 +119,7 @@ class RoadPanel extends JPanel {
         for (Entity entity : entities) {
             BufferedImage img = ImageHandler.getImage(entity);
             float distance = entity.getDistance().iterator().next();
-            int x = (int) ((WIDTH - img.getWidth()) / 2 + distance * SCALE);
+            int x = (int) ((WIDTH - img.getWidth()) / 2 + 0.01 * distance * SizeManager.METERS_TO_PX);
             int y = Y + (LANE_HEIGHT - img.getHeight()) / 2;
             g.drawImage(img, x, y, this);
         }
@@ -128,7 +129,7 @@ class RoadPanel extends JPanel {
         for (Entity object : objects) {
             BufferedImage img = ImageHandler.getImage(object);
             float distance = object.getDistance().iterator().next();
-            int x = (int) ((WIDTH - img.getWidth()) / 2 + distance * SCALE);
+            int x = (int) ((WIDTH - img.getWidth()) / 2 + 0.01 * distance * SizeManager.METERS_TO_PX);
             int y = Y + (LANE_HEIGHT - img.getHeight()) / 2;
             g.drawImage(img, x, y, this);
         }

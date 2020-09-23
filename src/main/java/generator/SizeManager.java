@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SizeManager {
-    private static final int PX_TO_METERS = 20;
+    public static final int METERS_TO_PX = 20;
     private static final Map<String,Float> lengthMap;
     private static final Map<String,Float> widthMap;
 
@@ -62,10 +62,10 @@ public class SizeManager {
     }
 
     public static float metersToPx(float meters) {
-        return meters * PX_TO_METERS;
+        return meters * METERS_TO_PX;
     }
 
     public static float centimetersToPx(float centimeters) {
-        return centimeters * PX_TO_METERS / 100;
+        return centimeters * METERS_TO_PX / 100;
     }
 }

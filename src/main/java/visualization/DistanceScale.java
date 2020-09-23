@@ -1,5 +1,7 @@
 package visualization;
 
+import generator.SizeManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,13 +13,10 @@ public class DistanceScale extends JPanel {
     private int width;
     private int height;
     private int length;
-    private int step;
 
-    DistanceScale(int width, int height, int length, int step) {
+    DistanceScale(int width, int height) {
         this.width = width;
         this.height = height;
-        this.length = length;
-        this.step = step;
 
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(width, height));
@@ -25,13 +24,12 @@ public class DistanceScale extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        // TODO: poprawić skalę
         super.paintComponent(g);
         g.setColor(Color.BLACK);
 
-        int iterationNum = (length);
-        int scaledStep = 20;
+        int scaledStep = SizeManager.METERS_TO_PX;
         int startX = width / 2;
+        int iterationNum = startX / scaledStep;
         int gapX = 0;
         int barHeight = height - 2*yGap - textSize;
 
