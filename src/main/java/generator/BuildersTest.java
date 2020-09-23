@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class BuildersTest {
     public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
+        BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
         Model baseModel = baseScenarioGenerator.generate();
         Visualization.getImage(baseModel);
 

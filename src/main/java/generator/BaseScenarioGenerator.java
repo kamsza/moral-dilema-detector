@@ -1,5 +1,6 @@
 package generator;
 
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Animal;
 import project.Driver;
 import project.Lane;
@@ -17,6 +18,7 @@ import project.Time;
 import project.Vehicle;
 import project.Weather;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +39,10 @@ public class BaseScenarioGenerator {
     private int mainVehicleLaneId;
     private int lanesMovingLeftCount;
     int lanesMovingRightCount;
+
+    public BaseScenarioGenerator() throws FileNotFoundException, OWLOntologyCreationException {
+        this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
+    }
 
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
