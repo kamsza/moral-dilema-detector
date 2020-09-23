@@ -23,17 +23,25 @@ public class ModelBuilder {
         this.randomPositioner = new RandomPositioner(model.getLanesCount());
     }
 
-    public ModelBuilder addAnimals(int animalsCount) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        for (int i = 0; i < animalsCount; i++)
-            addAnimal();
-        return this;
+    public ModelBuilder addAnimal(boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        float entitySize = sizeManager.getLength("animal");
+        int laneNo;
+        float distance;
+
+        if(beforeMainCar) {
+            laneNo = getLaneNo();
+            distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
+        }
+        else{
+            laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+            distance = randomPositioner.getRandomDistance(laneNo, entitySize);
+        }
+
+        return addAnimal(laneNo, distance);
     }
 
-    public ModelBuilder addAnimal() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        float entitySize = sizeManager.getLength("animal");
-        int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+    public ModelBuilder addAnimal(int laneNo, float distance) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Lane lane = randomPositioner.getLane(model, laneNo);
-        float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
         Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
         animal = fillDataProps(animal, distance, "animal", 10, 5);
@@ -86,11 +94,25 @@ public class ModelBuilder {
         return this;
     }
 
-    public ModelBuilder addObstacle() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public ModelBuilder addObstacle(boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         float entitySize = sizeManager.getLength("obstacle");
-        int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+        int laneNo;
+        float distance;
+
+        if(beforeMainCar) {
+            laneNo = getLaneNo();
+            distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
+        }
+        else{
+            laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+            distance = randomPositioner.getRandomDistance(laneNo, entitySize);
+        }
+
+        return addObstacle(laneNo, distance);
+    }
+
+    public ModelBuilder addObstacle(int laneNo, float distance) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Lane lane = randomPositioner.getLane(model, laneNo);
-        float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
         On_the_lane object = subclassGenerator.generateSurroundingOnLaneSubclass(ObjectNamer.getName("surrounding"));
         object = fillDataProps(object, distance, "obstacle");
@@ -99,8 +121,7 @@ public class ModelBuilder {
         return this;
     }
 
-    public ModelBuilder addPedestrianCrossing() {
-        int peopleCount = rand.nextInt(3) + 1;
+    public ModelBuilder addPedestrianCrossing(int peopleCount) {
         float distance = randomPositioner.getRandomDistance();
         float width = sizeManager.getWidth("pedestrian_crossing");
 
@@ -131,14 +152,29 @@ public class ModelBuilder {
         return this;
     }
 
-    public ModelBuilder pedestrianJaywalking() {
+    public ModelBuilder pedestrianJaywalking(boolean beforeMainCar) {
         float entitySize = sizeManager.getLength("person");
-        int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+        int laneNo;
+        float distance;
+
+        if(beforeMainCar) {
+            laneNo = getLaneNo();
+            distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
+        }
+        else{
+            laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+            distance = randomPositioner.getRandomDistance(laneNo, entitySize);
+        }
+
+        return pedestrianJaywalking(laneNo, distance);
+    }
+
+    public ModelBuilder pedestrianJaywalking(int laneNo, float distance){
         Lane lane = randomPositioner.getLane(model, laneNo);
-        float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
         Person person = factory.createPerson(ObjectNamer.getName("person"));
         person = fillDataProps(person, distance, "person", 7, 4);
+
         model.getEntities().get(lane).add(person);
 
         return this;
@@ -165,5 +201,14 @@ public class ModelBuilder {
         entity.addWidth(sizeManager.getWidth(entityName));
 
         return entity;
+    }
+
+    private int getLaneNo() {
+        int mainCarLane = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+        int lanes = model.getRoadType().getLanes_num().iterator().next();
+        int laneNo = mainCarLane - 1 + rand.nextInt(3);
+        if(laneNo < 0 || laneNo >= lanes)
+            laneNo = mainCarLane;
+        return laneNo;
     }
 }

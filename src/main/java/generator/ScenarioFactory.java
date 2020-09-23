@@ -13,7 +13,7 @@ public class ScenarioFactory {
     }
 
     public ScenarioFactory animalOnRoad() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        modelBuilder.addAnimal();
+        modelBuilder.addAnimal(true);
         return this;
     }
 
@@ -30,17 +30,18 @@ public class ScenarioFactory {
     }
 
     public ScenarioFactory obstacleOnRoad() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        modelBuilder.addObstacle();
+        modelBuilder.addObstacle(true);
         return this;
     }
 
     public ScenarioFactory pedestrianOnCrossing() {
-        modelBuilder.addPedestrianCrossing();
+        int peopleCount = 3;
+        modelBuilder.addPedestrianCrossing(peopleCount);
         return this;
     }
 
     public ScenarioFactory pedestrianJaywalking() {
-        modelBuilder.pedestrianJaywalking();
+        modelBuilder.pedestrianJaywalking(true);
         return this;
     }
 

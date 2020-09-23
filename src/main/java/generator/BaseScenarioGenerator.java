@@ -157,8 +157,9 @@ public class BaseScenarioGenerator {
 
 
         // add data properties
-        roadType.addHas_lanes(lanesCount);
         roadType.addHas_speed_limit_kmph(50 + 10 * rand.nextInt(9));
+        roadType.addLanes_num(lanesCount);
+        roadType.addMain_vehicle_lane_id(lanes_left.size());
 
         // add to model
         model.setRoadType(roadType);

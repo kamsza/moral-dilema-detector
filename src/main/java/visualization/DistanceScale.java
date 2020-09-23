@@ -25,11 +25,12 @@ public class DistanceScale extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        // TODO: poprawić skalę
         super.paintComponent(g);
         g.setColor(Color.BLACK);
 
-        int iterationNum = (length / 5);
-        int scaledStep = (width / 2) / iterationNum;
+        int iterationNum = (length);
+        int scaledStep = 20;
         int startX = width / 2;
         int gapX = 0;
         int barHeight = height - 2*yGap - textSize;
@@ -40,12 +41,12 @@ public class DistanceScale extends JPanel {
             g.fillRect(startX - gapX, yGap, barSize, barHeight);
 
             if(i % 5 == 0) {
-                JLabel labelR = new JLabel(i * 5 + " m");
+                JLabel labelR = new JLabel(i + " m");
                 labelR.setFont(new Font(labelR.getName(), Font.PLAIN, textSize));
                 labelR.setBounds(startX + gapX, barHeight + yGap, 50, textSize + yGap);
                 this.add(labelR);
 
-                JLabel labelL = new JLabel(i * 5 + " m");
+                JLabel labelL = new JLabel(i + " m");
                 labelL.setFont(new Font(labelL.getName(), Font.PLAIN, textSize));
                 labelL.setBounds(startX - gapX, barHeight + yGap, 50, textSize + yGap);
                 this.add(labelL);

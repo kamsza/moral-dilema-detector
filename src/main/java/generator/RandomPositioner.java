@@ -80,7 +80,7 @@ public class RandomPositioner {
 
     public Lane getLane(Model model, int laneNo) {
         Lane lane;
-        int mainVehicleLaneId = model.getLanes().get(Model.Side.LEFT).size();
+        int mainVehicleLaneId = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
 
         if (laneNo == mainVehicleLaneId)
             lane = model.getLanes().get(Model.Side.CENTER).get(0);
@@ -97,13 +97,17 @@ public class RandomPositioner {
     }
 
     public float getRandomDistance(int laneNo, float entitySize) {
+        return this.getRandomDistance(laneNo, entitySize, true);
+    }
+
+    public float getRandomDistance(int laneNo, float entitySize, boolean canBeNegative) {
         int distance = rand.nextInt(maxDist);
 
-        if (rand.nextBoolean()) {
+        if (canBeNegative && rand.nextBoolean()) {
             distance *= (-1);
         }
-
         List<EntityWithSize> entitiesOnLane = entities.get(laneNo);
+
 
         int i = 0;
         // no need for checking 'out of bound', cause distance is in valid range
@@ -116,14 +120,17 @@ public class RandomPositioner {
             entitiesOnLane.add(i, new EntityWithSize(distance, entitySize));
 
         } else {
-            distance = (int) getNextDistance(entitiesOnLane, entitySize, laneNo);
+            distance = (int) getNextDistance(entitiesOnLane, entitySize, canBeNegative);
         }
         updateMaxSpaceOnLane(laneNo);
         return distance;
-
     }
 
-    private float getNextDistance(List<EntityWithSize> entitiesOnLane, float entitySize, int laneNo) {
+    private float getNextDistance(List<EntityWithSize> entitiesOnLane, float entitySize, boolean canBeNegative) {
+        if(entitiesOnLane.size() == 1) {
+            return entitiesOnLane.get(0).getEndDistance() + entitySize / 2 + rand.nextInt(3000);
+        }
+
         for (int i = 1; i < entitiesOnLane.size(); i++) {
             float start = entitiesOnLane.get(i - 1).getEndDistance();
             float end = entitiesOnLane.get(i).getStartDistance();
@@ -131,6 +138,8 @@ public class RandomPositioner {
             if (spaceBetween > entitySize) {
                 float bound = spaceBetween - entitySize; // to avoid overlapping
                 float distance = rand.nextInt((int) bound) + start + entitySize / 2;
+                if(!canBeNegative && distance < 0)
+                    continue;
                 entitiesOnLane.add(i, new EntityWithSize(distance, entitySize));
                 return distance;
             }
