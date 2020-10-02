@@ -3,7 +3,7 @@ package commonadapter.server.implementation;
 import adapter.RoadPoint;
 import project.MyFactory;
 
-public  class RoadPointImpl extends BaseItemImpl implements RoadPoint {
+public abstract class RoadPointImpl extends BaseItemImpl implements RoadPoint {
 
     protected project.Road_point roadPoint;
 

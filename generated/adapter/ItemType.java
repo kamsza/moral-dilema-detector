@@ -23,7 +23,7 @@ public enum ItemType implements java.io.Serializable
     PEDESTRIAN(3),
     LANE(4),
     ROAD(5),
-    ROADPOINT(6),
+    DELIMITER(6),
     JUNCTION(7);
 
     public int value()
@@ -48,7 +48,7 @@ public enum ItemType implements java.io.Serializable
         case 5:
             return ROAD;
         case 6:
-            return ROADPOINT;
+            return DELIMITER;
         case 7:
             return JUNCTION;
         }

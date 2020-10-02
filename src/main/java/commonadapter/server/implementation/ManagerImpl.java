@@ -79,8 +79,8 @@ public class ManagerImpl implements Manager {
             case ROAD:
                 item = new RoadImpl(id, owlFactory);
                 break;
-            case ROADPOINT:
-                item = new RoadPointImpl(id, owlFactory);
+            case DELIMITER:
+                item = new DelimiterImpl(id, owlFactory);
                 break;
             case JUNCTION:
                 item = new JunctionImpl(id, owlFactory);

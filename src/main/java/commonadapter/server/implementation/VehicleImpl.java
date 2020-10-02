@@ -1,7 +1,6 @@
 package commonadapter.server.implementation;
 
 import adapter.Vehicle;
-import com.zeroc.Ice.Current;
 import project.MyFactory;
 
 public class VehicleImpl extends EntityImpl implements Vehicle {

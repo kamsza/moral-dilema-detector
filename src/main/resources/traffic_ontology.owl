@@ -2873,6 +2873,14 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#delimiter -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#delimiter">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_point"/>
+    </owl:Class>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#disability -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#disability">

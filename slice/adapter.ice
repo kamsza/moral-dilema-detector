@@ -12,7 +12,7 @@ module adapter
     PEDESTRIAN,
     LANE,
     ROAD,
-    ROADPOINT,
+    DELIMITER,
     JUNCTION
   };
 
@@ -86,6 +86,11 @@ module adapter
   };
 
   interface Junction extends RoadPoint
+  {
+
+  };
+
+  interface Delimiter extends RoadPoint
   {
 
   };
