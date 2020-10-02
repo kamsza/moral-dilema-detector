@@ -19,11 +19,19 @@ public interface Entity extends BaseItem
 {
     void setLane(String laneId, com.zeroc.Ice.Current current);
 
-    String getLaneId(com.zeroc.Ice.Current current);
-
-    float getDistance(com.zeroc.Ice.Current current);
-
     void setDistance(float distance, com.zeroc.Ice.Current current);
+
+    void setAccelerationX(float accelerationX, com.zeroc.Ice.Current current);
+
+    void setAccelerationY(float accelerationY, com.zeroc.Ice.Current current);
+
+    void setLength(float length, com.zeroc.Ice.Current current);
+
+    void setWidth(float width, com.zeroc.Ice.Current current);
+
+    void setSpeedX(float speedX, com.zeroc.Ice.Current current);
+
+    void setSpeedY(float speedY, com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -75,42 +83,6 @@ public interface Entity extends BaseItem
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getLaneId(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        String ret = obj.getLaneId(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeString(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getDistance(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        float ret = obj.getDistance(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeFloat(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setDistance(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
@@ -122,19 +94,131 @@ public interface Entity extends BaseItem
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setAccelerationX(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_accelerationX;
+        iceP_accelerationX = istr.readFloat();
+        inS.endReadParams();
+        obj.setAccelerationX(iceP_accelerationX, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setAccelerationY(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_accelerationY;
+        iceP_accelerationY = istr.readFloat();
+        inS.endReadParams();
+        obj.setAccelerationY(iceP_accelerationY, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setLength(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_length;
+        iceP_length = istr.readFloat();
+        inS.endReadParams();
+        obj.setLength(iceP_length, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setWidth(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_width;
+        iceP_width = istr.readFloat();
+        inS.endReadParams();
+        obj.setWidth(iceP_width, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setSpeedX(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_speedX;
+        iceP_speedX = istr.readFloat();
+        inS.endReadParams();
+        obj.setSpeedX(iceP_speedX, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setSpeedY(Entity obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_speedY;
+        iceP_speedY = istr.readFloat();
+        inS.endReadParams();
+        obj.setSpeedY(iceP_speedY, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
-        "getDistance",
         "getId",
-        "getLaneId",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
+        "setAccelerationX",
+        "setAccelerationY",
         "setDistance",
         "setId",
-        "setLane"
+        "setLane",
+        "setLength",
+        "setSpeedX",
+        "setSpeedY",
+        "setWidth"
     };
 
     /** @hidden */
@@ -152,31 +236,31 @@ public interface Entity extends BaseItem
         {
             case 0:
             {
-                return _iceD_getDistance(this, in, current);
+                return BaseItem._iceD_getId(this, in, current);
             }
             case 1:
             {
-                return BaseItem._iceD_getId(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return _iceD_getLaneId(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return _iceD_setAccelerationX(this, in, current);
             }
             case 6:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return _iceD_setAccelerationY(this, in, current);
             }
             case 7:
             {
@@ -189,6 +273,22 @@ public interface Entity extends BaseItem
             case 9:
             {
                 return _iceD_setLane(this, in, current);
+            }
+            case 10:
+            {
+                return _iceD_setLength(this, in, current);
+            }
+            case 11:
+            {
+                return _iceD_setSpeedX(this, in, current);
+            }
+            case 12:
+            {
+                return _iceD_setSpeedY(this, in, current);
+            }
+            case 13:
+            {
+                return _iceD_setWidth(this, in, current);
             }
         }
 

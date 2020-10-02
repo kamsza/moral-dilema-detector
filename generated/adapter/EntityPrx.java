@@ -53,80 +53,6 @@ public interface EntityPrx extends BaseItemPrx
         return f;
     }
 
-    default String getLaneId()
-    {
-        return getLaneId(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default String getLaneId(java.util.Map<String, String> context)
-    {
-        return _iceI_getLaneIdAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.String> getLaneIdAsync()
-    {
-        return _iceI_getLaneIdAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.String> getLaneIdAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_getLaneIdAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_getLaneIdAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getLaneId", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     String ret;
-                     ret = istr.readString();
-                     return ret;
-                 });
-        return f;
-    }
-
-    default float getDistance()
-    {
-        return getDistance(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default float getDistance(java.util.Map<String, String> context)
-    {
-        return _iceI_getDistanceAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Float> getDistanceAsync()
-    {
-        return _iceI_getDistanceAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Float> getDistanceAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_getDistanceAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> _iceI_getDistanceAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getDistance", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     float ret;
-                     ret = istr.readFloat();
-                     return ret;
-                 });
-        return f;
-    }
-
     default void setDistance(float distance)
     {
         setDistance(distance, com.zeroc.Ice.ObjectPrx.noExplicitContext);
@@ -159,6 +85,222 @@ public interface EntityPrx extends BaseItemPrx
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setDistance", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeFloat(iceP_distance);
+                 }, null);
+        return f;
+    }
+
+    default void setAccelerationX(float accelerationX)
+    {
+        setAccelerationX(accelerationX, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setAccelerationX(float accelerationX, java.util.Map<String, String> context)
+    {
+        _iceI_setAccelerationXAsync(accelerationX, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAccelerationXAsync(float accelerationX)
+    {
+        return _iceI_setAccelerationXAsync(accelerationX, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAccelerationXAsync(float accelerationX, java.util.Map<String, String> context)
+    {
+        return _iceI_setAccelerationXAsync(accelerationX, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_accelerationX -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setAccelerationXAsync(float iceP_accelerationX, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setAccelerationX", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_accelerationX);
+                 }, null);
+        return f;
+    }
+
+    default void setAccelerationY(float accelerationY)
+    {
+        setAccelerationY(accelerationY, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setAccelerationY(float accelerationY, java.util.Map<String, String> context)
+    {
+        _iceI_setAccelerationYAsync(accelerationY, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAccelerationYAsync(float accelerationY)
+    {
+        return _iceI_setAccelerationYAsync(accelerationY, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAccelerationYAsync(float accelerationY, java.util.Map<String, String> context)
+    {
+        return _iceI_setAccelerationYAsync(accelerationY, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_accelerationY -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setAccelerationYAsync(float iceP_accelerationY, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setAccelerationY", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_accelerationY);
+                 }, null);
+        return f;
+    }
+
+    default void setLength(float length)
+    {
+        setLength(length, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setLength(float length, java.util.Map<String, String> context)
+    {
+        _iceI_setLengthAsync(length, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLengthAsync(float length)
+    {
+        return _iceI_setLengthAsync(length, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLengthAsync(float length, java.util.Map<String, String> context)
+    {
+        return _iceI_setLengthAsync(length, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_length -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLengthAsync(float iceP_length, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLength", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_length);
+                 }, null);
+        return f;
+    }
+
+    default void setWidth(float width)
+    {
+        setWidth(width, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setWidth(float width, java.util.Map<String, String> context)
+    {
+        _iceI_setWidthAsync(width, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setWidthAsync(float width)
+    {
+        return _iceI_setWidthAsync(width, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setWidthAsync(float width, java.util.Map<String, String> context)
+    {
+        return _iceI_setWidthAsync(width, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_width -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setWidthAsync(float iceP_width, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setWidth", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_width);
+                 }, null);
+        return f;
+    }
+
+    default void setSpeedX(float speedX)
+    {
+        setSpeedX(speedX, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setSpeedX(float speedX, java.util.Map<String, String> context)
+    {
+        _iceI_setSpeedXAsync(speedX, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedXAsync(float speedX)
+    {
+        return _iceI_setSpeedXAsync(speedX, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedXAsync(float speedX, java.util.Map<String, String> context)
+    {
+        return _iceI_setSpeedXAsync(speedX, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_speedX -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setSpeedXAsync(float iceP_speedX, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setSpeedX", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_speedX);
+                 }, null);
+        return f;
+    }
+
+    default void setSpeedY(float speedY)
+    {
+        setSpeedY(speedY, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setSpeedY(float speedY, java.util.Map<String, String> context)
+    {
+        _iceI_setSpeedYAsync(speedY, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedYAsync(float speedY)
+    {
+        return _iceI_setSpeedYAsync(speedY, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedYAsync(float speedY, java.util.Map<String, String> context)
+    {
+        return _iceI_setSpeedYAsync(speedY, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_speedY -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setSpeedYAsync(float iceP_speedY, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setSpeedY", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_speedY);
                  }, null);
         return f;
     }

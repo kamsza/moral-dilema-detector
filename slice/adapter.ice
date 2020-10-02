@@ -42,9 +42,21 @@ module adapter
   interface Entity extends BaseItem
   {
     void setLane(string laneId);
-    string getLaneId();
-    float getDistance();
+
     void setDistance(float distance);
+
+    void setAccelerationX(float accelerationX);
+
+    void setAccelerationY(float accelerationY);
+
+    void setLength(float length);
+
+    void setWidth(float width);
+
+    void setSpeedX(float speedX);
+
+    void setSpeedY(float speedY);
+
   };
 
   interface Pedestrian extends Entity
@@ -78,12 +90,12 @@ module adapter
 
   };
 
-  interface BaseFactory
+  interface Manager
   {
     string create(ItemType type);
+
     void persist();
   };
-
 
 };
 

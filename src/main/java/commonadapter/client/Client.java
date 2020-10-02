@@ -19,8 +19,8 @@ public class Client {
 
             ObjectPrx base = communicator.stringToProxy("factory/factory1:tcp -h localhost -p 10000");
 
-            BaseFactoryPrx baseFactoryPrx = BaseFactoryPrx.checkedCast(base);
-            if (baseFactoryPrx == null) throw new Error("Invalid proxy");
+            ManagerPrx managerPrx = ManagerPrx.checkedCast(base);
+            if (managerPrx == null) throw new Error("Invalid proxy");
 
             String line = null;
             java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
@@ -39,18 +39,24 @@ public class Client {
                     }
                     if (line.equals("create"))
                     {
-                        String scenarioId = baseFactoryPrx.create(ItemType.SCENARIO);
-                        String laneId = baseFactoryPrx.create(ItemType.LANE);
+                        String scenarioId = managerPrx.create(ItemType.SCENARIO);
+                        String laneId = managerPrx.create(ItemType.LANE);
+                        String vehicleId = managerPrx.create(ItemType.VEHICLE);
 
                         ObjectPrx basePrx = communicator.stringToProxy(scenarioId + ":tcp -h localhost -p 10000");
                         ScenarioPrx scenarioPrx = ScenarioPrx.checkedCast(basePrx);
 
-                        basePrx = communicator.stringToProxy(laneId + ":tcp -h localhost -p 10000");
-                        LanePrx lanePrx = LanePrx.checkedCast(basePrx);
+                        basePrx = communicator.stringToProxy(vehicleId + ":tcp -h localhost -p 10000");
+                        VehiclePrx vehiclePrx = VehiclePrx.checkedCast(basePrx);
 
+                        // onto creation
                         scenarioPrx.addLane(laneId);
+                        scenarioPrx.addVehicle(vehicleId);
+                        vehiclePrx.setLane(laneId);
+                        vehiclePrx.setLength(457F);
+                        vehiclePrx.setWidth(252F);
 
-                        baseFactoryPrx.persist();
+                        managerPrx.persist();
 
                         System.out.println("created scenario id = " + scenarioId);
                     }

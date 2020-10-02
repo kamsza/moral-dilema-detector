@@ -15,7 +15,7 @@
 
 package adapter;
 
-public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
+public interface ManagerPrx extends com.zeroc.Ice.ObjectPrx
 {
     default String create(ItemType type)
     {
@@ -96,9 +96,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
+    static ManagerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, ice_staticId(), ManagerPrx.class, _ManagerPrxI.class);
     }
 
     /**
@@ -108,9 +108,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
+    static ManagerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, context, ice_staticId(), ManagerPrx.class, _ManagerPrxI.class);
     }
 
     /**
@@ -120,9 +120,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static ManagerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, ice_staticId(), ManagerPrx.class, _ManagerPrxI.class);
     }
 
     /**
@@ -133,9 +133,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param context The Context map to send with the invocation.
      * @return A proxy for this type, or null if the object does not support this type.
      **/
-    static BaseFactoryPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
+    static ManagerPrx checkedCast(com.zeroc.Ice.ObjectPrx obj, String facet, java.util.Map<String, String> context)
     {
-        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), BaseFactoryPrx.class, _BaseFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._checkedCast(obj, facet, context, ice_staticId(), ManagerPrx.class, _ManagerPrxI.class);
     }
 
     /**
@@ -143,9 +143,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param obj The untyped proxy.
      * @return A proxy for this type.
      **/
-    static BaseFactoryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
+    static ManagerPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, BaseFactoryPrx.class, _BaseFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, ManagerPrx.class, _ManagerPrxI.class);
     }
 
     /**
@@ -154,9 +154,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @param facet The name of the desired facet.
      * @return A proxy for this type.
      **/
-    static BaseFactoryPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
+    static ManagerPrx uncheckedCast(com.zeroc.Ice.ObjectPrx obj, String facet)
     {
-        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, BaseFactoryPrx.class, _BaseFactoryPrxI.class);
+        return com.zeroc.Ice.ObjectPrx._uncheckedCast(obj, facet, ManagerPrx.class, _ManagerPrxI.class);
     }
 
     /**
@@ -165,9 +165,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified per-proxy context.
      **/
     @Override
-    default BaseFactoryPrx ice_context(java.util.Map<String, String> newContext)
+    default ManagerPrx ice_context(java.util.Map<String, String> newContext)
     {
-        return (BaseFactoryPrx)_ice_context(newContext);
+        return (ManagerPrx)_ice_context(newContext);
     }
 
     /**
@@ -176,9 +176,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified adapter ID.
      **/
     @Override
-    default BaseFactoryPrx ice_adapterId(String newAdapterId)
+    default ManagerPrx ice_adapterId(String newAdapterId)
     {
-        return (BaseFactoryPrx)_ice_adapterId(newAdapterId);
+        return (ManagerPrx)_ice_adapterId(newAdapterId);
     }
 
     /**
@@ -187,9 +187,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoints.
      **/
     @Override
-    default BaseFactoryPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
+    default ManagerPrx ice_endpoints(com.zeroc.Ice.Endpoint[] newEndpoints)
     {
-        return (BaseFactoryPrx)_ice_endpoints(newEndpoints);
+        return (ManagerPrx)_ice_endpoints(newEndpoints);
     }
 
     /**
@@ -198,9 +198,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator cache timeout.
      **/
     @Override
-    default BaseFactoryPrx ice_locatorCacheTimeout(int newTimeout)
+    default ManagerPrx ice_locatorCacheTimeout(int newTimeout)
     {
-        return (BaseFactoryPrx)_ice_locatorCacheTimeout(newTimeout);
+        return (ManagerPrx)_ice_locatorCacheTimeout(newTimeout);
     }
 
     /**
@@ -209,9 +209,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified invocation timeout.
      **/
     @Override
-    default BaseFactoryPrx ice_invocationTimeout(int newTimeout)
+    default ManagerPrx ice_invocationTimeout(int newTimeout)
     {
-        return (BaseFactoryPrx)_ice_invocationTimeout(newTimeout);
+        return (ManagerPrx)_ice_invocationTimeout(newTimeout);
     }
 
     /**
@@ -220,9 +220,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified caching policy.
      **/
     @Override
-    default BaseFactoryPrx ice_connectionCached(boolean newCache)
+    default ManagerPrx ice_connectionCached(boolean newCache)
     {
-        return (BaseFactoryPrx)_ice_connectionCached(newCache);
+        return (ManagerPrx)_ice_connectionCached(newCache);
     }
 
     /**
@@ -231,9 +231,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified endpoint selection policy.
      **/
     @Override
-    default BaseFactoryPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
+    default ManagerPrx ice_endpointSelection(com.zeroc.Ice.EndpointSelectionType newType)
     {
-        return (BaseFactoryPrx)_ice_endpointSelection(newType);
+        return (ManagerPrx)_ice_endpointSelection(newType);
     }
 
     /**
@@ -244,9 +244,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default BaseFactoryPrx ice_secure(boolean b)
+    default ManagerPrx ice_secure(boolean b)
     {
-        return (BaseFactoryPrx)_ice_secure(b);
+        return (ManagerPrx)_ice_secure(b);
     }
 
     /**
@@ -255,9 +255,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified encoding version.
      **/
     @Override
-    default BaseFactoryPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
+    default ManagerPrx ice_encodingVersion(com.zeroc.Ice.EncodingVersion e)
     {
-        return (BaseFactoryPrx)_ice_encodingVersion(e);
+        return (ManagerPrx)_ice_encodingVersion(e);
     }
 
     /**
@@ -268,9 +268,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified selection policy.
      **/
     @Override
-    default BaseFactoryPrx ice_preferSecure(boolean b)
+    default ManagerPrx ice_preferSecure(boolean b)
     {
-        return (BaseFactoryPrx)_ice_preferSecure(b);
+        return (ManagerPrx)_ice_preferSecure(b);
     }
 
     /**
@@ -279,9 +279,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified router.
      **/
     @Override
-    default BaseFactoryPrx ice_router(com.zeroc.Ice.RouterPrx router)
+    default ManagerPrx ice_router(com.zeroc.Ice.RouterPrx router)
     {
-        return (BaseFactoryPrx)_ice_router(router);
+        return (ManagerPrx)_ice_router(router);
     }
 
     /**
@@ -290,9 +290,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified locator.
      **/
     @Override
-    default BaseFactoryPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
+    default ManagerPrx ice_locator(com.zeroc.Ice.LocatorPrx locator)
     {
-        return (BaseFactoryPrx)_ice_locator(locator);
+        return (ManagerPrx)_ice_locator(locator);
     }
 
     /**
@@ -301,9 +301,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified collocation optimization.
      **/
     @Override
-    default BaseFactoryPrx ice_collocationOptimized(boolean b)
+    default ManagerPrx ice_collocationOptimized(boolean b)
     {
-        return (BaseFactoryPrx)_ice_collocationOptimized(b);
+        return (ManagerPrx)_ice_collocationOptimized(b);
     }
 
     /**
@@ -311,9 +311,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses twoway invocations.
      **/
     @Override
-    default BaseFactoryPrx ice_twoway()
+    default ManagerPrx ice_twoway()
     {
-        return (BaseFactoryPrx)_ice_twoway();
+        return (ManagerPrx)_ice_twoway();
     }
 
     /**
@@ -321,9 +321,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses oneway invocations.
      **/
     @Override
-    default BaseFactoryPrx ice_oneway()
+    default ManagerPrx ice_oneway()
     {
-        return (BaseFactoryPrx)_ice_oneway();
+        return (ManagerPrx)_ice_oneway();
     }
 
     /**
@@ -331,9 +331,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch oneway invocations.
      **/
     @Override
-    default BaseFactoryPrx ice_batchOneway()
+    default ManagerPrx ice_batchOneway()
     {
-        return (BaseFactoryPrx)_ice_batchOneway();
+        return (ManagerPrx)_ice_batchOneway();
     }
 
     /**
@@ -341,9 +341,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses datagram invocations.
      **/
     @Override
-    default BaseFactoryPrx ice_datagram()
+    default ManagerPrx ice_datagram()
     {
-        return (BaseFactoryPrx)_ice_datagram();
+        return (ManagerPrx)_ice_datagram();
     }
 
     /**
@@ -351,9 +351,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy that uses batch datagram invocations.
      **/
     @Override
-    default BaseFactoryPrx ice_batchDatagram()
+    default ManagerPrx ice_batchDatagram()
     {
-        return (BaseFactoryPrx)_ice_batchDatagram();
+        return (ManagerPrx)_ice_batchDatagram();
     }
 
     /**
@@ -362,9 +362,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified compression setting.
      **/
     @Override
-    default BaseFactoryPrx ice_compress(boolean co)
+    default ManagerPrx ice_compress(boolean co)
     {
-        return (BaseFactoryPrx)_ice_compress(co);
+        return (ManagerPrx)_ice_compress(co);
     }
 
     /**
@@ -373,9 +373,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified timeout.
      **/
     @Override
-    default BaseFactoryPrx ice_timeout(int t)
+    default ManagerPrx ice_timeout(int t)
     {
-        return (BaseFactoryPrx)_ice_timeout(t);
+        return (ManagerPrx)_ice_timeout(t);
     }
 
     /**
@@ -384,9 +384,9 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A proxy with the specified connection ID.
      **/
     @Override
-    default BaseFactoryPrx ice_connectionId(String connectionId)
+    default ManagerPrx ice_connectionId(String connectionId)
     {
-        return (BaseFactoryPrx)_ice_connectionId(connectionId);
+        return (ManagerPrx)_ice_connectionId(connectionId);
     }
 
     /**
@@ -395,13 +395,13 @@ public interface BaseFactoryPrx extends com.zeroc.Ice.ObjectPrx
      * @return A fixed proxy bound to the given connection.
      **/
     @Override
-    default BaseFactoryPrx ice_fixed(com.zeroc.Ice.Connection connection)
+    default ManagerPrx ice_fixed(com.zeroc.Ice.Connection connection)
     {
-        return (BaseFactoryPrx)_ice_fixed(connection);
+        return (ManagerPrx)_ice_fixed(connection);
     }
 
     static String ice_staticId()
     {
-        return "::adapter::BaseFactory";
+        return "::adapter::Manager";
     }
 }

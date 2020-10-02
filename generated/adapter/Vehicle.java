@@ -46,16 +46,20 @@ public interface Vehicle extends Entity
     /** @hidden */
     final static String[] _iceOps =
     {
-        "getDistance",
         "getId",
-        "getLaneId",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
+        "setAccelerationX",
+        "setAccelerationY",
         "setDistance",
         "setId",
-        "setLane"
+        "setLane",
+        "setLength",
+        "setSpeedX",
+        "setSpeedY",
+        "setWidth"
     };
 
     /** @hidden */
@@ -73,31 +77,31 @@ public interface Vehicle extends Entity
         {
             case 0:
             {
-                return Entity._iceD_getDistance(this, in, current);
+                return BaseItem._iceD_getId(this, in, current);
             }
             case 1:
             {
-                return BaseItem._iceD_getId(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return Entity._iceD_getLaneId(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return Entity._iceD_setAccelerationX(this, in, current);
             }
             case 6:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return Entity._iceD_setAccelerationY(this, in, current);
             }
             case 7:
             {
@@ -110,6 +114,22 @@ public interface Vehicle extends Entity
             case 9:
             {
                 return Entity._iceD_setLane(this, in, current);
+            }
+            case 10:
+            {
+                return Entity._iceD_setLength(this, in, current);
+            }
+            case 11:
+            {
+                return Entity._iceD_setSpeedX(this, in, current);
+            }
+            case 12:
+            {
+                return Entity._iceD_setSpeedY(this, in, current);
+            }
+            case 13:
+            {
+                return Entity._iceD_setWidth(this, in, current);
             }
         }
 

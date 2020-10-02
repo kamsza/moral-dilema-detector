@@ -13,14 +13,15 @@ public class LaneImpl extends BaseItemImpl implements Lane {
         this.lane = owlFactory.createLane(id);
     }
 
-
     @Override
     public int getWidth(Current current) {
-        return 0;
+
+        return 0; // TODO
     }
 
     @Override
     public void setWidth(int width, Current current) {
 
+        this.lane.addLane_width(width);
     }
 }

@@ -15,7 +15,7 @@
 
 package adapter;
 
-public interface BaseFactory extends com.zeroc.Ice.Object
+public interface Manager extends com.zeroc.Ice.Object
 {
     String create(ItemType type, com.zeroc.Ice.Current current);
 
@@ -25,7 +25,7 @@ public interface BaseFactory extends com.zeroc.Ice.Object
     static final String[] _iceIds =
     {
         "::Ice::Object",
-        "::adapter::BaseFactory"
+        "::adapter::Manager"
     };
 
     @Override
@@ -42,7 +42,7 @@ public interface BaseFactory extends com.zeroc.Ice.Object
 
     static String ice_staticId()
     {
-        return "::adapter::BaseFactory";
+        return "::adapter::Manager";
     }
 
     /**
@@ -52,7 +52,7 @@ public interface BaseFactory extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_create(BaseFactory obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_create(Manager obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
@@ -73,7 +73,7 @@ public interface BaseFactory extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_persist(BaseFactory obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_persist(Manager obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();

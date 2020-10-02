@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class BaseFactoryImpl implements BaseFactory {
+public class ManagerImpl implements Manager {
 
     // TODO: export paths to config
     private String ontologyFilePath = "src\\main\\resources\\traffic_ontology.owl";
@@ -26,7 +26,7 @@ public class BaseFactoryImpl implements BaseFactory {
 
     private MyFactory owlFactory;
 
-    public BaseFactoryImpl() {
+    public ManagerImpl() {
 
         items = new HashMap<>();
 
