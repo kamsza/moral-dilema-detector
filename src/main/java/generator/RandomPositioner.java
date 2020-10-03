@@ -6,56 +6,55 @@ import java.util.*;
 
 public class RandomPositioner {
     private static class EntityWithSize {
-        float distance, size;
+        float distance, length;
 
-        EntityWithSize(float distance, float size) {
+        EntityWithSize(float distance, float length) {
             this.distance = distance;
-            this.size = size;
+            this.length = length;
         }
 
         float getStartDistance() {
-            return distance - (size / 2);
+            return distance - (length / 2);
         }
 
         float getEndDistance() {
-            return distance + (size / 2);
+            return distance + (length / 2);
         }
 
         @Override
         public String toString() {
-            return "(d = " + distance + ", s = " + size + ")";
+            return "(d = " + distance + ", l = " + length + ")";
         }
     }
 
     private int maxDist;
     private int lanesCount;
-    private int vehicleCount;
+
     private Random rand;
+
     private Map<Integer, List<EntityWithSize>> entities = new HashMap<>();
     private Map<Integer, Float> maxSpaceOnLane = new HashMap<>();
+
 
     public RandomPositioner(int lanesCount) {
         this.rand = new Random();
         this.lanesCount = lanesCount;
-        this.vehicleCount = rand.nextInt(2 * lanesCount);
-        this.maxDist = 2000;
-
+        this.maxDist = 3200;
+        SizeManager sizeManager = new SizeManager();
 
         // initialize
         for (int i = 0; i < lanesCount; i++) {
             List<EntityWithSize> entitiesList = new ArrayList<>();
             // add bounds to avoid placing entities not in range
             entitiesList.add(new EntityWithSize(-maxDist, 0));
-            // reserve space around main vehicle
-            entitiesList.add(new EntityWithSize(0, 600F));
             entitiesList.add(new EntityWithSize(maxDist, 0));
             entities.put(i, entitiesList);
-            maxSpaceOnLane.put(i, maxDist - 300F);
+            maxSpaceOnLane.put(i, maxDist - sizeManager.getLength("car")/2);
         }
     }
 
-    public int getVehiclesCount() {
-        return vehicleCount;
+    public void addMainVehicle(int laneNo, float length) {
+        entities.get(laneNo).add(1, new EntityWithSize(0F, length));
     }
 
     public int getRandomLaneNumber(float entitySize) {

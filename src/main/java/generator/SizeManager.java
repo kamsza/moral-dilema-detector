@@ -19,31 +19,35 @@ public class SizeManager {
     private static final Map<String,Float> lengthMap;
     private static final Map<String,Float> widthMap;
 
+    // setting widths and lengths of objects in centimeters
     static {
         Map<String,Float> length = new HashMap<>();
         Map<String,Float> width = new HashMap<>();
 
-        width.put("lane", 45F);
+        width.put("lane", 225F);
 
-        length.put("obstacle", 20F);
+        length.put("obstacle", 300F);
         width.put("obstacle", 50F);
 
         length.put("person", 60F);
         width.put("person", 60F);
 
-        length.put("animal", 20F);
+        length.put("animal", 150F);
         width.put("animal", 60F);
 
         length.put("vehicle", 500F);
         width.put("vehicle", 200F);
 
+        length.put("car", 500F);
+        width.put("car", 200F);
+
         length.put("truck", 770F);
-        width.put("truck", 230F);
+        width.put("truck", 220F);
 
-        length.put("motorbike", 300F);
-        width.put("motorbike", 50F);
+        length.put("motorcycle", 255F);
+        width.put("motorcycle", 50F);
 
-        length.put("bicycle", 270F);
+        length.put("bicycle", 175F);
         width.put("bicycle", 50F);
 
         length.put("pedestrian_crossing", 200F);

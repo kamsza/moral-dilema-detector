@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class ModelBuilder {
-    private SizeManager sizeManager = new SizeManager();
+    private SizeManager sizeManager;
     private Random rand = new Random();
     private RandomSubclassGenerator subclassGenerator;
     private Model model;
@@ -20,7 +20,8 @@ public class ModelBuilder {
         this.model = model;
         this.factory = MyFactorySingleton.getFactory();
         this.subclassGenerator = new RandomSubclassGenerator(factory);
-        this.randomPositioner = new RandomPositioner(model.getLanesCount());
+        this.randomPositioner = model.getRandomPositioner();
+        this.sizeManager = model.getSizeManager();
     }
 
     // CAR - ANIMAL SCENARIOS
@@ -68,7 +69,7 @@ public class ModelBuilder {
         int N = ProbRand.randInt(objectsNum, prob);
 
         for(int i = 0; i < N; i++) {
-            int r = ProbRand.randInt(new int[]{1, 2, 3, 4}, new double[]{0.6, 0.2, 0.1, 0.1});
+            int r = ProbRand.randInt(new int[]{1, 2, 3}, new double[]{0.2, 0.1, 0.1});
             Vehicle vehicle;
             float entitySize;
 
@@ -79,7 +80,7 @@ public class ModelBuilder {
                     break;
                 case 2:
                     vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
-                    entitySize = sizeManager.getLength("motorbike");
+                    entitySize = sizeManager.getLength("motorcycle");
                     break;
                 case 3:
                     vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));

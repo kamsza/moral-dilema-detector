@@ -36,12 +36,27 @@ public class Model {
     private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
     private Map<Decision, Action> actionByDecision = new HashMap<>();
 
+    private RandomPositioner randomPositioner;
+    private SizeManager sizeManager = new SizeManager();
+
     public Scenario getScenario() {
         return scenario;
     }
 
     public void setScenario(Scenario scenario) {
         this.scenario = scenario;
+    }
+
+    public RandomPositioner getRandomPositioner() {
+        return randomPositioner;
+    }
+
+    public void setRandomPositioner(RandomPositioner randomPositioner) {
+        this.randomPositioner = randomPositioner;
+    }
+
+    public SizeManager getSizeManager() {
+        return sizeManager;
     }
 
     public int getLanesCount() {
