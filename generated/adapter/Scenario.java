@@ -196,8 +196,7 @@ public interface Scenario extends BaseItem
         "ice_id",
         "ice_ids",
         "ice_isA",
-        "ice_ping",
-        "setId"
+        "ice_ping"
     };
 
     /** @hidden */
@@ -260,10 +259,6 @@ public interface Scenario extends BaseItem
             case 11:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
-            }
-            case 12:
-            {
-                return BaseItem._iceD_setId(this, in, current);
             }
         }
 

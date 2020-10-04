@@ -1,6 +1,7 @@
 package commonadapter.server.implementation;
 
 import adapter.*;
+import com.google.common.io.Files;
 import com.zeroc.Ice.Current;
 import com.zeroc.Ice.Identity;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -20,7 +21,7 @@ public class ManagerImpl implements Manager {
 
     // TODO: export paths to config
     private String ontologyFilePath = "src\\main\\resources\\traffic_ontology.owl";
-    private String resultFilePath = "src\\main\\resources\\waymo\\ontology_with_scenario.owl";
+    private String outputFilePath = "src\\main\\resources\\waymo\\ontology_with_scenario.owl";
 
     private Map<String, BaseItemImpl> items;
 
@@ -42,7 +43,7 @@ public class ManagerImpl implements Manager {
     private void prepareOntology() throws IOException, OWLOntologyCreationException {
 
         File original = new File(ontologyFilePath);
-        File copied = new File(resultFilePath);
+        File copied = new File(outputFilePath);
 
         com.google.common.io.Files.copy(original, copied);
 
@@ -93,6 +94,8 @@ public class ManagerImpl implements Manager {
 
         return id;
     }
+
+
 
     @Override
     public void persist(Current current) {

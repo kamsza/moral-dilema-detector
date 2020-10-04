@@ -91,7 +91,6 @@ public interface Lane extends BaseItem
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "setId",
         "setWidth"
     };
 
@@ -133,10 +132,6 @@ public interface Lane extends BaseItem
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 6:
-            {
-                return BaseItem._iceD_setId(this, in, current);
-            }
-            case 7:
             {
                 return _iceD_setWidth(this, in, current);
             }

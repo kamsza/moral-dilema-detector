@@ -18,9 +18,4 @@ public abstract class BaseItemImpl implements BaseItem {
     public String getId(Current current) {
         return id;
     }
-
-    @Override
-    public void setId(String id, Current current) {
-        this.id = id;
-    }
 }

@@ -213,7 +213,6 @@ public interface Entity extends BaseItem
         "setAccelerationX",
         "setAccelerationY",
         "setDistance",
-        "setId",
         "setLane",
         "setLength",
         "setSpeedX",
@@ -268,25 +267,21 @@ public interface Entity extends BaseItem
             }
             case 8:
             {
-                return BaseItem._iceD_setId(this, in, current);
+                return _iceD_setLane(this, in, current);
             }
             case 9:
             {
-                return _iceD_setLane(this, in, current);
+                return _iceD_setLength(this, in, current);
             }
             case 10:
             {
-                return _iceD_setLength(this, in, current);
+                return _iceD_setSpeedX(this, in, current);
             }
             case 11:
             {
-                return _iceD_setSpeedX(this, in, current);
-            }
-            case 12:
-            {
                 return _iceD_setSpeedY(this, in, current);
             }
-            case 13:
+            case 12:
             {
                 return _iceD_setWidth(this, in, current);
             }

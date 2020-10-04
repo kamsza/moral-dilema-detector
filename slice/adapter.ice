@@ -19,7 +19,7 @@ module adapter
   interface BaseItem
   {
     string getId();
-    void setId(string id);
+
   };
 
   interface Scenario extends BaseItem

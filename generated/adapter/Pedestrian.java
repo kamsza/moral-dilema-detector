@@ -54,7 +54,6 @@ public interface Pedestrian extends Entity
         "setAccelerationX",
         "setAccelerationY",
         "setDistance",
-        "setId",
         "setLane",
         "setLength",
         "setSpeedX",
@@ -109,25 +108,21 @@ public interface Pedestrian extends Entity
             }
             case 8:
             {
-                return BaseItem._iceD_setId(this, in, current);
+                return Entity._iceD_setLane(this, in, current);
             }
             case 9:
             {
-                return Entity._iceD_setLane(this, in, current);
+                return Entity._iceD_setLength(this, in, current);
             }
             case 10:
             {
-                return Entity._iceD_setLength(this, in, current);
+                return Entity._iceD_setSpeedX(this, in, current);
             }
             case 11:
             {
-                return Entity._iceD_setSpeedX(this, in, current);
-            }
-            case 12:
-            {
                 return Entity._iceD_setSpeedY(this, in, current);
             }
-            case 13:
+            case 12:
             {
                 return Entity._iceD_setWidth(this, in, current);
             }

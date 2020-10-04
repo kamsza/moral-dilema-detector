@@ -1,10 +1,9 @@
 package waymoadapter;
 
-import org.swrlapi.drools.owl.literals.L;
-import waymoadapter.model.lidar.Box;
-import waymoadapter.model.lidar.Label;
-import waymoadapter.model.lidar.Metadata;
-import waymoadapter.model.lidar.Type;
+import commonadapter.adapters.waymo.lidardata.Box;
+import commonadapter.adapters.waymo.lidardata.Label;
+import commonadapter.adapters.waymo.lidardata.Metadata;
+import commonadapter.adapters.waymo.lidardata.Type;
 
 public class WaymoAdapterTest {
 
