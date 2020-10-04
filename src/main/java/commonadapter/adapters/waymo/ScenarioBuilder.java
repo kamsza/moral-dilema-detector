@@ -40,10 +40,10 @@ public class ScenarioBuilder {
 
 
     public static void main(String[] args) {
-        new ScenarioBuilder(args).buildScenario("src\\main\\resources\\waymo\\waymo-projected-lidar-labels-short.json", "");
+        new ScenarioBuilder(args).buildScenario("src\\main\\resources\\waymo\\waymo-projected-lidar-labels-short.json");
     }
 
-    public void buildScenario(String jsonFilePath, String createdOntologyFileName)  {
+    public void buildScenario(String jsonFilePath)  {
 
         String scenarioId = managerPrx.create(ItemType.SCENARIO);
         ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(scenarioId));
