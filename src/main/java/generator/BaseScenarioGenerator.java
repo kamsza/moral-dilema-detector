@@ -1,11 +1,16 @@
 package generator;
 
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Animal;
 import project.Driver;
 import project.Lane;
 import project.Living_entity;
 import project.MyFactory;
+import project.Non_living_entity;
+import project.On_the_lane;
+import project.On_the_road;
 import project.Passenger;
+import project.Person;
 import project.Road_type;
 import project.Scenario;
 import project.Surrounding;
@@ -13,6 +18,7 @@ import project.Time;
 import project.Vehicle;
 import project.Weather;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,21 +27,25 @@ import java.util.Random;
 import java.util.TreeMap;
 
 public class BaseScenarioGenerator {
-    protected String baseIRI;
-    protected MyFactory factory;
+    private String baseIRI;
+    private MyFactory factory;
 
-    protected Random rand;
-    protected RandomPositioner randomPositioner;
-    protected RandomSubclassGenerator subclassGenerator;
+    private Random rand;
+    private RandomSubclassGenerator subclassGenerator;
 
     private int lanesCount;
     private int mainVehicleLaneId;
+    private int lanesMovingLeftCount;
+    int lanesMovingRightCount;
+
+    public BaseScenarioGenerator() throws FileNotFoundException, OWLOntologyCreationException {
+        this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
+    }
 
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
         this.rand = new Random();
-        this.randomPositioner = new RandomPositioner();
         this.subclassGenerator = new RandomSubclassGenerator(factory);
 
         ObjectNamer.setInitScenarioId(factory.getAllScenarioInstances().size());
@@ -51,9 +61,16 @@ public class BaseScenarioGenerator {
         addRoad(model);
         addEnvData(model);
         addSurrounding(model);
+//        addObjectOnRoad(model);
         addMainVehicle(model);
-        addVehicles(model);
-        addAnimals(model);
+//        addPeopleOnPedestrianCrossing(model);
+//        addObjectsOnLane(model);
+//        addCars(model);
+//        addTrucks(model);
+//        addMotorbikes(model);
+//        addBicycles(model);
+//        addAnimals(model);
+//        addPeopleIllegallyCrossingTheStreet(model);
 
         return model;
     }
@@ -75,37 +92,55 @@ public class BaseScenarioGenerator {
     private void addRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Map<Model.Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
         Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
+        Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
         lanesCount = rand.nextInt(4) + 1;
+        model.setLanesCount(lanesCount);
+
+        model.setRandomPositioner(new RandomPositioner(lanesCount));
         mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1) / 2);
+        lanesMovingLeftCount = Math.min(mainVehicleLaneId, 1 + rand.nextInt((lanesCount + 1) / 2));
+        lanesMovingRightCount = lanesCount - lanesMovingLeftCount;
 
         // create objects
         Road_type roadType = subclassGenerator.generateRoadTypeSubclass(ObjectNamer.getName("road_type"));
 
         // main lane
         Lane lane_0 = factory.createLane(ObjectNamer.getName("lane_0"));
-        entities.put(lane_0, new ArrayList<Living_entity>() {});
-        vehicles.put(lane_0, new ArrayList<Vehicle>() {});
-        TreeMap<Integer, Lane> lane_center = new TreeMap<>() {{ put(0, lane_0); }};
+        entities.put(lane_0, new ArrayList<Living_entity>() {
+        });
+        objects.put(lane_0, new ArrayList<Non_living_entity>() {
+        });
+        vehicles.put(lane_0, new ArrayList<Vehicle>() {
+        });
+        TreeMap<Integer, Lane> lane_center = new TreeMap<>() {{
+            put(0, lane_0);
+        }};
         lanes.put(Model.Side.CENTER, lane_center);
 
         // right lanes
         TreeMap<Integer, Lane> lanes_right = new TreeMap<>();
-        for (int i = 1; i < lanesCount - mainVehicleLaneId; i++) {
+        for (int i = 1; i <= lanesMovingRightCount; i++) {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_right_" + i));
             lanes_right.put(i, lane);
-            entities.put(lane, new ArrayList<Living_entity>() {});
-            vehicles.put(lane, new ArrayList<Vehicle>() {});
+            entities.put(lane, new ArrayList<Living_entity>() {
+            });
+            objects.put(lane, new ArrayList<Non_living_entity>() {
+            });
+            vehicles.put(lane, new ArrayList<Vehicle>() {
+            });
         }
         lanes.put(Model.Side.RIGHT, lanes_right);
 
         // left lanes
         TreeMap<Integer, Lane> lanes_left = new TreeMap<>();
-        for (int i = 1; i <= mainVehicleLaneId; i++) {
+        for (int i = 1; i <= lanesMovingLeftCount; i++) {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_left_" + i));
             lanes_left.put(i, lane);
             entities.put(lane, new ArrayList<Living_entity>() {
+            });
+            objects.put(lane, new ArrayList<Non_living_entity>() {
             });
             vehicles.put(lane, new ArrayList<Vehicle>() {
             });
@@ -119,13 +154,17 @@ public class BaseScenarioGenerator {
 
 
         // add data properties
-        roadType.addHas_lanes(lanesCount);
         roadType.addHas_speed_limit_kmph(50 + 10 * rand.nextInt(9));
+        roadType.addLanes_num(lanesCount);
+        roadType.addMain_vehicle_lane_id(lanes_left.size());
+        roadType.addLanes_lu_num(lanes_left.size());
+        roadType.addLanes_rd_num(lanesCount - lanes_left.size());
 
         // add to model
         model.setRoadType(roadType);
         model.setLanes(lanes);
         model.setEntities(entities);
+        model.setObjects(objects);
         model.setVehicles(vehicles);
     }
 
@@ -143,10 +182,10 @@ public class BaseScenarioGenerator {
     }
 
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        int pass_count = rand.nextInt() % 5;
+        int pass_count = rand.nextInt(6);
 
         // create objects
-        Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle_main"));
+        Vehicle vehicle = factory.createCar(ObjectNamer.getName("vehicle_main"));
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
         ArrayList<Passenger> passengers = new ArrayList<>();
         for (int i = 0; i < pass_count; i++)
@@ -170,92 +209,20 @@ public class BaseScenarioGenerator {
             vehicle.addVehicle_has_passenger(passenger);
 
         // add data properties
+        SizeManager sizeManager = model.getSizeManager();
+        RandomPositioner randomPositioner = model.getRandomPositioner();
         vehicle.addSpeedY((float) (50 + rand.nextInt(90)));
         vehicle.addSpeedX(0F);
         vehicle.addDistance(0F);
-        vehicle.addLength(500F);
+        vehicle.addLength(sizeManager.getLength("car"));
+        vehicle.addWidth(sizeManager.getWidth("car"));
 
         // add to model
+        randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
         model.getVehicles().get(lane).add(vehicle);
         model.setDriver(driver);
         model.setPassengers(passengers);
         model.setVehicle(vehicle);
-    }
-
-    private void addVehicles(Model model) {
-        int lanesMovingRightCount = Math.max(lanesCount - mainVehicleLaneId, rand.nextInt((lanesCount+1)/2));
-        int lanesMovingLeftCount = lanesCount - lanesMovingRightCount;
-        int vehiclesCount = rand.nextInt(2*lanesCount);
-        float vehicleLength = 500F;
-
-        while(vehiclesCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
-            Lane vehicleLane = randomPositioner.getLane(model, laneNo);
-            float vehicleDistance = randomPositioner.getRandomDistance(model, vehicleLane, vehicleLength);
-
-            if(vehicleDistance == 0)
-                continue;
-
-            vehiclesCount -= 1;
-
-            // create objects
-            Vehicle vehicle = factory.createVehicle(ObjectNamer.getName("vehicle"));
-            Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
-
-            // add to scenario
-            model.getScenario().addHas_vehicle(vehicle);
-
-            // add object properties
-            vehicle.addVehicle_has_driver(driver);
-            vehicle.addVehicle_has_location(model.getRoadType());
-
-            // add data properties
-            float vehicleSpeed = (float)(50 + rand.nextInt(90));
-            if(laneNo < lanesMovingLeftCount)
-                vehicleSpeed *= -1;
-
-            vehicle.addDistance(vehicleDistance);
-            vehicle.addLength(500F);
-            vehicle.addSpeedY(vehicleSpeed);
-            vehicle.addSpeedX(0F);
-            vehicle.addAccelerationY(0F);
-            vehicle.addAccelerationX(0F);
-
-            // add to model
-            model.getVehicles().get(vehicleLane).add(vehicle);
-        }
-    }
-
-    private void addAnimals(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        int animalsCount = rand.nextInt(3);
-
-        while(animalsCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(lanesCount);
-            Lane lane = randomPositioner.getLane(model, laneNo);
-            float distance = randomPositioner.getRandomDistance(model, lane, 20F);
-
-            if (distance == 0)
-                continue;
-
-            animalsCount -= 1;
-
-            // create objects
-            Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
-
-            // add to scenario
-            // TODO: ??
-
-            // add data properties
-            animal.addDistance(distance);
-            animal.addLength(20F);
-            animal.addSpeedY(0F);
-            animal.addSpeedX((float)rand.nextInt(15));
-            animal.addAccelerationY(0F);
-            animal.addAccelerationX(0F);
-
-            // add to model
-            model.getEntities().get(lane).add(animal);
-        }
     }
 }

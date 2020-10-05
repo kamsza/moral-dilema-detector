@@ -3,9 +3,9 @@ package generator;
 import project.Action;
 import project.Decision;
 import project.Driver;
-import project.Entity;
 import project.Lane;
 import project.Living_entity;
+import project.Non_living_entity;
 import project.Passenger;
 import project.Road_type;
 import project.Scenario;
@@ -22,6 +22,7 @@ import java.util.TreeMap;
 public class Model {
     private Scenario scenario;
 
+    private int lanesCount;
     private Weather weather;
     private Time time;
     private Road_type roadType;
@@ -31,8 +32,12 @@ public class Model {
     private Map<Side, Surrounding> surrounding = new HashMap<>();
     private Map<Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
     private Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
+    private Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
     private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
     private Map<Decision, Action> actionByDecision = new HashMap<>();
+
+    private RandomPositioner randomPositioner;
+    private SizeManager sizeManager = new SizeManager();
 
     public Scenario getScenario() {
         return scenario;
@@ -40,6 +45,26 @@ public class Model {
 
     public void setScenario(Scenario scenario) {
         this.scenario = scenario;
+    }
+
+    public RandomPositioner getRandomPositioner() {
+        return randomPositioner;
+    }
+
+    public void setRandomPositioner(RandomPositioner randomPositioner) {
+        this.randomPositioner = randomPositioner;
+    }
+
+    public SizeManager getSizeManager() {
+        return sizeManager;
+    }
+
+    public int getLanesCount() {
+        return lanesCount;
+    }
+
+    public void setLanesCount(int lanesCount) {
+        this.lanesCount = lanesCount;
     }
 
     public Weather getWeather() {
@@ -112,6 +137,14 @@ public class Model {
 
     public void setEntities(Map<Lane, ArrayList<Living_entity>> entities) {
         this.entities = entities;
+    }
+
+    public Map<Lane, ArrayList<Non_living_entity>> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Map<Lane, ArrayList<Non_living_entity>> objects) {
+        this.objects = objects;
     }
 
     public Map<Lane, ArrayList<Vehicle>> getVehicles() {

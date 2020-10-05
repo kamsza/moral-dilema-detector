@@ -33,9 +33,9 @@ public class InjuredModule implements IMoralDilemmaDetectorModule {
         }
 
         for(int x : injured){
-            if(x > 0)
-                return true;
+            if(x == 0)
+                return false;
         }
-        return false;
+        return true;
     }
 }

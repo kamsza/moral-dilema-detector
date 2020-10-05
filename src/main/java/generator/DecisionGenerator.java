@@ -38,11 +38,13 @@ public class DecisionGenerator {
         model.getScenario().addHas_decision(decision_2);
         model.getScenario().addHas_decision(decision_3);
 
+
         HashMap<Decision, Action> actionByDecision = new HashMap<>();
         actionByDecision.put(decision_1, action_1);
         actionByDecision.put(decision_2, action_2);
         actionByDecision.put(decision_3, action_3);
 
         model.setActionByDecision(actionByDecision);
+
     }
 }

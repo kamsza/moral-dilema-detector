@@ -6,6 +6,7 @@ import project.*;
 
 import java.util.ArrayList;
 
+// Module detecting if we cannot avoid losing material value
 public class MaterialValueModule implements IMoralDilemmaDetectorModule {
     private MyFactory factory;
 
@@ -33,9 +34,9 @@ public class MaterialValueModule implements IMoralDilemmaDetectorModule {
         }
 
         for(long x : value){
-            if(x > 0)
-                return true;
+            if(x == 0)
+                return false;
         }
-        return false;
+        return true;
     }
 }
