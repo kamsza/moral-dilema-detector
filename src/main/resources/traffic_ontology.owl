@@ -900,6 +900,16 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#distanceToRoad -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#distanceToRoad">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity_properties -->
 
     <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity_properties"/>
@@ -952,12 +962,52 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lanes_count -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lanes_count">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#left_lanes_count -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#left_lanes_count">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#length -->
 
     <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#length">
         <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity_properties"/>
         <rdfs:domain rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#main_vehicle_lane_id -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#main_vehicle_lane_id">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#right_lanes_count -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#right_lanes_count">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
     </owl:DatatypeProperty>
     
 
@@ -1213,6 +1263,14 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/bushes">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_side"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bushes</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/car -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/car">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/vehicle"/>
     </owl:Class>
     
 
@@ -1844,6 +1902,14 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/motorbike">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/vehicle"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">motorbike</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/motorcycle -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/motorcycle">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/vehicle"/>
     </owl:Class>
     
 
