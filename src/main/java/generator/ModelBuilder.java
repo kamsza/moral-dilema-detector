@@ -147,7 +147,7 @@ public class ModelBuilder {
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
 
-        if(laneNo < model.getRoadType().getLanes_lu_num().iterator().next()) {
+        if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
             vehicleSpeed *= -1;
         }
 
@@ -311,7 +311,7 @@ public class ModelBuilder {
 
     private int getLaneNo() {
         int mainCarLane = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
-        int lanes = model.getRoadType().getLanes_num().iterator().next();
+        int lanes = model.getRoadType().getLanes_count().iterator().next();
         int laneNo = mainCarLane - 1 + rand.nextInt(3);
         if(laneNo < 0 || laneNo >= lanes)
             laneNo = mainCarLane;

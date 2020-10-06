@@ -1,10 +1,13 @@
 package generator;
 
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Action;
 import project.Decision;
 import project.Driver;
 import project.Lane;
 import project.Living_entity;
+import project.MyFactory;
 import project.Non_living_entity;
 import project.Passenger;
 import project.Road_type;
@@ -14,6 +17,7 @@ import project.Time;
 import project.Vehicle;
 import project.Weather;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +33,7 @@ public class Model {
     private Driver driver;
     private Vehicle vehicle;
     private ArrayList<Passenger> passengers = new ArrayList<>();
-    private Map<Side, Surrounding> surrounding = new HashMap<>();
+    private Map<Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
     private Map<Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
     private Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
     private Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
@@ -115,11 +119,11 @@ public class Model {
         this.passengers = passengers;
     }
 
-    public Map<Side, Surrounding> getSurrounding() {
+    public Map<Side, ArrayList<Surrounding>> getSurrounding() {
         return surrounding;
     }
 
-    public void setSurrounding(Map<Side, Surrounding> surrounding) {
+    public void setSurrounding(Map<Side, ArrayList<Surrounding>> surrounding) {
         this.surrounding = surrounding;
     }
 
@@ -161,6 +165,11 @@ public class Model {
 
     public void setActionByDecision(Map<Decision, Action> actionByDecision) {
         this.actionByDecision = actionByDecision;
+    }
+
+    public void export() throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+        MyFactory factory = MyFactorySingleton.getFactory();
+        factory.saveOwlOntology();
     }
 
     public enum Side {LEFT, CENTER, RIGHT}

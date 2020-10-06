@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -36,7 +37,8 @@ public class BaseScenarioGenerator {
     private int lanesCount;
     private int mainVehicleLaneId;
     private int lanesMovingLeftCount;
-    int lanesMovingRightCount;
+    private int lanesMovingRightCount;
+    private float roadDist = 6400F;
 
     public BaseScenarioGenerator() throws FileNotFoundException, OWLOntologyCreationException {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
@@ -61,16 +63,7 @@ public class BaseScenarioGenerator {
         addRoad(model);
         addEnvData(model);
         addSurrounding(model);
-//        addObjectOnRoad(model);
         addMainVehicle(model);
-//        addPeopleOnPedestrianCrossing(model);
-//        addObjectsOnLane(model);
-//        addCars(model);
-//        addTrucks(model);
-//        addMotorbikes(model);
-//        addBicycles(model);
-//        addAnimals(model);
-//        addPeopleIllegallyCrossingTheStreet(model);
 
         return model;
     }
@@ -155,10 +148,10 @@ public class BaseScenarioGenerator {
 
         // add data properties
         roadType.addHas_speed_limit_kmph(50 + 10 * rand.nextInt(9));
-        roadType.addLanes_num(lanesCount);
+        roadType.addLanes_count(lanesCount);
         roadType.addMain_vehicle_lane_id(lanes_left.size());
-        roadType.addLanes_lu_num(lanes_left.size());
-        roadType.addLanes_rd_num(lanesCount - lanes_left.size());
+        roadType.addLeft_lanes_count(lanes_left.size());
+        roadType.addRight_lanes_count(lanesCount - lanes_left.size());
 
         // add to model
         model.setRoadType(roadType);
@@ -169,16 +162,47 @@ public class BaseScenarioGenerator {
     }
 
     private void addSurrounding(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Map<Model.Side, Surrounding> surrounding = new HashMap<>();
+        Map<Model.Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
 
         // create objects
-        Surrounding left_surrounding = subclassGenerator.generateSurroundingSubclass(ObjectNamer.getName("surrounding"));
+        ArrayList<Surrounding> left_surrounding = createSurroundingList();
         surrounding.put(Model.Side.LEFT, left_surrounding);
-        Surrounding right_surrounding = subclassGenerator.generateSurroundingSubclass(ObjectNamer.getName("surrounding"));
+        ArrayList<Surrounding> right_surrounding = createSurroundingList();
         surrounding.put(Model.Side.RIGHT, right_surrounding);
 
         // add to model
         model.setSurrounding(surrounding);
+    }
+
+    private ArrayList<Surrounding> createSurroundingList() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        ArrayList<Surrounding> surroundingList = new ArrayList<>();
+
+
+        // is alongside whole road
+        if(rand.nextInt(10) <= 7)  {
+            Surrounding surrounding = createSurrounding(0F, roadDist);
+            surroundingList.add(surrounding);
+        }
+        // is on part of the road
+        else {
+            for(float x = -1 * roadDist/2; x < roadDist/2;){
+                float length = 4800 * rand.nextFloat();
+                float dist = x + length/2;
+                surroundingList.add(createSurrounding(dist, length));
+                x += length;
+            }
+        }
+
+        return surroundingList;
+    }
+
+    private Surrounding createSurrounding(float dist, float length) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Surrounding surrounding = subclassGenerator.generateSurroundingSubclass(ObjectNamer.getName("surrounding"));
+        surrounding.addDistance(dist);
+        surrounding.addLength(length);
+        surrounding.addWidth(rand.nextFloat() * 200);
+        surrounding.addDistanceToRoad(rand.nextFloat() * 40);
+        return surrounding;
     }
 
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -197,14 +221,6 @@ public class BaseScenarioGenerator {
         // add object properties
         vehicle.addVehicle_has_driver(driver);
         vehicle.addVehicle_has_location(model.getRoadType());
-        if (model.getLanes().get(Model.Side.RIGHT).isEmpty())
-            vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.RIGHT));
-        else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.RIGHT).get(1));
-        if (model.getLanes().get(Model.Side.LEFT).isEmpty())
-            vehicle.addHas_on_the_right(model.getSurrounding().get(Model.Side.LEFT));
-        else
-            vehicle.addHas_on_the_right(model.getLanes().get(Model.Side.LEFT).get(1));
         for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 
