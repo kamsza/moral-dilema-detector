@@ -30,7 +30,7 @@ public class Visualization {
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
         background.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        lanesNum = model.getRoadType().getLanes_num().iterator().next();
+        lanesNum = model.getRoadType().getLanes_count().iterator().next();
         JPanel road = new RoadPanel(lanesNum * LANE_HEIGHT, model);
 
         int surroundingHeight = getSurroundingPanelHeight();
