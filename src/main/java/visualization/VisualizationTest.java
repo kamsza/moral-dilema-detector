@@ -11,7 +11,7 @@ public class VisualizationTest {
 
     public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
-        for(int i = 0; i < 50; i++) {
+        for(int i = 0; i < 15; i++) {
             Model baseModel = baseScenarioGenerator.generate();
 
             ScenarioFactory scenarioFactory = new ScenarioFactory(baseModel);
