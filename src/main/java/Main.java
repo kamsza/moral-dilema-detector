@@ -16,23 +16,16 @@ import visualization.Visualization;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-//        BaseScenarioGenerator generator;
-      SimplestPossibleScenarioGenerator generator = new SimplestPossibleScenarioGenerator(factory, baseIRI);
-//        generator = new AnimalOnRoadSG(factory, baseIRI);
-//        generator = new CarApproachingSG(factory, baseIRI);
-//        generator = new CarOvertakingSG(factory, baseIRI);
-//        generator = new ObstacleOnRoadSG(factory, baseIRI);
-//        generator = new CarApproachingSG(factory, baseIRI);
-//        generator = new PedestrianOnCrosswalkSG(factory, baseIRI);
-//        generator = new PedestrianIllegallyCrossingSG(factory, baseIRI);
-
+        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -54,8 +47,8 @@ public class Main {
                 .addModule(new KilledModule(factory))
                 .addModule(new LightlyInjuredModule(factory))
                 .addModule(new SeverelyInjuredModule(factory))
-                .addModule(new InjuredModule(factory))
-//                .addModule(new MaterialValueModule(factory))
+//                .addModule(new InjuredModule(factory))
+                //.addModule(new MaterialValueModule(factory))
                 .build();
 
         for(int i=0; i<1; i++) {

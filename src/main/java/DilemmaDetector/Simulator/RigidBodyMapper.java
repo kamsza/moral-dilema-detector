@@ -13,7 +13,7 @@ public class RigidBodyMapper {
 
     public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
-        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getLivingEntities();
+        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
 
         List<Actor> result = new LinkedList<>();
 

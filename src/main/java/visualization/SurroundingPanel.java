@@ -6,6 +6,7 @@ import project.Surrounding;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 class SurroundingPanel extends JPanel {
     int width, height;
@@ -26,10 +27,21 @@ class SurroundingPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Surrounding surrounding = model.getSurrounding().get(side);
+        ArrayList<Surrounding> surrounding = model.getSurrounding().get(side);
 
-        BufferedImage surrImg = ImageHandler.getImage(surrounding);
-        int imHeight = side == Model.Side.RIGHT ? 20 : height - 20 - surrImg.getHeight();
-        g.drawImage(surrImg, width/2 - surrImg.getWidth()/2, imHeight, this);
+        if(surrounding.size() == 1) {
+            BufferedImage surrImg = ImageHandler.getImage(surrounding.get(0));
+            int y = side == Model.Side.RIGHT ? 20 : height - 20 - surrImg.getHeight();
+            g.drawImage(surrImg, width / 2 - surrImg.getWidth() / 2, y, this);
+        }
+        else {
+            for (Surrounding s : surrounding) {
+                BufferedImage surrImg = ImageHandler.getImage(surrounding.get(0));
+                int y = side == Model.Side.RIGHT ? 20 : height - 20 - surrImg.getHeight();
+                int x = (int)(s.getDistance().iterator().next() - s.getLength().iterator().next() / 2);
+                g.drawImage(surrImg, x, y, this);
+            }
+        }
     }
+
 }
