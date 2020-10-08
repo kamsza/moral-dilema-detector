@@ -45,8 +45,10 @@ public class RigidBodyMapper {
 
         accelX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelX"));
         accelY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelY"));
-        speedX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedX"));
-        speedY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedY"));
+//        speedX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedX"));
+//        speedY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "speedY"));
+        speedX = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedX"));
+        speedY = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "length"));
         rigidBody.setSpeed(new Vector2(speedX, speedY));
@@ -79,8 +81,11 @@ public class RigidBodyMapper {
 
         accelX = PhysicsUtils.CmToMeters(getProperty(entity, "accelX"));
         accelY = PhysicsUtils.CmToMeters(getProperty(entity, "accelY"));
-        speedX = PhysicsUtils.CmToMeters(getProperty(entity, "speedX"));
-        speedY = PhysicsUtils.CmToMeters(getProperty(entity, "speedY"));
+        speedX = PhysicsUtils.KmphToMeters(getProperty(entity, "speedX"));
+        speedY = PhysicsUtils.KmphToMeters(getProperty(entity, "speedY"));
+
+//        speedX = PhysicsUtils.CmToMeters(getProperty(entity, "speedX"));
+////        speedY = PhysicsUtils.CmToMeters(getProperty(entity, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
         rigidBody.setPosition(new Vector2(positionX, positionY));

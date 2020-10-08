@@ -1,6 +1,8 @@
 package generator;
 
+import DilemmaDetector.ParameterizedPhilosophy;
 import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.PhysicsUtils;
 import DilemmaDetector.Simulator.RigidBodyMapper;
 import generator.Model;
 import project.*;
@@ -22,7 +24,9 @@ public class ConsequenceGenerator {
     }
 
     public void predict(Map<Decision, List<Actor>> collidedEntities, Actor mainVehicle) {
+        Map<Decision, Integer> decisionResult = new HashMap<>();
         for (Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
+            int result= 0;
             Decision decision = entry.getKey();
             System.out.println(decision.getOwlIndividual());
 
@@ -72,17 +76,36 @@ public class ConsequenceGenerator {
                 if (maxProbability == fatalInjuryProbability) {
                     decision.addHas_consequence(killed);
                     for (Living_entity living_entity : victims) {
+                        if (living_entity instanceof Passenger || living_entity instanceof Human){
+                            result += ParameterizedPhilosophy.humanLifeValue * ParameterizedPhilosophy.humanLifeFactor;
+                        }
+                        else if (living_entity instanceof Animal){
+                            result += ParameterizedPhilosophy.animalLifeValue * ParameterizedPhilosophy.animalLifeFactor;
+                        }
                         killed.addHealth_consequence_to(living_entity);
                     }
                 }
                 else if (maxProbability == severInjuryProbability) {
                     decision.addHas_consequence(severelyInjured);
                     for (Living_entity living_entity : victims){
+                        if (living_entity instanceof Passenger || living_entity instanceof Human){
+                            result += ParameterizedPhilosophy.humanSevereInjuryValue * ParameterizedPhilosophy.humanLifeFactor;
+                        }
+                        else if (living_entity instanceof Animal){
+                            result += ParameterizedPhilosophy.animalSevereInjuryValue * ParameterizedPhilosophy.animalLifeFactor;
+                        }
                         severelyInjured.addHealth_consequence_to(living_entity);
                     }
                 } else if (maxProbability == minorInjuryProbability) {
                     decision.addHas_consequence(lightlyInjured);
                     for (Living_entity living_entity : victims){
+                        if (living_entity instanceof Passenger || living_entity instanceof Human){
+                            System.out.println("SSSSSSSSSSS");
+                            result += ParameterizedPhilosophy.humanLightlyInjuryValue * ParameterizedPhilosophy.humanLifeFactor;
+                        }
+                        else if (living_entity instanceof Animal){
+                            result += ParameterizedPhilosophy.animalLightlyInjuryValue * ParameterizedPhilosophy.animalLifeFactor;
+                        }
                         lightlyInjured.addHealth_consequence_to(living_entity);
                     }
 
@@ -97,7 +120,15 @@ public class ConsequenceGenerator {
                     }
                 }
             }
+            decisionResult.put(decision, result);
         }
+
+        System.out.println("\n\n DECISION RESULTS :");
+        for (Map.Entry<Decision, Integer> entry : decisionResult.entrySet()) {
+            System.out.println("DECISION : " + entry.getKey().getOwlIndividual().toString() + " " + entry.getValue());
+        }
+
+
     }
 
     private List<Living_entity> getVictims(Actor actor){
@@ -118,6 +149,7 @@ public class ConsequenceGenerator {
     }
 
     private double minorInjuryProbability(double speed){
+        speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 82.5, speed);
@@ -141,6 +173,7 @@ public class ConsequenceGenerator {
     }
 
     private double severInjuryProbability(double speed){
+        speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 14.7, speed);
@@ -164,6 +197,7 @@ public class ConsequenceGenerator {
     }
 
     private double fatalInjuryProbability(double speed){
+        speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 2.7, speed);

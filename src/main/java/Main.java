@@ -70,9 +70,8 @@ public class Main {
             Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
             System.out.println("Collided entities:");
             for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()){
-//                System.out.println("DUPA " + entry.getKey().toString()); //dodalem
+//                System.out.println("Decision " + entry.getKey().toString()); //dodalem
                 for(Actor actor : entry.getValue()){
-//                    System.out.printpln(actor);
                     System.out.println("ACTOR  " + actor.getEntity());
                 }
             }
