@@ -43,10 +43,10 @@ public class Main {
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 
         MoralDilemmaDetector mdd = builder
-                //.addModule(new SWRLInferredModule(ontology, factory))
-                .addModule(new KilledModule(factory))
-                .addModule(new LightlyInjuredModule(factory))
-                .addModule(new SeverelyInjuredModule(factory))
+                .addModule(new SWRLInferredModule(ontology, factory))
+//                .addModule(new KilledModule(factory))
+//                .addModule(new LightlyInjuredModule(factory))
+//                .addModule(new SeverelyInjuredModule(factory))
 //                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();

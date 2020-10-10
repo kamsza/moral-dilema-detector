@@ -96,7 +96,8 @@ public class BaseScenarioGenerator {
         model.setRandomPositioner(new RandomPositioner(lanesCount));
         mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1) / 2);
         lanesMovingLeftCount = Math.min(mainVehicleLaneId, 1 + rand.nextInt((lanesCount + 1) / 2));
-        lanesMovingRightCount = lanesCount - lanesMovingLeftCount -1;  //dodałem ja tak mi sie wydaje;
+        //TODO Should be -1 here?
+        lanesMovingRightCount = lanesCount - lanesMovingLeftCount -1;
 
         System.out.println("MAIN VEHICLE LANE" + mainVehicleLaneId);
         System.out.println("LEFT LANES " + lanesMovingLeftCount);

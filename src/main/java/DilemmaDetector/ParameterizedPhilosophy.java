@@ -2,19 +2,16 @@ package DilemmaDetector;
 
 public class ParameterizedPhilosophy {
 
-    public static final int humanLifeValue = 10;
-    public static final int humanSevereInjuryValue = 5;
-    public static final int humanLightlyInjuryValue = 1;
+    public static final int lifeValue = 10;
+    public static final int severeInjuryValue = 5;
+    public static final int lightlyInjuryValue = 1;
+    public static final int materialValue = 0;
+    public static final int moralValue = 0;
 
-
-    public static final int animalLifeValue = 3;
-    public static final int animalSevereInjuryValue = 2;
-    public static final int animalLightlyInjuryValue = 1;
-
-
-    public static final int humanLifeFactor = 1;
-    public static final int animalLifeFactor = 1;
-
+    public static int humanLifeFactor = 100;
+    public static int animalLifeFactor = 100;
+    public static int materialFactor = 100;
+    public static int moralFactor = 100;
 
 
 }

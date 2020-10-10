@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
+import visualization.Visualization;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,10 +29,11 @@ public class GeneratorTest {
         MyFactory factory = new MyFactory(ontology);
         String baseIRI = "http://webprotege.stanford.edu/";
 
-//        BaseScenarioGenerator generator = new AnimalOnRoadSG(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
 //        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
-//        Model model = generator.generate();
-//        decisionGenerator.generate(model);
-//        factory.saveOwlOntology();
+        Model model = generator.generate();
+        Visualization.getImage(model);
+        //        decisionGenerator.generate(model);
+        factory.saveOwlOntology();
     }
 }
