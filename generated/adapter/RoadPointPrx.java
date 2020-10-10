@@ -17,6 +17,152 @@ package adapter;
 
 public interface RoadPointPrx extends BaseItemPrx
 {
+    default void setX(int x)
+    {
+        setX(x, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setX(int x, java.util.Map<String, String> context)
+    {
+        _iceI_setXAsync(x, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setXAsync(int x)
+    {
+        return _iceI_setXAsync(x, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setXAsync(int x, java.util.Map<String, String> context)
+    {
+        return _iceI_setXAsync(x, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_x -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setXAsync(int iceP_x, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setX", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_x);
+                 }, null);
+        return f;
+    }
+
+    default int getX()
+    {
+        return getX(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default int getX(java.util.Map<String, String> context)
+    {
+        return _iceI_getXAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getXAsync()
+    {
+        return _iceI_getXAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getXAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getXAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getXAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getX", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     int ret;
+                     ret = istr.readInt();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default void setY(int y)
+    {
+        setY(y, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setY(int y, java.util.Map<String, String> context)
+    {
+        _iceI_setYAsync(y, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setYAsync(int y)
+    {
+        return _iceI_setYAsync(y, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setYAsync(int y, java.util.Map<String, String> context)
+    {
+        return _iceI_setYAsync(y, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_y -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setYAsync(int iceP_y, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setY", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_y);
+                 }, null);
+        return f;
+    }
+
+    default int getY()
+    {
+        return getY(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default int getY(java.util.Map<String, String> context)
+    {
+        return _iceI_getYAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getYAsync()
+    {
+        return _iceI_getYAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getYAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getYAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getYAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getY", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     int ret;
+                     ret = istr.readInt();
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

@@ -47,10 +47,14 @@ public interface Delimiter extends RoadPoint
     final static String[] _iceOps =
     {
         "getId",
+        "getX",
+        "getY",
         "ice_id",
         "ice_ids",
         "ice_isA",
-        "ice_ping"
+        "ice_ping",
+        "setX",
+        "setY"
     };
 
     /** @hidden */
@@ -72,19 +76,35 @@ public interface Delimiter extends RoadPoint
             }
             case 1:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return RoadPoint._iceD_getX(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return RoadPoint._iceD_getY(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 4:
             {
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+            }
+            case 5:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 6:
+            {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 7:
+            {
+                return RoadPoint._iceD_setX(this, in, current);
+            }
+            case 8:
+            {
+                return RoadPoint._iceD_setY(this, in, current);
             }
         }
 

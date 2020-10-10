@@ -15,47 +15,47 @@
 
 package adapter;
 
-public enum ItemType implements java.io.Serializable
+public enum RoadAttribute implements java.io.Serializable
 {
-    SCENARIO(0),
-    ROAD(1),
-    LANE(2),
-    JUNCTION(3),
-    DELIMITER(4),
-    VEHICLE(5),
-    CYCLIST(6),
-    PEDESTRIAN(7);
+    FERRY(0),
+    TUNNEL(1),
+    BRIDGE(2),
+    TOLL(3),
+    CONTROLLEDACCES(4),
+    SERVICEAREA(5),
+    URBAN(6),
+    MOTORWAY(7);
 
     public int value()
     {
         return _value;
     }
 
-    public static ItemType valueOf(int v)
+    public static RoadAttribute valueOf(int v)
     {
         switch(v)
         {
         case 0:
-            return SCENARIO;
+            return FERRY;
         case 1:
-            return ROAD;
+            return TUNNEL;
         case 2:
-            return LANE;
+            return BRIDGE;
         case 3:
-            return JUNCTION;
+            return TOLL;
         case 4:
-            return DELIMITER;
+            return CONTROLLEDACCES;
         case 5:
-            return VEHICLE;
+            return SERVICEAREA;
         case 6:
-            return CYCLIST;
+            return URBAN;
         case 7:
-            return PEDESTRIAN;
+            return MOTORWAY;
         }
         return null;
     }
 
-    private ItemType(int v)
+    private RoadAttribute(int v)
     {
         _value = v;
     }
@@ -65,11 +65,11 @@ public enum ItemType implements java.io.Serializable
         ostr.writeEnum(_value, 7);
     }
 
-    public static void ice_write(com.zeroc.Ice.OutputStream ostr, ItemType v)
+    public static void ice_write(com.zeroc.Ice.OutputStream ostr, RoadAttribute v)
     {
         if(v == null)
         {
-            ostr.writeEnum(adapter.ItemType.SCENARIO.value(), 7);
+            ostr.writeEnum(adapter.RoadAttribute.FERRY.value(), 7);
         }
         else
         {
@@ -77,13 +77,13 @@ public enum ItemType implements java.io.Serializable
         }
     }
 
-    public static ItemType ice_read(com.zeroc.Ice.InputStream istr)
+    public static RoadAttribute ice_read(com.zeroc.Ice.InputStream istr)
     {
         int v = istr.readEnum(7);
         return validate(v);
     }
 
-    public static void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, java.util.Optional<ItemType> v)
+    public static void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, java.util.Optional<RoadAttribute> v)
     {
         if(v != null && v.isPresent())
         {
@@ -91,7 +91,7 @@ public enum ItemType implements java.io.Serializable
         }
     }
 
-    public static void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, ItemType v)
+    public static void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, RoadAttribute v)
     {
         if(ostr.writeOptional(tag, com.zeroc.Ice.OptionalFormat.Size))
         {
@@ -99,7 +99,7 @@ public enum ItemType implements java.io.Serializable
         }
     }
 
-    public static java.util.Optional<ItemType> ice_read(com.zeroc.Ice.InputStream istr, int tag)
+    public static java.util.Optional<RoadAttribute> ice_read(com.zeroc.Ice.InputStream istr, int tag)
     {
         if(istr.readOptional(tag, com.zeroc.Ice.OptionalFormat.Size))
         {
@@ -111,9 +111,9 @@ public enum ItemType implements java.io.Serializable
         }
     }
 
-    private static ItemType validate(int v)
+    private static RoadAttribute validate(int v)
     {
-        final ItemType e = valueOf(v);
+        final RoadAttribute e = valueOf(v);
         if(e == null)
         {
             throw new com.zeroc.Ice.MarshalException("enumerator value " + v + " is out of range");

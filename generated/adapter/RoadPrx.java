@@ -90,6 +90,298 @@ public interface RoadPrx extends BaseItemPrx
         return f;
     }
 
+    default void setEndAngle(float angle)
+    {
+        setEndAngle(angle, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setEndAngle(float angle, java.util.Map<String, String> context)
+    {
+        _iceI_setEndAngleAsync(angle, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setEndAngleAsync(float angle)
+    {
+        return _iceI_setEndAngleAsync(angle, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setEndAngleAsync(float angle, java.util.Map<String, String> context)
+    {
+        return _iceI_setEndAngleAsync(angle, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_angle -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setEndAngleAsync(float iceP_angle, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setEndAngle", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeFloat(iceP_angle);
+                 }, null);
+        return f;
+    }
+
+    default float getEndAngle()
+    {
+        return getEndAngle(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default float getEndAngle(java.util.Map<String, String> context)
+    {
+        return _iceI_getEndAngleAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Float> getEndAngleAsync()
+    {
+        return _iceI_getEndAngleAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Float> getEndAngleAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getEndAngleAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> _iceI_getEndAngleAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Float> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getEndAngle", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     float ret;
+                     ret = istr.readFloat();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default void setRoadAttributes(RoadAttribute[] roadAttributes)
+    {
+        setRoadAttributes(roadAttributes, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setRoadAttributes(RoadAttribute[] roadAttributes, java.util.Map<String, String> context)
+    {
+        _iceI_setRoadAttributesAsync(roadAttributes, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setRoadAttributesAsync(RoadAttribute[] roadAttributes)
+    {
+        return _iceI_setRoadAttributesAsync(roadAttributes, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setRoadAttributesAsync(RoadAttribute[] roadAttributes, java.util.Map<String, String> context)
+    {
+        return _iceI_setRoadAttributesAsync(roadAttributes, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_roadAttributes -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setRoadAttributesAsync(RoadAttribute[] iceP_roadAttributes, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setRoadAttributes", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     RoadAttributesHelper.write(ostr, iceP_roadAttributes);
+                 }, null);
+        return f;
+    }
+
+    default RoadAttribute[] getRoadAttributes()
+    {
+        return getRoadAttributes(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default RoadAttribute[] getRoadAttributes(java.util.Map<String, String> context)
+    {
+        return _iceI_getRoadAttributesAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<RoadAttribute[]> getRoadAttributesAsync()
+    {
+        return _iceI_getRoadAttributesAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<RoadAttribute[]> getRoadAttributesAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getRoadAttributesAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<RoadAttribute[]> _iceI_getRoadAttributesAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<RoadAttribute[]> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getRoadAttributes", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     RoadAttribute[] ret;
+                     ret = RoadAttributesHelper.read(istr);
+                     return ret;
+                 });
+        return f;
+    }
+
+    default void setAverageSpeed(int speed)
+    {
+        setAverageSpeed(speed, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setAverageSpeed(int speed, java.util.Map<String, String> context)
+    {
+        _iceI_setAverageSpeedAsync(speed, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAverageSpeedAsync(int speed)
+    {
+        return _iceI_setAverageSpeedAsync(speed, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAverageSpeedAsync(int speed, java.util.Map<String, String> context)
+    {
+        return _iceI_setAverageSpeedAsync(speed, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_speed -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setAverageSpeedAsync(int iceP_speed, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setAverageSpeed", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_speed);
+                 }, null);
+        return f;
+    }
+
+    default int getAverageSpeed()
+    {
+        return getAverageSpeed(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default int getAverageSpeed(java.util.Map<String, String> context)
+    {
+        return _iceI_getAverageSpeedAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getAverageSpeedAsync()
+    {
+        return _iceI_getAverageSpeedAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getAverageSpeedAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getAverageSpeedAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getAverageSpeedAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getAverageSpeed", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     int ret;
+                     ret = istr.readInt();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default void setSpeedLimit(int speed)
+    {
+        setSpeedLimit(speed, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setSpeedLimit(int speed, java.util.Map<String, String> context)
+    {
+        _iceI_setSpeedLimitAsync(speed, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedLimitAsync(int speed)
+    {
+        return _iceI_setSpeedLimitAsync(speed, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedLimitAsync(int speed, java.util.Map<String, String> context)
+    {
+        return _iceI_setSpeedLimitAsync(speed, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_speed -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setSpeedLimitAsync(int iceP_speed, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setSpeedLimit", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_speed);
+                 }, null);
+        return f;
+    }
+
+    default int getSpeedLimit()
+    {
+        return getSpeedLimit(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default int getSpeedLimit(java.util.Map<String, String> context)
+    {
+        return _iceI_getSpeedLimitAsync(context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getSpeedLimitAsync()
+    {
+        return _iceI_getSpeedLimitAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> getSpeedLimitAsync(java.util.Map<String, String> context)
+    {
+        return _iceI_getSpeedLimitAsync(context, false);
+    }
+
+    /**
+     * @hidden
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getSpeedLimitAsync(java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getSpeedLimit", null, sync, null);
+        f.invoke(true, context, null, null, istr -> {
+                     int ret;
+                     ret = istr.readInt();
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.
