@@ -37,7 +37,7 @@ public class DecisionGenerator {
         model.getScenario().addHas_decision(decision_3);
         actionByDecision.put(decision_3, action_3);
 
-        //adding decisions and actions for changing lanes
+//        adding decisions and actions for changing lanes
         for(Model.Side side : model.getLanes().keySet()){
             for(Integer lane_number : model.getLanes().get(side).keySet()){
                 if(lane_number != 0) {

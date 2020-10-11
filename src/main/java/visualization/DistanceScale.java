@@ -1,5 +1,7 @@
 package visualization;
 
+import generator.SizeManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,13 +13,10 @@ public class DistanceScale extends JPanel {
     private int width;
     private int height;
     private int length;
-    private int step;
 
-    DistanceScale(int width, int height, int length, int step) {
+    DistanceScale(int width, int height) {
         this.width = width;
         this.height = height;
-        this.length = length;
-        this.step = step;
 
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(width, height));
@@ -28,9 +27,9 @@ public class DistanceScale extends JPanel {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
 
-        int iterationNum = (length / step);
-        int scaledStep = (width / 2) / iterationNum;
+        int scaledStep = SizeManager.METERS_TO_PX;
         int startX = width / 2;
+        int iterationNum = startX / scaledStep;
         int gapX = 0;
         int barHeight = height - 2*yGap - textSize;
 
@@ -39,15 +38,17 @@ public class DistanceScale extends JPanel {
             g.fillRect(startX + gapX, yGap, barSize, barHeight);
             g.fillRect(startX - gapX, yGap, barSize, barHeight);
 
-            JLabel labelR = new JLabel(i * step + " m");
-            labelR.setFont(new Font(labelR.getName(), Font.PLAIN, textSize));
-            labelR.setBounds(startX + gapX, barHeight + yGap, 50, textSize + yGap);
-            this.add(labelR);
+            if(i % 5 == 0) {
+                JLabel labelR = new JLabel(i + " m");
+                labelR.setFont(new Font(labelR.getName(), Font.PLAIN, textSize));
+                labelR.setBounds(startX + gapX, barHeight + yGap, 50, textSize + yGap);
+                this.add(labelR);
 
-            JLabel labelL = new JLabel(i * step + " m");
-            labelL.setFont(new Font(labelL.getName(), Font.PLAIN, textSize));
-            labelL.setBounds(startX - gapX, barHeight + yGap, 50, textSize + yGap);
-            this.add(labelL);
+                JLabel labelL = new JLabel(i + " m");
+                labelL.setFont(new Font(labelL.getName(), Font.PLAIN, textSize));
+                labelL.setBounds(startX - gapX, barHeight + yGap, 50, textSize + yGap);
+                this.add(labelL);
+            }
 
             gapX += scaledStep;
         }

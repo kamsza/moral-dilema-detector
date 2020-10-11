@@ -2,41 +2,33 @@ package visualization;
 
 import generator.BaseScenarioGenerator;
 import generator.Model;
-import generator.SimplestPossibleScenarioGenerator;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLOntology;
+import generator.ScenarioFactory;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.MyFactory;
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
 public class VisualizationTest {
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InterruptedException, OWLOntologyStorageException {
-        String fileName = "traffic_ontology.owl";
-        String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
-
-        File ontologyFile = new File(directoryPath + fileName);
-        if (!ontologyFile.exists())
-            throw new FileNotFoundException("File: " + ontologyFile.getAbsolutePath() + " not found");
-
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
-
-        MyFactory factory = new MyFactory(ontology);
-        String baseIRI = "http://webprotege.stanford.edu/";
-
-        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
-        SimplestPossibleScenarioGenerator simpliestGenerator = new SimplestPossibleScenarioGenerator(factory, baseIRI);
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
         for(int i = 0; i < 1; i++) {
-//            Model model = generator.generate();
-            Model model = simpliestGenerator.generate();
-            Visualization.getImage(model);
+            Model baseModel = baseScenarioGenerator.generate();
+
+            ScenarioFactory scenarioFactory = new ScenarioFactory(baseModel);
+            Model model1 = scenarioFactory
+//                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+//                    .obstacleOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+                        .pedestrianOnCrossing(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+//                    .pedestrianJaywalking(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+                    .getModel();
+            Visualization.getImage(model1);
+            System.out.println(model1.getLanes().get(Model.Side.LEFT));
+            System.out.println(model1.getLanes().get(Model.Side.RIGHT));
+            System.out.println(model1.getLanes().get(Model.Side.CENTER));
+            System.out.println("\n\n\n");
+
+
+
         }
-//        factory.saveOwlOntology();
     }
 }

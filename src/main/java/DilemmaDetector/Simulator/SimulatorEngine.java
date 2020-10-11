@@ -46,7 +46,6 @@ public class SimulatorEngine {
             actor.getRigidBody().setToInitialValues();
         }
 
-
         while (currentTime < MOVING_TIME) {
             currentTime += TIME_PART;
             System.out.println(

@@ -1,8 +1,8 @@
 package generator;
 
+import DilemmaDetector.ParameterizedPhilosophy;
 import DilemmaDetector.Simulator.Actor;
-import DilemmaDetector.Simulator.RigidBodyMapper;
-import generator.Model;
+import DilemmaDetector.Simulator.PhysicsUtils;
 import project.*;
 import project.MyFactory;
 
@@ -22,7 +22,9 @@ public class ConsequenceGenerator {
     }
 
     public void predict(Map<Decision, List<Actor>> collidedEntities, Actor mainVehicle) {
+        Map<Decision, Integer> decisionResult = new HashMap<>();
         for (Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
+            int result= 0;
             Decision decision = entry.getKey();
             System.out.println(decision.getOwlIndividual());
 
@@ -40,7 +42,7 @@ public class ConsequenceGenerator {
 
                 //check if only collided vehicle is mainVehicle - it means that vehicle was out of road
                 if (mainVehicle.getEntityName().equals(actor.getEntityName())){
-                    victims = getVictims(actor);
+                    victims = getLivingEntitiesFromActor(actor);
                     System.out.println("VICTIMS:::::::::::");
                     for (Living_entity living_entity : victims){
                         System.out.println(living_entity.getOwlIndividual().toString());
@@ -49,7 +51,7 @@ public class ConsequenceGenerator {
 
                 }
                 else {
-                    victims = getVictims(actor);
+                    victims = getLivingEntitiesFromActor(actor);
                     victims.addAll(model.getPassengers());
                     victims.add(model.getDriver());
 //                    System.out.println("VICTIMS SIZE " + victims.size());
@@ -72,17 +74,35 @@ public class ConsequenceGenerator {
                 if (maxProbability == fatalInjuryProbability) {
                     decision.addHas_consequence(killed);
                     for (Living_entity living_entity : victims) {
+                        if (living_entity instanceof Passenger || living_entity instanceof Human){
+                            result += ParameterizedPhilosophy.lifeValue * ParameterizedPhilosophy.humanLifeFactor;
+                        }
+                        else if (living_entity instanceof Animal){
+                            result += ParameterizedPhilosophy.lifeValue * ParameterizedPhilosophy.animalLifeFactor;
+                        }
                         killed.addHealth_consequence_to(living_entity);
                     }
                 }
                 else if (maxProbability == severInjuryProbability) {
                     decision.addHas_consequence(severelyInjured);
                     for (Living_entity living_entity : victims){
+                        if (living_entity instanceof Passenger || living_entity instanceof Human){
+                            result += ParameterizedPhilosophy.severeInjuryValue * ParameterizedPhilosophy.humanLifeFactor;
+                        }
+                        else if (living_entity instanceof Animal){
+                            result += ParameterizedPhilosophy.severeInjuryValue * ParameterizedPhilosophy.animalLifeFactor;
+                        }
                         severelyInjured.addHealth_consequence_to(living_entity);
                     }
                 } else if (maxProbability == minorInjuryProbability) {
                     decision.addHas_consequence(lightlyInjured);
                     for (Living_entity living_entity : victims){
+                        if (living_entity instanceof Passenger || living_entity instanceof Human){
+                            result += ParameterizedPhilosophy.lightlyInjuryValue * ParameterizedPhilosophy.humanLifeFactor;
+                        }
+                        else if (living_entity instanceof Animal){
+                            result += ParameterizedPhilosophy.lightlyInjuryValue * ParameterizedPhilosophy.animalLifeFactor;
+                        }
                         lightlyInjured.addHealth_consequence_to(living_entity);
                     }
 
@@ -91,16 +111,24 @@ public class ConsequenceGenerator {
             // not collided LivingEntities which are in this scenario are intact
             for(Actor actor : actors){
                 if(!entry.getValue().contains(actor)) {
-                    for(Living_entity living_entity : getVictims(actor)) {
+                    for(Living_entity living_entity : getLivingEntitiesFromActor(actor)) {
                         intact.addHealth_consequence_to(living_entity);
                         decision.addHas_consequence(intact);
                     }
                 }
             }
+            decisionResult.put(decision, result);
         }
+
+        System.out.println("\n\n DECISION RESULTS :");
+        for (Map.Entry<Decision, Integer> entry : decisionResult.entrySet()) {
+            System.out.println("DECISION : " + entry.getKey().getOwlIndividual().toString() + " " + entry.getValue());
+        }
+
+
     }
 
-    private List<Living_entity> getVictims(Actor actor){
+    private List<Living_entity> getLivingEntitiesFromActor(Actor actor){
         Vehicle vehicle = factory.getVehicle(actor.getEntity());
         Living_entity living_entity = factory.getLiving_entity(actor.getEntity());
         List<Living_entity> result = new ArrayList<>();
@@ -118,6 +146,7 @@ public class ConsequenceGenerator {
     }
 
     private double minorInjuryProbability(double speed){
+        speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 82.5, speed);
@@ -141,6 +170,7 @@ public class ConsequenceGenerator {
     }
 
     private double severInjuryProbability(double speed){
+        speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 14.7, speed);
@@ -164,6 +194,7 @@ public class ConsequenceGenerator {
     }
 
     private double fatalInjuryProbability(double speed){
+        speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
         if (speed < 30) {
             probability = getProbability(0, 0, 30, 2.7, speed);
