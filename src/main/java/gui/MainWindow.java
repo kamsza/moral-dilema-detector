@@ -1,5 +1,16 @@
 package gui;
 
+import DilemmaDetector.OntologyUtils;
+import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.RigidBodyMapper;
+import DilemmaDetector.Simulator.SimulatorEngine;
+import generator.ConsequenceGenerator;
+import generator.Model;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import project.Decision;
+import project.MyFactory;
+import visualization.Visualization;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -7,71 +18,56 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MainWindow extends JFrame implements ActionListener {
 
-    private List<SliderWithLabel> SliderWithLabelList = new ArrayList<>();
-    private JPanel containerForSliders;
-    private JPanel pictureContainer;
-    private JPanel mainContainer;
+
     private JButton jButtonStart;
+    private TableWithParameters tableWithParameters;
+    private JPanel pictureContainer;
+
+
+    private Model scenarioModel;
 
     public MainWindow() {
         setSize(1000, 600);
+        setResizable(false);
         setTitle("Moral dilemma detector");
-        setDefaultLookAndFeelDecorated(true);
+        setLayout(null);
 
-        containerForSliders = new JPanel();
-        containerForSliders.setLayout(new BoxLayout(containerForSliders, BoxLayout.X_AXIS));
-
-        List<String> categories = Arrays.asList("Humans", "Animals", "Law", "Money");
-
-        for (String category : categories) {
-            SliderWithLabelList.add(new SliderWithLabel(category));
-        }
-
-        for (SliderWithLabel sliderWithLabel : SliderWithLabelList) {
-            containerForSliders.add(sliderWithLabel);
-        }
-        containerForSliders.setBounds(0,0,1000, 300);
-        add(containerForSliders);
-
-
-        pictureContainer = new JPanel();
-        BufferedImage myPicture = getImage("Forest");
-        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-        picLabel.setBounds(0,400, 1000, 300);
-        picLabel.setVisible(true);
-        pictureContainer.add(picLabel);
-
-        mainContainer = new JPanel();
-        mainContainer.setLayout(new BoxLayout(mainContainer, BoxLayout.Y_AXIS));
-
-        mainContainer.add(containerForSliders);
+        tableWithParameters = new TableWithParameters();
+        tableWithParameters.setBounds(10, 50, 200, 130);
+        add(tableWithParameters);
 
         jButtonStart = new JButton("Start simulation");
+        jButtonStart.setBounds(10, 180, 200, 30);
         jButtonStart.addActionListener(this);
-        mainContainer.add(jButtonStart);
+        add(jButtonStart);
 
-        mainContainer.add(pictureContainer);
+        BufferedImage myPicture = getImage("Forest");
+        // na razie stałe zdjęcie, bo klasa ImageHandler jest package private
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        picLabel.setBounds(250, 50, 400, 160);
+        picLabel.setVisible(true);
+        add(picLabel);
 
-        add(mainContainer);
+
 
     }
+
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
-        if(eventSource == jButtonStart)
-        {
+        if (eventSource == jButtonStart) {
             System.out.println("SIMULATION SHOULD START");
-            for(SliderWithLabel slider : SliderWithLabelList)
-            {
-                System.out.println(slider.getCategory() + " -> " + slider.getSliderValue() + "%");
+            for (Map.Entry<String, Integer> entry : tableWithParameters.getTableValues().entrySet()) {
+                System.out.println(entry.getKey() + " -> " + entry.getValue());
             }
         }
     }
@@ -85,7 +81,7 @@ public class MainWindow extends JFrame implements ActionListener {
         try {
             File imageFile = new File(filePath);
 
-            if(imageFile.exists())
+            if (imageFile.exists())
                 image = ImageIO.read(imageFile);
             else {
                 String defaultFilePath = currentDirectory + "/src/main/resources/img/no_image.png";
