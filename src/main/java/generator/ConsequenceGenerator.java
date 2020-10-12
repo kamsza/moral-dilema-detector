@@ -48,7 +48,6 @@ public class ConsequenceGenerator {
                         System.out.println(living_entity.getOwlIndividual().toString());
                     }
                     speed = Math.abs(mainVehicle.getRigidBody().getSpeed().getMagnitude());
-
                 }
                 else {
                     victims = getLivingEntitiesFromActor(actor);
@@ -145,79 +144,5 @@ public class ConsequenceGenerator {
         return result;
     }
 
-    private double minorInjuryProbability(double speed){
-        speed = PhysicsUtils.MetersToKmph(speed);
-        double probability;
-        if (speed < 30) {
-            probability = getProbability(0, 0, 30, 82.5, speed);
-        }
-        else if(speed < 50){
-            probability = getProbability(30, 82.5, 50, 75, speed);
-        }
-        else if(speed < 70){
-            probability = getProbability(50, 75, 70, 54.9, speed);
-        }
-        else if(speed < 90){
-            probability = getProbability(70, 54.9, 90, 32.3, speed);
-        }
-        else if(speed < 115){
-            probability = getProbability(90, 32.3, 115, 33.3, speed);
-        }
-        else{
-            probability = getProbability(115, 33.3, speed, 33.3, speed);
-        }
-        return probability;
-    }
 
-    private double severInjuryProbability(double speed){
-        speed = PhysicsUtils.MetersToKmph(speed);
-        double probability;
-        if (speed < 30) {
-            probability = getProbability(0, 0, 30, 14.7, speed);
-        }
-        else if(speed < 50){
-            probability = getProbability(30, 14.7, 50, 21.9, speed);
-        }
-        else if(speed < 70){
-            probability = getProbability(50, 21.9, 70, 33.3, speed);
-        }
-        else if(speed < 90){
-            probability = getProbability(70, 33.3, 90, 30.6, speed);
-        }
-        else if(speed < 115){
-            probability = getProbability(90, 30.6, 115, 26.7, speed);
-        }
-        else{
-            probability = getProbability(115, 26.7, speed, 26.7, speed);
-        }
-        return probability;
-    }
-
-    private double fatalInjuryProbability(double speed){
-        speed = PhysicsUtils.MetersToKmph(speed);
-        double probability;
-        if (speed < 30) {
-            probability = getProbability(0, 0, 30, 2.7, speed);
-        }
-        else if(speed < 50){
-            probability = getProbability(30, 2.7, 50, 3.1, speed);
-        }
-        else if(speed < 70){
-            probability = getProbability(50, 3.1, 70, 11.8, speed);
-        }
-        else if(speed < 90){
-            probability = getProbability(70, 11.8, 90, 37.1, speed);
-        }
-        else if(speed < 115){
-            probability = getProbability(90, 37.1, 115, 40.0, speed);
-        }
-        else{
-            probability = getProbability(115, 40.0, speed, 40.0, speed);
-        }
-        return probability;
-    }
-
-    private double getProbability(double x1, double y1, double x2, double y2, double speed){
-        return (y2 - y1)/(x2 - x1)*(speed - x1) + y1;
-    }
 }

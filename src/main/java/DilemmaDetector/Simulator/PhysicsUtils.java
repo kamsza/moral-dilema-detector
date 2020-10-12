@@ -12,4 +12,9 @@ public class PhysicsUtils {
     public static double MetersToKmph(double n){
         return n * 3.6;
     }
+
+    public static Vector2 GetRelativeSpeed(Vector2 vec1, Vector2 vec2)
+    {
+        return new Vector2(vec1).sub(vec2);
+    }
 }
