@@ -176,10 +176,10 @@ public class ModelBuilder {
 
         vehicle.addDistance(distance);
         vehicle.addLength(500F);
-        vehicle.addSpeedY(vehicleSpeed);
-        vehicle.addSpeedX(0F);
-        vehicle.addAccelerationY(0F);
+        vehicle.addSpeedX(vehicleSpeed);
+        vehicle.addSpeedY(0F);
         vehicle.addAccelerationX(0F);
+        vehicle.addAccelerationY(0F);
 
         model.getVehicles().get(vehicleLane).add(vehicle);
 
@@ -316,10 +316,10 @@ public class ModelBuilder {
 
     private <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
         entity = fillDataProps(entity, distance, entityName);
-        entity.addSpeedY((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
-        entity.addSpeedX((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
-        entity.addAccelerationY(0F);
+        entity.addSpeedX((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
+        entity.addSpeedY((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
         entity.addAccelerationX(0F);
+        entity.addAccelerationY(0F);
 
         return entity;
     }

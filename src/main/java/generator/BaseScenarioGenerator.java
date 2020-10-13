@@ -227,8 +227,8 @@ public class BaseScenarioGenerator {
         // add data properties
         SizeManager sizeManager = model.getSizeManager();
         RandomPositioner randomPositioner = model.getRandomPositioner();
-        vehicle.addSpeedY((float) (50 + rand.nextInt(90)));
-        vehicle.addSpeedX(0F);
+        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
+        vehicle.addSpeedY(0F);
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));

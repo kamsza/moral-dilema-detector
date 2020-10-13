@@ -30,8 +30,6 @@ public class ScenarioFactory {
     }
 
     public ScenarioFactory carOvertaking() {
-        // TODO: dodac auto, ktore nas wyprzedza na lewym pasie
-        // TODO: chyba raczej które my wyprzedzamy ??
         modelBuilder.addOvertakenVehicle();
         return this;
     }
