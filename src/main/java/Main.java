@@ -1,3 +1,7 @@
+import DilemmaDetector.Consequences.CollisionConsequencePredictor;
+import DilemmaDetector.Consequences.ConsequenceContainer;
+import DilemmaDetector.Consequences.DecisionCostCalculator;
+import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
 import DilemmaDetector.Simulator.Actor;
@@ -65,8 +69,10 @@ public class Main {
             Visualization.getImage(scenarioModel);
 
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
-            SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel);
-            ConsequenceGenerator consequenceGenerator = new ConsequenceGenerator(factory, scenarioModel, RigidBodyMapper.createActors(scenarioModel));
+            IConsequenceContainer consequenceContainer = new ConsequenceContainer(factory);
+            CollisionConsequencePredictor collisionConsequencePredictor =
+                    new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
+            SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
             Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
             System.out.println("Collided entities:");
             for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()){
@@ -76,12 +82,13 @@ public class Main {
                 }
             }
 
+            DecisionCostCalculator costCalculator = new DecisionCostCalculator(consequenceContainer, factory);
 
             for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
-                System.out.println(entry.getKey().toString()+ "  " + entry.getValue().size());
+                System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
-            consequenceGenerator.predict(collidedEntities, new Actor(scenarioModel.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(scenarioModel.getVehicle())));
+
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
         }
     }

@@ -3,17 +3,14 @@ package DilemmaDetector.Consequences;
 import generator.ObjectNamer;
 import project.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ConsequenceContainer implements IConsequenceContainer {
     private Map<String, Map<ConsequenceType, Set<String>>> healthConsequences = new HashMap<>(); //<Decision, <Consequence, Set<VictimName>>>
     private Map<String, Map<String, Double>> materialConsequences = new HashMap<>();
     private MyFactory factory;
 
-    ConsequenceContainer(MyFactory factory) {
+    public ConsequenceContainer(MyFactory factory) {
         this.factory = factory;
     }
 
@@ -73,6 +70,16 @@ public class ConsequenceContainer implements IConsequenceContainer {
     public void addMaterialConsequence(Decision decision, String damagedEntityName, double value) {
         if (materialConsequences.get(decision.getOwlIndividual().toStringID()).get(damagedEntityName) < value)
             materialConsequences.get(decision.getOwlIndividual().toStringID()).put(damagedEntityName, value);
+    }
+
+    @Override
+    public List<String> getHealthConsequencesOfType(Decision decision, ConsequenceType consequenceType) {
+        return new LinkedList<>(healthConsequences.get(decision.getOwlIndividual().toStringID()).get(consequenceType));
+    }
+
+    @Override
+    public Set<Map.Entry<String, Double>> getMaterialConsequences(Decision decision) {
+        return materialConsequences.get(decision.getOwlIndividual().toStringID()).entrySet();
     }
 
     private void addNewDecision(Decision decision) {

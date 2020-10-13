@@ -1,5 +1,6 @@
 package DilemmaDetector.Simulator;
 
+import DilemmaDetector.Consequences.CollisionConsequencePredictor;
 import generator.Model;
 import project.*;
 import project.impl.DefaultDecision;
@@ -20,8 +21,11 @@ public class SimulatorEngine {
     private Actor mainVehicle;
     private CollisionDetector collisionDetector;
 
-    public SimulatorEngine(Model model) {
+    private CollisionConsequencePredictor consequencePredictor;
+
+    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor) {
         this.model = model;
+        this.consequencePredictor = consequencePredictor;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
         this.actors = RigidBodyMapper.createActors(model);
         collisionDetector = new CollisionDetector(model, mainVehicle, this.actors);
@@ -31,12 +35,12 @@ public class SimulatorEngine {
         Map<Decision, List<Actor>> collided = new HashMap<>();
         for (Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
             System.out.println(entry.getValue().getOwlIndividual().toString() + " \n \n");
-            collided.put(entry.getKey(), simulate(entry.getValue()));
+            collided.put(entry.getKey(), simulate(entry.getValue(), entry.getKey()));
         }
         return collided;
     }
 
-    public List<Actor> simulate(Action action) {
+    public List<Actor> simulate(Action action, Decision decision) {
         ChangeLaneActionApplier changeLaneActionApplier = new ChangeLaneActionApplier();
         double currentTime = 0;
         int laneWidth = 3;
@@ -87,6 +91,13 @@ public class SimulatorEngine {
 
             if (!collided.isEmpty()) {
                 System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
+                for(Actor victim : collided){
+                    for(Actor other : collided){
+                        if(victim.equals(other)){
+                           consequencePredictor.createCollisionConsequences(decision, victim, other);
+                        }
+                    }
+                }
                 return collided;
             }
         }

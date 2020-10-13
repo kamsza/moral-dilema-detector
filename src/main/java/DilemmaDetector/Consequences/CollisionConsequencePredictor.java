@@ -16,7 +16,7 @@ public class CollisionConsequencePredictor {
     private MyFactory factory;
     private Model model;
 
-    CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory, Model model) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory, Model model) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         this.model = model;
