@@ -27,4 +27,19 @@ public class Actor{
     public String getEntity() {
         return entityName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Actor actor = (Actor) o;
+
+        return entityName.equals(actor.entityName);
+    }
+
+    @Override
+    public int hashCode() {
+        return entityName.hashCode();
+    }
 }

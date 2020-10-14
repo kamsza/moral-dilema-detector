@@ -1,10 +1,15 @@
 package DilemmaDetector;
 
-public class ParameterizedPhilosophy {
+import DilemmaDetector.Consequences.ConsequenceType;
 
-    public static final int lifeValue = 10;
-    public static final int severeInjuryValue = 5;
-    public static final int lightlyInjuryValue = 1;
+import java.util.Map;
+
+public class ParameterizedPhilosophy {
+    public static final Map<ConsequenceType, Integer> healthValue = Map.of(
+            ConsequenceType.KILLED, 10,
+            ConsequenceType.SEVERELY_INJURED, 5,
+            ConsequenceType.LIGHTLY_INJURED, 1
+    );
     public static final int materialValue = 0;
     public static final int moralValue = 0;
 
@@ -12,6 +17,5 @@ public class ParameterizedPhilosophy {
     public static int animalLifeFactor = 100;
     public static int materialFactor = 100;
     public static int moralFactor = 100;
-
 
 }

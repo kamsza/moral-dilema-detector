@@ -1,15 +1,6 @@
 package gui;
 
-import DilemmaDetector.OntologyUtils;
-import DilemmaDetector.Simulator.Actor;
-import DilemmaDetector.Simulator.RigidBodyMapper;
-import DilemmaDetector.Simulator.SimulatorEngine;
-import generator.ConsequenceGenerator;
 import generator.Model;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.Decision;
-import project.MyFactory;
-import visualization.Visualization;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,10 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class MainWindow extends JFrame implements ActionListener {
 
