@@ -16,7 +16,7 @@ public class DecisionCostCalculator {
 
     public int calculateCostForDecision(Decision decision){
         int res = calculateCostOfHealthConsequence(decision);
-        System.out.println("DECISION : " + decision.getOwlIndividual().toStringID() + " " + res);
+        System.out.println("DECISION : " + decision.getOwlIndividual().getIRI().toString() + " | POINTS: " + res);
         return res;
     }
 
@@ -27,7 +27,7 @@ public class DecisionCostCalculator {
                         ConsequenceType.KILLED,
                         ConsequenceType.SEVERELY_INJURED,
                         ConsequenceType.LIGHTLY_INJURED}) {
-            calculateCostOfHealthConsequenceOfType(decision, consequenceType);
+            result += calculateCostOfHealthConsequenceOfType(decision, consequenceType);
         }
         return result;
     }
