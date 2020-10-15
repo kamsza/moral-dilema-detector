@@ -27,7 +27,7 @@ module adapter
     MOTORWAY
   };
 
-  enum LaneBoundary {
+  enum BoundaryType {
     LONGDASHEDLINE,
     SHORTDASHEDLINE,
     DASHEDBLOCKS,
@@ -39,14 +39,33 @@ module adapter
     BARRIERSOUND
   };
 
-  sequence<RoadAttribute> RoadAttributes;
+  enum BoundaryColor {
+    WHITE,
+    YELLOW
+  };
 
-  sequence<int> RoadIds;
+  enum BoundaryMaterial {
+    PAINTING,
+    CONCRETE
+  };
 
   interface BaseItem
   {
     string getId();
   };
+
+  interface LaneBoundary extends BaseItem
+  {
+    void setType(BoundaryType type);
+    void setColor(BoundaryColor color);
+    void setMaterial(BoundaryMaterial material);
+  };
+
+  sequence<RoadAttribute> RoadAttributes;
+
+  sequence<LaneBoundary> LaneBoundaries;
+
+  sequence<int> RoadIds;
 
   interface Scenario extends BaseItem
   {
@@ -62,41 +81,28 @@ module adapter
   interface Road extends BaseItem
   {
     void setStartAngle(float angle);
-    float getStartAngle();
     void setEndAngle(float angle);
-    float getEndAngle();
     void setRoadAttributes(RoadAttributes roadAttributes);
-    RoadAttributes getRoadAttributes();
     void setAverageSpeed(int speed);
-    int getAverageSpeed();
     void setSpeedLimit(int speed);
-    int getSpeedLimit();
   };
 
   interface Lane extends BaseItem
   {
-    int getWidth();
     void setWidth(int width);
-    void setOpenToCurbSide(bool isOpen);
-    bool getOpenToCurbSide();
-    void setOpenToMiddleSide(bool isOpen);
-    bool getOpenToMiddleSide();
-    void setLaneBoundary(LaneBoundary laneBoundary);
-    LaneBoundary getLaneBoundary();
+    void setCurbSideBoundary(LaneBoundaries laneBoundary);
+    void setMiddleSideBoundary(LaneBoundaries laneBoundary);
   };
 
   interface RoadPoint extends BaseItem
   {
-    void setX(int x);
-    int getX();
-    void setY(int y);
-    int getY();
+    void setLongitude(int x);
+    void setLatitude(int y);
   };
 
   interface Junction extends RoadPoint
   {
     void setRoadIds(RoadIds roadIds);
-    RoadIds getRoadsIds();
   };
 
   interface Delimiter extends RoadPoint
