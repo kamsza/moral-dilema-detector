@@ -37,7 +37,7 @@ public class DecisionCostCalculator {
         List<String> victims = consequenceContainer.getHealthConsequencesOfType(decision, consequenceType);
         for (String victimName : victims) {
             Living_entity livingEntity = factory.getLiving_entity(victimName);
-            if (livingEntity instanceof Passenger || livingEntity instanceof Human) {
+            if (livingEntity instanceof Passenger || livingEntity instanceof Human || livingEntity instanceof  Living_entity) {
                 result += ParameterizedPhilosophy.healthValue.get(consequenceType) * ParameterizedPhilosophy.humanLifeFactor;
             } else if (livingEntity instanceof Animal) {
                 result += ParameterizedPhilosophy.healthValue.get(consequenceType) * ParameterizedPhilosophy.animalLifeFactor;

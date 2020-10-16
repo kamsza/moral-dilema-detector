@@ -57,6 +57,9 @@ public class CollisionDetector {
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
         if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
                 && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
+            System.out.println("DETECTED COLL" + vehicleLength + " " + vehicleWidth +  rigidBody.getPosition());
+            System.out.println(mainVehicle.getRigidBody().getPosition());
+
             isCollision = true;
         }
         return isCollision;

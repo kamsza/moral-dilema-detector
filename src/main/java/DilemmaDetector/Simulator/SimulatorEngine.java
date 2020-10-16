@@ -92,6 +92,7 @@ public class SimulatorEngine {
             if (!collided.isEmpty()) {
                 System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
                 if(collided.size() == 1){
+                    System.out.println("Create consequences");
                     consequencePredictor.createCollisionConsequences(decision, collided.get(0));
                 }
                 for(Actor victim : collided){

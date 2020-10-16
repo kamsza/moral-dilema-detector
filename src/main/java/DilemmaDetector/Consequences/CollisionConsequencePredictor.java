@@ -30,6 +30,7 @@ public class CollisionConsequencePredictor {
             ConsequenceType consequenceType = getHealthConsequenceType(
                     getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
             if (consequenceType != ConsequenceType.NO_CONSEQUENCE) {
+                System.out.println("ADD CONSEQUENCE");
                 consequenceContainer.addHealthConsequence(decision, victim, consequenceType);
             }
         }
@@ -42,6 +43,7 @@ public class CollisionConsequencePredictor {
             ConsequenceType consequenceType = getHealthConsequenceType(
                     victimActor.getRigidBody().getSpeed().getMagnitude());
             if (consequenceType != ConsequenceType.NO_CONSEQUENCE) {
+                System.out.println("ADD CONSEQ2");
                 consequenceContainer.addHealthConsequence(decision, victim, consequenceType);
             }
         }

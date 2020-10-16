@@ -86,7 +86,8 @@ public class RigidBodyMapper {
 
 //        speedX = PhysicsUtils.CmToMeters(getProperty(entity, "speedX"));
 ////        speedY = PhysicsUtils.CmToMeters(getProperty(entity, "speedY"));
-        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
+        width = 2.0;
+//        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setSpeed(new Vector2(speedX, speedY));

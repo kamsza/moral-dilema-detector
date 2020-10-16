@@ -19,6 +19,7 @@ import org.swrlapi.sqwrl.exceptions.SQWRLException;
 import visualization.Visualization;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class Main {
         return model;
     }
 
-    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, FileNotFoundException {
         // Create OWLOntology instance using the OWLAPI
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
@@ -47,10 +48,10 @@ public class Main {
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 
         MoralDilemmaDetector mdd = builder
-                .addModule(new SWRLInferredModule(ontology, factory))
-//                .addModule(new KilledModule(factory))
-//                .addModule(new LightlyInjuredModule(factory))
-//                .addModule(new SeverelyInjuredModule(factory))
+//                .addModule(new SWRLInferredModule(ontology, factory))
+                .addModule(new KilledModule(factory))
+                .addModule(new LightlyInjuredModule(factory))
+                .addModule(new SeverelyInjuredModule(factory))
 //                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
@@ -90,6 +91,13 @@ public class Main {
             }
 
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
+//            scenarioModel.export();
+            try {
+                factory.saveOwlOntology();
+            } catch (OWLOntologyStorageException ignored) {
+
+            }
+
         }
     }
 
