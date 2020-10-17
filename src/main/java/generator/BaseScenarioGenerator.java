@@ -186,17 +186,16 @@ public class BaseScenarioGenerator {
 
 
         // is alongside whole road
-        if(rand.nextInt(10) < 7)  {
+        if(rand.nextInt(10) <= 7)  {
             Surrounding surrounding = createSurrounding(0F, roadDist);
             surroundingList.add(surrounding);
         }
         // is on part of the road
         else {
             for(float x = -1 * roadDist/2; x < roadDist/2;){
-                float length = (float)rand.nextInt(4800);
+                float length = 4800 * rand.nextFloat();
                 float dist = x + length/2;
-                Surrounding surrounding = createSurrounding(dist, length);
-                surroundingList.add(surrounding);
+                surroundingList.add(createSurrounding(dist, length));
                 x += length;
             }
         }
@@ -209,6 +208,7 @@ public class BaseScenarioGenerator {
         surrounding.addDistance(dist);
         surrounding.addLength(length);
         surrounding.addWidth(rand.nextFloat() * 200);
+        surrounding.addDistanceToRoad(rand.nextFloat() * 40);
         return surrounding;
     }
 
@@ -234,8 +234,8 @@ public class BaseScenarioGenerator {
         // add data properties
         SizeManager sizeManager = model.getSizeManager();
         RandomPositioner randomPositioner = model.getRandomPositioner();
-        vehicle.addSpeedY((float) (50 + rand.nextInt(90)));
-        vehicle.addSpeedX(0F);
+        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
+        vehicle.addSpeedY(0F);
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));

@@ -57,18 +57,11 @@ class ImageHandler {
         Iterator speedXit = e.getSpeedX().iterator();
         Iterator speedYit = e.getSpeedY().iterator();
         if(speedXit.hasNext() && speedYit.hasNext()) {
-            float speedX = (float) speedXit.next();
-            float speedY = (float) speedYit.next();
-            if(speedX == 0 && speedY < 0) {
-                image = rotateImage(image, Math.PI);
-            }
-            else if(speedY != 0) {
-                double angle = Math.atan(-1 * speedX / speedY);
-                image = rotateImage(image, angle);
-            }
+            double speedX =  Double.parseDouble(speedXit.next().toString());
+            double speedY =  Double.parseDouble(speedYit.next().toString());
+            double angle = Math.atan2(speedY, speedX);
+            image = rotateImage(image, -1*angle);
         }
-
-
         return image;
     }
 
