@@ -1,4 +1,4 @@
-package commonadapter.client;
+package commonadapter.test;
 
 import adapter.*;
 import com.zeroc.Ice.Communicator;
