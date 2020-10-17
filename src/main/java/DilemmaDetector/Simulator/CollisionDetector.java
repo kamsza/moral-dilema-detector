@@ -55,9 +55,26 @@ public class CollisionDetector {
         double vehicleWidth = rigidBody.getWidth();
         double vehicleLength = rigidBody.getLength();
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
-        if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
-                && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
-            System.out.println("DETECTED COLL" + vehicleLength + " " + vehicleWidth +  rigidBody.getPosition());
+        if(distanceBetweenRigidBodies.y < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.x < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
+        //small change x and y
+
+
+
+
+            System.out.println("DETECTED COLL" );
+            System.out.println("MAIN VEHICLE POS: " + mainVehicle.getRigidBody().getPosition());
+            System.out.println("MAIN VEHICLE SHAPE: "  + mainVehicle.getRigidBody().getWidth() +
+                    " " + mainVehicle.getRigidBody().getLength());
+            System.out.println("OTHER VEHICLE POS: " + rigidBody.getPosition());
+            System.out.println("OTHER VEHICLE SHAPE: "  + vehicleWidth +
+                    " " + vehicleLength);
+            System.out.println("DISTANCE  " + distanceBetweenRigidBodies + " " + distanceBetweenRigidBodies.x +  " " + distanceBetweenRigidBodies.y);
+            System.out.println("COUNTED : " + (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2 + "  " +
+            (vehicleLength + mainVehicle.getRigidBody().getLength()) /2);
+
+
+
             System.out.println(mainVehicle.getRigidBody().getPosition());
 
             isCollision = true;

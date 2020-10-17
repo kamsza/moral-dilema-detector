@@ -25,7 +25,7 @@ public class DecisionTester {
 
     private void testChangeLane(){
         double currentTime = 0;
-        car.setSpeed(new Vector2(20, 0));
+        car.setSpeed(new Vector2(50, 0));
         car.setPosition(Vector2.zero());
         car.setAcceleration(Vector2.zero());
 

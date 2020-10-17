@@ -31,11 +31,11 @@ public class DecisionGenerator {
 //        model.getScenario().addHas_decision(decision_2);
 //        actionByDecision.put(decision_2, action_2);
 //
-//        Decision decision_3 = factory.createDecision(ObjectNamer.getName("decision"));
-//        Follow action_3 = factory.createFollow(ObjectNamer.getName("follow"));
-//        decision_3.addHas_action(action_3);
-//        model.getScenario().addHas_decision(decision_3);
-//        actionByDecision.put(decision_3, action_3);
+        Decision decision_3 = factory.createDecision(ObjectNamer.getName("decision"));
+        Follow action_3 = factory.createFollow(ObjectNamer.getName("follow"));
+        decision_3.addHas_action(action_3);
+        model.getScenario().addHas_decision(decision_3);
+        actionByDecision.put(decision_3, action_3);
 
 //        adding decisions and actions for changing lanes
         for(Model.Side side : model.getLanes().keySet()){

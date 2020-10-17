@@ -91,7 +91,7 @@ public class BaseScenarioGenerator2 {
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
 //        lanesCount = rand.nextInt(4) + 1;
-        lanesCount = 5;
+        lanesCount = 3;
         model.setLanesCount(lanesCount);
 
 
@@ -278,7 +278,7 @@ public class BaseScenarioGenerator2 {
             vehicleSpeed *= -1;
         }
 
-        vehicle1.addDistance(3000F);
+        vehicle1.addDistance(2000F);
         vehicle1.addLength(500F);
         vehicle1.addSpeedX(0F);
         vehicle1.addSpeedY(0F);

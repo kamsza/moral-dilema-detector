@@ -58,7 +58,10 @@ public class Main {
 
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
-
+//
+//            new ModelBuilder(scenarioModel)
+//                    .addVehicles(new int[]{1}, new double[]{1.0});
+//
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
