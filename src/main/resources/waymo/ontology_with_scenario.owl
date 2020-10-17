@@ -945,6 +945,16 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#distanceToRoad -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#distanceToRoad">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#end_angle -->
 
     <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#end_angle">
@@ -1007,12 +1017,52 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lanes_count -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lanes_count">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#left_lanes_count -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#left_lanes_count">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#length -->
 
     <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#length">
         <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity_properties"/>
         <rdfs:domain rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#entity"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#main_vehicle_lane_id -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#main_vehicle_lane_id">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#right_lanes_count -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#right_lanes_count">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/road_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/road_type"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
     </owl:DatatypeProperty>
     
 
@@ -1186,7 +1236,7 @@
     <!-- http://webprotege.stanford.edu/bar_on_road -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/bar_on_road">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/trash"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">bar_on_road</rdfs:label>
     </owl:Class>
     
@@ -1282,6 +1332,14 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/car -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/car">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/vehicle"/>
+    </owl:Class>
+    
+
+
     <!-- http://webprotege.stanford.edu/car_car -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/car_car">
@@ -1362,6 +1420,15 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/close">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/distance"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">close</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/concrete_barrier -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/concrete_barrier">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
+        <rdfs:label>concrete_barrier</rdfs:label>
     </owl:Class>
     
 
@@ -1904,6 +1971,14 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/motorcycle -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/motorcycle">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/vehicle"/>
+    </owl:Class>
+    
+
+
     <!-- http://webprotege.stanford.edu/move_forward -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/move_forward">
@@ -1971,6 +2046,14 @@
     <owl:Class rdf:about="http://webprotege.stanford.edu/on_the_right">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/preposition"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">on_the_right</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/on_the_road -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/on_the_road">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/surrounding"/>
     </owl:Class>
     
 
@@ -2096,7 +2179,7 @@
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/pedestrian_crossing">
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/legal_pedestrian_crossings"/>
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_road"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pedestrian_crossing</rdfs:label>
     </owl:Class>
     
@@ -2119,6 +2202,15 @@
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/passenger"/>
         <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">pet</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://webprotege.stanford.edu/plastic_barrier -->
+
+    <owl:Class rdf:about="http://webprotege.stanford.edu/plastic_barrier">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
+        <rdfs:label>plastic_barrier</rdfs:label>
     </owl:Class>
     
 
@@ -2420,7 +2512,7 @@
     <!-- http://webprotege.stanford.edu/speed_bump -->
 
     <owl:Class rdf:about="http://webprotege.stanford.edu/speed_bump">
-        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_lane"/>
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/on_the_road"/>
         <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">speed_bump</rdfs:label>
     </owl:Class>
     
@@ -2984,27 +3076,27 @@
     
 
 
-    <!-- LANE/d5e18c63-8ed8-43e7-8b5a-9a3d89eb9aa8 -->
+    <!-- LANE/1f08f01e-94ea-48ab-987f-e14c7bbf7f87 -->
 
-    <owl:NamedIndividual rdf:about="LANE/d5e18c63-8ed8-43e7-8b5a-9a3d89eb9aa8">
+    <owl:NamedIndividual rdf:about="LANE/1f08f01e-94ea-48ab-987f-e14c7bbf7f87">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- LANE/74bd15c4-0aec-4916-930f-7d0590935628 -->
+    <!-- LANE/43aa79ac-ebd0-4ba7-a88e-45219bdc30e2 -->
 
-    <owl:NamedIndividual rdf:about="LANE/74bd15c4-0aec-4916-930f-7d0590935628">
+    <owl:NamedIndividual rdf:about="LANE/43aa79ac-ebd0-4ba7-a88e-45219bdc30e2">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- PEDESTRIAN/c2be1aed-0ac9-44a9-a059-92224a5967c7 -->
+    <!-- PEDESTRIAN/6962126f-a93f-4b83-8a75-810ec83a7335 -->
 
-    <owl:NamedIndividual rdf:about="PEDESTRIAN/c2be1aed-0ac9-44a9-a059-92224a5967c7">
+    <owl:NamedIndividual rdf:about="PEDESTRIAN/6962126f-a93f-4b83-8a75-810ec83a7335">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE/74bd15c4-0aec-4916-930f-7d0590935628"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE/43aa79ac-ebd0-4ba7-a88e-45219bdc30e2"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.094022155</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.14411505</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">499.24704</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
@@ -3016,23 +3108,23 @@
     
 
 
-    <!-- SCENARIO/a10c8db4-2766-45c5-a70b-d4e289bbdec6 -->
+    <!-- SCENARIO/a144c091-8c58-4eaa-8fc9-b71b7482c7c9 -->
 
-    <owl:NamedIndividual rdf:about="SCENARIO/a10c8db4-2766-45c5-a70b-d4e289bbdec6">
+    <owl:NamedIndividual rdf:about="SCENARIO/a144c091-8c58-4eaa-8fc9-b71b7482c7c9">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
-        <webprotege:has_pedestrian rdf:resource="PEDESTRIAN/c2be1aed-0ac9-44a9-a059-92224a5967c7"/>
-        <webprotege:has_vehicle rdf:resource="VEHICLE/6809dc0e-e720-4501-94a6-e9d54ccda98c"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="LANE/d5e18c63-8ed8-43e7-8b5a-9a3d89eb9aa8"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="LANE/74bd15c4-0aec-4916-930f-7d0590935628"/>
+        <webprotege:has_pedestrian rdf:resource="PEDESTRIAN/6962126f-a93f-4b83-8a75-810ec83a7335"/>
+        <webprotege:has_vehicle rdf:resource="VEHICLE/7a2622d1-a2cb-4704-8839-af0c3bd0553f"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="LANE/1f08f01e-94ea-48ab-987f-e14c7bbf7f87"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="LANE/43aa79ac-ebd0-4ba7-a88e-45219bdc30e2"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- VEHICLE/6809dc0e-e720-4501-94a6-e9d54ccda98c -->
+    <!-- VEHICLE/7a2622d1-a2cb-4704-8839-af0c3bd0553f -->
 
-    <owl:NamedIndividual rdf:about="VEHICLE/6809dc0e-e720-4501-94a6-e9d54ccda98c">
+    <owl:NamedIndividual rdf:about="VEHICLE/7a2622d1-a2cb-4704-8839-af0c3bd0553f">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE/d5e18c63-8ed8-43e7-8b5a-9a3d89eb9aa8"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE/1f08f01e-94ea-48ab-987f-e14c7bbf7f87"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.2642983E-13</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.275903E-12</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">67.0679</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
