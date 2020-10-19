@@ -215,8 +215,8 @@ public class BaseScenarioGenerator2 {
     }
 
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        int pass_count = rand.nextInt(6);
-
+//        int pass_count = rand.nextInt(6);
+        int pass_count = 6;
         // create objects
         Vehicle vehicle = factory.createCar(ObjectNamer.getName("vehicle_main"));
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
@@ -280,6 +280,9 @@ public class BaseScenarioGenerator2 {
 
         vehicle1.addDistance(2000F);
         vehicle1.addLength(500F);
+        vehicle1.addWidth(200F);
+
+
         vehicle1.addSpeedX(0F);
         vehicle1.addSpeedY(0F);
         vehicle1.addAccelerationY(0F);

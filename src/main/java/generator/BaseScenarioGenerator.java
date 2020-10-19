@@ -237,6 +237,8 @@ public class BaseScenarioGenerator {
         vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
         vehicle.addSpeedY(0F);
         vehicle.addDistance(0F);
+        vehicle.addAccelerationY(0F);
+        vehicle.addAccelerationX(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));
 

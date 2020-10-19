@@ -25,7 +25,7 @@ public class CollisionDetector {
     public List<Actor> detectCollisionInMoment() {
         List<Actor> collidedActors = new LinkedList<>();
         for (RigidBody surroundingRigidBody: surroundingRigidBodies) {
-            if (detectCollisionWithSurrounding(surroundingRigidBody)) {
+            if (detectCollisionWithRigidBodyInMoment(surroundingRigidBody, "surrounding")) {
                 collidedActors.add(mainVehicle);
             }
         }
@@ -33,8 +33,10 @@ public class CollisionDetector {
 //            collidedActors.add(mainVehicle);
 //        }
         for (Actor entry : actors) {
-            if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody()))
+            if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
                 collidedActors.add(entry);
+                collidedActors.add(mainVehicle);
+            }
         }
 
         return collidedActors;
@@ -58,58 +60,18 @@ public class CollisionDetector {
         return outOfRoad;
     }
 
-    public boolean detectCollisionWithSurrounding(RigidBody surrounding){
+
+
+    public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody, String entityName) {
         boolean isCollision = false;
-        double surroundingWidth = surrounding.getWidth();
-        double surroundingLength = surrounding.getLength();
-        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), surrounding);
-        if(distanceBetweenRigidBodies.y < (surroundingWidth + mainVehicle.getRigidBody().getWidth()) /2
-                && distanceBetweenRigidBodies.x < (surroundingLength + mainVehicle.getRigidBody().getLength()) /2) {
-            //small change x and y
-            System.out.println("COLL WITH SURROUNDING: " );
-            System.out.println("MAIN VEHICLE POS: " + mainVehicle.getRigidBody().getPosition());
-            System.out.println("MAIN VEHICLE SHAPE: "  + mainVehicle.getRigidBody().getWidth() +
-                    " " + mainVehicle.getRigidBody().getLength());
-            System.out.println("SURROUNDING POS: " + surrounding.getPosition());
-            System.out.println("OTHER VEHICLE SHAPE: "  + surroundingWidth +
-                    " " + surroundingLength);
-            System.out.println("DISTANCE  " + distanceBetweenRigidBodies + " " + distanceBetweenRigidBodies.x +  " " + distanceBetweenRigidBodies.y);
-            System.out.println("COUNTED : " + (surroundingWidth + mainVehicle.getRigidBody().getWidth()) /2 + "  " +
-                    (surroundingLength + mainVehicle.getRigidBody().getLength()) /2);
-
-            System.out.println(mainVehicle.getRigidBody().getPosition());
-
-            isCollision = true;
-        }
-        return isCollision;
-    }
-
-
-
-    public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody) {
-        boolean isCollision = false;
-        double vehicleWidth = rigidBody.getWidth();
-        double vehicleLength = rigidBody.getLength();
+        double rigidBodyWidth = rigidBody.getWidth();
+        double rigidBodyLength = rigidBody.getLength();
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
-        if(distanceBetweenRigidBodies.y < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
-                && distanceBetweenRigidBodies.x < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
-        //small change x and y
-            System.out.println("DETECTED COLL" );
-            System.out.println("MAIN VEHICLE POS: " + mainVehicle.getRigidBody().getPosition());
-            System.out.println("MAIN VEHICLE SHAPE: "  + mainVehicle.getRigidBody().getWidth() +
-                    " " + mainVehicle.getRigidBody().getLength());
-            System.out.println("OTHER VEHICLE POS: " + rigidBody.getPosition());
-            System.out.println("OTHER VEHICLE SHAPE: "  + vehicleWidth +
-                    " " + vehicleLength);
-            System.out.println("DISTANCE  " + distanceBetweenRigidBodies + " " + distanceBetweenRigidBodies.x +  " " + distanceBetweenRigidBodies.y);
-            System.out.println("COUNTED : " + (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2 + "  " +
-            (vehicleLength + mainVehicle.getRigidBody().getLength()) /2);
-
-
-
-            System.out.println(mainVehicle.getRigidBody().getPosition());
+        if(distanceBetweenRigidBodies.y < (rigidBodyWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.x < (rigidBodyLength + mainVehicle.getRigidBody().getLength()) /2) {
 
             isCollision = true;
+            System.out.println("Collision with " + entityName);
         }
         return isCollision;
     }
