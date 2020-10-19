@@ -239,7 +239,6 @@ public class BaseScenarioGenerator2 {
         //Assume that vehicle speed is in kmph
 //        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
         vehicle.addSpeedX((float) (50));
-
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);

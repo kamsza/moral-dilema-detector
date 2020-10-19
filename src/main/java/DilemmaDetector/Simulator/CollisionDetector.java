@@ -11,22 +11,23 @@ public class CollisionDetector {
 
     private Model scenarioModel;
     private List<Actor> actors;
-    private List<RigidBody> surroundingRigidBodies;
+    private List<Actor> surroundingActors;
     private Actor mainVehicle;
 
     public CollisionDetector(Model model, Actor mainVehicle,
-                             List<Actor> actors, List<RigidBody> surroundingRigidBodies) {
+                             List<Actor> actors, List<Actor> surroundingActors) {
         this.scenarioModel = model;
         this.mainVehicle = mainVehicle;
         this.actors = actors;
-        this.surroundingRigidBodies = surroundingRigidBodies;
+        this.surroundingActors = surroundingActors;
     }
 
     public List<Actor> detectCollisionInMoment() {
         List<Actor> collidedActors = new LinkedList<>();
-        for (RigidBody surroundingRigidBody: surroundingRigidBodies) {
-            if (detectCollisionWithRigidBodyInMoment(surroundingRigidBody, "surrounding")) {
+        for (Actor surroundingActor: surroundingActors) {
+            if (detectCollisionWithRigidBodyInMoment(surroundingActor.getRigidBody(), surroundingActor.getEntityName())) {
                 collidedActors.add(mainVehicle);
+//                collidedActors.add(surroundingActor);
             }
         }
 //        if (detectOutOfRoad(mainVehicle)) {
@@ -69,9 +70,7 @@ public class CollisionDetector {
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
         if(distanceBetweenRigidBodies.y < (rigidBodyWidth + mainVehicle.getRigidBody().getWidth()) /2
                 && distanceBetweenRigidBodies.x < (rigidBodyLength + mainVehicle.getRigidBody().getLength()) /2) {
-
             isCollision = true;
-            System.out.println("Collision with " + entityName);
         }
         return isCollision;
     }

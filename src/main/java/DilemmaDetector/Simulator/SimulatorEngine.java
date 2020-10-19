@@ -17,7 +17,7 @@ public class SimulatorEngine {
     private Model model;
 
     private List<Actor> actors;
-    private List<RigidBody> surroundingRigidBodies;
+    private List<Actor> surroundingActors;
 
     private Actor mainVehicle;
     private CollisionDetector collisionDetector;
@@ -28,9 +28,9 @@ public class SimulatorEngine {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
-        this.surroundingRigidBodies = RigidBodyMapper.createSurrounding(model);
+        this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
         this.actors = RigidBodyMapper.createActors(model);
-        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingRigidBodies);
+        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
     }
 
     public Map<Decision, List<Actor>> simulateAll(int lastLaneLeft, int lastLaneRight) {

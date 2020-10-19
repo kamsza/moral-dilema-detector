@@ -11,7 +11,7 @@ public class RigidBodyMapper {
     public static final double LANE_WIDTH = PhysicsUtils.CmToMeters(300);
 
 
-    public static List<RigidBody> createSurrounding(Model model){
+    public static List<Actor> createSurroundingActors(Model model){
 
         Set leftLanes = model.getLanes().get(Model.Side.LEFT).entrySet();
         Set rightLanes =  model.getLanes().get(Model.Side.RIGHT).entrySet();
@@ -21,7 +21,7 @@ public class RigidBodyMapper {
 
 
         Map<Model.Side, ArrayList<Surrounding>> surrounding = model.getSurrounding();
-        List<RigidBody> result = new LinkedList<>();
+        List<Actor> result = new LinkedList<>();
         for (Map.Entry<Model.Side, ArrayList<Surrounding>> pair: surrounding.entrySet()){
             Model.Side side = pair.getKey();
             int laneNumber;
@@ -34,7 +34,8 @@ public class RigidBodyMapper {
 
             for (Surrounding s : pair.getValue()){
                 RigidBody rigidBody = RigidBodyMapper.rigidBodyForSurrounding(s, side, laneNumber);
-                result.add(rigidBody);
+                Actor surroundingActor = new Actor(s, rigidBody);
+                result.add(surroundingActor);
             }
         }
         return result;
@@ -139,7 +140,7 @@ public class RigidBodyMapper {
         if (side == Model.Side.LEFT) {
             positionY = (laneNumber+1) * LANE_WIDTH * (-1) - distanceToRoad - width/2;
         } else if (side == Model.Side.RIGHT) {
-            positionY = (laneNumber+1) * LANE_WIDTH + distanceToRoad+ width/2;
+            positionY = (laneNumber+1) * LANE_WIDTH + distanceToRoad + width / 2;
         } else {
             positionY = 0;
         }
@@ -147,6 +148,7 @@ public class RigidBodyMapper {
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
+
 
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 

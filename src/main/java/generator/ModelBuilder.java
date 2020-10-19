@@ -65,7 +65,7 @@ public class ModelBuilder {
         return this;
     }
 
-//    // CAR - CAR SCENARIOS
+    // CAR - CAR SCENARIOS
 //    private Pair<Float, Vehicle> getRandomVehicle() {
 //        int r = ProbRand.randInt(new int[]{1, 2, 3}, new double[]{0.2, 0.1, 0.1});
 //        Vehicle vehicle;
@@ -169,6 +169,7 @@ public class ModelBuilder {
         vehicle.addVehicle_has_location(model.getRoadType());
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
+        vehicleSpeed = (float) 0;
 
         if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
             vehicleSpeed *= -1;
@@ -176,6 +177,7 @@ public class ModelBuilder {
 
         vehicle.addDistance(distance);
         vehicle.addLength(500F);
+        vehicle.addWidth(250F);
         vehicle.addSpeedX(vehicleSpeed);
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationX(0F);
