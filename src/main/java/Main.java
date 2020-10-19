@@ -30,7 +30,7 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -59,6 +59,11 @@ public class Main {
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
 //
+//            scenarioModel = new ScenarioFactory(scenarioModel)
+//                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1}).getModel();
+
+//            scenarioModel = new ScenarioFactory(scenarioModel)
+//                    .carApproaching().getModel();
 //            new ModelBuilder(scenarioModel)
 //                    .addVehicles(new int[]{1}, new double[]{1.0});
 //

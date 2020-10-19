@@ -25,12 +25,13 @@ public class BuildersTest {
 
 
              model = new ScenarioFactory(model)
-                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1}).getModel();
+                     .carApproaching().getModel();
+//                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1}).getModel();
 //                    .obstacleOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
 //                    .pedestrianOnCrossing(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
 //                    .pedestrianJaywalking(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1});
 ////
-//             new ModelBuilder(model)
+//             new ModelBuilder(model).
 //                    .addVehicles(new int[]{1}, new double[]{1.0});
 
             try {

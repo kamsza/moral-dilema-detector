@@ -18,19 +18,19 @@ public class DecisionGenerator {
         HashMap<Decision, Action> actionByDecision = new HashMap<>();
         model.setActionByDecision(actionByDecision);
 //
-//        // adding decisions and actions for basic actions
-//        Decision decision_1 = factory.createDecision(ObjectNamer.getName("decision"));
-//        Turn_left action_1 = factory.createTurn_left(ObjectNamer.getName("turn_left"));
-//        decision_1.addHas_action(action_1);
-//        model.getScenario().addHas_decision(decision_1);
-//        actionByDecision.put(decision_1, action_1);
-//
-//        Decision decision_2 = factory.createDecision(ObjectNamer.getName("decision"));
-//        Turn_right action_2 = factory.createTurn_right(ObjectNamer.getName("turn_right"));
-//        decision_2.addHas_action(action_2);
-//        model.getScenario().addHas_decision(decision_2);
-//        actionByDecision.put(decision_2, action_2);
-//
+        // adding decisions and actions for basic actions
+        Decision decision_1 = factory.createDecision(ObjectNamer.getName("decision"));
+        Turn_left action_1 = factory.createTurn_left(ObjectNamer.getName("turn_left"));
+        decision_1.addHas_action(action_1);
+        model.getScenario().addHas_decision(decision_1);
+        actionByDecision.put(decision_1, action_1);
+
+        Decision decision_2 = factory.createDecision(ObjectNamer.getName("decision"));
+        Turn_right action_2 = factory.createTurn_right(ObjectNamer.getName("turn_right"));
+        decision_2.addHas_action(action_2);
+        model.getScenario().addHas_decision(decision_2);
+        actionByDecision.put(decision_2, action_2);
+
         Decision decision_3 = factory.createDecision(ObjectNamer.getName("decision"));
         Follow action_3 = factory.createFollow(ObjectNamer.getName("follow"));
         decision_3.addHas_action(action_3);

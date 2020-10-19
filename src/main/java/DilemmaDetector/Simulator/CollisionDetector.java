@@ -1,7 +1,9 @@
 package DilemmaDetector.Simulator;
 
 import generator.Model;
+import project.Surrounding;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,20 +11,27 @@ public class CollisionDetector {
 
     private Model scenarioModel;
     private List<Actor> actors;
+    private List<RigidBody> surroundingRigidBodies;
     private Actor mainVehicle;
 
     public CollisionDetector(Model model, Actor mainVehicle,
-                             List<Actor> actors) {
+                             List<Actor> actors, List<RigidBody> surroundingRigidBodies) {
         this.scenarioModel = model;
         this.mainVehicle = mainVehicle;
         this.actors = actors;
+        this.surroundingRigidBodies = surroundingRigidBodies;
     }
 
     public List<Actor> detectCollisionInMoment() {
         List<Actor> collidedActors = new LinkedList<>();
-        if (detectOutOfRoad(mainVehicle)) {
-            collidedActors.add(mainVehicle);
+        for (RigidBody surroundingRigidBody: surroundingRigidBodies) {
+            if (detectCollisionWithSurrounding(surroundingRigidBody)) {
+                collidedActors.add(mainVehicle);
+            }
         }
+//        if (detectOutOfRoad(mainVehicle)) {
+//            collidedActors.add(mainVehicle);
+//        }
         for (Actor entry : actors) {
             if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody()))
                 collidedActors.add(entry);
@@ -49,6 +58,33 @@ public class CollisionDetector {
         return outOfRoad;
     }
 
+    public boolean detectCollisionWithSurrounding(RigidBody surrounding){
+        boolean isCollision = false;
+        double surroundingWidth = surrounding.getWidth();
+        double surroundingLength = surrounding.getLength();
+        Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), surrounding);
+        if(distanceBetweenRigidBodies.y < (surroundingWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.x < (surroundingLength + mainVehicle.getRigidBody().getLength()) /2) {
+            //small change x and y
+            System.out.println("COLL WITH SURROUNDING: " );
+            System.out.println("MAIN VEHICLE POS: " + mainVehicle.getRigidBody().getPosition());
+            System.out.println("MAIN VEHICLE SHAPE: "  + mainVehicle.getRigidBody().getWidth() +
+                    " " + mainVehicle.getRigidBody().getLength());
+            System.out.println("SURROUNDING POS: " + surrounding.getPosition());
+            System.out.println("OTHER VEHICLE SHAPE: "  + surroundingWidth +
+                    " " + surroundingLength);
+            System.out.println("DISTANCE  " + distanceBetweenRigidBodies + " " + distanceBetweenRigidBodies.x +  " " + distanceBetweenRigidBodies.y);
+            System.out.println("COUNTED : " + (surroundingWidth + mainVehicle.getRigidBody().getWidth()) /2 + "  " +
+                    (surroundingLength + mainVehicle.getRigidBody().getLength()) /2);
+
+            System.out.println(mainVehicle.getRigidBody().getPosition());
+
+            isCollision = true;
+        }
+        return isCollision;
+    }
+
+
 
     public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody) {
         boolean isCollision = false;
@@ -58,10 +94,6 @@ public class CollisionDetector {
         if(distanceBetweenRigidBodies.y < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
                 && distanceBetweenRigidBodies.x < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
         //small change x and y
-
-
-
-
             System.out.println("DETECTED COLL" );
             System.out.println("MAIN VEHICLE POS: " + mainVehicle.getRigidBody().getPosition());
             System.out.println("MAIN VEHICLE SHAPE: "  + mainVehicle.getRigidBody().getWidth() +
