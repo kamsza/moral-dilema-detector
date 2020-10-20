@@ -138,9 +138,9 @@ public class RigidBodyMapper {
         positionX = PhysicsUtils.CmToMeters(getProperty(entity, "distance"));
 
         if (side == Model.Side.LEFT) {
-            positionY = (laneNumber+1) * LANE_WIDTH * (-1) - distanceToRoad - width/2;
+            positionY = (laneNumber+1) * LANE_WIDTH + distanceToRoad + width/2;
         } else if (side == Model.Side.RIGHT) {
-            positionY = (laneNumber+1) * LANE_WIDTH + distanceToRoad + width / 2;
+            positionY = (laneNumber+1) * LANE_WIDTH * (-1) - distanceToRoad - width / 2;
         } else {
             positionY = 0;
         }

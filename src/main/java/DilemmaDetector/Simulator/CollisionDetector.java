@@ -3,9 +3,7 @@ package DilemmaDetector.Simulator;
 import generator.Model;
 import project.Surrounding;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CollisionDetector {
 
@@ -22,8 +20,8 @@ public class CollisionDetector {
         this.surroundingActors = surroundingActors;
     }
 
-    public List<Actor> detectCollisionInMoment() {
-        List<Actor> collidedActors = new LinkedList<>();
+    public Set<Actor> detectCollisionInMoment() {
+        Set<Actor> collidedActors = new LinkedHashSet<>();
         for (Actor surroundingActor: surroundingActors) {
             if (detectCollisionWithRigidBodyInMoment(surroundingActor.getRigidBody(), surroundingActor.getEntityName())) {
                 collidedActors.add(mainVehicle);
@@ -70,6 +68,7 @@ public class CollisionDetector {
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
         if(distanceBetweenRigidBodies.y < (rigidBodyWidth + mainVehicle.getRigidBody().getWidth()) /2
                 && distanceBetweenRigidBodies.x < (rigidBodyLength + mainVehicle.getRigidBody().getLength()) /2) {
+            System.out.println("Collision with " + entityName + "  " + rigidBody.getPosition());
             isCollision = true;
         }
         return isCollision;

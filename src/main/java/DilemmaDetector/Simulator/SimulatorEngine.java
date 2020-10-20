@@ -33,8 +33,8 @@ public class SimulatorEngine {
         collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
     }
 
-    public Map<Decision, List<Actor>> simulateAll(int lastLaneLeft, int lastLaneRight) {
-        Map<Decision, List<Actor>> collided = new HashMap<>();
+    public Map<Decision, Set<Actor>> simulateAll(int lastLaneLeft, int lastLaneRight) {
+        Map<Decision, Set<Actor>> collided = new HashMap<>();
         for (Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
             System.out.println(entry.getValue().getOwlIndividual().toString() + " \n \n");
             collided.put(entry.getKey(), simulate(entry.getValue(), entry.getKey()));
@@ -42,7 +42,7 @@ public class SimulatorEngine {
         return collided;
     }
 
-    public List<Actor> simulate(Action action, Decision decision) {
+    public Set<Actor> simulate(Action action, Decision decision) {
         ChangeLaneActionApplier changeLaneActionApplier = new ChangeLaneActionApplier();
         double currentTime = 0;
         int laneWidth = 3;
@@ -72,12 +72,13 @@ public class SimulatorEngine {
                 // changing lanes
                 // parsing String for now, have to change ontology to make use of instanceof
                 String[] string = action.getOwlIndividual().toString().split("_");
-                int sign; //positive for turning right, negative for left
+                int sign;
                 if(string[3].equals("right")){
-                    sign = 1;
-                }
-                else{
                     sign = -1;
+                }
+
+                else{
+                    sign = 1;
                 }
                 int laneNumber = sign*Integer.parseInt(string[5].substring(0, string[5].length()-1));
                 System.out.println(laneNumber);
@@ -89,13 +90,15 @@ public class SimulatorEngine {
                 actor.getRigidBody().update(TIME_PART);
             }
 
-            List<Actor> collided = collisionDetector.detectCollisionInMoment();
+            Set<Actor> collided = collisionDetector.detectCollisionInMoment();
 
             if (!collided.isEmpty()) {
                 System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
                 if(collided.size() == 1){
                     System.out.println("Create consequences");
-                    consequencePredictor.createCollisionConsequences(decision, collided.get(0));
+                    for (Actor actor : collided) {
+                        consequencePredictor.createCollisionConsequences(decision, actor);
+                    }
                 }
                 for(Actor victim : collided){
                     for(Actor other : collided){
@@ -107,6 +110,6 @@ public class SimulatorEngine {
                 return collided;
             }
         }
-        return new ArrayList<>();
+        return new LinkedHashSet<>();
     }
 }

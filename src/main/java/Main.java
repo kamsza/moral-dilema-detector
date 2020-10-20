@@ -30,7 +30,7 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
+        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -62,8 +62,8 @@ public class Main {
 //            scenarioModel = new ScenarioFactory(scenarioModel)
 //                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
 
-            scenarioModel = new ScenarioFactory(scenarioModel)
-                    .carApproaching().getModel();
+//            scenarioModel = new ScenarioFactory(scenarioModel)
+//                    .carApproaching().getModel();
 //            new ModelBuilder(scenarioModel)
 //                    .addVehicles(new int[]{1}, new double[]{1.0});
 //;
@@ -81,9 +81,9 @@ public class Main {
             CollisionConsequencePredictor collisionConsequencePredictor =
                     new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
-            Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
+            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
             System.out.println("Collided entities:");
-            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()){
+            for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()){
                 for(Actor actor : entry.getValue()){
                     System.out.println("ACTOR  " + actor.getEntity());
                 }
@@ -91,7 +91,7 @@ public class Main {
 
             DecisionCostCalculator costCalculator = new DecisionCostCalculator(consequenceContainer, factory);
 
-            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
+            for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()) {
                 System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
