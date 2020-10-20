@@ -90,8 +90,10 @@ public class BaseScenarioGenerator2 {
         Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
-        lanesCount = rand.nextInt(4) + 1;
+//        lanesCount = rand.nextInt(4) + 1;
+        lanesCount = 5;
         model.setLanesCount(lanesCount);
+
 
         model.setRandomPositioner(new RandomPositioner(lanesCount));
         mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1) / 2);
@@ -213,8 +215,8 @@ public class BaseScenarioGenerator2 {
     }
 
     private void addMainVehicle(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        int pass_count = rand.nextInt(6);
-
+//        int pass_count = rand.nextInt(6);
+        int pass_count = 6;
         // create objects
         Vehicle vehicle = factory.createCar(ObjectNamer.getName("vehicle_main"));
         Driver driver = factory.createDriver(ObjectNamer.getName("driver"));
@@ -235,7 +237,8 @@ public class BaseScenarioGenerator2 {
         SizeManager sizeManager = model.getSizeManager();
         RandomPositioner randomPositioner = model.getRandomPositioner();
         //Assume that vehicle speed is in kmph
-        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
+//        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
+        vehicle.addSpeedX((float) (20));
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);
@@ -251,5 +254,41 @@ public class BaseScenarioGenerator2 {
         model.setDriver(driver);
         model.setPassengers(passengers);
         model.setVehicle(vehicle);
+
+        Vehicle vehicle1;
+        float entitySize;
+
+        vehicle1 = factory.createTruck(ObjectNamer.getName("vehicle"));
+        entitySize = sizeManager.getLength("truck");
+
+        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
+
+        Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
+
+        model.getScenario().addHas_vehicle(vehicle1);
+
+        vehicle1.addVehicle_has_driver(driver1);
+        vehicle1.addVehicle_has_location(model.getRoadType());
+
+        float vehicleSpeed = (float) (50 + rand.nextInt(90));
+
+        if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
+            vehicleSpeed *= -1;
+        }
+
+        vehicle1.addDistance(2000F);
+        vehicle1.addLength(500F);
+        vehicle1.addWidth(200F);
+
+
+        vehicle1.addSpeedX(0F);
+        vehicle1.addSpeedY(0F);
+        vehicle1.addAccelerationY(0F);
+        vehicle1.addAccelerationX(0F);
+
+        model.getVehicles().get(vehicleLane).add(vehicle1);
+
+
     }
 }

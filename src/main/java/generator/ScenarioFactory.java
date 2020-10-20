@@ -29,12 +29,10 @@ public class ScenarioFactory {
         return this;
     }
 
-    public ScenarioFactory carOvertaking() {
-        // TODO: dodac auto, ktore nas wyprzedza na lewym pasie
-        // TODO: chyba raczej które my wyprzedzamy ??
-        modelBuilder.addOvertakenVehicle();
-        return this;
-    }
+//    public ScenarioFactory carOvertaking() {
+//        modelBuilder.addOvertakenVehicle();
+//        return this;
+//    }
 
     // CAR - OBSTACLE SCENARIOS
     public ScenarioFactory obstacleOnRoad() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {

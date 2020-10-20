@@ -35,7 +35,7 @@ class BottomBar extends JPanel {
         String time = model.getTime().toString().replace("()", "").replace("_", " ");
         String weather = model.getWeather().toString().replace("()", "").replace("_", " ");
         String speedLimit = model.getRoadType().getHas_speed_limit_kmph().iterator().next().toString();
-        String mainVehicleSpeed = model.getVehicle().getSpeedY().iterator().next().toString();
+        String mainVehicleSpeed = model.getVehicle().getSpeedX().iterator().next().toString();
 
         String labelStr = "<html> time: %s <br>weather: %s <br>speed limit: %s km/h <br>main vehicle speed: %s km/h";
         labelStr = String.format(labelStr, time, weather, speedLimit, mainVehicleSpeed);

@@ -17,7 +17,7 @@ public class DecisionGenerator {
     public void generate(Model model){
         HashMap<Decision, Action> actionByDecision = new HashMap<>();
         model.setActionByDecision(actionByDecision);
-
+//
         // adding decisions and actions for basic actions
         Decision decision_1 = factory.createDecision(ObjectNamer.getName("decision"));
         Turn_left action_1 = factory.createTurn_left(ObjectNamer.getName("turn_left"));

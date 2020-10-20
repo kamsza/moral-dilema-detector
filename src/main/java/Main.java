@@ -19,6 +19,7 @@ import org.swrlapi.sqwrl.exceptions.SQWRLException;
 import visualization.Visualization;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class Main {
         return model;
     }
 
-    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, FileNotFoundException {
         // Create OWLOntology instance using the OWLAPI
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
@@ -47,18 +48,25 @@ public class Main {
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 
         MoralDilemmaDetector mdd = builder
-                .addModule(new SWRLInferredModule(ontology, factory))
-//                .addModule(new KilledModule(factory))
-//                .addModule(new LightlyInjuredModule(factory))
-//                .addModule(new SeverelyInjuredModule(factory))
+//                .addModule(new SWRLInferredModule(ontology, factory))
+                .addModule(new KilledModule(factory))
+                .addModule(new LightlyInjuredModule(factory))
+                .addModule(new SeverelyInjuredModule(factory))
 //                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
+//
+//            scenarioModel = new ScenarioFactory(scenarioModel)
+//                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
 
-
+//            scenarioModel = new ScenarioFactory(scenarioModel)
+//                    .carApproaching().getModel();
+//            new ModelBuilder(scenarioModel)
+//                    .addVehicles(new int[]{1}, new double[]{1.0});
+//;
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
 
@@ -73,10 +81,9 @@ public class Main {
             CollisionConsequencePredictor collisionConsequencePredictor =
                     new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
-            Map<Decision, List<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
+            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
             System.out.println("Collided entities:");
-            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()){
-//                System.out.println("Decision " + entry.getKey().toString()); //dodalem
+            for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()){
                 for(Actor actor : entry.getValue()){
                     System.out.println("ACTOR  " + actor.getEntity());
                 }
@@ -84,12 +91,19 @@ public class Main {
 
             DecisionCostCalculator costCalculator = new DecisionCostCalculator(consequenceContainer, factory);
 
-            for(Map.Entry<Decision, List<Actor>> entry : collidedEntities.entrySet()) {
+            for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()) {
                 System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
+//            scenarioModel.export();
+            try {
+                factory.saveOwlOntology();
+            } catch (OWLOntologyStorageException ignored) {
+
+            }
+
         }
     }
 

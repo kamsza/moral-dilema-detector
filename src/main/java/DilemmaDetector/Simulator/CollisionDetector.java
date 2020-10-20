@@ -1,31 +1,41 @@
 package DilemmaDetector.Simulator;
 
 import generator.Model;
+import project.Surrounding;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class CollisionDetector {
 
     private Model scenarioModel;
     private List<Actor> actors;
+    private List<Actor> surroundingActors;
     private Actor mainVehicle;
 
     public CollisionDetector(Model model, Actor mainVehicle,
-                             List<Actor> actors) {
+                             List<Actor> actors, List<Actor> surroundingActors) {
         this.scenarioModel = model;
         this.mainVehicle = mainVehicle;
         this.actors = actors;
+        this.surroundingActors = surroundingActors;
     }
 
-    public List<Actor> detectCollisionInMoment() {
-        List<Actor> collidedActors = new LinkedList<>();
-        if (detectOutOfRoad(mainVehicle)) {
-            collidedActors.add(mainVehicle);
+    public Set<Actor> detectCollisionInMoment() {
+        Set<Actor> collidedActors = new LinkedHashSet<>();
+        for (Actor surroundingActor: surroundingActors) {
+            if (detectCollisionWithRigidBodyInMoment(surroundingActor.getRigidBody(), surroundingActor.getEntityName())) {
+                collidedActors.add(mainVehicle);
+//                collidedActors.add(surroundingActor);
+            }
         }
+//        if (detectOutOfRoad(mainVehicle)) {
+//            collidedActors.add(mainVehicle);
+//        }
         for (Actor entry : actors) {
-            if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody()))
+            if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
                 collidedActors.add(entry);
+                collidedActors.add(mainVehicle);
+            }
         }
 
         return collidedActors;
@@ -50,13 +60,15 @@ public class CollisionDetector {
     }
 
 
-    public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody) {
+
+    public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody, String entityName) {
         boolean isCollision = false;
-        double vehicleWidth = rigidBody.getWidth();
-        double vehicleLength = rigidBody.getLength();
+        double rigidBodyWidth = rigidBody.getWidth();
+        double rigidBodyLength = rigidBody.getLength();
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
-        if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
-                && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
+        if(distanceBetweenRigidBodies.y < (rigidBodyWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.x < (rigidBodyLength + mainVehicle.getRigidBody().getLength()) /2) {
+            System.out.println("Collision with " + entityName + "  " + rigidBody.getPosition());
             isCollision = true;
         }
         return isCollision;

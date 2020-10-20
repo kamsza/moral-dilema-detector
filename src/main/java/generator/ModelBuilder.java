@@ -1,5 +1,6 @@
 package generator;
 
+//import javafx.util.Pair;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.*;
 
@@ -65,45 +66,67 @@ public class ModelBuilder {
     }
 
     // CAR - CAR SCENARIOS
-    public ModelBuilder addVehicles(int[] objectsNum, double[] prob) {
-        int N = ProbRand.randInt(objectsNum, prob);
+//    private Pair<Float, Vehicle> getRandomVehicle() {
+//        int r = ProbRand.randInt(new int[]{1, 2, 3}, new double[]{0.2, 0.1, 0.1});
+//        Vehicle vehicle;
+//        float entitySize;
+//
+//        switch (r) {
+//            case 1:
+//                vehicle = factory.createTruck(ObjectNamer.getName("vehicle"));
+//                entitySize = sizeManager.getLength("truck");
+//                break;
+//            case 2:
+//                vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
+//                entitySize = sizeManager.getLength("motorcycle");
+//                break;
+//            case 3:
+//                vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
+//                entitySize = sizeManager.getLength("bike");
+//                break;
+//            default:
+//                vehicle = factory.createCar(ObjectNamer.getName("vehicle"));
+//                entitySize = sizeManager.getLength("car");
+//                break;
+//        }
+//
+//        return new Pair(entitySize, vehicle);
+//    }
+//
+//    public ModelBuilder addVehicles(int[] objectsNum, double[] prob) {
+//        int N = ProbRand.randInt(objectsNum, prob);
+//
+//        for(int i = 0; i < N; i++) {
+//            Pair<Float, Vehicle>  randomVehicle = getRandomVehicle();
+//            float entitySize = randomVehicle.getKey();
+//            Vehicle vehicle = randomVehicle.getValue();
+//
+//            int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
+//            float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
+//
+//            this.addVehicle(vehicle, laneNo, distance);
+//        }
+//        return this;
+//    }
 
-        for(int i = 0; i < N; i++) {
-            int r = ProbRand.randInt(new int[]{1, 2, 3}, new double[]{0.2, 0.1, 0.1});
-            Vehicle vehicle;
-            float entitySize;
-
-            switch (r) {
-                case 1:
-                    vehicle = factory.createTruck(ObjectNamer.getName("vehicle"));
-                    entitySize = sizeManager.getLength("truck");
-                    break;
-                case 2:
-                    vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
-                    entitySize = sizeManager.getLength("motorcycle");
-                    break;
-                case 3:
-                    vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
-                    entitySize = sizeManager.getLength("bike");
-                    break;
-                default:
-                    vehicle = factory.createCar(ObjectNamer.getName("vehicle"));
-                    entitySize = sizeManager.getLength("car");
-                    break;
-            }
-
-            int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
-            float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
-
-            this.addVehicle(vehicle, laneNo, distance);
-        }
-        return this;
-    }
-
-    public ModelBuilder addOvertakenVehicle() {
-        // TODO
-        return this;
-    }
+//    public ModelBuilder addOvertakenVehicle() {
+//        if(model.getRoadType().getLanes_count().iterator().next() == 1 || model.getRoadType().getLanes_count().iterator().next() -1 == model.getRoadType().getMain_vehicle_lane_id().iterator().next())
+//            return this;
+//
+//        int lanesMovingLeft = model.getRoadType().getLeft_lanes_count().iterator().next();
+//        int lanesMovingRight = model.getRoadType().getRight_lanes_count().iterator().next();
+//        model.getRoadType().removeLeft_lanes_count(lanesMovingLeft);
+//        model.getRoadType().removeRight_lanes_count(lanesMovingRight);
+//        model.getRoadType().addLeft_lanes_count(lanesMovingLeft + 1);
+//        model.getRoadType().addRight_lanes_count(lanesMovingRight - 1);
+//
+//        Pair<Float, Vehicle>  randomVehicle = getRandomVehicle();
+//        Vehicle vehicle = randomVehicle.getValue();
+//
+//        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next() + 1;
+//        float distance = rand.nextFloat() * 200 - 100F;
+//        return addVehicle(vehicle, laneNo, distance);
+//    }
 
     public ModelBuilder addApproachedVehicle() {
         int r = ProbRand.randInt(new int[]{1, 2, 3, 4}, new double[]{0.6, 0.2, 0.1, 0.1});
@@ -146,6 +169,7 @@ public class ModelBuilder {
         vehicle.addVehicle_has_location(model.getRoadType());
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
+        vehicleSpeed = (float) 0;
 
         if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
             vehicleSpeed *= -1;
@@ -153,10 +177,11 @@ public class ModelBuilder {
 
         vehicle.addDistance(distance);
         vehicle.addLength(500F);
-        vehicle.addSpeedY(vehicleSpeed);
-        vehicle.addSpeedX(0F);
-        vehicle.addAccelerationY(0F);
+        vehicle.addWidth(250F);
+        vehicle.addSpeedX(vehicleSpeed);
+        vehicle.addSpeedY(0F);
         vehicle.addAccelerationX(0F);
+        vehicle.addAccelerationY(0F);
 
         model.getVehicles().get(vehicleLane).add(vehicle);
 
@@ -293,10 +318,10 @@ public class ModelBuilder {
 
     private <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
         entity = fillDataProps(entity, distance, entityName);
-        entity.addSpeedY((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
-        entity.addSpeedX((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
-        entity.addAccelerationY(0F);
+        entity.addSpeedX((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
+        entity.addSpeedY((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
         entity.addAccelerationX(0F);
+        entity.addAccelerationY(0F);
 
         return entity;
     }
