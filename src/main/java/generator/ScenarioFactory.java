@@ -29,10 +29,10 @@ public class ScenarioFactory {
         return this;
     }
 
-//    public ScenarioFactory carOvertaking() {
+    public ScenarioFactory carOvertaking() {
 //        modelBuilder.addOvertakenVehicle();
-//        return this;
-//    }
+        return this;
+    }
 
     // CAR - OBSTACLE SCENARIOS
     public ScenarioFactory obstacleOnRoad() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -47,7 +47,7 @@ public class ScenarioFactory {
 
     // CAR - PERSON SCENARIOS
     public ScenarioFactory pedestrianOnCrossing(int[] objectsNum, double[] prob) {
-        modelBuilder.addPedestrianCrossing(objectsNum, prob);
+//        modelBuilder.addPedestrianCrossing(objectsNum, prob);
         return this;
     }
 

@@ -92,7 +92,7 @@ public class ModelBuilder {
 //
 //        return new Pair(entitySize, vehicle);
 //    }
-//
+
 //    public ModelBuilder addVehicles(int[] objectsNum, double[] prob) {
 //        int N = ProbRand.randInt(objectsNum, prob);
 //
@@ -120,8 +120,8 @@ public class ModelBuilder {
 //        model.getRoadType().addLeft_lanes_count(lanesMovingLeft + 1);
 //        model.getRoadType().addRight_lanes_count(lanesMovingRight - 1);
 //
-//        Pair<Float, Vehicle>  randomVehicle = getRandomVehicle();
-//        Vehicle vehicle = randomVehicle.getValue();
+//////        Pair<Float, Vehicle>  randomVehicle = getRandomVehicle();
+////        Vehicle vehicle = randomVehicle.getValue();
 //
 //        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next() + 1;
 //        float distance = rand.nextFloat() * 200 - 100F;
@@ -169,7 +169,6 @@ public class ModelBuilder {
         vehicle.addVehicle_has_location(model.getRoadType());
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
-        vehicleSpeed = (float) 0;
 
         if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
             vehicleSpeed *= -1;
@@ -177,7 +176,6 @@ public class ModelBuilder {
 
         vehicle.addDistance(distance);
         vehicle.addLength(500F);
-        vehicle.addWidth(250F);
         vehicle.addSpeedX(vehicleSpeed);
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationX(0F);
@@ -231,44 +229,44 @@ public class ModelBuilder {
     }
 
     // CAR - PERSON SCENARIOS
-    public ModelBuilder addPedestrianCrossing(int[] objectsNum, double[] prob) {
-        int N = ProbRand.randInt(objectsNum, prob);
-        return addPedestrianCrossing(N);
-    }
-
-    public ModelBuilder addPedestrianCrossing(int peopleCount) {
-        if(peopleCount == 0)
-            return this;
-
-        float distance = randomPositioner.getRandomDistance();
-        float width = sizeManager.getWidth("pedestrian_crossing");
-
-        On_the_road pedestrianCrossing = factory.createPedestrian_crossing(ObjectNamer.getName("surrounding"));
-        pedestrianCrossing.addDistance(distance);
-        pedestrianCrossing = fillDataProps(pedestrianCrossing, distance, "pedestrian_crossing");
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        while (peopleCount > 0) {
-            int laneNo = randomPositioner.getRandomLaneNumber(1F);
-            Lane lane = randomPositioner.getLane(model, laneNo);
-            float personDistance = distance - (width / 2) + rand.nextInt((int) width);
-            peopleCount -= 1;
-
-            Person person = factory.createPerson(ObjectNamer.getName("person"));
-            person = fillDataProps(person, personDistance, "person", 7, 4);
-            model.getEntities().get(lane).add(person);
-        }
-
-        return this;
-    }
+//    public ModelBuilder addPedestrianCrossing(int[] objectsNum, double[] prob) {
+//        int N = ProbRand.randInt(objectsNum, prob);
+//        return addPedestrianCrossing(N);
+//    }
+////
+//    public ModelBuilder addPedestrianCrossing(int peopleCount) {
+//        if(peopleCount == 0)
+//            return this;
+//
+//        float distance = randomPositioner.getRandomDistance();
+//        float width = sizeManager.getWidth("pedestrian_crossing");
+//
+//        Pedestrian_crossing pedestrianCrossing = factory.createPedestrian_crossing(ObjectNamer.getName("surrounding"));
+//        pedestrianCrossing.addDistance(distance);
+//        pedestrianCrossing = fillDataProps(pedestrianCrossing, distance, "pedestrian_crossing");
+//
+//        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
+//            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+//
+//        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
+//            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+//
+//        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
+//            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+//
+//        while (peopleCount > 0) {
+//            int laneNo = randomPositioner.getRandomLaneNumber(1F);
+//            Lane lane = randomPositioner.getLane(model, laneNo);
+//            float personDistance = distance - (width / 2) + rand.nextInt((int) width);
+//            peopleCount -= 1;
+//
+//            Person person = factory.createPerson(ObjectNamer.getName("person"));
+//            person = fillDataProps(person, personDistance, "person", 7, 4);
+//            model.getEntities().get(lane).add(person);
+//        }
+//
+//        return this;
+//    }
 
     public ModelBuilder pedestrianJaywalking(int[] objectsNum, double[] prob) {
         pedestrianJaywalking(objectsNum, prob, false);

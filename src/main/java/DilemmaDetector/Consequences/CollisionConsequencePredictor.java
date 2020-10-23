@@ -26,6 +26,10 @@ public class CollisionConsequencePredictor {
     public void createCollisionConsequences(Decision decision, Actor victimActor, Actor other) {
         List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
 
+        double speed = getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody());
+        double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
+        double materialConsequenceValueOther = getMaterialConsequence(other, speed);
+
         for (Living_entity victim : individualVictims) {
             ConsequenceType consequenceType = getHealthConsequenceType(
                     getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
@@ -33,24 +37,41 @@ public class CollisionConsequencePredictor {
                 consequenceContainer.addHealthConsequence(decision, victim, consequenceType);
             }
         }
+        consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
+        consequenceContainer.addMaterialConsequence(decision, other.getEntityName(), materialConsequenceValueOther);
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor) {
         List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
 
+        double speed = victimActor.getRigidBody().getSpeed().getMagnitude();
+        double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
+
         for (Living_entity victim : individualVictims) {
-            ConsequenceType consequenceType = getHealthConsequenceType(
-                    victimActor.getRigidBody().getSpeed().getMagnitude());
+            ConsequenceType consequenceType = getHealthConsequenceType(speed);
             if (consequenceType != ConsequenceType.NO_CONSEQUENCE) {
                 consequenceContainer.addHealthConsequence(decision, victim, consequenceType);
             }
         }
+        consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
+
     }
 
     private double getCollisionSpeed(RigidBody victimRB, RigidBody otherRB) {
         return PhysicsUtils
                 .GetRelativeSpeed(otherRB.getSpeed(), victimRB.getSpeed())
                 .getMagnitude();
+    }
+
+    private int getMaterialConsequence(Actor victimActor, double speed){
+        int criticalSpeed = 115; //speed when collision has fatal consequences
+        double victimValue =  victimActor.getRigidBody().getValueInDollars();
+        if (speed >= criticalSpeed) {
+            return (int) victimValue;
+        }
+        else{
+            return (int) Math.round(victimValue * (speed / criticalSpeed));
+        }
     }
 
     private ConsequenceType getHealthConsequenceType(double speedOfCollision) {

@@ -11,28 +11,27 @@ public class RigidBodyMapper {
     public static final double LANE_WIDTH = PhysicsUtils.CmToMeters(300);
 
 
-    public static List<Actor> createSurroundingActors(Model model){
+    public static List<Actor> createSurroundingActors(Model model) {
 
         Set leftLanes = model.getLanes().get(Model.Side.LEFT).entrySet();
-        Set rightLanes =  model.getLanes().get(Model.Side.RIGHT).entrySet();
+        Set rightLanes = model.getLanes().get(Model.Side.RIGHT).entrySet();
 
-        int lastLeftLane  = leftLanes.size();
+        int lastLeftLane = leftLanes.size();
         int lastRightLane = rightLanes.size();
 
 
         Map<Model.Side, ArrayList<Surrounding>> surrounding = model.getSurrounding();
         List<Actor> result = new LinkedList<>();
-        for (Map.Entry<Model.Side, ArrayList<Surrounding>> pair: surrounding.entrySet()){
+        for (Map.Entry<Model.Side, ArrayList<Surrounding>> pair : surrounding.entrySet()) {
             Model.Side side = pair.getKey();
             int laneNumber;
-            if (side == Model.Side.LEFT){
+            if (side == Model.Side.LEFT) {
                 laneNumber = lastLeftLane;
-            }
-            else{
+            } else {
                 laneNumber = lastRightLane;
             }
 
-            for (Surrounding s : pair.getValue()){
+            for (Surrounding s : pair.getValue()) {
                 RigidBody rigidBody = RigidBodyMapper.rigidBodyForSurrounding(s, side, laneNumber);
                 Actor surroundingActor = new Actor(s, rigidBody);
                 result.add(surroundingActor);
@@ -53,7 +52,7 @@ public class RigidBodyMapper {
                 Integer laneNumber = (Integer) childPair.getKey();
                 Lane lane = (Lane) childPair.getValue();
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    if(vehicle != model.getVehicle()) {
+                    if (vehicle != model.getVehicle()) {
                         RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
                         result.add(new Actor(vehicle, rigidBody));
                     }
@@ -71,7 +70,7 @@ public class RigidBodyMapper {
         RigidBody rigidBody = new RigidBody();
         rigidBody.setPosition(new Vector2(0, 0));
 
-        double accelX, accelY, speedX, speedY, width, length;
+        double accelX, accelY, speedX, speedY, width, length, valueInDollars;
 
         accelX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelX"));
         accelY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelY"));
@@ -79,10 +78,12 @@ public class RigidBodyMapper {
         speedY = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "length"));
+        valueInDollars = getProperty(mainVehicle, "valueInDollars");
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
+        rigidBody.setValueInDollars(valueInDollars);
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
         return rigidBody;
@@ -93,7 +94,7 @@ public class RigidBodyMapper {
 
         double positionX;
         double positionY;
-        double accelX, accelY, speedX, speedY, width, length;
+        double accelX, accelY, speedX, speedY, width, length, valueInDollars;
 
         Object[] pos = entity.getDistance().toArray();
         positionX = (float) pos[0];// It is in cm, so we change it to meters
@@ -114,11 +115,13 @@ public class RigidBodyMapper {
         speedY = PhysicsUtils.KmphToMeters(getProperty(entity, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
+        valueInDollars = getProperty(entity, "valueInDollars");
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
+        rigidBody.setValueInDollars(valueInDollars);
 
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
@@ -126,7 +129,7 @@ public class RigidBodyMapper {
     }
 
 
-    public static RigidBody rigidBodyForSurrounding(Entity entity, Model.Side side, int laneNumber){
+    public static RigidBody rigidBodyForSurrounding(Entity entity, Model.Side side, int laneNumber) {
         RigidBody rigidBody = new RigidBody();
 
         double positionX;
@@ -138,9 +141,9 @@ public class RigidBodyMapper {
         positionX = PhysicsUtils.CmToMeters(getProperty(entity, "distance"));
 
         if (side == Model.Side.LEFT) {
-            positionY = (laneNumber+1) * LANE_WIDTH + distanceToRoad + width/2;
+            positionY = (laneNumber + 1) * LANE_WIDTH + distanceToRoad + width / 2;
         } else if (side == Model.Side.RIGHT) {
-            positionY = (laneNumber+1) * LANE_WIDTH * (-1) - distanceToRoad - width / 2;
+            positionY = (laneNumber + 1) * LANE_WIDTH * (-1) - distanceToRoad - width / 2;
         } else {
             positionY = 0;
         }
@@ -224,10 +227,26 @@ public class RigidBodyMapper {
                     }
                     return returnValue;
                 }
-
+            case "valueInDollars":
+                if (entity.hasValueInDollars()) {
+                    Iterator<? extends Float> iterator = entity.getValueInDollars().iterator();
+                    while (iterator.hasNext()) {
+                        returnValue = (double) iterator.next();
+                    }
+                    return returnValue;
+                }
             default:
                 return 0.0;
         }
     }
 
+
+//    public static double getProperty(Vehicle vehicle, String propertyName) {
+//        Double returnValue = 0.0;
+//        switch (propertyName) {
+//
+//            default:
+//                return 0.0;
+//        }
+//    }
 }

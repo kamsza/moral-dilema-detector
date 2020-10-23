@@ -1,5 +1,6 @@
 package DilemmaDetector.Consequences;
 
+import com.github.jsonldjava.utils.Obj;
 import generator.ObjectNamer;
 import project.*;
 
@@ -25,6 +26,27 @@ public class ConsequenceContainer implements IConsequenceContainer {
             saveHealthConsequence(decisionName, severelyInjured, ConsequenceType.SEVERELY_INJURED);
             saveHealthConsequence(decisionName, lightlyInjured, ConsequenceType.LIGHTLY_INJURED);
         }
+
+        for (String decisionName: materialConsequencesByDecisionMap.keySet()){
+            Set<Map.Entry<String, Double>> entries = materialConsequencesByDecisionMap.get(decisionName).entrySet();
+            for(Map.Entry<String, Double> entityConsequence : entries){
+                Material_consequence material_consequence = factory.createMaterial_consequence(ObjectNamer.getName("material_consequence"));
+                saveMaterialConsequence(decisionName, material_consequence, entityConsequence.getKey(), entityConsequence.getValue());
+            }
+
+        }
+    }
+
+    private void saveMaterialConsequence(String decisionName, Material_consequence consequence, String entityName, double value){
+        Decision decision = factory.getDecision(decisionName);
+        decision.addHas_consequence(consequence);
+        Set<Map.Entry<String, Double>> entries = materialConsequencesByDecisionMap.get(decisionName).entrySet();
+        for(Map.Entry<String, Double> entityConsequence : entries ){
+            Entity entity = factory.getEntity(entityConsequence.getKey());
+            consequence.addHas_material_value((float)value);
+            consequence.addMaterial_consequence_to(entity);
+        }
+
     }
 
     private void saveHealthConsequence(String decisionName, Health_consequence consequence, ConsequenceType consequenceType){
@@ -65,8 +87,14 @@ public class ConsequenceContainer implements IConsequenceContainer {
 
     @Override
     public void addMaterialConsequence(Decision decision, String damagedEntityName, double value) {
-        if (materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).get(damagedEntityName) < value)
+        if (materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).get(damagedEntityName) == null){
+            Map<String, Double> entityConsequence = new HashMap<>();
+            entityConsequence.put(damagedEntityName, value);
+            materialConsequencesByDecisionMap.put(decision.getOwlIndividual().getIRI().toString(), entityConsequence);
+        }
+        else {
             materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).put(damagedEntityName, value);
+        }
     }
 
     @Override
