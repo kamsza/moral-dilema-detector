@@ -7,7 +7,6 @@ public class RigidBody {
     private Vector2 previousPosition = Vector2.zero();
     private Vector2 speed = Vector2.zero();
     private Vector2 acceleration= Vector2.zero();
-    private Double valueInDollars;
 
     private Vector2 initialPosition;
     private Vector2 initialPreviousPosition = Vector2.zero();
@@ -35,9 +34,6 @@ public class RigidBody {
         setPreviousPosition(new Vector2(initialPosition));
     }
 
-
-
-
     private Double width = 0.0;
     private Double length = 0.0;
 
@@ -54,8 +50,6 @@ public class RigidBody {
         this.previousPosition.y = position.y; // to not point to the same reference
         this.position = position;
     }
-
-
 
     public void update(double deltaTime) {
         updatePosition(deltaTime);
@@ -76,7 +70,6 @@ public class RigidBody {
 
     public void setPreviousPosition(Vector2 previousPosition){
         this.previousPosition = previousPosition;
-
     }
 
     public void setSpeed(Vector2 speed) {
@@ -93,12 +86,6 @@ public class RigidBody {
 
     public void setLength(Double length) {
         this.length = length;
-    }
-
-    public void setValueInDollars(double valueInDollars) {
-        System.out.println("SET TO " + valueInDollars);
-        this.valueInDollars = valueInDollars;
-        System.out.println(getValueInDollars());
     }
 
     public Vector2 getPosition() {
@@ -121,16 +108,10 @@ public class RigidBody {
         return length;
     }
 
-    public  Double getValueInDollars(){
-        return valueInDollars;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(position, speed, acceleration);
     }
-
-
 }
 
 

@@ -54,7 +54,9 @@ public class RigidBodyMapper {
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
                     if (vehicle != model.getVehicle()) {
                         RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
-                        result.add(new Actor(vehicle, rigidBody));
+                        Actor actor = new Actor(vehicle, rigidBody);
+                        actor.setValueInDollars(RigidBodyMapper.getValueInDollars(vehicle));
+                        result.add(actor);
                     }
                 }
                 for (Living_entity entity : livingEntityMap.get(lane)) {
@@ -70,7 +72,7 @@ public class RigidBodyMapper {
         RigidBody rigidBody = new RigidBody();
         rigidBody.setPosition(new Vector2(0, 0));
 
-        double accelX, accelY, speedX, speedY, width, length, valueInDollars;
+        double accelX, accelY, speedX, speedY, width, length;
 
         accelX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelX"));
         accelY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelY"));
@@ -78,14 +80,11 @@ public class RigidBodyMapper {
         speedY = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "length"));
-        valueInDollars = getProperty(mainVehicle, "valueInDollars");
         rigidBody.setSpeed(new Vector2(speedX, speedY));
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
-        rigidBody.setValueInDollars(valueInDollars);
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
-
         return rigidBody;
     }
 
@@ -121,8 +120,6 @@ public class RigidBodyMapper {
         rigidBody.setAcceleration(new Vector2(accelX, accelY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
-        rigidBody.setValueInDollars(valueInDollars);
-
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
         return rigidBody;
@@ -156,6 +153,10 @@ public class RigidBodyMapper {
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
         return rigidBody;
+    }
+
+    public static double getValueInDollars(Entity entity){
+        return getProperty(entity, "valueInDollars");
     }
 
 
@@ -239,14 +240,4 @@ public class RigidBodyMapper {
                 return 0.0;
         }
     }
-
-
-//    public static double getProperty(Vehicle vehicle, String propertyName) {
-//        Double returnValue = 0.0;
-//        switch (propertyName) {
-//
-//            default:
-//                return 0.0;
-//        }
-//    }
 }

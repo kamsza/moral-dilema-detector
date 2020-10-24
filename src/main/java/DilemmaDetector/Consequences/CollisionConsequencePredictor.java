@@ -65,7 +65,7 @@ public class CollisionConsequencePredictor {
 
     private int getMaterialConsequence(Actor victimActor, double speed){
         int criticalSpeed = 115; //speed when collision has fatal consequences
-        double victimValue =  victimActor.getRigidBody().getValueInDollars();
+        double victimValue =  victimActor.getValueInDollars();
         if (speed >= criticalSpeed) {
             return (int) victimValue;
         }
