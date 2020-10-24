@@ -13,7 +13,9 @@ module adapter
     LANE,
     ROAD,
     DELIMITER,
-    JUNCTION
+    JUNCTION,
+    LANEBOUNDARY,
+    ROADATTRIBUTES
   };
 
   interface BaseItem
@@ -27,16 +29,21 @@ module adapter
     void addVehicle(string vehicleId);
     void addCyclist(string cyclistId);
     void addPedestrian(string pedestrianId);
-    void addLane(string laneId);
-    void addRoad(string roadId);
-    void addRoadPoint(string roadPointId);
-    void addJunction(string junctionId);
   };
 
   interface Lane extends BaseItem
   {
-    int getWidth();
     void setWidth(int width);
+    void setLeftSideBoundary(string boundaryId);
+    void setRightSideBoundary(string boundaryId);
+    void setRoad(string roadId);
+  };
+
+  interface LaneBoundary extends BaseItem
+  {
+    void setType(string type);
+    void setColor(string color);
+    void setMaterial(string material);
   };
 
   interface Entity extends BaseItem
@@ -77,12 +84,28 @@ module adapter
   interface Road extends BaseItem
   {
     void setStartAngle(float angle);
-    float getStartAngle();
+    void setEndAngle(float angle);
+    void setStarts(string roadPointId);
+    void setEnds(string roadPointId);
+    void setRoadAttributes(string roadAttributesId);
+  };
+
+  interface RoadAttributes extends BaseItem
+  {
+    void setMotorway(bool isMotorway);
+    void setUrban(bool isUrban);
+    void setServiceArea(bool isServiceArea);
+    void setControlledAccess(bool isControlledAccess);
+    void setToll(bool isToll);
+    void setBridge(bool isBridge);
+    void setTunnel(bool isTunnel);
+    void setFerry(bool isFerry);
   };
 
   interface RoadPoint extends BaseItem
   {
-
+    void setLatitude(string lat);
+    void setLongitude(string lon);
   };
 
   interface Junction extends RoadPoint
