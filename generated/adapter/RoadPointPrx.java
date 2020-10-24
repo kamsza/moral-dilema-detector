@@ -17,6 +17,78 @@ package adapter;
 
 public interface RoadPointPrx extends BaseItemPrx
 {
+    default void setLatitude(String lat)
+    {
+        setLatitude(lat, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setLatitude(String lat, java.util.Map<String, String> context)
+    {
+        _iceI_setLatitudeAsync(lat, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLatitudeAsync(String lat)
+    {
+        return _iceI_setLatitudeAsync(lat, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLatitudeAsync(String lat, java.util.Map<String, String> context)
+    {
+        return _iceI_setLatitudeAsync(lat, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_lat -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLatitudeAsync(String iceP_lat, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLatitude", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_lat);
+                 }, null);
+        return f;
+    }
+
+    default void setLongitude(String lon)
+    {
+        setLongitude(lon, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setLongitude(String lon, java.util.Map<String, String> context)
+    {
+        _iceI_setLongitudeAsync(lon, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLongitudeAsync(String lon)
+    {
+        return _iceI_setLongitudeAsync(lon, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLongitudeAsync(String lon, java.util.Map<String, String> context)
+    {
+        return _iceI_setLongitudeAsync(lon, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_lon -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLongitudeAsync(String iceP_lon, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLongitude", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_lon);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

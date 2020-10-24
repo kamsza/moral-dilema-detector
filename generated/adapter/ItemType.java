@@ -24,7 +24,9 @@ public enum ItemType implements java.io.Serializable
     LANE(4),
     ROAD(5),
     DELIMITER(6),
-    JUNCTION(7);
+    JUNCTION(7),
+    LANEBOUNDARY(8),
+    ROADATTRIBUTES(9);
 
     public int value()
     {
@@ -51,6 +53,10 @@ public enum ItemType implements java.io.Serializable
             return DELIMITER;
         case 7:
             return JUNCTION;
+        case 8:
+            return LANEBOUNDARY;
+        case 9:
+            return ROADATTRIBUTES;
         }
         return null;
     }
@@ -62,24 +68,24 @@ public enum ItemType implements java.io.Serializable
 
     public void ice_write(com.zeroc.Ice.OutputStream ostr)
     {
-        ostr.writeEnum(_value, 7);
+        ostr.writeEnum(_value, 9);
     }
 
     public static void ice_write(com.zeroc.Ice.OutputStream ostr, ItemType v)
     {
         if(v == null)
         {
-            ostr.writeEnum(adapter.ItemType.SCENARIO.value(), 7);
+            ostr.writeEnum(adapter.ItemType.SCENARIO.value(), 9);
         }
         else
         {
-            ostr.writeEnum(v.value(), 7);
+            ostr.writeEnum(v.value(), 9);
         }
     }
 
     public static ItemType ice_read(com.zeroc.Ice.InputStream istr)
     {
-        int v = istr.readEnum(7);
+        int v = istr.readEnum(9);
         return validate(v);
     }
 

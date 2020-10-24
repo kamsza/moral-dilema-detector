@@ -1,6 +1,7 @@
 package commonadapter.server.implementation;
 
 import adapter.RoadPoint;
+import com.zeroc.Ice.Current;
 import project.MyFactory;
 
 public abstract class RoadPointImpl extends BaseItemImpl implements RoadPoint {
@@ -9,5 +10,16 @@ public abstract class RoadPointImpl extends BaseItemImpl implements RoadPoint {
 
     public RoadPointImpl(String id, MyFactory owlFactory) {
         super(id, owlFactory);
+    }
+    @Override
+    public void setLatitude(String lat, Current current) {
+
+        this.roadPoint.addLatitude(lat);
+    }
+
+    @Override
+    public void setLongitude(String lon, Current current) {
+
+        this.roadPoint.addLongitude(lon);
     }
 }

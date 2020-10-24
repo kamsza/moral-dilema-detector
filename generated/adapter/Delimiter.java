@@ -50,7 +50,9 @@ public interface Delimiter extends RoadPoint
         "ice_id",
         "ice_ids",
         "ice_isA",
-        "ice_ping"
+        "ice_ping",
+        "setLatitude",
+        "setLongitude"
     };
 
     /** @hidden */
@@ -85,6 +87,14 @@ public interface Delimiter extends RoadPoint
             case 4:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 5:
+            {
+                return RoadPoint._iceD_setLatitude(this, in, current);
+            }
+            case 6:
+            {
+                return RoadPoint._iceD_setLongitude(this, in, current);
             }
         }
 

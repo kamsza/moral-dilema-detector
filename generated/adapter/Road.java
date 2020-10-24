@@ -19,7 +19,13 @@ public interface Road extends BaseItem
 {
     void setStartAngle(float angle, com.zeroc.Ice.Current current);
 
-    float getStartAngle(com.zeroc.Ice.Current current);
+    void setEndAngle(float angle, com.zeroc.Ice.Current current);
+
+    void setStarts(String roadPointId, com.zeroc.Ice.Current current);
+
+    void setEnds(String roadPointId, com.zeroc.Ice.Current current);
+
+    void setRoadAttributes(String roadAttributesId, com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -71,27 +77,84 @@ public interface Road extends BaseItem
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getStartAngle(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setEndAngle(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        float ret = obj.getStartAngle(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeFloat(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        float iceP_angle;
+        iceP_angle = istr.readFloat();
+        inS.endReadParams();
+        obj.setEndAngle(iceP_angle, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setStarts(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_roadPointId;
+        iceP_roadPointId = istr.readString();
+        inS.endReadParams();
+        obj.setStarts(iceP_roadPointId, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setEnds(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_roadPointId;
+        iceP_roadPointId = istr.readString();
+        inS.endReadParams();
+        obj.setEnds(iceP_roadPointId, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setRoadAttributes(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_roadAttributesId;
+        iceP_roadAttributesId = istr.readString();
+        inS.endReadParams();
+        obj.setRoadAttributes(iceP_roadAttributesId, current);
+        return inS.setResult(inS.writeEmptyParams());
     }
 
     /** @hidden */
     final static String[] _iceOps =
     {
         "getId",
-        "getStartAngle",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "setStartAngle"
+        "setEndAngle",
+        "setEnds",
+        "setRoadAttributes",
+        "setStartAngle",
+        "setStarts"
     };
 
     /** @hidden */
@@ -113,27 +176,39 @@ public interface Road extends BaseItem
             }
             case 1:
             {
-                return _iceD_getStartAngle(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return _iceD_setEndAngle(this, in, current);
             }
             case 6:
             {
+                return _iceD_setEnds(this, in, current);
+            }
+            case 7:
+            {
+                return _iceD_setRoadAttributes(this, in, current);
+            }
+            case 8:
+            {
                 return _iceD_setStartAngle(this, in, current);
+            }
+            case 9:
+            {
+                return _iceD_setStarts(this, in, current);
             }
         }
 
