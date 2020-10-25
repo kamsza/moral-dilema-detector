@@ -95,7 +95,7 @@ public class Main {
                 System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
-
+            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 //            scenarioModel.export();
             try {

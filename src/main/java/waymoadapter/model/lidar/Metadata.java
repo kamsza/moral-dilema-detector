@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "accelY"
 })
 public class Metadata {
-
     @JsonProperty("speedX")
     public Double speedX;
     @JsonProperty("speedY")

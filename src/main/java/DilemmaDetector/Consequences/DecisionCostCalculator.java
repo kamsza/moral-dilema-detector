@@ -4,6 +4,8 @@ import DilemmaDetector.ParameterizedPhilosophy;
 import project.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DecisionCostCalculator {
     private IConsequenceContainer consequenceContainer;
@@ -15,9 +17,21 @@ public class DecisionCostCalculator {
     }
 
     public int calculateCostForDecision(Decision decision){
-        int res = calculateCostOfHealthConsequence(decision);
-        System.out.println("DECISION : " + decision.getOwlIndividual().getIRI().toString() + " | POINTS: " + res);
-        return res;
+        int healthConsequenceResult = calculateCostOfHealthConsequence(decision);
+        int materialConsequenceResult = calculateCostOfMaterialConsequence(decision);
+        int result = healthConsequenceResult + materialConsequenceResult;
+        System.out.println("DECISION : " + decision.getOwlIndividual().getIRI().toString() + " | POINTS: " + result +
+                " | = (HEALTH: " + healthConsequenceResult+  " MATERIAL: " + materialConsequenceResult + ")");
+        return result;
+    }
+
+    private int calculateCostOfMaterialConsequence(Decision decision) {
+        int sum = 0;
+        Set<Map.Entry<String, Double>> consequences = consequenceContainer.getMaterialConsequences(decision);
+        for(Map.Entry<String, Double> consequence : consequences){
+            sum += (int) Math.round(consequence.getValue());
+        }
+        return (int) (sum * ParameterizedPhilosophy.materialFactor * ParameterizedPhilosophy.materialFactor) / 1000  ;
     }
 
     private int calculateCostOfHealthConsequence(Decision decision){

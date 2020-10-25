@@ -246,6 +246,7 @@ public class BaseScenarioGenerator2 {
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));
+        vehicle.addValueInDollars(10000F);
 
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
@@ -270,6 +271,7 @@ public class BaseScenarioGenerator2 {
 
         vehicle1.addVehicle_has_driver(driver1);
         vehicle1.addVehicle_has_location(model.getRoadType());
+        vehicle1.addValueInDollars(20000F);
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
 
