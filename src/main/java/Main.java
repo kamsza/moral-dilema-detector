@@ -52,7 +52,7 @@ public class Main {
                 .addModule(new KilledModule(factory))
                 .addModule(new LightlyInjuredModule(factory))
                 .addModule(new SeverelyInjuredModule(factory))
-//                .addModule(new InjuredModule(factory))
+                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
@@ -95,7 +95,7 @@ public class Main {
                 System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
-            consequenceContainer.saveConsequencesToOntology();
+
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 //            scenarioModel.export();
             try {
@@ -103,6 +103,11 @@ public class Main {
             } catch (OWLOntologyStorageException ignored) {
 
             }
+
+            consequenceContainer.saveConsequencesToOntology();
+            System.out.println(mdd.detectMoralDilemma(scenarioModel));
+//            scenarioModel.export();
+
 
         }
     }
