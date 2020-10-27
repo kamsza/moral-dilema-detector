@@ -25,7 +25,7 @@ public class ManagerImpl implements Manager {
 
     private Map<String, BaseItemImpl> items;
 
-    private MyFactory owlFactory;
+    public MyFactory owlFactory;
 
     public ManagerImpl() {
 
@@ -85,6 +85,12 @@ public class ManagerImpl implements Manager {
                 break;
             case JUNCTION:
                 item = new JunctionImpl(id, owlFactory);
+                break;
+            case LANEBOUNDARY:
+                item = new LaneBoundaryImpl(id, owlFactory);
+                break;
+            case ROADATTRIBUTES:
+                item = new RoadAttributesImpl(id, owlFactory);
                 break;
         }
 

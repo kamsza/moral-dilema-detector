@@ -17,9 +17,13 @@ package adapter;
 
 public interface Lane extends BaseItem
 {
-    int getWidth(com.zeroc.Ice.Current current);
-
     void setWidth(int width, com.zeroc.Ice.Current current);
+
+    void setLeftSideBoundary(String boundaryId, com.zeroc.Ice.Current current);
+
+    void setRightSideBoundary(String boundaryId, com.zeroc.Ice.Current current);
+
+    void setRoad(String roadId, com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -53,24 +57,6 @@ public interface Lane extends BaseItem
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getWidth(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        int ret = obj.getWidth(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeInt(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setWidth(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
@@ -82,15 +68,71 @@ public interface Lane extends BaseItem
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setLeftSideBoundary(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_boundaryId;
+        iceP_boundaryId = istr.readString();
+        inS.endReadParams();
+        obj.setLeftSideBoundary(iceP_boundaryId, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setRightSideBoundary(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_boundaryId;
+        iceP_boundaryId = istr.readString();
+        inS.endReadParams();
+        obj.setRightSideBoundary(iceP_boundaryId, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setRoad(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_roadId;
+        iceP_roadId = istr.readString();
+        inS.endReadParams();
+        obj.setRoad(iceP_roadId, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
         "getId",
-        "getWidth",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
+        "setLeftSideBoundary",
+        "setRightSideBoundary",
+        "setRoad",
         "setWidth"
     };
 
@@ -113,25 +155,33 @@ public interface Lane extends BaseItem
             }
             case 1:
             {
-                return _iceD_getWidth(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return _iceD_setLeftSideBoundary(this, in, current);
             }
             case 6:
+            {
+                return _iceD_setRightSideBoundary(this, in, current);
+            }
+            case 7:
+            {
+                return _iceD_setRoad(this, in, current);
+            }
+            case 8:
             {
                 return _iceD_setWidth(this, in, current);
             }

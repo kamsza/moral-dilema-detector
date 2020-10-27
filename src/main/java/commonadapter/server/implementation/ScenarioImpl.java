@@ -34,32 +34,4 @@ public class ScenarioImpl extends BaseItemImpl implements Scenario {
         project.Pedestrian pedestrian = owlFactory.getPedestrian(pedestrianId);
         this.scenario.addHas_pedestrian(pedestrian);
     }
-
-    @Override
-    public void addLane(String laneId, Current current) {
-
-        project.Lane lane = owlFactory.getLane(laneId);
-        this.scenario.addHas_lane(lane);
-    }
-
-    @Override
-    public void addRoad(String roadId, Current current) {
-
-        project.Road road = owlFactory.getRoad(roadId);
-        this.scenario.addHas_road(road);
-    }
-
-    @Override
-    public void addRoadPoint(String roadPointId, Current current) {
-
-        project.Road_point roadPoint = owlFactory.getRoad_point(roadPointId);
-        this.scenario.addHas_road_point(roadPoint);
-    }
-
-    @Override
-    public void addJunction(String junctionId, Current current) {
-
-        project.Junction junction = owlFactory.getJunction(junctionId);
-        this.scenario.addHas_road_point(junction);
-    }
 }
