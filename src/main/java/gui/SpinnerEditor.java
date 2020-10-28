@@ -61,6 +61,8 @@ public class SpinnerEditor extends DefaultCellEditor {
         if (eo instanceof KeyEvent) {
             KeyEvent ke = (KeyEvent) eo;
             textField.setText(String.valueOf(ke.getKeyChar()));
+
+
             //textField.select(1,1);
             //textField.setCaretPosition(1);
             //textField.moveCaretPosition(1);
@@ -80,6 +82,14 @@ public class SpinnerEditor extends DefaultCellEditor {
         try {
             editor.commitEdit();
             spinner.commitEdit();
+
+            int currentValue = (Integer) spinner.getValue();
+            if (currentValue < 0) {
+                spinner.setValue(0);
+                JOptionPane.showMessageDialog(null,
+                        "Value must not be negative");
+            }
+
         } catch (java.text.ParseException e) {
             JOptionPane.showMessageDialog(null,
                     "Invalid value, discarding.");

@@ -1,7 +1,9 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import java.util.HashMap;
 
 public class TableWithParameters extends JPanel {

@@ -1,5 +1,12 @@
 package gui;
 
+import DilemmaDetector.Consequences.CustomPhilosophy;
+import DilemmaDetector.Consequences.DecisionCostCalculator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import gui.logic.FullSimulation;
+import gui.logic.ReturnContainer;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -11,6 +18,7 @@ import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
@@ -23,7 +31,12 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
     private JLabel jLabelRandomScenarioType;
     private JButton jButtonGenerateScenario;
     private JLabel jLabelImageScenario;
+    private JButton jButtonAddCustomPhilosophy;
+    private JComboBox jComboBoxCustomPhilosophies;
+    private JButton jButtonCalculate;
 
+    private JPanel jPanelContainer;
+    private JScrollPane jScrollPaneMain;
 
     /// CONST
     private String NO_FILE_SELECTED = "No file selected";
@@ -35,12 +48,16 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
     private int IMAGE_WIDTH = 1000;
     private int IMAGE_HEIGHT = 400;
 
+    //business logic variables
+    private ReturnContainer returnContainer = null;
+
 
     public DashboardWindow() {
         setSize(1200, 800);
         setResizable(false);
         setTitle("Moral dilemma detector");
         setLayout(null);
+
 
         jButtonLoadFromFile = new JButton("Load scenario from file");
         jButtonLoadFromFile.setBounds(10, 10, 400, 30);
@@ -71,22 +88,25 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
         jButtonGenerateScenario.addActionListener(this);
         add(jButtonGenerateScenario);
 
-
-//        BufferedImage img = null;
-//        try {
-//            img = ImageIO.read(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\gui\\Blank_scenario.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Image dimg = img.getScaledInstance(150, 200,
-//                Image.SCALE_SMOOTH);
-//        ImageIcon icon = new ImageIcon(dimg);
-//        jLabelImageScenario = new JLabel(icon);
-
         jLabelImageScenario = new JLabel(getStartingImageIcon());
         jLabelImageScenario.setBounds(40, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
         add(jLabelImageScenario);
 
+        jButtonAddCustomPhilosophy = new JButton("Add custom philosophy");
+        jButtonAddCustomPhilosophy.setBounds(10, 500, 200, 30);
+        jButtonAddCustomPhilosophy.addActionListener(this);
+        add(jButtonAddCustomPhilosophy);
+
+
+        jComboBoxCustomPhilosophies = new JComboBox(getCustomPhilosophiesNames().toArray());
+        jComboBoxCustomPhilosophies.setBounds(600, 500, 400, 30);
+        jComboBoxCustomPhilosophies.addItemListener(this);
+        add(jComboBoxCustomPhilosophies);
+
+        jButtonCalculate = new JButton("Calculate");
+        jButtonCalculate.setBounds(400, 500, 100, 60);
+        jButtonCalculate.addActionListener(this);
+        add(jButtonCalculate);
 
     }
 
@@ -107,11 +127,61 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
             warningWindow.setVisible(true);
         }
 
-//        if(eventSource == jButtonLoadScenario){
-//            WarningWindow warningWindow = new WarningWindow(this, "Not implemented yet");
-//            warningWindow.setVisible(true);
-//        }
+        if (eventSource == jButtonGenerateScenario) {
+            // różne rodzaje w zależności od comboboxa z rodzajami, na razie na sztywno
 
+            FullSimulation fullSimulation = new FullSimulation();
+
+            try {
+                returnContainer = fullSimulation.doEveryThing();
+            } catch (OWLOntologyCreationException owlOntologyCreationException) {
+                owlOntologyCreationException.printStackTrace();
+            } catch (NoSuchMethodException noSuchMethodException) {
+                noSuchMethodException.printStackTrace();
+            } catch (IllegalAccessException illegalAccessException) {
+                illegalAccessException.printStackTrace();
+            } catch (InvocationTargetException invocationTargetException) {
+                invocationTargetException.printStackTrace();
+            }
+
+            System.out.println(">>>>" + returnContainer.getPictureName());
+
+            jLabelImageScenario.setIcon(
+                    getImageIcon(System.getProperty("user.dir")
+                            + "\\src\\main\\resources\\vis_out\\"
+                            + returnContainer.getPictureName()));
+        }
+
+
+        if (eventSource == jButtonAddCustomPhilosophy) {
+            CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow();
+            customPhilosophyWindow.setVisible(true);
+        }
+
+
+        if (eventSource == jButtonCalculate) {
+            if (returnContainer == null) {
+                WarningWindow warningWindow = new WarningWindow(this, "Load or generate scenario");
+                warningWindow.setVisible(true);
+            } else {
+                // wczytujemy wybraną filozofię
+                String philosophyName = jComboBoxCustomPhilosophies.getSelectedItem().toString();
+                // TODO sprawdzić warunek czy nie null !!!
+                CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
+                System.out.println(philosophyName);
+
+
+//                DecisionCostCalculator costCalculator = new DecisionCostCalculator(returnContainer.getConsequenceContainer(), factory);
+//
+//                for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()) {
+//                    System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
+//                    for (Actor a : entry.getValue()) System.out.println(a.getEntity());
+//                }
+
+
+            }
+
+        }
 
     }
 
@@ -140,4 +210,33 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
                 Image.SCALE_SMOOTH);
         return new ImageIcon(dimg);
     }
+
+    //do innej klasy
+    public List<String> getCustomPhilosophiesNames() {
+        File f = new File(System.getProperty("user.dir") +
+                "\\src\\main\\resources\\gui\\customPhilosophies\\");
+
+        List<String> customPhilosophiesNames = Arrays.asList(f.list());
+        for (String name : customPhilosophiesNames) {
+            name.replace(".json", "");
+        }
+        return customPhilosophiesNames;
+    }
+
+    //do innej klasy
+    public CustomPhilosophy getCustomPhilosophyByName(String name) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file = new File(System.getProperty("user.dir") +
+                "\\src\\main\\resources\\gui\\customPhilosophies\\" +
+                name);
+        CustomPhilosophy customPhilosophy = null;
+        try {
+            customPhilosophy = objectMapper.readValue(file, CustomPhilosophy.class);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return customPhilosophy;
+    }
+
 }

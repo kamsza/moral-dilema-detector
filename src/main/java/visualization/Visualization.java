@@ -77,4 +77,20 @@ public class Visualization {
             vs.frame.dispose();
         }
     }
+
+
+    public static String generateImageAndGetName(Model model) {
+        Visualization vs = new Visualization(model);
+        String pictureName = null;
+        vs.frame.pack();
+        try {
+            pictureName = ImageHandler.saveImageAndReturnName(vs.background);
+        } catch (IOException ex) {
+            System.out.println("Unable to create visualization for: " + model.toString());
+        } finally {
+            vs.frame.dispose();
+        }
+        return pictureName;
+    }
+
 }
