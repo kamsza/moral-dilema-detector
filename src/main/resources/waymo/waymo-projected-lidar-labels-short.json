@@ -1,0 +1,62 @@
+[
+    {
+        "name": "FRONT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 499.24704248626153,
+                    "centerY": 650.675260229533,
+                    "width": 76.34049368210606,
+                    "length": 41.20148864438164
+                },
+                "metadata": {
+                    "speedX": 0.25162394315712383,
+                    "speedY": -0.09572043977397512,
+                    "accelX": -0.09402215210063272,
+                    "accelY": 0.1441150419999842
+                },
+                "type": "TYPE_PEDESTRIAN",
+                "id": "8-7bTNGWUlWqADUHKbnjqg_FRONT"
+            }
+        ]
+    },
+    {
+        "name": "FRONT_LEFT",
+        "labels": [
+            
+        ]
+    },
+    {
+        "name": "FRONT_RIGHT",
+        "labels": [
+            {
+                "box": {
+                    "centerX": 67.06790522900513,
+                    "centerY": 629.4705626544189,
+                    "width": 207.7672488395093,
+                    "length": 134.13581045801027
+                },
+                "metadata": {
+                    "speedX": -0.006889945013138159,
+                    "speedY": 0.03262841161092147,
+                    "accelX": 3.2642983402625745e-13,
+                    "accelY": -1.2759029737501753e-12
+                },
+                "type": "TYPE_VEHICLE",
+                "id": "SnwlazQcof-qak374dgUsA_FRONT"
+            }
+        ]
+    },
+    {
+        "name": "SIDE_LEFT",
+        "labels": [
+            
+        ]
+    },
+    {
+        "name": "SIDE_RIGHT",
+        "labels": [
+            
+        ]
+    }
+]

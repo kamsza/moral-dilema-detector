@@ -36,8 +36,6 @@ public class BaseScenarioGenerator {
 
     private int lanesCount;
     private int mainVehicleLaneId;
-    private int lanesMovingLeftCount;
-    private int lanesMovingRightCount;
     private float roadDist = 6400F;
 
     public BaseScenarioGenerator() throws FileNotFoundException, OWLOntologyCreationException {
@@ -64,8 +62,6 @@ public class BaseScenarioGenerator {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-//        addVehicles(model);
-//        addAnimals(model);
 
         return model;
     }
@@ -94,14 +90,9 @@ public class BaseScenarioGenerator {
         model.setLanesCount(lanesCount);
 
         model.setRandomPositioner(new RandomPositioner(lanesCount));
-        mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1) / 2);
-        lanesMovingLeftCount = Math.min(mainVehicleLaneId, 1 + rand.nextInt((lanesCount + 1) / 2));
-        //TODO Should be -1 here?
-        lanesMovingRightCount = lanesCount - lanesMovingLeftCount -1;
-
-        System.out.println("MAIN VEHICLE LANE" + mainVehicleLaneId);
-        System.out.println("LEFT LANES " + lanesMovingLeftCount);
-        System.out.println("RIGHT LANES " + lanesMovingRightCount );
+        mainVehicleLaneId = lanesCount / 2 + rand.nextInt((lanesCount + 1)/2);
+        int carLeftLanesCount = mainVehicleLaneId;
+        int carRightLanesCount = lanesCount - carLeftLanesCount - 1;
 
         // create objects
         Road_type roadType = subclassGenerator.generateRoadTypeSubclass(ObjectNamer.getName("road_type"));
@@ -121,7 +112,7 @@ public class BaseScenarioGenerator {
 
         // right lanes
         TreeMap<Integer, Lane> lanes_right = new TreeMap<>();
-        for (int i = 1; i <= lanesMovingRightCount; i++) {
+        for (int i = 1; i <= carRightLanesCount; i++) {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_right_" + i));
             lanes_right.put(i, lane);
             entities.put(lane, new ArrayList<Living_entity>() {
@@ -135,7 +126,7 @@ public class BaseScenarioGenerator {
 
         // left lanes
         TreeMap<Integer, Lane> lanes_left = new TreeMap<>();
-        for (int i = 1; i <= lanesMovingLeftCount; i++) {
+        for (int i = 1; i <= carLeftLanesCount; i++) {
             Lane lane = factory.createLane(ObjectNamer.getName("lane_left_" + i));
             lanes_left.put(i, lane);
             entities.put(lane, new ArrayList<Living_entity>() {

@@ -1,49 +1,50 @@
 package generator;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
+import project.Passenger;
 import visualization.Visualization;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
 public class BuildersTest {
     public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, OWLOntologyStorageException {
-        BaseScenarioGenerator2 baseScenarioGenerator = new BaseScenarioGenerator2();
-        OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
-
-        MyFactory factory = new MyFactory(ontology);
-
-        for(int i = 0; i < 1; i++) {
-            Model model = baseScenarioGenerator.generate();
+        BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
+        MyFactory factory = MyFactorySingleton.getFactory();
+        RandomSubclassGenerator subclassGenerator = new RandomSubclassGenerator(factory);
 
 
-             model = new ScenarioFactory(model)
-                     .carApproaching().getModel();
-//                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1}).getModel();
+        for(int i = 0; i < 100; i++) {
+            Passenger p = subclassGenerator.generatePassengerSubclass(ObjectNamer.getName("passenger"));
+            System.out.println(p.toString());
+        }
+
+//        for(int i = 0; i < 40; i++) {
+//            Model model = baseScenarioGenerator.generate();
+//
+//            Model newModel = new ScenarioFactory(model).carApproaching().getModel();
+//
+//            Visualization.getImage(newModel);
+//            newModel.export();
+//        }
+
+//        for(int i = 0; i < 50; i++) {
+//            Model model = baseScenarioGenerator.generate();
+
+
+//             new ScenarioFactory(model)
+//                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
 //                    .obstacleOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
 //                    .pedestrianOnCrossing(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
 //                    .pedestrianJaywalking(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1});
-////
-//             new ModelBuilder(model).
-//                    .addVehicles(new int[]{1}, new double[]{1.0});
-
-            try {
-                factory.saveOwlOntology();
-            } catch (OWLOntologyStorageException ignored) {
-
-            }
-            System.out.println(model.getScenario().getOwlIndividual().toString());
-            Visualization.getImage(model);
-
-
-        }
+//
+//             new ModelBuilder(model)
+//                    .addVehicles(new int[]{5}, new double[]{1.0});
+//
+//            Visualization.getImage(model);
+//        }
 
 
 
