@@ -59,7 +59,7 @@ public class ModelBuilder {
 
         Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
         animal = fillDataProps(animal, distance, "animal", 10, 5);
-//        animal.addValueInDollars(100F);
+        animal.addValueInDollars(100F);
         model.getEntities().get(lane).add(animal);
 
         return this;
@@ -301,13 +301,13 @@ public class ModelBuilder {
     }
 
 
-    private <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
+    private  <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
         entity = fillDataProps(entity, distance, entityName);
         entity.addSpeedX((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
         entity.addSpeedY((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
         entity.addAccelerationX(0F);
         entity.addAccelerationY(0F);
-
+        entity.addValueInDollars(0F);
         return entity;
     }
 
