@@ -59,7 +59,7 @@ public class ModelBuilder {
 
         Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
         animal = fillDataProps(animal, distance, "animal", 10, 5);
-
+//        animal.addValueInDollars(100F);
         model.getEntities().get(lane).add(animal);
 
         return this;
@@ -315,7 +315,7 @@ public class ModelBuilder {
         entity.addDistance(distance);
         entity.addLength(sizeManager.getLength(entityName));
         entity.addWidth(sizeManager.getWidth(entityName));
-
+        entity.addValueInDollars(50000F);
         return entity;
     }
 

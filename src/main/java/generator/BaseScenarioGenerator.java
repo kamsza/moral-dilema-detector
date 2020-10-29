@@ -232,6 +232,7 @@ public class BaseScenarioGenerator {
         vehicle.addAccelerationX(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));
+        vehicle.addValueInDollars(20000F);
 
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));

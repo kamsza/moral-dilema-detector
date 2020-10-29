@@ -47,7 +47,7 @@ public class ScenarioFactory {
 
     // CAR - PERSON SCENARIOS
     public ScenarioFactory pedestrianOnCrossing(int[] objectsNum, double[] prob) {
-//        modelBuilder.addPedestrianCrossing(objectsNum, prob);
+        modelBuilder.addPedestrianCrossing(objectsNum, prob);
         return this;
     }
 
