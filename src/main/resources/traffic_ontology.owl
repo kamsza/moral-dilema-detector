@@ -3285,475 +3285,253 @@
     
 
 
-    <!-- 140_change_lane_left_by_1 -->
+    <!-- 144_change_lane_left_by_1 -->
 
-    <owl:NamedIndividual rdf:about="140_change_lane_left_by_1">
+    <owl:NamedIndividual rdf:about="144_change_lane_left_by_1">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_change_lane_left_by_2 -->
+    <!-- 144_change_lane_right_by_1 -->
 
-    <owl:NamedIndividual rdf:about="140_change_lane_left_by_2">
+    <owl:NamedIndividual rdf:about="144_change_lane_right_by_1">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_change_lane_left_by_3 -->
+    <!-- 144_decision -->
 
-    <owl:NamedIndividual rdf:about="140_change_lane_left_by_3">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_change_lane_right_by_1 -->
-
-    <owl:NamedIndividual rdf:about="140_change_lane_right_by_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_decision -->
-
-    <owl:NamedIndividual rdf:about="140_decision">
+    <owl:NamedIndividual rdf:about="144_decision">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_turn_left"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_killed_2"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_lightly_injured_2"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_severely_injured_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="144_turn_left"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_decision_1 -->
+    <!-- 144_decision_1 -->
 
-    <owl:NamedIndividual rdf:about="140_decision_1">
+    <owl:NamedIndividual rdf:about="144_decision_1">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_turn_right"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_killed_1"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_lightly_injured_1"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_severely_injured_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="144_turn_right"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_decision_2 -->
+    <!-- 144_decision_2 -->
 
-    <owl:NamedIndividual rdf:about="140_decision_2">
+    <owl:NamedIndividual rdf:about="144_decision_2">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_follow"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_killed"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_lightly_injured"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="140_severely_injured"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="144_follow"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_decision_3 -->
+    <!-- 144_decision_3 -->
 
-    <owl:NamedIndividual rdf:about="140_decision_3">
+    <owl:NamedIndividual rdf:about="144_decision_3">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_change_lane_right_by_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="144_change_lane_right_by_1"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_decision_4 -->
+    <!-- 144_decision_4 -->
 
-    <owl:NamedIndividual rdf:about="140_decision_4">
+    <owl:NamedIndividual rdf:about="144_decision_4">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_change_lane_left_by_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="144_change_lane_left_by_1"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_decision_5 -->
+    <!-- 144_driver -->
 
-    <owl:NamedIndividual rdf:about="140_decision_5">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_change_lane_left_by_2"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_decision_6 -->
-
-    <owl:NamedIndividual rdf:about="140_decision_6">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="140_change_lane_left_by_3"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_driver -->
-
-    <owl:NamedIndividual rdf:about="140_driver">
+    <owl:NamedIndividual rdf:about="144_driver">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_driver_1 -->
+    <!-- 144_follow -->
 
-    <owl:NamedIndividual rdf:about="140_driver_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_follow -->
-
-    <owl:NamedIndividual rdf:about="140_follow">
+    <owl:NamedIndividual rdf:about="144_follow">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/follow"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_killed -->
+    <!-- 144_lane_0 -->
 
-    <owl:NamedIndividual rdf:about="140_killed">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_killed_1 -->
-
-    <owl:NamedIndividual rdf:about="140_killed_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_killed_2 -->
-
-    <owl:NamedIndividual rdf:about="140_killed_2">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_lane_0 -->
-
-    <owl:NamedIndividual rdf:about="140_lane_0">
+    <owl:NamedIndividual rdf:about="144_lane_0">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_lane_left_1 -->
+    <!-- 144_lane_left_1 -->
 
-    <owl:NamedIndividual rdf:about="140_lane_left_1">
+    <owl:NamedIndividual rdf:about="144_lane_left_1">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_lane_left_2 -->
+    <!-- 144_lane_right_1 -->
 
-    <owl:NamedIndividual rdf:about="140_lane_left_2">
+    <owl:NamedIndividual rdf:about="144_lane_right_1">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_lane_left_3 -->
+    <!-- 144_passenger -->
 
-    <owl:NamedIndividual rdf:about="140_lane_left_3">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_lane_right_1 -->
-
-    <owl:NamedIndividual rdf:about="140_lane_right_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_lightly_injured -->
-
-    <owl:NamedIndividual rdf:about="140_lightly_injured">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
-        <webprotege:health_consequence_to rdf:resource="140_driver"/>
-        <webprotege:health_consequence_to rdf:resource="140_driver_1"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_1"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_2"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_3"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_4"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_5"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_lightly_injured_1 -->
-
-    <owl:NamedIndividual rdf:about="140_lightly_injured_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
-        <webprotege:health_consequence_to rdf:resource="140_driver"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_1"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_2"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_3"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_4"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_5"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_lightly_injured_2 -->
-
-    <owl:NamedIndividual rdf:about="140_lightly_injured_2">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
-        <webprotege:health_consequence_to rdf:resource="140_driver"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_1"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_2"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_3"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_4"/>
-        <webprotege:health_consequence_to rdf:resource="140_passenger_5"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_material_consequence -->
-
-    <owl:NamedIndividual rdf:about="140_material_consequence">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="140_vehicle"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">966.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_material_consequence_1 -->
-
-    <owl:NamedIndividual rdf:about="140_material_consequence_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="140_vehicle_main"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">486.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_material_consequence_2 -->
-
-    <owl:NamedIndividual rdf:about="140_material_consequence_2">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="140_vehicle_main"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">488.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_passenger -->
-
-    <owl:NamedIndividual rdf:about="140_passenger">
+    <owl:NamedIndividual rdf:about="144_passenger">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_passenger_1 -->
+    <!-- 144_road_type -->
 
-    <owl:NamedIndividual rdf:about="140_passenger_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_passenger_2 -->
-
-    <owl:NamedIndividual rdf:about="140_passenger_2">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/pet"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_passenger_3 -->
-
-    <owl:NamedIndividual rdf:about="140_passenger_3">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_passenger_4 -->
-
-    <owl:NamedIndividual rdf:about="140_passenger_4">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_passenger_5 -->
-
-    <owl:NamedIndividual rdf:about="140_passenger_5">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/pet"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_road_type -->
-
-    <owl:NamedIndividual rdf:about="140_road_type">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/state_road"/>
-        <has_speed_limit_km:h rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</has_speed_limit_km:h>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id>
+    <owl:NamedIndividual rdf:about="144_road_type">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/trunk_road"/>
+        <has_speed_limit_km:h rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120</has_speed_limit_km:h>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id>
         <BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_scenario -->
+    <!-- 144_scenario -->
 
-    <owl:NamedIndividual rdf:about="140_scenario">
+    <owl:NamedIndividual rdf:about="144_scenario">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
-        <webprotege:has_time rdf:resource="140_time"/>
-        <webprotege:has_vehicle rdf:resource="140_vehicle"/>
-        <webprotege:has_vehicle rdf:resource="140_vehicle_main"/>
-        <webprotege:has_weather rdf:resource="140_weather"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision_1"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision_2"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision_3"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision_4"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision_5"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="140_decision_6"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="140_lane_0"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="140_lane_left_1"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="140_lane_left_2"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="140_lane_left_3"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="140_lane_right_1"/>
+        <webprotege:has_time rdf:resource="144_time"/>
+        <webprotege:has_vehicle rdf:resource="144_vehicle_main"/>
+        <webprotege:has_weather rdf:resource="144_weather"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="144_decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="144_decision_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="144_decision_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="144_decision_3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="144_decision_4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="144_lane_0"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="144_lane_left_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="144_lane_right_1"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_severely_injured -->
+    <!-- 144_surrounding -->
 
-    <owl:NamedIndividual rdf:about="140_severely_injured">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_severely_injured_1 -->
-
-    <owl:NamedIndividual rdf:about="140_severely_injured_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_severely_injured_2 -->
-
-    <owl:NamedIndividual rdf:about="140_severely_injured_2">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_surrounding -->
-
-    <owl:NamedIndividual rdf:about="140_surrounding">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/forest"/>
+    <owl:NamedIndividual rdf:about="144_surrounding">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/cycling_path"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9.744499</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
         <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">172.72398</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">166.72606</BDGSqwMbfBgw7pUJ8IOnJ1:width>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_surrounding_1 -->
+    <!-- 144_surrounding_1 -->
 
-    <owl:NamedIndividual rdf:about="140_surrounding_1">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/security_side_barrier"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.97621</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    <owl:NamedIndividual rdf:about="144_surrounding_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/street_lamp"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-2803.7227</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15.318897</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">792.55457</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">100.67395</BDGSqwMbfBgw7pUJ8IOnJ1:width>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_time -->
+    <!-- 144_surrounding_2 -->
 
-    <owl:NamedIndividual rdf:about="140_time">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/evening"/>
+    <owl:NamedIndividual rdf:about="144_surrounding_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/cliff/edge"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1748.206</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">37.211998</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1318.4784</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.158585</BDGSqwMbfBgw7pUJ8IOnJ1:width>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_turn_left -->
+    <!-- 144_surrounding_3 -->
 
-    <owl:NamedIndividual rdf:about="140_turn_left">
+    <owl:NamedIndividual rdf:about="144_surrounding_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/railway"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">837.51965</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">39.1264</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3852.9731</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">131.40117</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 144_surrounding_4 -->
+
+    <owl:NamedIndividual rdf:about="144_surrounding_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/rock"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4309.582</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">14.170992</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3091.1516</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">26.946068</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 144_time -->
+
+    <owl:NamedIndividual rdf:about="144_time">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/sunrise"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 144_turn_left -->
+
+    <owl:NamedIndividual rdf:about="144_turn_left">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_left"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_turn_right -->
+    <!-- 144_turn_right -->
 
-    <owl:NamedIndividual rdf:about="140_turn_right">
+    <owl:NamedIndividual rdf:about="144_turn_right">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_right"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_vehicle -->
+    <!-- 144_vehicle_main -->
 
-    <owl:NamedIndividual rdf:about="140_vehicle">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/truck"/>
-        <webprotege:vehicle_has_driver rdf:resource="140_driver_1"/>
-        <webprotege:vehicle_has_location rdf:resource="140_road_type"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20000.0</BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- 140_vehicle_main -->
-
-    <owl:NamedIndividual rdf:about="140_vehicle_main">
+    <owl:NamedIndividual rdf:about="144_vehicle_main">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/car"/>
-        <webprotege:vehicle_has_driver rdf:resource="140_driver"/>
-        <webprotege:vehicle_has_location rdf:resource="140_road_type"/>
-        <webprotege:vehicle_has_passenger rdf:resource="140_passenger"/>
-        <webprotege:vehicle_has_passenger rdf:resource="140_passenger_1"/>
-        <webprotege:vehicle_has_passenger rdf:resource="140_passenger_2"/>
-        <webprotege:vehicle_has_passenger rdf:resource="140_passenger_3"/>
-        <webprotege:vehicle_has_passenger rdf:resource="140_passenger_4"/>
-        <webprotege:vehicle_has_passenger rdf:resource="140_passenger_5"/>
+        <webprotege:vehicle_has_driver rdf:resource="144_driver"/>
+        <webprotege:vehicle_has_location rdf:resource="144_road_type"/>
+        <webprotege:vehicle_has_passenger rdf:resource="144_passenger"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
         <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">53.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10000.0</BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars>
         <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
     </owl:NamedIndividual>
     
 
 
-    <!-- 140_weather -->
+    <!-- 144_weather -->
 
-    <owl:NamedIndividual rdf:about="140_weather">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/shower"/>
+    <owl:NamedIndividual rdf:about="144_weather">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/heavy_rain"/>
     </owl:NamedIndividual>
     
 
@@ -16501,6 +16279,1577 @@
 
     <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/14_weather">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/glaze"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_change_lane_left_by_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_change_lane_left_by_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_change_lane_left_by_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_change_lane_left_by_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_change_lane_left_by_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_change_lane_left_by_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_change_lane_right_by_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_change_lane_right_by_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_turn_left"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_killed_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_lightly_injured_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_severely_injured_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_turn_right"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_killed_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_lightly_injured_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_severely_injured_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_follow"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_killed"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_lightly_injured"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/140_severely_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_change_lane_right_by_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision_4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_change_lane_left_by_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision_5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision_5">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_change_lane_left_by_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_decision_6 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_decision_6">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/140_change_lane_left_by_3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_driver -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_driver">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_driver_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_driver_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_follow -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_follow">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/follow"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_killed -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_killed">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_killed_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_killed_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_killed_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_killed_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lane_0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lane_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lane_left_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lane_left_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lane_left_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lane_left_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lane_left_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lane_left_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lane_right_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lane_right_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lightly_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lightly_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_driver_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_2"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_3"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_4"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lightly_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lightly_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_2"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_3"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_4"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_lightly_injured_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_lightly_injured_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_2"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_3"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_4"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/140_passenger_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_material_consequence -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_material_consequence">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/140_vehicle"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">966.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_material_consequence_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_material_consequence_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/140_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">486.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_material_consequence_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_material_consequence_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/140_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">488.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_passenger -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_passenger">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_passenger_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_passenger_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_passenger_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_passenger_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/pet"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_passenger_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_passenger_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_passenger_4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_passenger_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_passenger_5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_passenger_5">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/pet"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_road_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_road_type">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/state_road"/>
+        <has_speed_limit_km:h rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</has_speed_limit_km:h>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_scenario -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_scenario">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_time rdf:resource="http://www.w3.org/2003/11/140_time"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/140_vehicle"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/140_vehicle_main"/>
+        <webprotege:has_weather rdf:resource="http://www.w3.org/2003/11/140_weather"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision_3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision_4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision_5"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/140_decision_6"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/140_lane_0"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/140_lane_left_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/140_lane_left_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/140_lane_left_3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/140_lane_right_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_severely_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_severely_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_severely_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_severely_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_severely_injured_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_severely_injured_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_surrounding -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_surrounding">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/forest"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">172.72398</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_surrounding_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_surrounding_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/security_side_barrier"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.97621</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_time -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_time">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/evening"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_turn_left -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_turn_left">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_left"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_turn_right -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_turn_right">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_right"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_vehicle -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_vehicle">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/truck"/>
+        <webprotege:vehicle_has_driver rdf:resource="http://www.w3.org/2003/11/140_driver_1"/>
+        <webprotege:vehicle_has_location rdf:resource="http://www.w3.org/2003/11/140_road_type"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20000.0</BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_vehicle_main -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_vehicle_main">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/car"/>
+        <webprotege:vehicle_has_driver rdf:resource="http://www.w3.org/2003/11/140_driver"/>
+        <webprotege:vehicle_has_location rdf:resource="http://www.w3.org/2003/11/140_road_type"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/140_passenger"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/140_passenger_1"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/140_passenger_2"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/140_passenger_3"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/140_passenger_4"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/140_passenger_5"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10000.0</BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/140_weather -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/140_weather">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/shower"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_change_lane_left_by_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_change_lane_left_by_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_change_lane_left_by_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_change_lane_left_by_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_change_lane_right_by_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_change_lane_right_by_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_change_lane_right_by_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_change_lane_right_by_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_turn_left"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_killed_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_lightly_injured_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_severely_injured_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_turn_right"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_killed"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_lightly_injured"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_severely_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_follow"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_killed_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_lightly_injured_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/141_severely_injured_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_change_lane_right_by_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision_4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_change_lane_right_by_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision_5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision_5">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_change_lane_left_by_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_decision_6 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_decision_6">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/141_change_lane_left_by_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_driver -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_driver">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_driver_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_driver_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_follow -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_follow">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/follow"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_killed -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_killed">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_killed_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_killed_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_killed_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_killed_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lane_0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lane_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lane_left_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lane_left_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lane_left_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lane_left_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lane_right_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lane_right_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lane_right_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lane_right_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lightly_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lightly_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_2"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_3"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_4"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lightly_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lightly_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_driver_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_2"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_3"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_4"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_lightly_injured_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_lightly_injured_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_2"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_3"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_4"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/141_passenger_5"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_material_consequence -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_material_consequence">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/141_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">487.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_material_consequence_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_material_consequence_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/141_vehicle"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">966.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_material_consequence_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_material_consequence_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/141_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">487.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_passenger -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_passenger">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_passenger_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_passenger_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_passenger_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_passenger_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_passenger_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_passenger_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/pet"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_passenger_4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_passenger_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_passenger_5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_passenger_5">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_road_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_road_type">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/city_streat"/>
+        <has_speed_limit_km:h rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">70</has_speed_limit_km:h>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_scenario -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_scenario">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_time rdf:resource="http://www.w3.org/2003/11/141_time"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/141_vehicle"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/141_vehicle_main"/>
+        <webprotege:has_weather rdf:resource="http://www.w3.org/2003/11/141_weather"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision_3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision_4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision_5"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/141_decision_6"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/141_lane_0"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/141_lane_left_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/141_lane_left_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/141_lane_right_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/141_lane_right_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_severely_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_severely_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_severely_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_severely_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_severely_injured_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_severely_injured_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_surrounding -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_surrounding">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/railway"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1663.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3074.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">113.39599</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_surrounding_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_surrounding_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/railway"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2249.5</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4751.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6.4393044</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_surrounding_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_surrounding_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/field"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-3033.5</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">333.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">151.88475</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_surrounding_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_surrounding_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/ditch"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-827.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4080.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.00818</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_surrounding_4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_surrounding_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/street_lamp"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2139.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1852.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9.785784</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_surrounding_5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_surrounding_5">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/street_lamp"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5256.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4382.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.38466</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_time -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_time">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/sunset"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_turn_left -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_turn_left">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_left"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_turn_right -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_turn_right">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_right"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_vehicle -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_vehicle">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/truck"/>
+        <webprotege:vehicle_has_driver rdf:resource="http://www.w3.org/2003/11/141_driver_1"/>
+        <webprotege:vehicle_has_location rdf:resource="http://www.w3.org/2003/11/141_road_type"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20000.0</BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_vehicle_main -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_vehicle_main">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/car"/>
+        <webprotege:vehicle_has_driver rdf:resource="http://www.w3.org/2003/11/141_driver"/>
+        <webprotege:vehicle_has_location rdf:resource="http://www.w3.org/2003/11/141_road_type"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/141_passenger"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/141_passenger_1"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/141_passenger_2"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/141_passenger_3"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/141_passenger_4"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/141_passenger_5"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10000.0</BDGSqwMbfBgw7pUJ8IOnJ1:valueInDollars>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/141_weather -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/141_weather">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/heavy_rain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_decision -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_decision">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/142_turn_left"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/142_killed_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/142_lightly_injured_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/142_severely_injured_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_decision_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_decision_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/142_turn_right"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/142_killed"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/142_lightly_injured"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/142_severely_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_decision_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_decision_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/142_follow"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_driver -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_driver">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_follow -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_follow">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/follow"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_killed -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_killed">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/142_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/142_passenger"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_killed_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_killed_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/142_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/142_passenger"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_lane_0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_lane_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_lightly_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_lightly_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_lightly_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_lightly_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_material_consequence -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_material_consequence">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/142_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_material_consequence_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_material_consequence_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/142_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_passenger -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_passenger">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_road_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_road_type">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/state_road"/>
+        <has_speed_limit_km:h rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90</has_speed_limit_km:h>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_scenario -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_scenario">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_time rdf:resource="http://www.w3.org/2003/11/142_time"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/142_vehicle_main"/>
+        <webprotege:has_weather rdf:resource="http://www.w3.org/2003/11/142_weather"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/142_decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/142_decision_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/142_decision_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/142_lane_0"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_severely_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_severely_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_severely_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_severely_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_surrounding -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_surrounding">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/security_side_barrier"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">16.840532</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">194.68506</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_surrounding_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_surrounding_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/forest"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">18.82622</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">170.19887</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_time -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_time">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/night"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_turn_left -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_turn_left">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_left"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_turn_right -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_turn_right">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_right"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_vehicle_main -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_vehicle_main">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/car"/>
+        <webprotege:vehicle_has_driver rdf:resource="http://www.w3.org/2003/11/142_driver"/>
+        <webprotege:vehicle_has_location rdf:resource="http://www.w3.org/2003/11/142_road_type"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/142_passenger"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">102.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/142_weather -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/142_weather">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/heavy_rain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_change_lane_left_by_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_change_lane_left_by_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_change_lane_left_by_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_change_lane_left_by_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_change_lane_left_by_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_change_lane_left_by_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_decision -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_decision">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/143_turn_left"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/143_killed_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/143_lightly_injured_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/143_severely_injured_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_decision_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_decision_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/143_turn_right"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/143_killed"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/143_lightly_injured"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_consequence rdf:resource="http://www.w3.org/2003/11/143_severely_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_decision_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_decision_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/143_follow"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_decision_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_decision_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/143_change_lane_left_by_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_decision_4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_decision_4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/143_change_lane_left_by_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_decision_5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_decision_5">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_action rdf:resource="http://www.w3.org/2003/11/143_change_lane_left_by_3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_driver -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_driver">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/driver"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_follow -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_follow">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/follow"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_killed -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_killed">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_killed_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_killed_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/killed"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_lane_0 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_lane_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_lane_left_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_lane_left_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_lane_left_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_lane_left_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_lane_left_3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_lane_left_3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_lightly_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_lightly_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_passenger_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_lightly_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_lightly_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lightly_injured"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_driver"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_passenger"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_passenger_1"/>
+        <webprotege:health_consequence_to rdf:resource="http://www.w3.org/2003/11/143_passenger_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_material_consequence -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_material_consequence">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/143_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_material_consequence_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_material_consequence_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#material_consequence"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:material_consequence_to rdf:resource="http://www.w3.org/2003/11/143_vehicle_main"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:has_material_value>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_passenger -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_passenger">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_passenger_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_passenger_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_passenger_2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_passenger_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/stock"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_road_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_road_type">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/provincial_road"/>
+        <has_speed_limit_km:h rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</has_speed_limit_km:h>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</BDGSqwMbfBgw7pUJ8IOnJ1:lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:left_lanes_count>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</BDGSqwMbfBgw7pUJ8IOnJ1:main_vehicle_lane_id>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</BDGSqwMbfBgw7pUJ8IOnJ1:right_lanes_count>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_scenario -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_scenario">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_time rdf:resource="http://www.w3.org/2003/11/143_time"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/143_vehicle_main"/>
+        <webprotege:has_weather rdf:resource="http://www.w3.org/2003/11/143_weather"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/143_decision"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/143_decision_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/143_decision_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/143_decision_3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/143_decision_4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_decision rdf:resource="http://www.w3.org/2003/11/143_decision_5"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/143_lane_0"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/143_lane_left_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/143_lane_left_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_lane rdf:resource="http://www.w3.org/2003/11/143_lane_left_3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_severely_injured -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_severely_injured">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_severely_injured_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_severely_injured_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#severly_injured"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_surrounding -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_surrounding">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/forest"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">23.237461</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">107.27308</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_surrounding_1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_surrounding_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/road_sign_post"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.031265</BDGSqwMbfBgw7pUJ8IOnJ1:distanceToRoad>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6400.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.611565</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_time -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_time">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/morning"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_turn_left -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_turn_left">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_left"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_turn_right -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_turn_right">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/turn_right"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_vehicle_main -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_vehicle_main">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/car"/>
+        <webprotege:vehicle_has_driver rdf:resource="http://www.w3.org/2003/11/143_driver"/>
+        <webprotege:vehicle_has_location rdf:resource="http://www.w3.org/2003/11/143_road_type"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/143_passenger"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/143_passenger_1"/>
+        <webprotege:vehicle_has_passenger rdf:resource="http://www.w3.org/2003/11/143_passenger_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">54.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200.0</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/143_weather -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/143_weather">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/strong_wind"/>
     </owl:NamedIndividual>
     
 

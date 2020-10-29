@@ -59,8 +59,8 @@ public class Main {
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
 //
-//            scenarioModel = new ScenarioFactory(scenarioModel)
-////                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
+//            scenarioModel = new ScenarioFactory(scenarioModel);
+//                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
 //                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
 
 
@@ -98,27 +98,16 @@ public class Main {
                 System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
+
+//            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
-//            scenarioModel.export();
-
-
-            consequenceContainer.saveConsequencesToOntology();
 
             try {
                 factory.saveOwlOntology();
             } catch (OWLOntologyStorageException ignored) {
-
             }
-
-            System.out.println("dypa");
-            System.out.println(factory.getScenario("131_scenario"));
-            System.out.println("hhh");
-            }
-
-//            scenarioModel.export();
-
-
         }
+    }
 
 
     public static void testQuery(OWLOntology ontology) throws SQWRLException, SWRLParseException {
