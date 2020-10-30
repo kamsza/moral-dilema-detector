@@ -29,9 +29,16 @@ public class ConsequenceContainer implements IConsequenceContainer {
 
         for (String decisionName: materialConsequencesByDecisionMap.keySet()){
             Set<Map.Entry<String, Double>> entries = materialConsequencesByDecisionMap.get(decisionName).entrySet();
+            Double sum = 0.0;
+            Material_consequence material_consequence = factory.createMaterial_consequence(ObjectNamer.getName("material_consequence"));
             for(Map.Entry<String, Double> entityConsequence : entries){
-                saveMaterialConsequence(decisionName, entityConsequence.getKey(), entityConsequence.getValue());
+                sum += entityConsequence.getValue();
+                Entity entity = factory.getEntity(entityConsequence.getKey());
+                material_consequence.addMaterial_consequence_to(entity);
             }
+            Decision decision = factory.getDecision(decisionName);
+            decision.addHas_consequence(material_consequence);
+            material_consequence.addHas_material_value(sum.floatValue());
         }
     }
 
