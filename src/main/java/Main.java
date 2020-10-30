@@ -37,6 +37,13 @@ public class Main {
         return model;
     }
 
+    public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
+        scenarioModel = new ScenarioFactory(scenarioModel)
+                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
+//                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
+        return scenarioModel;
+    }
+
     public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, FileNotFoundException {
         // Create OWLOntology instance using the OWLAPI
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
