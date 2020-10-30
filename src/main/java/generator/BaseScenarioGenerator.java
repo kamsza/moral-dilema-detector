@@ -89,7 +89,7 @@ public class BaseScenarioGenerator {
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
 
 
-        vehicle1.addDistance(2000F);
+        vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
         vehicle1.addWidth(200F);
 

@@ -58,17 +58,7 @@ public class Main {
 
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
-//
-//            scenarioModel = new ScenarioFactory(scenarioModel)
-//                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
-//                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
 
-
-//            scenarioModel = new ScenarioFactory(scenarioModel)
-//                    .carApproaching().getModel();
-//            new ModelBuilder(scenarioModel)
-//                    .addVehicles(new int[]{1}, new double[]{1.0});
-//;
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
 
