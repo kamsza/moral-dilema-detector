@@ -30,7 +30,7 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -59,7 +59,7 @@ public class Main {
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
 //
-//            scenarioModel = new ScenarioFactory(scenarioModel);
+//            scenarioModel = new ScenarioFactory(scenarioModel)
 //                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
 //                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
 
@@ -99,7 +99,7 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
-//            consequenceContainer.saveConsequencesToOntology();
+            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
             try {
