@@ -31,7 +31,7 @@ public class DecisionCostCalculator {
         for(Map.Entry<String, Double> consequence : consequences){
             sum += (int) Math.round(consequence.getValue());
         }
-        return (int) (sum * ParameterizedPhilosophy.materialFactor * ParameterizedPhilosophy.materialFactor) / 1000  ;
+        return (int) (sum * ParameterizedPhilosophy.materialValue * ParameterizedPhilosophy.materialFactor) / 1000 ;
     }
 
     private int calculateCostOfHealthConsequence(Decision decision){
