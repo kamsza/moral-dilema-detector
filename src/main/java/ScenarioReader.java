@@ -32,6 +32,7 @@ public class ScenarioReader {
         Road_type roadType = factory.getRoad_type(name + String.valueOf(number) + "_road_type");
         Vehicle vehicle = factory.getVehicle(name + String.valueOf(number) + "_vehicle_main");
         Driver driver = factory.getDriver(name + String.valueOf(number) + "_driver");
+
         ArrayList<Passenger> passengers = new ArrayList<>();
         Map<Model.Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
         Map<Model.Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
@@ -97,7 +98,7 @@ public class ScenarioReader {
         for (Vehicle v : scenario.getHas_vehicle()) {
             if (!v.getOwlIndividual().getIRI().toString().contains("vehicle_main")) {
                 Lane lane = null;
-                for (Lane l : vehicle.getOn_lane()) {
+                for (Lane l : vehicle.getIs_on_lane()) {
                     lane = l;
                 }
                 vehicles.get(lane).add(v);
