@@ -95,7 +95,7 @@ public class ScenarioReader {
         lanes.put(Model.Side.LEFT, lanes_left);
 
         for (Vehicle v : scenario.getHas_vehicle()) {
-            if (!v.getOwlIndividual().getIRI().toString().contains("main_vehicle")) {
+            if (!v.getOwlIndividual().getIRI().toString().contains("vehicle_main")) {
                 Lane lane = null;
                 for (Lane l : vehicle.getOn_lane()) {
                     lane = l;

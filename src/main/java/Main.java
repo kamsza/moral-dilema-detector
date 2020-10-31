@@ -37,10 +37,12 @@ public class Main {
         return model;
     }
 
-    public static Model getModelFromReader() throws OWLOntologyCreationException {
+    public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
-        Model scenarioModel = scenarioReader.getModel(193);
-        return scenarioModel;
+        Model model = scenarioReader.getModel(number);
+        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
+        decisionGenerator.generate(model);
+        return model;
     }
 
     public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
@@ -70,7 +72,8 @@ public class Main {
                 .build();
 
         for(int i=0; i<1; i++) {
-            Model scenarioModel = getModelFromGenerator(factory);
+//            Model scenarioModel = getModelFromGenerator(factory);
+            Model scenarioModel = getModelFromReader(factory,196);
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
@@ -105,10 +108,10 @@ public class Main {
             consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
-            try {
-                factory.saveOwlOntology();
-            } catch (OWLOntologyStorageException ignored) {
-            }
+//            try {
+//                factory.saveOwlOntology();
+//            } catch (OWLOntologyStorageException ignored) {
+//            }
 //            Visualization.getImage(scenarioModel);
         }
     }
