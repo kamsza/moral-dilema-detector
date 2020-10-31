@@ -96,7 +96,7 @@ public class BaseScenarioGenerator2 {
         vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
         vehicle1.addWidth(200F);
-
+        vehicle1.addOn_lane(lane);
 
         vehicle1.addSpeedX(vehicleSpeed);
         vehicle1.addSpeedY(0F);
@@ -119,6 +119,7 @@ public class BaseScenarioGenerator2 {
         person.addDistance(3000F);
 //        person.addValueInDollars(10000F);
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        person.addOn_lane(lane);
         model.getEntities().get(lane).add(person);
     }
 
@@ -230,6 +231,12 @@ public class BaseScenarioGenerator2 {
         surrounding.put(Model.Side.LEFT, left_surrounding);
         ArrayList<Surrounding> right_surrounding = createSurroundingList();
         surrounding.put(Model.Side.RIGHT, right_surrounding);
+        for (Surrounding s: left_surrounding) {
+            model.getScenario().addHas_surrounding_left(s);
+        }
+        for (Surrounding s: right_surrounding) {
+            model.getScenario().addHas_surrounding_right(s);
+        }
 
         // add to model
         model.setSurrounding(surrounding);
@@ -295,6 +302,7 @@ public class BaseScenarioGenerator2 {
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);
 
+
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));
@@ -303,6 +311,7 @@ public class BaseScenarioGenerator2 {
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        vehicle.addOn_lane(lane);
         model.getVehicles().get(lane).add(vehicle);
         model.setDriver(driver);
         model.setPassengers(passengers);
@@ -311,37 +320,37 @@ public class BaseScenarioGenerator2 {
         Vehicle vehicle1;
         float entitySize;
 
-        vehicle1 = factory.createTruck(ObjectNamer.getName("vehicle"));
-        entitySize = sizeManager.getLength("truck");
-
-        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
-        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
-
-        Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
-
-        model.getScenario().addHas_vehicle(vehicle1);
-
-        vehicle1.addVehicle_has_driver(driver1);
-        vehicle1.addVehicle_has_location(model.getRoadType());
-        vehicle1.addValueInDollars(20000F);
-
-        float vehicleSpeed = (float) (50 + rand.nextInt(90));
-
-        if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
-            vehicleSpeed *= -1;
-        }
-
-        vehicle1.addDistance(2000F);
-        vehicle1.addLength(500F);
-        vehicle1.addWidth(200F);
-
-
-        vehicle1.addSpeedX(0F);
-        vehicle1.addSpeedY(0F);
-        vehicle1.addAccelerationY(0F);
-        vehicle1.addAccelerationX(0F);
-
-        model.getVehicles().get(vehicleLane).add(vehicle1);
+//        vehicle1 = factory.createTruck(ObjectNamer.getName("vehicle"));
+//        entitySize = sizeManager.getLength("truck");
+//
+//        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+//        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
+//
+//        Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
+//
+//        model.getScenario().addHas_vehicle(vehicle1);
+//
+//        vehicle1.addVehicle_has_driver(driver1);
+//        vehicle1.addVehicle_has_location(model.getRoadType());
+//        vehicle1.addValueInDollars(20000F);
+//
+//        float vehicleSpeed = (float) (50 + rand.nextInt(90));
+//
+//        if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
+//            vehicleSpeed *= -1;
+//        }
+//
+//        vehicle1.addDistance(2000F);
+//        vehicle1.addLength(500F);
+//        vehicle1.addWidth(200F);
+//
+//
+//        vehicle1.addSpeedX(0F);
+//        vehicle1.addSpeedY(0F);
+//        vehicle1.addAccelerationY(0F);
+//        vehicle1.addAccelerationX(0F);
+//
+//        model.getVehicles().get(vehicleLane).add(vehicle1);
 
 
     }

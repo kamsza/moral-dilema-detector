@@ -30,11 +30,17 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
+        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
+    }
+
+    public static Model getModelFromReader() throws OWLOntologyCreationException {
+        ScenarioReader scenarioReader = new ScenarioReader();
+        Model scenarioModel = scenarioReader.getModel(193);
+        return scenarioModel;
     }
 
     public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
@@ -103,6 +109,7 @@ public class Main {
                 factory.saveOwlOntology();
             } catch (OWLOntologyStorageException ignored) {
             }
+//            Visualization.getImage(scenarioModel);
         }
     }
 
