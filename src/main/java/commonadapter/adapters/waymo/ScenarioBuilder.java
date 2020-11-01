@@ -116,8 +116,6 @@ public class ScenarioBuilder {
         EntityPrx entityPrx = EntityPrx.checkedCast(basePrx);
 
         String laneId = managerPrx.create(ItemType.LANE);
-        scenarioPrx.addLane(laneId);
-
         entityPrx.setLane(laneId);
     }
 

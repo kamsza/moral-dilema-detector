@@ -17,149 +17,75 @@ package adapter;
 
 public interface RoadPointPrx extends BaseItemPrx
 {
-    default void setX(int x)
+    default void setLatitude(String lat)
     {
-        setX(x, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        setLatitude(lat, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default void setX(int x, java.util.Map<String, String> context)
+    default void setLatitude(String lat, java.util.Map<String, String> context)
     {
-        _iceI_setXAsync(x, context, true).waitForResponse();
+        _iceI_setLatitudeAsync(lat, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setXAsync(int x)
+    default java.util.concurrent.CompletableFuture<Void> setLatitudeAsync(String lat)
     {
-        return _iceI_setXAsync(x, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_setLatitudeAsync(lat, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<Void> setXAsync(int x, java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> setLatitudeAsync(String lat, java.util.Map<String, String> context)
     {
-        return _iceI_setXAsync(x, context, false);
+        return _iceI_setLatitudeAsync(lat, context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_x -
+     * @param iceP_lat -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setXAsync(int iceP_x, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLatitudeAsync(String iceP_lat, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setX", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLatitude", null, sync, null);
         f.invoke(false, context, null, ostr -> {
-                     ostr.writeInt(iceP_x);
+                     ostr.writeString(iceP_lat);
                  }, null);
         return f;
     }
 
-    default int getX()
+    default void setLongitude(String lon)
     {
-        return getX(com.zeroc.Ice.ObjectPrx.noExplicitContext);
+        setLongitude(lon, com.zeroc.Ice.ObjectPrx.noExplicitContext);
     }
 
-    default int getX(java.util.Map<String, String> context)
+    default void setLongitude(String lon, java.util.Map<String, String> context)
     {
-        return _iceI_getXAsync(context, true).waitForResponse();
+        _iceI_setLongitudeAsync(lon, context, true).waitForResponse();
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getXAsync()
+    default java.util.concurrent.CompletableFuture<Void> setLongitudeAsync(String lon)
     {
-        return _iceI_getXAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+        return _iceI_setLongitudeAsync(lon, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
     }
 
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getXAsync(java.util.Map<String, String> context)
+    default java.util.concurrent.CompletableFuture<Void> setLongitudeAsync(String lon, java.util.Map<String, String> context)
     {
-        return _iceI_getXAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getXAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getX", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     int ret;
-                     ret = istr.readInt();
-                     return ret;
-                 });
-        return f;
-    }
-
-    default void setY(int y)
-    {
-        setY(y, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void setY(int y, java.util.Map<String, String> context)
-    {
-        _iceI_setYAsync(y, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> setYAsync(int y)
-    {
-        return _iceI_setYAsync(y, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> setYAsync(int y, java.util.Map<String, String> context)
-    {
-        return _iceI_setYAsync(y, context, false);
+        return _iceI_setLongitudeAsync(lon, context, false);
     }
 
     /**
      * @hidden
-     * @param iceP_y -
+     * @param iceP_lon -
      * @param context -
      * @param sync -
      * @return -
      **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setYAsync(int iceP_y, java.util.Map<String, String> context, boolean sync)
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLongitudeAsync(String iceP_lon, java.util.Map<String, String> context, boolean sync)
     {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setY", null, sync, null);
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLongitude", null, sync, null);
         f.invoke(false, context, null, ostr -> {
-                     ostr.writeInt(iceP_y);
+                     ostr.writeString(iceP_lon);
                  }, null);
-        return f;
-    }
-
-    default int getY()
-    {
-        return getY(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default int getY(java.util.Map<String, String> context)
-    {
-        return _iceI_getYAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getYAsync()
-    {
-        return _iceI_getYAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getYAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_getYAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getYAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getY", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     int ret;
-                     ret = istr.readInt();
-                     return ret;
-                 });
         return f;
     }
 

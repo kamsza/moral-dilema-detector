@@ -23,14 +23,6 @@ public interface Scenario extends BaseItem
 
     void addPedestrian(String pedestrianId, com.zeroc.Ice.Current current);
 
-    void addLane(String laneId, com.zeroc.Ice.Current current);
-
-    void addRoad(String roadId, com.zeroc.Ice.Current current);
-
-    void addRoadPoint(String roadPointId, com.zeroc.Ice.Current current);
-
-    void addJunction(String junctionId, com.zeroc.Ice.Current current);
-
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -110,87 +102,11 @@ public interface Scenario extends BaseItem
         return inS.setResult(inS.writeEmptyParams());
     }
 
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_addLane(Scenario obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_laneId;
-        iceP_laneId = istr.readString();
-        inS.endReadParams();
-        obj.addLane(iceP_laneId, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_addRoad(Scenario obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_roadId;
-        iceP_roadId = istr.readString();
-        inS.endReadParams();
-        obj.addRoad(iceP_roadId, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_addRoadPoint(Scenario obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_roadPointId;
-        iceP_roadPointId = istr.readString();
-        inS.endReadParams();
-        obj.addRoadPoint(iceP_roadPointId, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_addJunction(Scenario obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        String iceP_junctionId;
-        iceP_junctionId = istr.readString();
-        inS.endReadParams();
-        obj.addJunction(iceP_junctionId, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
     /** @hidden */
     final static String[] _iceOps =
     {
         "addCyclist",
-        "addJunction",
-        "addLane",
         "addPedestrian",
-        "addRoad",
-        "addRoadPoint",
         "addVehicle",
         "getId",
         "ice_id",
@@ -218,45 +134,29 @@ public interface Scenario extends BaseItem
             }
             case 1:
             {
-                return _iceD_addJunction(this, in, current);
+                return _iceD_addPedestrian(this, in, current);
             }
             case 2:
             {
-                return _iceD_addLane(this, in, current);
+                return _iceD_addVehicle(this, in, current);
             }
             case 3:
             {
-                return _iceD_addPedestrian(this, in, current);
+                return BaseItem._iceD_getId(this, in, current);
             }
             case 4:
             {
-                return _iceD_addRoad(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 5:
             {
-                return _iceD_addRoadPoint(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 6:
             {
-                return _iceD_addVehicle(this, in, current);
-            }
-            case 7:
-            {
-                return BaseItem._iceD_getId(this, in, current);
-            }
-            case 8:
-            {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
-            }
-            case 9:
-            {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
-            }
-            case 10:
-            {
                 return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
-            case 11:
+            case 7:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }

@@ -18,13 +18,15 @@ package adapter;
 public enum ItemType implements java.io.Serializable
 {
     SCENARIO(0),
-    ROAD(1),
-    LANE(2),
-    JUNCTION(3),
-    DELIMITER(4),
-    VEHICLE(5),
-    CYCLIST(6),
-    PEDESTRIAN(7);
+    VEHICLE(1),
+    CYCLIST(2),
+    PEDESTRIAN(3),
+    LANE(4),
+    ROAD(5),
+    DELIMITER(6),
+    JUNCTION(7),
+    LANEBOUNDARY(8),
+    ROADATTRIBUTES(9);
 
     public int value()
     {
@@ -38,19 +40,23 @@ public enum ItemType implements java.io.Serializable
         case 0:
             return SCENARIO;
         case 1:
-            return ROAD;
-        case 2:
-            return LANE;
-        case 3:
-            return JUNCTION;
-        case 4:
-            return DELIMITER;
-        case 5:
             return VEHICLE;
-        case 6:
+        case 2:
             return CYCLIST;
-        case 7:
+        case 3:
             return PEDESTRIAN;
+        case 4:
+            return LANE;
+        case 5:
+            return ROAD;
+        case 6:
+            return DELIMITER;
+        case 7:
+            return JUNCTION;
+        case 8:
+            return LANEBOUNDARY;
+        case 9:
+            return ROADATTRIBUTES;
         }
         return null;
     }
@@ -62,24 +68,24 @@ public enum ItemType implements java.io.Serializable
 
     public void ice_write(com.zeroc.Ice.OutputStream ostr)
     {
-        ostr.writeEnum(_value, 7);
+        ostr.writeEnum(_value, 9);
     }
 
     public static void ice_write(com.zeroc.Ice.OutputStream ostr, ItemType v)
     {
         if(v == null)
         {
-            ostr.writeEnum(adapter.ItemType.SCENARIO.value(), 7);
+            ostr.writeEnum(adapter.ItemType.SCENARIO.value(), 9);
         }
         else
         {
-            ostr.writeEnum(v.value(), 7);
+            ostr.writeEnum(v.value(), 9);
         }
     }
 
     public static ItemType ice_read(com.zeroc.Ice.InputStream istr)
     {
-        int v = istr.readEnum(7);
+        int v = istr.readEnum(9);
         return validate(v);
     }
 

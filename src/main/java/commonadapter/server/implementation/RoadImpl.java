@@ -1,68 +1,50 @@
 package commonadapter.server.implementation;
 
 import adapter.Road;
-import adapter.RoadAttribute;
 import com.zeroc.Ice.Current;
 import project.MyFactory;
 
 public class RoadImpl extends BaseItemImpl implements Road {
 
+    private project.Road road;
 
     public RoadImpl(String id, MyFactory owlFactory) {
         super(id, owlFactory);
+        this.road = owlFactory.createRoad(id);
     }
 
     @Override
     public void setStartAngle(float angle, Current current) {
 
+        this.road.addStart_angle(angle);
     }
 
     @Override
-    public float getStartAngle(Current current) {
-        return 0;
+    public void setEndAngle(float angle, Current current) {
+
+        this.road.addEnd_angle(angle);
     }
 
     @Override
-    public void setEndAngle(float angle, com.zeroc.Ice.Current current) {
+    public void setStarts(String roadPointId, Current current) {
+
+        project.Road_point roadPoint = owlFactory.getRoad_point(roadPointId);
+        this.road.addStarts(roadPoint);
     }
 
     @Override
-    public float getEndAngle(com.zeroc.Ice.Current current) {
-        return 0;
+    public void setEnds(String roadPointId, Current current) {
+
+        project.Road_point roadPoint = owlFactory.getRoad_point(roadPointId);
+        this.road.addEnds(roadPoint);
     }
 
     @Override
-    public void setRoadAttributes(RoadAttribute[] roadAttributes, com.zeroc.Ice.Current current) {
+    public void setRoadAttributes(String roadAttributesId, Current current) {
 
+        project.Road_attributes attributes = owlFactory.getRoad_attributes(roadAttributesId);
+        this.road.addHas_road_attributes(attributes);
     }
 
-    @Override
-    public RoadAttribute[] getRoadAttributes(com.zeroc.Ice.Current current) {
-        return new RoadAttribute[0];
-    }
 
-    @Override
-    public void setAverageSpeed(int speed, com.zeroc.Ice.Current current) {
-
-    }
-
-    @Override
-    public int getAverageSpeed(com.zeroc.Ice.Current current) {
-        return 0;
-    }
-
-    @Override
-    public void setSpeedLimit(int speed, com.zeroc.Ice.Current current) {
-
-    }
-
-    @Override
-    public int getSpeedLimit(com.zeroc.Ice.Current current) {
-        return 0;
-    }
-
-    @Override
-    public String getId(com.zeroc.Ice.Current current) {
-        return null;
-    }
 }

@@ -1,4 +1,4 @@
-package commonadapter.client;
+package commonadapter.test;
 
 import adapter.*;
 import com.zeroc.Ice.Communicator;
@@ -50,7 +50,6 @@ public class Client {
                         VehiclePrx vehiclePrx = VehiclePrx.checkedCast(basePrx);
 
                         // onto creation
-                        scenarioPrx.addLane(laneId);
                         scenarioPrx.addVehicle(vehicleId);
                         vehiclePrx.setLane(laneId);
                         vehiclePrx.setLength(457F);

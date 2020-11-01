@@ -19,23 +19,13 @@ public interface Road extends BaseItem
 {
     void setStartAngle(float angle, com.zeroc.Ice.Current current);
 
-    float getStartAngle(com.zeroc.Ice.Current current);
-
     void setEndAngle(float angle, com.zeroc.Ice.Current current);
 
-    float getEndAngle(com.zeroc.Ice.Current current);
+    void setStarts(String roadPointId, com.zeroc.Ice.Current current);
 
-    void setRoadAttributes(RoadAttribute[] roadAttributes, com.zeroc.Ice.Current current);
+    void setEnds(String roadPointId, com.zeroc.Ice.Current current);
 
-    RoadAttribute[] getRoadAttributes(com.zeroc.Ice.Current current);
-
-    void setAverageSpeed(int speed, com.zeroc.Ice.Current current);
-
-    int getAverageSpeed(com.zeroc.Ice.Current current);
-
-    void setSpeedLimit(int speed, com.zeroc.Ice.Current current);
-
-    int getSpeedLimit(com.zeroc.Ice.Current current);
+    void setRoadAttributes(String roadAttributesId, com.zeroc.Ice.Current current);
 
     /** @hidden */
     static final String[] _iceIds =
@@ -87,24 +77,6 @@ public interface Road extends BaseItem
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getStartAngle(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        float ret = obj.getStartAngle(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeFloat(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setEndAngle(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
@@ -123,15 +95,33 @@ public interface Road extends BaseItem
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getEndAngle(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setStarts(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        float ret = obj.getEndAngle(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeFloat(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_roadPointId;
+        iceP_roadPointId = istr.readString();
+        inS.endReadParams();
+        obj.setStarts(iceP_roadPointId, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setEnds(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_roadPointId;
+        iceP_roadPointId = istr.readString();
+        inS.endReadParams();
+        obj.setEnds(iceP_roadPointId, current);
+        return inS.setResult(inS.writeEmptyParams());
     }
 
     /**
@@ -145,121 +135,26 @@ public interface Road extends BaseItem
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        RoadAttribute[] iceP_roadAttributes;
-        iceP_roadAttributes = RoadAttributesHelper.read(istr);
+        String iceP_roadAttributesId;
+        iceP_roadAttributesId = istr.readString();
         inS.endReadParams();
-        obj.setRoadAttributes(iceP_roadAttributes, current);
+        obj.setRoadAttributes(iceP_roadAttributesId, current);
         return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getRoadAttributes(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        RoadAttribute[] ret = obj.getRoadAttributes(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        RoadAttributesHelper.write(ostr, ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setAverageSpeed(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        int iceP_speed;
-        iceP_speed = istr.readInt();
-        inS.endReadParams();
-        obj.setAverageSpeed(iceP_speed, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getAverageSpeed(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        int ret = obj.getAverageSpeed(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeInt(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setSpeedLimit(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        int iceP_speed;
-        iceP_speed = istr.readInt();
-        inS.endReadParams();
-        obj.setSpeedLimit(iceP_speed, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getSpeedLimit(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        int ret = obj.getSpeedLimit(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeInt(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
     }
 
     /** @hidden */
     final static String[] _iceOps =
     {
-        "getAverageSpeed",
-        "getEndAngle",
         "getId",
-        "getRoadAttributes",
-        "getSpeedLimit",
-        "getStartAngle",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "setAverageSpeed",
         "setEndAngle",
+        "setEnds",
         "setRoadAttributes",
-        "setSpeedLimit",
-        "setStartAngle"
+        "setStartAngle",
+        "setStarts"
     };
 
     /** @hidden */
@@ -277,63 +172,43 @@ public interface Road extends BaseItem
         {
             case 0:
             {
-                return _iceD_getAverageSpeed(this, in, current);
+                return BaseItem._iceD_getId(this, in, current);
             }
             case 1:
             {
-                return _iceD_getEndAngle(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return BaseItem._iceD_getId(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return _iceD_getRoadAttributes(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return _iceD_getSpeedLimit(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
             {
-                return _iceD_getStartAngle(this, in, current);
+                return _iceD_setEndAngle(this, in, current);
             }
             case 6:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_setEnds(this, in, current);
             }
             case 7:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return _iceD_setRoadAttributes(this, in, current);
             }
             case 8:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return _iceD_setStartAngle(this, in, current);
             }
             case 9:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
-            }
-            case 10:
-            {
-                return _iceD_setAverageSpeed(this, in, current);
-            }
-            case 11:
-            {
-                return _iceD_setEndAngle(this, in, current);
-            }
-            case 12:
-            {
-                return _iceD_setRoadAttributes(this, in, current);
-            }
-            case 13:
-            {
-                return _iceD_setSpeedLimit(this, in, current);
-            }
-            case 14:
-            {
-                return _iceD_setStartAngle(this, in, current);
+                return _iceD_setStarts(this, in, current);
             }
         }
 

@@ -15,114 +15,154 @@
 
 package adapter;
 
-public enum LaneBoundary implements java.io.Serializable
+public interface LaneBoundary extends BaseItem
 {
-    LONGDASHEDLINE(0),
-    SHORTDASHEDLINE(1),
-    DASHEDBLOCKS(2),
-    DOUBLESOLIDLINE(3),
-    SINGLESOLIDLINE(4),
-    SOLIDLINEDASHEDLINE(5),
-    DASHEDLINESOLIDLINE(6),
-    BARRIERJERSEY(7),
-    BARRIERSOUND(8);
+    void setType(String type, com.zeroc.Ice.Current current);
 
-    public int value()
+    void setColor(String color, com.zeroc.Ice.Current current);
+
+    void setMaterial(String material, com.zeroc.Ice.Current current);
+
+    /** @hidden */
+    static final String[] _iceIds =
     {
-        return _value;
+        "::Ice::Object",
+        "::adapter::BaseItem",
+        "::adapter::LaneBoundary"
+    };
+
+    @Override
+    default String[] ice_ids(com.zeroc.Ice.Current current)
+    {
+        return _iceIds;
     }
 
-    public static LaneBoundary valueOf(int v)
+    @Override
+    default String ice_id(com.zeroc.Ice.Current current)
     {
-        switch(v)
+        return ice_staticId();
+    }
+
+    static String ice_staticId()
+    {
+        return "::adapter::LaneBoundary";
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setType(LaneBoundary obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_type;
+        iceP_type = istr.readString();
+        inS.endReadParams();
+        obj.setType(iceP_type, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setColor(LaneBoundary obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_color;
+        iceP_color = istr.readString();
+        inS.endReadParams();
+        obj.setColor(iceP_color, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setMaterial(LaneBoundary obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_material;
+        iceP_material = istr.readString();
+        inS.endReadParams();
+        obj.setMaterial(iceP_material, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /** @hidden */
+    final static String[] _iceOps =
+    {
+        "getId",
+        "ice_id",
+        "ice_ids",
+        "ice_isA",
+        "ice_ping",
+        "setColor",
+        "setMaterial",
+        "setType"
+    };
+
+    /** @hidden */
+    @Override
+    default java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceDispatch(com.zeroc.IceInternal.Incoming in, com.zeroc.Ice.Current current)
+        throws com.zeroc.Ice.UserException
+    {
+        int pos = java.util.Arrays.binarySearch(_iceOps, current.operation);
+        if(pos < 0)
         {
-        case 0:
-            return LONGDASHEDLINE;
-        case 1:
-            return SHORTDASHEDLINE;
-        case 2:
-            return DASHEDBLOCKS;
-        case 3:
-            return DOUBLESOLIDLINE;
-        case 4:
-            return SINGLESOLIDLINE;
-        case 5:
-            return SOLIDLINEDASHEDLINE;
-        case 6:
-            return DASHEDLINESOLIDLINE;
-        case 7:
-            return BARRIERJERSEY;
-        case 8:
-            return BARRIERSOUND;
+            throw new com.zeroc.Ice.OperationNotExistException(current.id, current.facet, current.operation);
         }
-        return null;
-    }
 
-    private LaneBoundary(int v)
-    {
-        _value = v;
-    }
-
-    public void ice_write(com.zeroc.Ice.OutputStream ostr)
-    {
-        ostr.writeEnum(_value, 8);
-    }
-
-    public static void ice_write(com.zeroc.Ice.OutputStream ostr, LaneBoundary v)
-    {
-        if(v == null)
+        switch(pos)
         {
-            ostr.writeEnum(adapter.LaneBoundary.LONGDASHEDLINE.value(), 8);
+            case 0:
+            {
+                return BaseItem._iceD_getId(this, in, current);
+            }
+            case 1:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+            }
+            case 2:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+            }
+            case 3:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 4:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+            }
+            case 5:
+            {
+                return _iceD_setColor(this, in, current);
+            }
+            case 6:
+            {
+                return _iceD_setMaterial(this, in, current);
+            }
+            case 7:
+            {
+                return _iceD_setType(this, in, current);
+            }
         }
-        else
-        {
-            ostr.writeEnum(v.value(), 8);
-        }
-    }
 
-    public static LaneBoundary ice_read(com.zeroc.Ice.InputStream istr)
-    {
-        int v = istr.readEnum(8);
-        return validate(v);
+        assert(false);
+        throw new com.zeroc.Ice.OperationNotExistException(current.id, current.facet, current.operation);
     }
-
-    public static void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, java.util.Optional<LaneBoundary> v)
-    {
-        if(v != null && v.isPresent())
-        {
-            ice_write(ostr, tag, v.get());
-        }
-    }
-
-    public static void ice_write(com.zeroc.Ice.OutputStream ostr, int tag, LaneBoundary v)
-    {
-        if(ostr.writeOptional(tag, com.zeroc.Ice.OptionalFormat.Size))
-        {
-            ice_write(ostr, v);
-        }
-    }
-
-    public static java.util.Optional<LaneBoundary> ice_read(com.zeroc.Ice.InputStream istr, int tag)
-    {
-        if(istr.readOptional(tag, com.zeroc.Ice.OptionalFormat.Size))
-        {
-            return java.util.Optional.of(ice_read(istr));
-        }
-        else
-        {
-            return java.util.Optional.empty();
-        }
-    }
-
-    private static LaneBoundary validate(int v)
-    {
-        final LaneBoundary e = valueOf(v);
-        if(e == null)
-        {
-            throw new com.zeroc.Ice.MarshalException("enumerator value " + v + " is out of range");
-        }
-        return e;
-    }
-
-    private final int _value;
 }

@@ -30,7 +30,7 @@ public class Visualization {
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
         background.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        lanesNum = model.getRoadType().getHas_lanes().iterator().next();
+        lanesNum = model.getRoadType().getLanes_count().iterator().next();
         JPanel road = new RoadPanel(lanesNum * LANE_HEIGHT, model);
 
         int surroundingHeight = getSurroundingPanelHeight();
@@ -39,7 +39,7 @@ public class Visualization {
         JPanel surroundingDown = new SurroundingPanel(WIDTH, surroundingHeight, model, Model.Side.RIGHT);
 
         JPanel bottomBar = new BottomBar(WIDTH, BOTTOM_BAR_HEIGHT, model);
-        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT, LANE_DIST / 100, 5);
+        JPanel distanceMeter = new DistanceScale(WIDTH, DISTANCE_BAR_HEIGHT);
 
         background.add(surroundingUp);
         background.add(road);

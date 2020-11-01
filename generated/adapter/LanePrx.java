@@ -17,43 +17,6 @@ package adapter;
 
 public interface LanePrx extends BaseItemPrx
 {
-    default int getWidth()
-    {
-        return getWidth(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default int getWidth(java.util.Map<String, String> context)
-    {
-        return _iceI_getWidthAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getWidthAsync()
-    {
-        return _iceI_getWidthAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Integer> getWidthAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_getWidthAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_getWidthAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "getWidth", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     int ret;
-                     ret = istr.readInt();
-                     return ret;
-                 });
-        return f;
-    }
-
     default void setWidth(int width)
     {
         setWidth(width, com.zeroc.Ice.ObjectPrx.noExplicitContext);
@@ -86,6 +49,114 @@ public interface LanePrx extends BaseItemPrx
         com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setWidth", null, sync, null);
         f.invoke(false, context, null, ostr -> {
                      ostr.writeInt(iceP_width);
+                 }, null);
+        return f;
+    }
+
+    default void setLeftSideBoundary(String boundaryId)
+    {
+        setLeftSideBoundary(boundaryId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setLeftSideBoundary(String boundaryId, java.util.Map<String, String> context)
+    {
+        _iceI_setLeftSideBoundaryAsync(boundaryId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLeftSideBoundaryAsync(String boundaryId)
+    {
+        return _iceI_setLeftSideBoundaryAsync(boundaryId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLeftSideBoundaryAsync(String boundaryId, java.util.Map<String, String> context)
+    {
+        return _iceI_setLeftSideBoundaryAsync(boundaryId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_boundaryId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLeftSideBoundaryAsync(String iceP_boundaryId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLeftSideBoundary", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_boundaryId);
+                 }, null);
+        return f;
+    }
+
+    default void setRightSideBoundary(String boundaryId)
+    {
+        setRightSideBoundary(boundaryId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setRightSideBoundary(String boundaryId, java.util.Map<String, String> context)
+    {
+        _iceI_setRightSideBoundaryAsync(boundaryId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setRightSideBoundaryAsync(String boundaryId)
+    {
+        return _iceI_setRightSideBoundaryAsync(boundaryId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setRightSideBoundaryAsync(String boundaryId, java.util.Map<String, String> context)
+    {
+        return _iceI_setRightSideBoundaryAsync(boundaryId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_boundaryId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setRightSideBoundaryAsync(String iceP_boundaryId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setRightSideBoundary", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_boundaryId);
+                 }, null);
+        return f;
+    }
+
+    default void setRoad(String roadId)
+    {
+        setRoad(roadId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setRoad(String roadId, java.util.Map<String, String> context)
+    {
+        _iceI_setRoadAsync(roadId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setRoadAsync(String roadId)
+    {
+        return _iceI_setRoadAsync(roadId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setRoadAsync(String roadId, java.util.Map<String, String> context)
+    {
+        return _iceI_setRoadAsync(roadId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_roadId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setRoadAsync(String iceP_roadId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setRoad", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_roadId);
                  }, null);
         return f;
     }

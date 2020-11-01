@@ -17,10 +17,6 @@ package adapter;
 
 public interface Junction extends RoadPoint
 {
-    void setRoadIds(int[] roadIds, com.zeroc.Ice.Current current);
-
-    int[] getRoadsIds(com.zeroc.Ice.Current current);
-
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -47,56 +43,16 @@ public interface Junction extends RoadPoint
         return "::adapter::Junction";
     }
 
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setRoadIds(Junction obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        int[] iceP_roadIds;
-        iceP_roadIds = istr.readIntSeq();
-        inS.endReadParams();
-        obj.setRoadIds(iceP_roadIds, current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_getRoadsIds(Junction obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        int[] ret = obj.getRoadsIds(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeIntSeq(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
     /** @hidden */
     final static String[] _iceOps =
     {
         "getId",
-        "getRoadsIds",
-        "getX",
-        "getY",
         "ice_id",
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "setRoadIds",
-        "setX",
-        "setY"
+        "setLatitude",
+        "setLongitude"
     };
 
     /** @hidden */
@@ -118,43 +74,27 @@ public interface Junction extends RoadPoint
             }
             case 1:
             {
-                return _iceD_getRoadsIds(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 2:
             {
-                return RoadPoint._iceD_getX(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 3:
             {
-                return RoadPoint._iceD_getY(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return RoadPoint._iceD_setLatitude(this, in, current);
             }
             case 6:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
-            }
-            case 7:
-            {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
-            }
-            case 8:
-            {
-                return _iceD_setRoadIds(this, in, current);
-            }
-            case 9:
-            {
-                return RoadPoint._iceD_setX(this, in, current);
-            }
-            case 10:
-            {
-                return RoadPoint._iceD_setY(this, in, current);
+                return RoadPoint._iceD_setLongitude(this, in, current);
             }
         }
 
