@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-<<<<<<< HEAD
         "attrRefHeader",
         "attrMapType",
         "numEntries",

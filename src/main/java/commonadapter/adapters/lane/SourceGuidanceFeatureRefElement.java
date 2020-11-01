@@ -6,11 +6,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "guidanceFeatureType",
-        "baseLinkReference"
+        "baseLinkReference",
+        "roadGeoLineReference"
 })
 public class SourceGuidanceFeatureRefElement {
     @JsonProperty("guidanceFeatureType")
     public String guidanceFeatureType;
     @JsonProperty("baseLinkReference")
     public BaseLinkReference baseLinkReference;
+    @JsonProperty("roadGeoLineReference")
+    public RoadGeoLineReference roadGeoLineReference;
 }

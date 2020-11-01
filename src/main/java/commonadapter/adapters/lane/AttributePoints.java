@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "data"
 })
-public class SourceGuidanceFeatureReference {
+public class AttributePoints {
     @JsonProperty("data")
-    public List<SourceGuidanceFeatureRefElement> data;
+    public List<AttributePointsElement> data;
 }

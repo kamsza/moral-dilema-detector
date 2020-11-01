@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "attrRefHeader"
-        "feature"
+        "attrRefHeader",
+        "feature",
         "attrValList"
 })
 public class MapAttrElementFeatures {

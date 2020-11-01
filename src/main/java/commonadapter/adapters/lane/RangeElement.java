@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "data"
+        "type"
 })
-public class SourceGuidanceFeatureReference {
-    @JsonProperty("data")
-    public List<SourceGuidanceFeatureRefElement> data;
+public class RangeElement {
+    @JsonProperty("type")
+    public String type;
 }

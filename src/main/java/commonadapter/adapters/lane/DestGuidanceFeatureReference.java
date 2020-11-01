@@ -9,5 +9,5 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class DestGuidanceFeatureReference {
     @JsonProperty("data")
-    public List<DestGuidanceFeatureRef> data;
+    public List<DestGuidanceFeatureRefElement> data;
 }

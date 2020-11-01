@@ -15,7 +15,7 @@ public class TypeRefAttrElement {
     @JsonProperty("numAttrCodes")
     public Integer numAttrCodes;
     @JsonProperty("attributeTypeCodes")
-    public AttributeTypesCodes attributeTypesCodes;
+    public AttributeTypeCodes attributeTypesCodes;
     @JsonProperty("referenceType")
     public String referenceType;
     @JsonProperty("attrTypeOffset")

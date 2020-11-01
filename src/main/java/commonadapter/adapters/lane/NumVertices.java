@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "data"
+        "numVx4"
 })
-public class SourceGuidanceFeatureReference {
-    @JsonProperty("data")
-    public List<SourceGuidanceFeatureRefElement> data;
+public class NumVertices {
+    @JsonProperty("numVx4")
+    public Integer numVx4;
 }

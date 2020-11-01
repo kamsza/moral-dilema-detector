@@ -13,7 +13,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "numLaneConnectivityElements",
         "laneConnectivityElements",
         "hasLaneBoundaries",
-        "boundaryElements"
+        "boundaryElements",
+        "hasLaneGroupId",
+        "laneGroupId",
+        "numLanes",
+        "ranges",
+        "numVertices",
+        "attributePoints"
 })
 public class ValueObjectChoice {
     @JsonProperty("startPosition")
@@ -34,4 +40,16 @@ public class ValueObjectChoice {
     public Boolean hasLaneBoundaries;
     @JsonProperty("boundaryElements")
     public BoundaryElements boundaryElements;
+    @JsonProperty("hasLaneGroupId")
+    public Boolean hasLaneGroupId;
+    @JsonProperty("laneGroupId")
+    public Integer laneGroupId;
+    @JsonProperty("numLanes")
+    public Integer numLanes;
+    @JsonProperty("ranges")
+    public Ranges ranges;
+    @JsonProperty("numVertices")
+    public NumVertices numVertices;
+    @JsonProperty("attributePoints")
+    public AttributePoints attributePoints ;
 }
