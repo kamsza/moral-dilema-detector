@@ -30,11 +30,18 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
+    }
+
+    public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
+        scenarioModel = new ScenarioFactory(scenarioModel)
+                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
+//                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
+        return scenarioModel;
     }
 
     public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, FileNotFoundException {
@@ -52,21 +59,13 @@ public class Main {
                 .addModule(new KilledModule(factory))
                 .addModule(new LightlyInjuredModule(factory))
                 .addModule(new SeverelyInjuredModule(factory))
-//                .addModule(new InjuredModule(factory))
+                .addModule(new InjuredModule(factory))
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
-//
-//            scenarioModel = new ScenarioFactory(scenarioModel)
-//                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
 
-//            scenarioModel = new ScenarioFactory(scenarioModel)
-//                    .carApproaching().getModel();
-//            new ModelBuilder(scenarioModel)
-//                    .addVehicles(new int[]{1}, new double[]{1.0});
-//;
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
 
@@ -80,6 +79,7 @@ public class Main {
             IConsequenceContainer consequenceContainer = new ConsequenceContainer(factory);
             CollisionConsequencePredictor collisionConsequencePredictor =
                     new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
+
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
             Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
             System.out.println("Collided entities:");
@@ -96,16 +96,16 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
+            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
-//          scenarioModel.export();
+
             try {
                 factory.saveOwlOntology();
             } catch (OWLOntologyStorageException ignored) {
-
             }
-
         }
     }
+
 
     public static void testQuery(OWLOntology ontology) throws SQWRLException, SWRLParseException {
 

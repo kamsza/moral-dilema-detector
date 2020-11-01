@@ -1,5 +1,5 @@
 
-package waymoadapter.model.lidar;
+package commonadapter.adapters.waymo.lidardata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "accelY"
 })
 public class Metadata {
-
     @JsonProperty("speedX")
     public Double speedX;
     @JsonProperty("speedY")

@@ -34,9 +34,6 @@ public class RigidBody {
         setPreviousPosition(new Vector2(initialPosition));
     }
 
-
-
-
     private Double width = 0.0;
     private Double length = 0.0;
 
@@ -53,8 +50,6 @@ public class RigidBody {
         this.previousPosition.y = position.y; // to not point to the same reference
         this.position = position;
     }
-
-
 
     public void update(double deltaTime) {
         updatePosition(deltaTime);
@@ -75,7 +70,6 @@ public class RigidBody {
 
     public void setPreviousPosition(Vector2 previousPosition){
         this.previousPosition = previousPosition;
-
     }
 
     public void setSpeed(Vector2 speed) {
@@ -93,7 +87,6 @@ public class RigidBody {
     public void setLength(Double length) {
         this.length = length;
     }
-
 
     public Vector2 getPosition() {
         return position;

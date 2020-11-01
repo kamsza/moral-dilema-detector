@@ -64,10 +64,62 @@ public class BaseScenarioGenerator2 {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-//        addVehicles(model);
-//        addAnimals(model);
+        addVehicle(model);
+//        addPedestrian(model);
 
         return model;
+    }
+
+
+    private void addVehicle(Model model) {
+        Vehicle vehicle1;
+        float entitySize;
+
+        vehicle1 = factory.createTruck(ObjectNamer.getName("vehicle"));
+        SizeManager sizeManager = model.getSizeManager();
+        entitySize = sizeManager.getLength("truck");
+
+        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+
+        Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
+
+        model.getScenario().addHas_vehicle(vehicle1);
+
+        vehicle1.addVehicle_has_driver(driver1);
+        vehicle1.addVehicle_has_location(model.getRoadType());
+
+        float vehicleSpeed = (float) (0);
+
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+
+
+        vehicle1.addDistance(3000F);
+        vehicle1.addLength(500F);
+        vehicle1.addWidth(200F);
+
+
+        vehicle1.addSpeedX(vehicleSpeed);
+        vehicle1.addSpeedY(0F);
+        vehicle1.addAccelerationY(0F);
+        vehicle1.addAccelerationX(0F);
+        vehicle1.addValueInDollars(1000000F);
+
+        model.getVehicles().get(lane).add(vehicle1);
+
+    }
+
+    private void addPedestrian(Model model) {
+        Person person = factory.createPerson(ObjectNamer.getName("person"));
+        person.addSpeedY(0F);
+        person.addSpeedX(0F);
+        person.addAccelerationX(0F);
+        person.addAccelerationY(0F);
+        person.addWidth(50F);
+        person.addLength(50F);
+        person.addDistance(3000F);
+//        person.addValueInDollars(10000F);
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        model.getEntities().get(lane).add(person);
     }
 
     private void addEnvData(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -246,6 +298,7 @@ public class BaseScenarioGenerator2 {
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
         vehicle.addWidth(sizeManager.getWidth("car"));
+        vehicle.addValueInDollars(10000F);
 
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
@@ -270,6 +323,7 @@ public class BaseScenarioGenerator2 {
 
         vehicle1.addVehicle_has_driver(driver1);
         vehicle1.addVehicle_has_location(model.getRoadType());
+        vehicle1.addValueInDollars(20000F);
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
 

@@ -28,6 +28,8 @@ public class SimulatorEngine {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
+        this.mainVehicle.setValueInDollars(RigidBodyMapper.getValueInDollars(model.getVehicle()));
+
         this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
         this.actors = RigidBodyMapper.createActors(model);
         collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);

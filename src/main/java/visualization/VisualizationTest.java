@@ -4,31 +4,27 @@ import generator.BaseScenarioGenerator;
 import generator.Model;
 import generator.ScenarioFactory;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 
 public class VisualizationTest {
 
-    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, OWLOntologyStorageException {
         BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
-        for(int i = 0; i < 1; i++) {
+        for (int i = 0; i < 200; i++) {
             Model baseModel = baseScenarioGenerator.generate();
 
             ScenarioFactory scenarioFactory = new ScenarioFactory(baseModel);
             Model model1 = scenarioFactory
-//                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
-//                    .obstacleOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
-                        .pedestrianOnCrossing(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
-//                    .pedestrianJaywalking(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+                    .animalOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+                    .obstacleOnRoad(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+                    .pedestrianOnCrossing(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
+                    .pedestrianJaywalking(new int[]{1, 2, 3}, new double[]{0.3, 0.1, 0.1})
                     .getModel();
+           // model1.export();
             Visualization.getImage(model1);
-            System.out.println(model1.getLanes().get(Model.Side.LEFT));
-            System.out.println(model1.getLanes().get(Model.Side.RIGHT));
-            System.out.println(model1.getLanes().get(Model.Side.CENTER));
-            System.out.println("\n\n\n");
-
-
-
         }
     }
 }

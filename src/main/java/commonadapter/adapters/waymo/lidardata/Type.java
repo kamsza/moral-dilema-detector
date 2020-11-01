@@ -1,4 +1,4 @@
-package waymoadapter.model.lidar;
+package commonadapter.adapters.waymo.lidardata;
 
 public enum Type {
     TYPE_PEDESTRIAN,

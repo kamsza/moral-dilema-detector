@@ -10,10 +10,17 @@ public class Actor{
 
     private RigidBody rigidBody;
     private String entityName;
+    private double valueInDollars = 0.0;
+
 
     public Actor(Entity entity, RigidBody rigidBody) {
         this.entityName = entity.getOwlIndividual().getIRI().toString();
         this.rigidBody = rigidBody;
+    }
+
+    public void setValueInDollars(double valueInDollars) {
+        System.out.println("SET TO " + valueInDollars);
+        this.valueInDollars = valueInDollars;
     }
 
     public RigidBody getRigidBody() {
@@ -26,6 +33,10 @@ public class Actor{
 
     public String getEntity() {
         return entityName;
+    }
+
+    public  double getValueInDollars(){
+        return valueInDollars;
     }
 
     @Override

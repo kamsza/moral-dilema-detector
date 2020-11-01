@@ -1,5 +1,5 @@
 
-package waymoadapter.model.lidar;
+package commonadapter.adapters.waymo.lidardata;
 
 import java.util.List;
 
