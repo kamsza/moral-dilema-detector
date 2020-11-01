@@ -1,4 +1,4 @@
-
+package commonadapter.adapters.lane;
 package commonadapter.adapters.lane;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -6,12 +6,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "attrRefHeader",
-        "values"
+        "numVx4"
 })
-public class AttrValList {
-    @JsonProperty("attrRefHeader")
-    public AttrRefHeader attrRefHeader;
-    @JsonProperty("values")
-    public Values values;
+public class StartPosition {
+    @JsonProperty("numVx4")
+    public Integer numVx4;
 }
