@@ -1,5 +1,5 @@
 
-package commonadapter.adapters.nds.lane;
+package commonadapter.adapters.lane;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

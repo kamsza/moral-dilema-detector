@@ -1,14 +1,15 @@
 
-package commonadapter.adapters.nds.lane;
+package commonadapter.adapters.lane;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "data"
+    "data"
 })
-public class MapAttrElement {
+public class Values4OneFeature {
     @JsonProperty("data")
-    public List<MapAttrElement> data;
+    public List<MapAttrElementFeatures> data;
+
 }
