@@ -14,36 +14,6 @@ public class JunctionImpl extends RoadPointImpl implements Junction {
     }
 
     @Override
-    public void setRoadIds(int[] roadIds, com.zeroc.Ice.Current current) {
-
-    }
-
-    @Override
-    public int[] getRoadsIds(com.zeroc.Ice.Current current) {
-        return new int[0];
-    }
-
-    @Override
-    public void setX(int x, com.zeroc.Ice.Current current) {
-
-    }
-
-    @Override
-    public int getX(com.zeroc.Ice.Current current) {
-        return 0;
-    }
-
-    @Override
-    public void setY(int y, com.zeroc.Ice.Current current) {
-
-    }
-
-    @Override
-    public int getY(com.zeroc.Ice.Current current) {
-        return 0;
-    }
-
-    @Override
     public String getId(com.zeroc.Ice.Current current) {
         return null;
     }
