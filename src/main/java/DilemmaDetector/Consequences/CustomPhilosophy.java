@@ -4,144 +4,56 @@ import java.util.HashMap;
 
 public class CustomPhilosophy {
     private String philosophyName;
-    private int humanLifeInsideMainVehicle;
-    private int humanLifeOutsideMainVehicle;
-    private int humanSevereInjuryInsideMainVehicle;
-    private int humanLightlyInjuryInsideMainVehicle;
-    private int humanSevereInjuryOutsideMainVehicle;
-    private int humanLightlyInjuryOutsideMainVehicle;
-    private int animalLife;
-    private int animalSevereInjury;
-    private int animalLightlyInjury;
-    private int materialValue;
-    private int breakingTheLaw;
+
+    private HashMap<String, Integer> parameters = new HashMap<>();
+
+    public static final String HUMAN_LIFE_INSIDE_MAIN_VEHICLE = "humanLifeInsideMainVehicle";
+    public static final String HUMAN_LIFE_OUTSIDE_MAIN_VEHICLE = "humanLifeOutsideMainVehicle";
+    public static final String HUMAN_SEVERE_INJURY_INSIDE_MAIN_VEHICLE = "humanSevereInjuryInsideMainVehicle";
+    public static final String HUMAN_SEVERE_INJURY_OUTSIDE_MAIN_VEHICLE = "humanSevereInjuryOutsideMainVehicle";
+    public static final String HUMAN_LIGHTLY_INJURY_INSIDE_MAIN_VEHICLE = "humanLightlyInjuryInsideMainVehicle";
+    public static final String HUMAN_LIGHTLY_INJURY_OUTSIDE_MAIN_VEHICLE = "humanLightlyInjuryOutsideMainVehicle";
+    public static final String ANIMAL_LIFE = "animalLife";
+    public static final String ANIMAL_SEVERE_INJURY = "animalSevereInjury";
+    public static final String ANIMAL_LIGHTLY_INJURY = "animalLightlyInjury";
+    public static final String MATERIAL_VALUE_TABLE = "materialValue";
+    public static final String BREAKING_THE_LAW_TABLE = "breakingTheLaw";
+
 
     public String getPhilosophyName() {
         return philosophyName;
     }
 
-    public int getHumanLifeInsideMainVehicle() {
-        return humanLifeInsideMainVehicle;
-    }
-
-    public int getHumanLifeOutsideMainVehicle() {
-        return humanLifeOutsideMainVehicle;
-    }
-
-    public int getHumanSevereInjuryInsideMainVehicle() {
-        return humanSevereInjuryInsideMainVehicle;
-    }
-
-    public int getHumanLightlyInjuryInsideMainVehicle() {
-        return humanLightlyInjuryInsideMainVehicle;
-    }
-
-    public int getHumanSevereInjuryOutsideMainVehicle() {
-        return humanSevereInjuryOutsideMainVehicle;
-    }
-
-    public int getHumanLightlyInjuryOutsideMainVehicle() {
-        return humanLightlyInjuryOutsideMainVehicle;
-    }
-
-    public int getAnimalLife() {
-        return animalLife;
-    }
-
-    public int getMaterialValue() {
-        return materialValue;
-    }
-
-    public int getBreakingTheLaw() {
-        return breakingTheLaw;
-    }
-
-    public void setAnimalSevereInjury(int animalSevereInjury) {
-        this.animalSevereInjury = animalSevereInjury;
-    }
-
-    public void setAnimalLightlyInjury(int animalLightlyInjury) {
-        this.animalLightlyInjury = animalLightlyInjury;
-    }
-
-    public int getAnimalSevereInjury() {
-        return animalSevereInjury;
-    }
-
-    public int getAnimalLightlyInjury() {
-        return animalLightlyInjury;
+    public HashMap<String, Integer> getParameters() {
+        return parameters;
     }
 
     public void setPhilosophyName(String philosophyName) {
         this.philosophyName = philosophyName;
     }
 
-    public void setHumanLifeInsideMainVehicle(int humanLifeInsideMainVehicle) {
-        this.humanLifeInsideMainVehicle = humanLifeInsideMainVehicle;
-    }
-
-    public void setHumanLifeOutsideMainVehicle(int humanLifeOutsideMainVehicle) {
-        this.humanLifeOutsideMainVehicle = humanLifeOutsideMainVehicle;
-    }
-
-    public void setHumanSevereInjuryInsideMainVehicle(int humanSevereInjuryInsideMainVehicle) {
-        this.humanSevereInjuryInsideMainVehicle = humanSevereInjuryInsideMainVehicle;
-    }
-
-    public void setHumanLightlyInjuryInsideMainVehicle(int humanLightlyInjuryInsideMainVehicle) {
-        this.humanLightlyInjuryInsideMainVehicle = humanLightlyInjuryInsideMainVehicle;
-    }
-
-    public void setHumanSevereInjuryOutsideMainVehicle(int humanSevereInjuryOutsideMainVehicle) {
-        this.humanSevereInjuryOutsideMainVehicle = humanSevereInjuryOutsideMainVehicle;
-    }
-
-    public void setHumanLightlyInjuryOutsideMainVehicle(int humanLightlyInjuryOutsideMainVehicle) {
-        this.humanLightlyInjuryOutsideMainVehicle = humanLightlyInjuryOutsideMainVehicle;
-    }
-
-    public void setAnimalLife(int animalLife) {
-        this.animalLife = animalLife;
-    }
-
-    public void setMaterialValue(int materialValue) {
-        this.materialValue = materialValue;
-    }
-
-    public void setBreakingTheLaw(int breakingTheLaw) {
-        this.breakingTheLaw = breakingTheLaw;
-    }
-
 
     public void setParametersFromHashMap(HashMap<String, Integer> tableValues) {
-        this.humanLifeInsideMainVehicle = tableValues.get("Human life inside main vehicle");
-        this.humanLifeOutsideMainVehicle = tableValues.get("Human life inside main vehicle");
-        this.humanSevereInjuryInsideMainVehicle = tableValues.get("Human severe injury inside main vehicle");
-        this.humanSevereInjuryOutsideMainVehicle = tableValues.get("Human severe injury outside main vehicle");
-        this.humanLightlyInjuryInsideMainVehicle = tableValues.get("Human lightly injury inside main vehicle");
-        this.humanLightlyInjuryOutsideMainVehicle = tableValues.get("Human lightly injury outside main vehicle");
-        this.animalLife = tableValues.get("Animal life");
-        this.animalSevereInjury = tableValues.get("Animal severe injury");
-        this.animalLightlyInjury = tableValues.get("Animal lightly injury");
-        this.materialValue = tableValues.get("Material damages per 1000$");
-        this.breakingTheLaw = tableValues.get("Breaking the law");
+        parameters.put(HUMAN_LIFE_INSIDE_MAIN_VEHICLE, tableValues.get("Human life inside main vehicle"));
+        parameters.put(HUMAN_LIFE_OUTSIDE_MAIN_VEHICLE, tableValues.get("Human life outside main vehicle"));
+        parameters.put(HUMAN_SEVERE_INJURY_INSIDE_MAIN_VEHICLE, tableValues.get("Human severe injury inside main vehicle"));
+        parameters.put(HUMAN_SEVERE_INJURY_OUTSIDE_MAIN_VEHICLE, tableValues.get("Human severe injury outside main vehicle"));
+        parameters.put(HUMAN_LIGHTLY_INJURY_INSIDE_MAIN_VEHICLE, tableValues.get("Human lightly injury inside main vehicle"));
+        parameters.put(HUMAN_LIGHTLY_INJURY_OUTSIDE_MAIN_VEHICLE, tableValues.get("Human lightly injury outside main vehicle"));
+        parameters.put(ANIMAL_LIFE, tableValues.get("Animal life"));
+        parameters.put(ANIMAL_SEVERE_INJURY, tableValues.get("Animal severe injury"));
+        parameters.put(ANIMAL_LIGHTLY_INJURY, tableValues.get("Animal lightly injury"));
+        parameters.put(MATERIAL_VALUE_TABLE, tableValues.get("Material damages per 1000$"));
+        parameters.put(BREAKING_THE_LAW_TABLE, tableValues.get("Breaking the law"));
     }
+
 
     @Override
     public String toString() {
         return "CustomPhilosophy{" +
                 "philosophyName='" + philosophyName + '\'' +
-                ", humanLifeInsideMainVehicle=" + humanLifeInsideMainVehicle +
-                ", humanLifeOutsideMainVehicle=" + humanLifeOutsideMainVehicle +
-                ", humanSevereInjuryInsideMainVehicle=" + humanSevereInjuryInsideMainVehicle +
-                ", humanLightlyInjuryInsideMainVehicle=" + humanLightlyInjuryInsideMainVehicle +
-                ", humanSevereInjuryOutsideMainVehicle=" + humanSevereInjuryOutsideMainVehicle +
-                ", humanLightlyInjuryOutsideMainVehicle=" + humanLightlyInjuryOutsideMainVehicle +
-                ", animalLife=" + animalLife +
-                ", animalSevereInjury=" + animalSevereInjury +
-                ", animalLightlyInjury=" + animalLightlyInjury +
-                ", materialValue=" + materialValue +
-                ", breakingTheLaw=" + breakingTheLaw +
+                ", parameters=" + parameters +
                 '}';
     }
+
 }

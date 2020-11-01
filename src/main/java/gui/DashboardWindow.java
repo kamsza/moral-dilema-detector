@@ -1,11 +1,18 @@
 package gui;
 
+import DilemmaDetector.Consequences.ConsequenceContainer;
 import DilemmaDetector.Consequences.CustomPhilosophy;
-import DilemmaDetector.Consequences.DecisionCostCalculator;
+import DilemmaDetector.Consequences.DecisionCostEvaluator;
+import DilemmaDetector.Consequences.IConsequenceContainer;
+import DilemmaDetector.Simulator.Actor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import gui.logic.FullSimulation;
-import gui.logic.ReturnContainer;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import generator.Model;
+import gui.logic.BusinessLogic;
+
+import org.apache.commons.lang3.StringUtils;
+import project.Decision;
+import project.MyFactory;
+import visualization.Visualization;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,6 +41,7 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
     private JButton jButtonAddCustomPhilosophy;
     private JComboBox jComboBoxCustomPhilosophies;
     private JButton jButtonCalculate;
+    private JLabel jLabelBestDecision;
 
     private JPanel jPanelContainer;
     private JScrollPane jScrollPaneMain;
@@ -45,14 +53,22 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
     private List<String> possibleScenariosList = new ArrayList<String>(Arrays.asList("Simple scenario",
             "Scenario with animals",
             "Scenario with crosswalk"));
-    private int IMAGE_WIDTH = 1000;
+    private int IMAGE_WIDTH = 800;
     private int IMAGE_HEIGHT = 400;
 
     //business logic variables
-    private ReturnContainer returnContainer = null;
+    private Map<Decision, Set<Actor>> collidedEntities;
+    private Model scenarioModel;
+    private MyFactory factory;
+    private String pictureName;
+    private IConsequenceContainer consequenceContainer;
+    private Map<String, Integer> decisionCosts = new HashMap<>();
 
 
     public DashboardWindow() {
+
+        factory = BusinessLogic.getFactory();
+
         setSize(1200, 800);
         setResizable(false);
         setTitle("Moral dilemma detector");
@@ -129,27 +145,17 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
 
         if (eventSource == jButtonGenerateScenario) {
             // różne rodzaje w zależności od comboboxa z rodzajami, na razie na sztywno
-
-            FullSimulation fullSimulation = new FullSimulation();
-
-            try {
-                returnContainer = fullSimulation.doEveryThing();
-            } catch (OWLOntologyCreationException owlOntologyCreationException) {
-                owlOntologyCreationException.printStackTrace();
-            } catch (NoSuchMethodException noSuchMethodException) {
-                noSuchMethodException.printStackTrace();
-            } catch (IllegalAccessException illegalAccessException) {
-                illegalAccessException.printStackTrace();
-            } catch (InvocationTargetException invocationTargetException) {
-                invocationTargetException.printStackTrace();
-            }
-
-            System.out.println(">>>>" + returnContainer.getPictureName());
-
+            scenarioModel = BusinessLogic.getModelFromGenerator(factory);
+            pictureName = Visualization.generateImageAndGetName(scenarioModel);
             jLabelImageScenario.setIcon(
                     getImageIcon(System.getProperty("user.dir")
                             + "\\src\\main\\resources\\vis_out\\"
-                            + returnContainer.getPictureName()));
+                            + pictureName));
+
+            consequenceContainer = new ConsequenceContainer(factory);
+            collidedEntities = BusinessLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+
+
         }
 
 
@@ -160,7 +166,7 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
 
 
         if (eventSource == jButtonCalculate) {
-            if (returnContainer == null) {
+            if (collidedEntities == null) {
                 WarningWindow warningWindow = new WarningWindow(this, "Load or generate scenario");
                 warningWindow.setVisible(true);
             } else {
@@ -169,6 +175,34 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
                 // TODO sprawdzić warunek czy nie null !!!
                 CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
                 System.out.println(philosophyName);
+                System.out.println(customPhilosophy);
+
+                DecisionCostEvaluator decisionCostEvaluator =
+                        new DecisionCostEvaluator(consequenceContainer, factory, customPhilosophy);
+
+                for(Decision decision : collidedEntities.keySet())
+                {
+                    decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostEvaluator.getSummarizedCostForDecision(decision));
+                }
+
+                String bestDecision = BusinessLogic.getOptimumDecision(decisionCosts);;
+
+                jLabelBestDecision = new JLabel("Best decision: " + bestDecision);
+                jLabelBestDecision.setBounds(10, 530, 200, 30);
+                add(jLabelBestDecision);
+                //                for(Decision decision: decisionCosts.keySet())
+//                {
+//                    System.out.println("<<<<");
+//                    System.out.println(decision.getHas_action().toString());
+//                    System.ou1t.println(decision.getOwlIndividual().getIRI().toString());
+//                    System.out.println(decision.getOwlIndividual().toString());
+//                    System.out.println(decision.toString());
+//                    System.out.println(decisionCosts.get(decision));
+//                    System.out.println(getActionNameFromDecision(decision.toString()));
+//                    System.out.println("><<<");
+//
+//                }
+
 
 
 //                DecisionCostCalculator costCalculator = new DecisionCostCalculator(returnContainer.getConsequenceContainer(), factory);
@@ -239,4 +273,10 @@ public class DashboardWindow extends JFrame implements ActionListener, ItemListe
         return customPhilosophy;
     }
 
+    //potencjalnie do innej klasy, ale potrzeba też konsultacji jak będziemy to rozwiazywać
+    private String getActionNameFromDecision(String decisionString)
+    {
+        String tmp = StringUtils.substringAfter(decisionString,"has_action: _");
+        return StringUtils.substringBefore(tmp,";");
+    }
 }

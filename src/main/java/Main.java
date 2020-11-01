@@ -97,7 +97,7 @@ public class Main {
             }
 
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
-//            scenarioModel.export();
+//          scenarioModel.export();
             try {
                 factory.saveOwlOntology();
             } catch (OWLOntologyStorageException ignored) {
