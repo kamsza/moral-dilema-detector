@@ -1,17 +1,18 @@
-
 package commonadapter.adapters.nds.routing;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import java.util.List;
+import commonadapter.adapters.nds.routing.links.Link;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "data"
+        "numLinks",
+        "link"
 })
-public class AttributeList {
-    @JsonProperty("data")
-    public List<Attribute> data;
+public class Links {
+    @JsonProperty("numLinks")
+    public Integer numLinks;
+    @JsonProperty("link")
+    public Link link;
 }

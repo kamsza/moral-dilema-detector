@@ -1,5 +1,5 @@
 
-package commonadapter.adapters.nds.routing;
+package commonadapter.adapters.nds.routing.fixedAttributes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

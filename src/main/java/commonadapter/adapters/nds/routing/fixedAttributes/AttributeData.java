@@ -1,5 +1,5 @@
 
-package commonadapter.adapters.nds.routing;
+package commonadapter.adapters.nds.routing.fixedAttributes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "sharedAttr",
     "routingAttr"
 })
-public class Attribute {
+public class AttributeData {
     @JsonProperty("sharedAttr")
     public SharedAttr sharedAttr;
     @JsonProperty("routingAttr")

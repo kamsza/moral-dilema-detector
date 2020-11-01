@@ -1,5 +1,5 @@
 
-package commonadapter.adapters.nds.routing;
+package commonadapter.adapters.nds.routing.fixedAttributes;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,7 +24,6 @@ public class SharedAttr {
     public String linkType;
     @JsonProperty("travelDirection")
     public String travelDirection;
-
     @JsonProperty("ferry")
     public Boolean ferry;
     @JsonProperty("tunnel")
