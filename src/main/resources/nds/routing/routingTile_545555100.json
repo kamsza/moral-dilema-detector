@@ -1,0 +1,227 @@
+{
+  "coordWidth": 11,
+  "header": {
+    "contentMask": {
+      "hasFixedRoadAttributeSetList": true,
+      "hasSimpleIntersectionList": true,
+      "hasLinkList": true,
+      "hasRouteUpLinkList": false,
+      "hasRouteDownLinkList": false,
+      "hasLinkToTileList": false,
+      "hasLinkIdRangeList": false,
+      "hasSimpleIntersectionIdRangeList": false,
+      "hasAttributeMaps": false,
+      "hasExternalTileIdList": false
+    },
+    "fixedRoadAttributeSetListOffset": 14,
+    "simpleIntersectionOffset": 21,
+    "linksOffset": 52
+  },
+  "fixedRoadAttributeSetList": {
+    "numAttributeSets": 2,
+    "attributeList": {
+      "data": [
+        {
+          "sharedAttr": {
+            "priorityRoadClass": 0,
+            "linkType": "NO_SPECIAL",
+            "travelDirection": "IN_BOTH_DIRECTIONS",
+            "ferry": false,
+            "tunnel": false,
+            "bridge": false,
+            "toll": "IN_NO_DIRECTION",
+            "controlledAccess": true,
+            "serviceArea": false
+          },
+          "routingAttr": {
+            "functionalRoadClass": 0,
+            "urban": false,
+            "complexIntersection": false,
+            "pluralJunction": false,
+            "motorway": true
+          }
+        },
+        {
+          "sharedAttr": {
+            "priorityRoadClass": 0,
+            "linkType": "NO_SPECIAL",
+            "travelDirection": "IN_NEGATIVE_DIRECTION",
+            "ferry": false,
+            "tunnel": false,
+            "bridge": false,
+            "toll": "IN_NO_DIRECTION",
+            "controlledAccess": true,
+            "serviceArea": false
+          },
+          "routingAttr": {
+            "functionalRoadClass": 0,
+            "urban": false,
+            "complexIntersection": false,
+            "pluralJunction": false,
+            "motorway": true
+          }
+        }
+      ]
+    }
+  },
+  "simpleIntersection": {
+    "coordWidth": 11,
+    "numIntersections": 4,
+    "simpleIntersection": {
+      "data": [
+        {
+          "coordWidth": 11,
+          "position": {
+            "numBits": 11,
+            "dx": -934,
+            "dy": 150
+          },
+          "numLinks": 1,
+          "connectedLinks": {
+            "data": [
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": false,
+                    "linkId": 1
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "coordWidth": 11,
+          "position": {
+            "numBits": 11,
+            "dx": -744,
+            "dy": 33
+          },
+          "numLinks": 1,
+          "connectedLinks": {
+            "data": [
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": false,
+                    "linkId": 0
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "coordWidth": 11,
+          "position": {
+            "numBits": 11,
+            "dx": -864,
+            "dy": -112
+          },
+          "numLinks": 3,
+          "connectedLinks": {
+            "data": [
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "linkId": 0
+                  }
+                }
+              },
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": false,
+                    "linkId": 2
+                  }
+                }
+              },
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "linkId": 1
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "coordWidth": 11,
+          "position": {
+            "numBits": 11,
+            "dx": -852,
+            "dy": -220
+          },
+          "numLinks": 1,
+          "connectedLinks": {
+            "data": [
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "linkId": 2
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "links": {
+    "numLinks": 3,
+    "link": {
+      "data": [
+        {
+          "length": 22306,
+          "attrSource": "INDEX_16",
+          "attrInfo": {
+            "attrSource": "INDEX_16",
+            "__objectChoice": 1
+          },
+          "averageSpeed": 59,
+          "startAngle": 0,
+          "endAngle": 45
+        },
+        {
+          "length": 31795,
+          "attrSource": "INDEX_16",
+          "attrInfo": {
+            "attrSource": "INDEX_16",
+            "__objectChoice": 0
+          },
+          "averageSpeed": 112,
+          "startAngle": 62,
+          "endAngle": 29
+        },
+        {
+          "length": 12906,
+          "attrSource": "INDEX_16",
+          "attrInfo": {
+            "attrSource": "INDEX_16",
+            "__objectChoice": 0
+          },
+          "averageSpeed": 111,
+          "startAngle": 63,
+          "endAngle": 30
+        }
+      ]
+    }
+  }
+}

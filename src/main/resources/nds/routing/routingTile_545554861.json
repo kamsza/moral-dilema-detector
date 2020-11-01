@@ -1,0 +1,27 @@
+{
+  "coordWidth": 11,
+  "header": {
+    "contentMask": {
+      "hasFixedRoadAttributeSetList": false,
+      "hasSimpleIntersectionList": false,
+      "hasLinkList": false,
+      "hasRouteUpLinkList": false,
+      "hasRouteDownLinkList": false,
+      "hasLinkToTileList": false,
+      "hasLinkIdRangeList": false,
+      "hasSimpleIntersectionIdRangeList": false,
+      "hasAttributeMaps": false,
+      "hasExternalTileIdList": true
+    },
+    "externalTileIdListOffset": 6
+  },
+  "externalTileIdList": {
+    "numTileIds": 2,
+    "tileId": {
+      "data": [
+        545554855,
+        545554860
+      ]
+    }
+  }
+}
