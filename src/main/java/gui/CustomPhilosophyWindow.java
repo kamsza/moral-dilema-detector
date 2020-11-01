@@ -23,6 +23,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
     private JButton jButtonDiscard;
     private JLabel jLabelPromptToEnterName;
     private JTextField jTextField;
+    private DashboardWindow dashboardWindow;
 
     private String[] columnNames = {"Parameter", "Moral value", ""};
     private Object[][] data = {
@@ -47,13 +48,13 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
     };
 
 
-    public CustomPhilosophyWindow() {
+    public CustomPhilosophyWindow(DashboardWindow dashboardWindow) {
         setSize(430, 450);
         setResizable(false);
         setTitle("Moral dilemma detector");
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        this.dashboardWindow = dashboardWindow;
 
 
         jTable = new JTable(model);
@@ -105,7 +106,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         if (eventSource == jButtonSave) {
             String philosophyName = jTextField.getText();
 
-            //jeszcze sprawdzenie czy nazwy się nie powtarzają
+            //TODO jeszcze sprawdzenie czy nazwy się nie powtarzają
             if (StringUtils.isNotBlank(philosophyName)) {
                 CustomPhilosophy customPhilosophy = new CustomPhilosophy();
                 customPhilosophy.setPhilosophyName(philosophyName);
@@ -136,7 +137,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
-
+                dashboardWindow.updateCustomPhilosophiesList();
                 setVisible(false);
                 dispose();
 
