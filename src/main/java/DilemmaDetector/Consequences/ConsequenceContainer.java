@@ -1,5 +1,6 @@
 package DilemmaDetector.Consequences;
 
+import com.github.jsonldjava.utils.Obj;
 import generator.ObjectNamer;
 import project.*;
 
@@ -25,6 +26,29 @@ public class ConsequenceContainer implements IConsequenceContainer {
             saveHealthConsequence(decisionName, severelyInjured, ConsequenceType.SEVERELY_INJURED);
             saveHealthConsequence(decisionName, lightlyInjured, ConsequenceType.LIGHTLY_INJURED);
         }
+
+        for (String decisionName: materialConsequencesByDecisionMap.keySet()){
+            Set<Map.Entry<String, Double>> entries = materialConsequencesByDecisionMap.get(decisionName).entrySet();
+            Double sum = 0.0;
+            Material_consequence material_consequence = factory.createMaterial_consequence(ObjectNamer.getName("material_consequence"));
+            for(Map.Entry<String, Double> entityConsequence : entries){
+                sum += entityConsequence.getValue();
+                Entity entity = factory.getEntity(entityConsequence.getKey());
+                material_consequence.addMaterial_consequence_to(entity);
+            }
+            Decision decision = factory.getDecision(decisionName);
+            decision.addHas_consequence(material_consequence);
+            material_consequence.addHas_material_value(sum.floatValue());
+        }
+    }
+
+    private void saveMaterialConsequence(String decisionName, String entityName, Double materialValue){
+        Material_consequence material_consequence = factory.createMaterial_consequence(ObjectNamer.getName("material_consequence"));
+        material_consequence.addHas_material_value(materialValue.floatValue());
+        Decision decision = factory.getDecision(decisionName);
+        decision.addHas_consequence(material_consequence);
+        Entity entity = factory.getEntity(entityName);
+        material_consequence.addMaterial_consequence_to(entity);
     }
 
     private void saveHealthConsequence(String decisionName, Health_consequence consequence, ConsequenceType consequenceType){
@@ -65,8 +89,13 @@ public class ConsequenceContainer implements IConsequenceContainer {
 
     @Override
     public void addMaterialConsequence(Decision decision, String damagedEntityName, double value) {
-        if (materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).get(damagedEntityName) < value)
+        addNewDecision(decision);
+        if (materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).get(damagedEntityName) == null){
             materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).put(damagedEntityName, value);
+        }
+        else if( materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).get(damagedEntityName) < value){
+            materialConsequencesByDecisionMap.get(decision.getOwlIndividual().getIRI().toString()).put(damagedEntityName, value);
+        }
     }
 
     @Override
