@@ -1,7 +1,4 @@
-import DilemmaDetector.Simulator.Vector2;
 import generator.Model;
-import generator.ObjectNamer;
-import generator.RandomPositioner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -16,26 +13,30 @@ public class ScenarioReader {
     private OWLOntologyManager ontologyManager;
     private OWLOntology ontology;
     private MyFactory factory;
-    public static final String name = "http://www.w3.org/2003/11/";
+    public static final String INITIAL_NAME = "http://www.w3.org/2003/11/";
 
     public ScenarioReader() throws OWLOntologyCreationException {
         this.ontologyManager = OWLManager.createOWLOntologyManager();
         this.ontology = this.ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
-        this.factory = factory = new MyFactory(ontology);
+        this.factory = new MyFactory(ontology);
     }
 
+    public Model getModel(int scenarioNumber) {
+        Scenario scenario = getScenarioFromOntology(scenarioNumber);
+        if (scenario == null){
+            throw new IllegalArgumentException("No scenario with number " + scenarioNumber);
+        }
 
-    public Model getModel(int number ) {
-        Scenario scenario = factory.getScenario(name + String.valueOf(number) + "_scenario");
-        Weather weather = factory.getWeather(name + String.valueOf(number) + "_weather");
-        Time time = factory.getTime(name + String.valueOf(number) + "_time");
-        Road_type roadType = factory.getRoad_type(name + String.valueOf(number) + "_road_type");
-        Vehicle vehicle = factory.getVehicle(name + String.valueOf(number) + "_vehicle_main");
-        Driver driver = factory.getDriver(name + String.valueOf(number) + "_driver");
+        Weather weather = getWeatherFromOntology(scenarioNumber);
+        Time time = getTimeFromOntology(scenarioNumber);
+        Road_type roadType = getRoadTypeFromOntology(scenarioNumber);
+        Vehicle mainVehicle = getVehicleFromOntology(scenarioNumber);
+        Driver driver = getDriverFromOntology(scenarioNumber);
 
         ArrayList<Passenger> passengers = new ArrayList<>();
+        Map<Model.Side, ArrayList<Surrounding>> surrounding = getSurroundingFromScenario(scenario);
+
         Map<Model.Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
-        Map<Model.Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
         Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
         Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
@@ -54,7 +55,7 @@ public class ScenarioReader {
         rightLanesCount = lanesCount - leftLanesCount;
 
 
-        Lane lane_0 = factory.getLane(name + String.valueOf(number) + "_lane_0");
+        Lane lane_0 = getLane0FromOntology(scenarioNumber);
         entities.put(lane_0, new ArrayList<Living_entity>() {
         });
         objects.put(lane_0, new ArrayList<Non_living_entity>() {
@@ -69,8 +70,7 @@ public class ScenarioReader {
 
         TreeMap<Integer, Lane> lanes_right = new TreeMap<>();
         for (int i = 1; i <= rightLanesCount; i++) {
-            Lane lane = factory.getLane(name + String.valueOf(number) + "_lane_right_" + i);
-//            Lane lane = factory.createLane(ObjectNamer.getName("lane_right_" + i));
+            Lane lane = getLaneRightFromOntology(scenarioNumber, i);
             lanes_right.put(i, lane);
             entities.put(lane, new ArrayList<Living_entity>() {
             });
@@ -84,7 +84,7 @@ public class ScenarioReader {
         // left lanes
         TreeMap<Integer, Lane> lanes_left = new TreeMap<>();
         for (int i = 1; i <= leftLanesCount; i++) {
-            Lane lane = factory.getLane(name + String.valueOf(number) + "_lane_left_" + i);
+            Lane lane = getLaneLeftFromOntology(scenarioNumber, i);
             lanes_left.put(i, lane);
             entities.put(lane, new ArrayList<Living_entity>() {
             });
@@ -98,14 +98,58 @@ public class ScenarioReader {
         for (Vehicle v : scenario.getHas_vehicle()) {
             if (!v.getOwlIndividual().getIRI().toString().contains("vehicle_main")) {
                 Lane lane = null;
-                for (Lane l : vehicle.getIs_on_lane()) {
+                for (Lane l : v.getIs_on_lane()) {
                     lane = l;
                 }
                 vehicles.get(lane).add(v);
             }
         }
 
+        Model model = new Model.Builder().
+                setScenario(scenario).
+                setWeather(weather).
+                setRoadType(roadType).
+                setLanes(lanes).
+                setTime(time).
+                setDriver(driver).
+                setVehicle(mainVehicle).
+                setPassengers(passengers).
+                setVehicles(vehicles).
+                setEntities(entities).
+                setObjects(objects).
+                setSurrounding(surrounding).build();
 
+        Visualization.getImage(model);
+
+        return model;
+    }
+
+    private Scenario getScenarioFromOntology(int number) {
+        return factory.getScenario(INITIAL_NAME + String.valueOf(number) + "_scenario");
+    }
+
+    private Weather getWeatherFromOntology(int number) {
+        return factory.getWeather(INITIAL_NAME + String.valueOf(number) + "_weather");
+    }
+
+    private Time getTimeFromOntology(int number) {
+        return factory.getTime(INITIAL_NAME + String.valueOf(number) + "_time");
+    }
+
+    private Road_type getRoadTypeFromOntology(int number) {
+        return factory.getRoad_type(INITIAL_NAME + String.valueOf(number) + "_road_type");
+    }
+
+    private Vehicle getVehicleFromOntology(int number) {
+        return factory.getVehicle(INITIAL_NAME + String.valueOf(number) + "_vehicle_main");
+    }
+
+    private Driver getDriverFromOntology(int number) {
+        return factory.getDriver(INITIAL_NAME + String.valueOf(number) + "_driver");
+    }
+
+    private Map<Model.Side, ArrayList<Surrounding>> getSurroundingFromScenario(Scenario scenario) {
+        Map<Model.Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
         ArrayList<Surrounding> left_surrounding = new ArrayList<>();
         ArrayList<Surrounding> right_surrounding = new ArrayList<>();
 
@@ -114,27 +158,24 @@ public class ScenarioReader {
 
         surrounding.put(Model.Side.LEFT, left_surrounding);
         surrounding.put(Model.Side.RIGHT, right_surrounding);
+        return surrounding;
+    }
 
-        Model model = new Model();
-        model.setScenario(scenario);
-        model.setWeather(weather);
-        model.setRoadType(roadType);
-        model.setLanes(lanes);
-        model.setTime(time);
-        model.setDriver(driver);
-        model.setVehicle(vehicle);
-        model.setPassengers(passengers);
-        model.setVehicles(vehicles);
-        model.setEntities(entities);
-        model.setObjects(objects);
-        model.setSurrounding(surrounding);
-        Visualization.getImage(model);
-        return model;
+    private Lane getLane0FromOntology(int number){
+        return factory.getLane(INITIAL_NAME + String.valueOf(number) + "_lane_0");
+    }
+
+    private Lane getLaneLeftFromOntology(int number, int laneNumber){
+        return factory.getLane(INITIAL_NAME +String.valueOf(number)+"_lane_left_"+laneNumber);
+    }
+
+    private Lane getLaneRightFromOntology(int number, int laneNumber){
+        return factory.getLane(INITIAL_NAME +String.valueOf(number)+"_lane_right_"+laneNumber);
     }
 
     public static void main(String[] args) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
-        scenarioReader.getModel(196);
+        scenarioReader.getModel(197);
     }
 
 

@@ -316,42 +316,5 @@ public class BaseScenarioGenerator2 {
         model.setDriver(driver);
         model.setPassengers(passengers);
         model.setVehicle(vehicle);
-
-        Vehicle vehicle1;
-        float entitySize;
-
-//        vehicle1 = factory.createTruck(ObjectNamer.getName("vehicle"));
-//        entitySize = sizeManager.getLength("truck");
-//
-//        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
-//        Lane vehicleLane = randomPositioner.getLane(model, laneNo);
-//
-//        Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
-//
-//        model.getScenario().addHas_vehicle(vehicle1);
-//
-//        vehicle1.addVehicle_has_driver(driver1);
-//        vehicle1.addVehicle_has_location(model.getRoadType());
-//        vehicle1.addValueInDollars(20000F);
-//
-//        float vehicleSpeed = (float) (50 + rand.nextInt(90));
-//
-//        if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
-//            vehicleSpeed *= -1;
-//        }
-//
-//        vehicle1.addDistance(2000F);
-//        vehicle1.addLength(500F);
-//        vehicle1.addWidth(200F);
-//
-//
-//        vehicle1.addSpeedX(0F);
-//        vehicle1.addSpeedY(0F);
-//        vehicle1.addAccelerationY(0F);
-//        vehicle1.addAccelerationX(0F);
-//
-//        model.getVehicles().get(vehicleLane).add(vehicle1);
-
-
     }
 }
