@@ -113,38 +113,9 @@ class ImageHandler {
     /**
      * Function exports JPanel as .png image file in format: vis__dd_MM_yyyy__HH_mm_ss
      * (where dd_MM_yyyy__HH_mm_ss is current date and time) to resources/vis_out directory
+     * @return filename with saved picture
      */
-    public static void saveImage(JPanel p) throws IOException {
-        BufferedImage img = new BufferedImage(p.getWidth(), p.getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = img.createGraphics();
-        p.paint(g2d);
-        g2d.dispose();
-        String currentDirectory = System.getProperty("user.dir");
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd_MM_yyyy__HH_mm_ss");
-        LocalDateTime now = LocalDateTime.now();
-        String currentTime = dtf.format(now);
-        String filename = "vis__" + currentTime + ".png";
-
-        String filePath = currentDirectory + "/src/main/resources/vis_out/" + filename;
-        int counter = 1;
-        while(Files.exists(Paths.get(filePath))) {
-            filename = "vis__" + currentTime + "_" + counter + ".png";
-            filePath = currentDirectory + "/src/main/resources/vis_out/" + filename;
-            counter++;
-        }
-
-        File newFile = new File(filePath);
-        newFile.mkdirs();
-        ImageIO.write(img, "png", newFile);
-    }
-
-    /**
-     * Function exports JPanel as .png image file in format: vis__dd_MM_yyyy__HH_mm_ss
-     * (where dd_MM_yyyy__HH_mm_ss is current date and time) to resources/vis_out directory
-     * @return saved picture name
-     */
-    public static String saveImageAndReturnName(JPanel p) throws IOException {
+    public static String saveImage(JPanel p) throws IOException {
         BufferedImage img = new BufferedImage(p.getWidth(), p.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = img.createGraphics();
         p.paint(g2d);
@@ -169,4 +140,5 @@ class ImageHandler {
         ImageIO.write(img, "png", newFile);
         return filename;
     }
+
 }

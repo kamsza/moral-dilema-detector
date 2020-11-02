@@ -7,6 +7,8 @@ import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.BaseScenarioGenerator2;
 import generator.DecisionGenerator;
 import generator.Model;
+import org.apache.commons.lang3.StringUtils;
+import org.nfunk.jep.function.Str;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -17,12 +19,9 @@ import project.MyFactory;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class BusinessLogic {
+public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
@@ -80,6 +79,7 @@ public class BusinessLogic {
         return collidedEntities;
     }
 
+
     // optymalnie jechać cały nie wykonywać manewrów,
     // jeśli konieczny to preferowane są w prawo ze względu na ruch prawostronny
     public static String getOptimumDecision(Map<String, Integer> decisionCosts) {
@@ -99,20 +99,29 @@ public class BusinessLogic {
         if (decisionsWithMinimalCost.size() == 1) {
             return decisionsWithMinimalCost.get(0);
         }
-        if (decisionsWithMinimalCost.contains("follow")) {
-            return "follow";
-        }
 
-        for (int i = 1; i < 10; i++) {
-            String tmpName = "change_lane_right_by_" + Integer.toString(i);
-            if (decisionsWithMinimalCost.contains(tmpName)) return tmpName;
-        }
-        for (int i = 1; i < 10; i++) {
-            String tmpName = "change_lane_left_by_" + Integer.toString(i);
-            if (decisionsWithMinimalCost.contains(tmpName)) return tmpName;
-        }
-        if (decisionsWithMinimalCost.contains("turn_right")) return "turn_right";
+        List<String> preferableOrderOfPatterns = List.of("follow",
+                "change_lane_right_by_", "change_lane_left_by_", "turn_right", "turn_left");
 
+        for (String pattern : preferableOrderOfPatterns) {
+            String decision = getDecisionThatSatisfyPattern(decisionsWithMinimalCost, pattern);
+            if (StringUtils.isNotBlank(decision)) {
+                return decision;
+            }
+        }
         return decisionsWithMinimalCost.get(0);
     }
+
+    public static String getDecisionThatSatisfyPattern(List<String> decisions, String pattern) {
+        return decisions.stream()
+                .filter(s -> {
+                    if (s.startsWith(pattern)) {
+                        return true;
+                    } else return false;
+                })
+                .sorted()
+                .findFirst()
+                .orElse(null);
+    }
+
 }
