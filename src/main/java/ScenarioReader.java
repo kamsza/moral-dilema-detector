@@ -13,7 +13,7 @@ public class ScenarioReader {
     private OWLOntologyManager ontologyManager;
     private OWLOntology ontology;
     private MyFactory factory;
-    public static final String INITIAL_NAME = "http://www.w3.org/2003/11/";
+    public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
 
     public ScenarioReader() throws OWLOntologyCreationException {
         this.ontologyManager = OWLManager.createOWLOntologyManager();
@@ -53,7 +53,6 @@ public class ScenarioReader {
             leftLanesCount = (int) iterator.next();
         }
         rightLanesCount = lanesCount - leftLanesCount;
-
 
         Lane lane_0 = getLane0FromOntology(scenarioNumber);
         entities.put(lane_0, new ArrayList<Living_entity>() {
@@ -125,27 +124,27 @@ public class ScenarioReader {
     }
 
     private Scenario getScenarioFromOntology(int number) {
-        return factory.getScenario(INITIAL_NAME + String.valueOf(number) + "_scenario");
+        return factory.getScenario(IRI_PREFIX + String.valueOf(number) + "_scenario");
     }
 
     private Weather getWeatherFromOntology(int number) {
-        return factory.getWeather(INITIAL_NAME + String.valueOf(number) + "_weather");
+        return factory.getWeather(IRI_PREFIX + String.valueOf(number) + "_weather");
     }
 
     private Time getTimeFromOntology(int number) {
-        return factory.getTime(INITIAL_NAME + String.valueOf(number) + "_time");
+        return factory.getTime(IRI_PREFIX + String.valueOf(number) + "_time");
     }
 
     private Road_type getRoadTypeFromOntology(int number) {
-        return factory.getRoad_type(INITIAL_NAME + String.valueOf(number) + "_road_type");
+        return factory.getRoad_type(IRI_PREFIX + String.valueOf(number) + "_road_type");
     }
 
     private Vehicle getVehicleFromOntology(int number) {
-        return factory.getVehicle(INITIAL_NAME + String.valueOf(number) + "_vehicle_main");
+        return factory.getVehicle(IRI_PREFIX + String.valueOf(number) + "_vehicle_main");
     }
 
     private Driver getDriverFromOntology(int number) {
-        return factory.getDriver(INITIAL_NAME + String.valueOf(number) + "_driver");
+        return factory.getDriver(IRI_PREFIX + String.valueOf(number) + "_driver");
     }
 
     private Map<Model.Side, ArrayList<Surrounding>> getSurroundingFromScenario(Scenario scenario) {
@@ -162,15 +161,15 @@ public class ScenarioReader {
     }
 
     private Lane getLane0FromOntology(int number){
-        return factory.getLane(INITIAL_NAME + String.valueOf(number) + "_lane_0");
+        return factory.getLane(IRI_PREFIX + String.valueOf(number) + "_lane_0");
     }
 
     private Lane getLaneLeftFromOntology(int number, int laneNumber){
-        return factory.getLane(INITIAL_NAME +String.valueOf(number)+"_lane_left_"+laneNumber);
+        return factory.getLane(IRI_PREFIX +String.valueOf(number)+"_lane_left_"+laneNumber);
     }
 
     private Lane getLaneRightFromOntology(int number, int laneNumber){
-        return factory.getLane(INITIAL_NAME +String.valueOf(number)+"_lane_right_"+laneNumber);
+        return factory.getLane(IRI_PREFIX +String.valueOf(number)+"_lane_right_"+laneNumber);
     }
 
     public static void main(String[] args) throws OWLOntologyCreationException {
