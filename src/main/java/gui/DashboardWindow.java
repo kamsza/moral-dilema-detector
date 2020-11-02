@@ -49,6 +49,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private int IMAGE_WIDTH = 820;
     private int IMAGE_HEIGHT = 400;
     private int CENTER_CUSTOM_PHILOSOPHIES = 100;
+    private String pathToCustomPhilosophies = "\\src\\main\\resources\\gui\\customPhilosophies\\";
+    private String pathToBlankScenario = "\\src\\main\\resources\\gui\\Blank_scenario.png";
+
 
     //business logic variables
     private Map<Decision, Set<Actor>> collidedEntities;
@@ -64,7 +67,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
         try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
         } catch (Exception e) {
-            System.err.println("Problem with UI Manager");;
+            System.err.println("Problem with UI Manager");
+            ;
         }
         factory = OntologyLogic.getFactory();
 
@@ -242,12 +246,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jComboBoxCustomPhilosophies.setModel(comboBoxModel);
     }
 
-    // poleci do innej klasy
     private ImageIcon getStartingImageIcon() {
-        return getImageIcon(System.getProperty("user.dir") + "\\src\\main\\resources\\gui\\Blank_scenario.png");
+        return getImageIcon(System.getProperty("user.dir") + pathToBlankScenario);
     }
 
-    // poleci do innej klasy
     private ImageIcon getImageIcon(String path) {
         BufferedImage img = null;
         try {
@@ -260,10 +262,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
         return new ImageIcon(dimg);
     }
 
-    //do innej klasy
     public List<String> getCustomPhilosophiesNames() {
         File f = new File(System.getProperty("user.dir") +
-                "\\src\\main\\resources\\gui\\customPhilosophies\\");
+                pathToCustomPhilosophies);
         List<String> customPhilosophiesNames = new ArrayList<>();
         for (String name : f.list()) {
             customPhilosophiesNames.add(StringUtils.substringBefore(name, ".json"));
@@ -276,12 +277,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
         return customPhilosophiesNames;
     }
 
-    //do innej klasy
     public CustomPhilosophy getCustomPhilosophyByName(String name) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(System.getProperty("user.dir") +
-                "\\src\\main\\resources\\gui\\customPhilosophies\\" +
+                pathToCustomPhilosophies +
                 name);
         CustomPhilosophy customPhilosophy = null;
         try {
@@ -292,14 +292,13 @@ public class DashboardWindow extends JFrame implements ActionListener {
         return customPhilosophy;
     }
 
-    //potencjalnie do innej klasy, ale potrzeba też konsultacji jak będziemy to rozwiazywać
     private String getActionNameFromDecision(String decisionString) {
         String tmp = StringUtils.substringAfter(decisionString, "has_action: _");
         return StringUtils.substringBefore(tmp, ";");
     }
 
-    private String changeSnakeCase(String s){
-        s = s.replaceAll("_"," ");
+    private String changeSnakeCase(String s) {
+        s = s.replaceAll("_", " ");
         return s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 

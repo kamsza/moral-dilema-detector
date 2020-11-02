@@ -100,10 +100,10 @@ public class OntologyLogic {
             return decisionsWithMinimalCost.get(0);
         }
 
-        List<String> preferableOrderOfPatterns = List.of("follow",
+        List<String> preferableOrderOfDecisions = List.of("follow",
                 "change_lane_right_by_", "change_lane_left_by_", "turn_right", "turn_left");
 
-        for (String pattern : preferableOrderOfPatterns) {
+        for (String pattern : preferableOrderOfDecisions) {
             String decision = getDecisionThatSatisfyPattern(decisionsWithMinimalCost, pattern);
             if (StringUtils.isNotBlank(decision)) {
                 return decision;
