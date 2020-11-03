@@ -3265,60 +3265,27 @@
     
 
 
-    <!-- LANE/d52f6b86-edd0-4f89-a460-100bf8fed155 -->
+    <!-- ROAD/f51e6322-6bcc-4d2b-8839-e38d99351d6b -->
 
-    <owl:NamedIndividual rdf:about="LANE/d52f6b86-edd0-4f89-a460-100bf8fed155">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    <owl:NamedIndividual rdf:about="ROAD/f51e6322-6bcc-4d2b-8839-e38d99351d6b">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="ROADATTRIBUTES/10ecde2f-10d0-4c88-b96f-31e6f54e0881"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- LANE/7d212e5c-619e-42dd-a385-93eac16f3b13 -->
+    <!-- ROADATTRIBUTES/10ecde2f-10d0-4c88-b96f-31e6f54e0881 -->
 
-    <owl:NamedIndividual rdf:about="LANE/7d212e5c-619e-42dd-a385-93eac16f3b13">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- PEDESTRIAN/bf5f2d7c-8963-4637-9e41-81013b41f931 -->
-
-    <owl:NamedIndividual rdf:about="PEDESTRIAN/bf5f2d7c-8963-4637-9e41-81013b41f931">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE/7d212e5c-619e-42dd-a385-93eac16f3b13"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.094022155</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.14411505</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">499.24704</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">41.20149</BDGSqwMbfBgw7pUJ8IOnJ1:length>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.25162393</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.09572044</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">76.34049</BDGSqwMbfBgw7pUJ8IOnJ1:width>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- SCENARIO/b7601c4c-61b2-4d7e-81c7-c4e3016c271e -->
-
-    <owl:NamedIndividual rdf:about="SCENARIO/b7601c4c-61b2-4d7e-81c7-c4e3016c271e">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
-        <webprotege:has_pedestrian rdf:resource="PEDESTRIAN/bf5f2d7c-8963-4637-9e41-81013b41f931"/>
-        <webprotege:has_vehicle rdf:resource="VEHICLE/88e8af8f-304f-4529-90a4-f5fae7ad901a"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- VEHICLE/88e8af8f-304f-4529-90a4-f5fae7ad901a -->
-
-    <owl:NamedIndividual rdf:about="VEHICLE/88e8af8f-304f-4529-90a4-f5fae7ad901a">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE/d52f6b86-edd0-4f89-a460-100bf8fed155"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.2642983E-13</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.275903E-12</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">67.0679</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">134.1358</BDGSqwMbfBgw7pUJ8IOnJ1:length>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.006889945</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.032628413</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">207.76724</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    <owl:NamedIndividual rdf:about="ROADATTRIBUTES/10ecde2f-10d0-4c88-b96f-31e6f54e0881">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
     </owl:NamedIndividual>
     
 
