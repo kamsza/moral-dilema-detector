@@ -43,6 +43,136 @@ public class Model {
     private RandomPositioner randomPositioner;
     private SizeManager sizeManager = new SizeManager();
 
+    public static final class Builder{
+        private Scenario scenario;
+
+        private int lanesCount;
+        private Weather weather;
+        private Time time;
+        private Road_type roadType;
+        private Driver driver;
+        private Vehicle vehicle;
+        private ArrayList<Passenger> passengers = new ArrayList<>();
+        private Map<Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
+        private Map<Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
+        private Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
+        private Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
+        private Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
+        private Map<Decision, Action> actionByDecision = new HashMap<>();
+
+        private RandomPositioner randomPositioner;
+        private SizeManager sizeManager = new SizeManager();
+
+
+        public Builder setScenario(Scenario scenario) {
+            this.scenario = scenario;
+            return this;
+        }
+
+        public Builder setLanesCount(int lanesCount) {
+            this.lanesCount = lanesCount;
+            return this;
+        }
+
+        public Builder setWeather(Weather weather) {
+            this.weather = weather;
+            return this;
+        }
+
+        public Builder setTime(Time time) {
+            this.time = time;
+            return this;
+        }
+
+        public Builder setRoadType(Road_type roadType) {
+            this.roadType = roadType;
+            return this;
+        }
+
+        public Builder setDriver(Driver driver) {
+            this.driver = driver;
+            return this;
+        }
+
+        public Builder setVehicle(Vehicle vehicle) {
+            this.vehicle = vehicle;
+            return this;
+        }
+
+        public Builder setPassengers(ArrayList<Passenger> passengers) {
+            this.passengers = passengers;
+            return this;
+        }
+
+        public Builder setSurrounding(Map<Side, ArrayList<Surrounding>> surrounding) {
+            this.surrounding = surrounding;
+            return this;
+        }
+
+        public Builder setLanes(Map<Side, TreeMap<Integer, Lane>> lanes) {
+            this.lanes = lanes;
+            return this;
+        }
+
+        public Builder setEntities(Map<Lane, ArrayList<Living_entity>> entities) {
+            this.entities = entities;
+            return this;
+        }
+
+        public Builder setObjects(Map<Lane, ArrayList<Non_living_entity>> objects) {
+            this.objects = objects;
+            return this;
+        }
+
+        public Builder setVehicles(Map<Lane, ArrayList<Vehicle>> vehicles) {
+            this.vehicles = vehicles;
+            return this;
+        }
+
+        public Builder setActionByDecision(Map<Decision, Action> actionByDecision) {
+            this.actionByDecision = actionByDecision;
+            return this;
+        }
+
+        public Builder  setRandomPositioner(RandomPositioner randomPositioner) {
+            this.randomPositioner = randomPositioner;
+            return this;
+        }
+
+        public Builder setSizeManager(SizeManager sizeManager) {
+            this.sizeManager = sizeManager;
+            return this;
+        }
+
+        public Model build(){
+            if (scenario == null){
+                throw new IllegalArgumentException("Scenario cannot be empty");
+            }
+
+            Model model = new Model();
+            model.scenario = this.scenario;
+
+            model.lanesCount = this.lanesCount;
+            model.weather = this.weather;
+            model.time = this.time;
+            model.roadType = this.roadType;
+            model.driver = this.driver;
+            model.vehicle = this.vehicle;
+            model.passengers = this.passengers;
+            model.surrounding = this.surrounding;
+            model.lanes = this.lanes;
+            model.entities = this.entities;
+            model.objects = this.objects;
+            model.vehicles = this.vehicles;
+            model.actionByDecision = this.actionByDecision;
+
+            model.randomPositioner = this.randomPositioner;
+            model.sizeManager = this.sizeManager;
+            return model;
+        }
+    }
+
+
     public Scenario getScenario() {
         return scenario;
     }
