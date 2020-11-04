@@ -101,7 +101,7 @@ public class Main {
             DecisionCostCalculator costCalculator = new DecisionCostCalculator(consequenceContainer, factory);
 
             for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()) {
-                System.out.println(entry.getKey().toString()+ "  " + costCalculator.calculateCostForDecision(entry.getKey()));
+                System.out.println(entry.getKey().toString()+ "  " + costCalculator.getSummarizedCostForDecision(entry.getKey()));
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 

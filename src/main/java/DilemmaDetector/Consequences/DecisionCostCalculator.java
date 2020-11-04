@@ -3,58 +3,73 @@ package DilemmaDetector.Consequences;
 import DilemmaDetector.ParameterizedPhilosophy;
 import project.*;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class DecisionCostCalculator {
     private IConsequenceContainer consequenceContainer;
     private MyFactory factory;
+    private CustomPhilosophy customPhilosophy;
+
+
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory, CustomPhilosophy customPhilosophy) {
+        this.consequenceContainer = consequenceContainer;
+        this.factory = factory;
+        this.customPhilosophy = customPhilosophy;
+    }
 
     public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
+        customPhilosophy = CustomPhilosophy.getSimplestPhilosophy();
     }
 
-    public int calculateCostForDecision(Decision decision){
-        int healthConsequenceResult = calculateCostOfHealthConsequence(decision);
-        int materialConsequenceResult = calculateCostOfMaterialConsequence(decision);
-        int result = healthConsequenceResult + materialConsequenceResult;
-        System.out.println("DECISION : " + decision.getOwlIndividual().getIRI().toString() + " | POINTS: " + result +
-                " | = (HEALTH: " + healthConsequenceResult+  " MATERIAL: " + materialConsequenceResult + ")");
+    public int getSummarizedCostForDecision(Decision decision) {
+        int result = 0;
+        result += calculateCostOfHealthConsequence(decision);
+        // dalej inne typy
+        System.out.println("DECISION : " + decision.getOwlIndividual().getIRI().toString() + " | POINTS: " + result);
         return result;
     }
 
-    private int calculateCostOfMaterialConsequence(Decision decision) {
-        int sum = 0;
-        Set<Map.Entry<String, Double>> consequences = consequenceContainer.getMaterialConsequences(decision);
-        for(Map.Entry<String, Double> consequence : consequences){
-            sum += (int) Math.round(consequence.getValue());
-        }
-        return (int) (sum * ParameterizedPhilosophy.materialValue * ParameterizedPhilosophy.materialFactor) / 1000 ;
-    }
 
-    private int calculateCostOfHealthConsequence(Decision decision){
+    private int calculateCostOfHealthConsequence(Decision decision) {
         int result = 0;
-        for(ConsequenceType consequenceType :
-                new ConsequenceType[]{
-                        ConsequenceType.KILLED,
-                        ConsequenceType.SEVERELY_INJURED,
-                        ConsequenceType.LIGHTLY_INJURED}) {
+        for (ConsequenceType consequenceType :
+                List.of(ConsequenceType.KILLED, ConsequenceType.SEVERELY_INJURED, ConsequenceType.LIGHTLY_INJURED)) {
             result += calculateCostOfHealthConsequenceOfType(decision, consequenceType);
         }
         return result;
     }
 
+    // TODO sprawdzenie czy paseżer z głównego pojazdu
     private int calculateCostOfHealthConsequenceOfType(Decision decision, ConsequenceType consequenceType) {
         int result = 0;
         List<String> victims = consequenceContainer.getHealthConsequencesOfType(decision, consequenceType);
         for (String victimName : victims) {
-            Living_entity livingEntity = factory.getLiving_entity(victimName);
-            if (factory.getHuman(victimName) != null ) {
-                result += ParameterizedPhilosophy.healthValue.get(consequenceType) * ParameterizedPhilosophy.humanLifeFactor;
+            HashMap<PhilosophyParameter, Integer> parameters = customPhilosophy.getParameters();
+            if (factory.getHuman(victimName) != null) {
+                switch (consequenceType) {
+                    case KILLED:
+                        result += parameters.get(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE);
+                        break;
+                    case SEVERELY_INJURED:
+                        result += parameters.get(PhilosophyParameter.HUMAN_SEVERE_INJURY_INSIDE_MAIN_VEHICLE);
+                        break;
+                    case LIGHTLY_INJURED:
+                        result += parameters.get(PhilosophyParameter.HUMAN_LIGHTLY_INJURY_INSIDE_MAIN_VEHICLE);
+                }
             } else if (factory.getAnimal(victimName) != null) {
-                result += ParameterizedPhilosophy.healthValue.get(consequenceType) * ParameterizedPhilosophy.animalLifeFactor;
+                switch (consequenceType) {
+                    case KILLED:
+                        result += parameters.get(PhilosophyParameter.ANIMAL_LIFE);
+                        break;
+                    case SEVERELY_INJURED:
+                        result += parameters.get(PhilosophyParameter.ANIMAL_SEVERE_INJURY);
+                        break;
+                    case LIGHTLY_INJURED:
+                        result += parameters.get(PhilosophyParameter.ANIMAL_LIGHTLY_INJURY);
+                }
             }
         }
         System.out.println(consequenceType.toString() + "  " + result);
