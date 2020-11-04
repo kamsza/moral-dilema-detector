@@ -36,21 +36,20 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JButton jButtonCalculate;
     private JLabel jLabelBestDecision;
     private JButton jButtonCustomPhilosophyInfo;
-
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
 
 
     /// CONST
-    private String NO_FILE_SELECTED = "No file selected";
-    private List<String> possibleScenariosList = new ArrayList<String>(Arrays.asList("Simple scenario",
+    private final String NO_FILE_SELECTED = "No file selected";
+    private final List<String> possibleScenariosList = new ArrayList<String>(Arrays.asList("Simple scenario",
             "Scenario with animals",
             "Scenario with crosswalk"));
-    private int IMAGE_WIDTH = 820;
-    private int IMAGE_HEIGHT = 400;
-    private int CENTER_CUSTOM_PHILOSOPHIES = 100;
-    private String pathToCustomPhilosophies = "\\src\\main\\resources\\gui\\customPhilosophies\\";
-    private String pathToBlankScenario = "\\src\\main\\resources\\gui\\Blank_scenario.png";
+    private final int IMAGE_WIDTH = 820;
+    private final int IMAGE_HEIGHT = 400;
+    private final int CENTER_CUSTOM_PHILOSOPHIES = 100;
+    private final String PATH_CUSTOM_PHILOSOPHIES = "\\src\\main\\resources\\gui\\customPhilosophies\\";
+    private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Blank_scenario.png";
 
 
     //business logic variables
@@ -68,7 +67,6 @@ public class DashboardWindow extends JFrame implements ActionListener {
             UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
         } catch (Exception e) {
             System.err.println("Problem with UI Manager");
-            ;
         }
         factory = OntologyLogic.getFactory();
 
@@ -247,7 +245,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private ImageIcon getStartingImageIcon() {
-        return getImageIcon(System.getProperty("user.dir") + pathToBlankScenario);
+        return getImageIcon(System.getProperty("user.dir") + PATH_BLANK_SCENARIO);
     }
 
     private ImageIcon getImageIcon(String path) {
@@ -264,7 +262,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
     public List<String> getCustomPhilosophiesNames() {
         File f = new File(System.getProperty("user.dir") +
-                pathToCustomPhilosophies);
+                PATH_CUSTOM_PHILOSOPHIES);
         List<String> customPhilosophiesNames = new ArrayList<>();
         for (String name : f.list()) {
             customPhilosophiesNames.add(StringUtils.substringBefore(name, ".json"));
@@ -281,7 +279,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(System.getProperty("user.dir") +
-                pathToCustomPhilosophies +
+                PATH_CUSTOM_PHILOSOPHIES +
                 name);
         CustomPhilosophy customPhilosophy = null;
         try {
