@@ -59,51 +59,52 @@ public class ModelBuilder {
 
         Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
         animal = fillDataProps(animal, distance, "animal", 10, 5);
-
+        animal.addValueInDollars(100F);
         model.getEntities().get(lane).add(animal);
 
         return this;
     }
 
     // CAR - CAR SCENARIOS
-    private Pair<Float, Vehicle> getRandomVehicle() {
+    private Pair<String, Vehicle> getRandomVehicle() {
         int r = ProbRand.randInt(new int[]{1, 2, 3}, new double[]{0.2, 0.1, 0.1});
         Vehicle vehicle;
-        float entitySize;
+        String name;
 
         switch (r) {
             case 1:
                 vehicle = factory.createTruck(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("truck");
+                name = "truck";
                 break;
             case 2:
                 vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("motorcycle");
+                name= "motorcycle";
                 break;
             case 3:
                 vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("bike");
+                name = "bike";
                 break;
             default:
                 vehicle = factory.createCar(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("car");
+                name = "car";
                 break;
         }
 
-        return new Pair(entitySize, vehicle);
+        return new Pair(name, vehicle);
     }
 
     public ModelBuilder addVehicles(int[] objectsNum, double[] prob) {
         int N = ProbRand.randInt(objectsNum, prob);
 
         for(int i = 0; i < N; i++) {
-            Pair<Float, Vehicle>  randomVehicle = getRandomVehicle();
-            float entitySize = randomVehicle.getKey();
+            Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
+            String name = randomVehicle.getKey();
             Vehicle vehicle = randomVehicle.getValue();
-
+            float entitySize = sizeManager.getLength(name);
             int laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             float distance = randomPositioner.getRandomDistance(laneNo, entitySize);
 
+            vehicle = fillDataProps(vehicle, distance, name);
             this.addVehicle(vehicle, laneNo, distance);
         }
         return this;
@@ -120,41 +121,27 @@ public class ModelBuilder {
         model.getRoadType().addLeft_lanes_count(lanesMovingLeft + 1);
         model.getRoadType().addRight_lanes_count(lanesMovingRight - 1);
 
-        Pair<Float, Vehicle>  randomVehicle = getRandomVehicle();
+        Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
+        String name = randomVehicle.getKey();
         Vehicle vehicle = randomVehicle.getValue();
 
         int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next() + 1;
         float distance = rand.nextFloat() * 200 - 100F;
+
+        vehicle = fillDataProps(vehicle, distance, name);
         return addVehicle(vehicle, laneNo, distance);
     }
 
     public ModelBuilder addApproachedVehicle() {
-        int r = ProbRand.randInt(new int[]{1, 2, 3, 4}, new double[]{0.6, 0.2, 0.1, 0.1});
-        Vehicle vehicle;
-        float entitySize;
-
-        switch(r) {
-            case 1:
-                vehicle = factory.createTruck(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("truck");
-                break;
-            case 2:
-                vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("motorbike");
-                break;
-            case 3:
-                vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("bike");
-                break;
-            default:
-                vehicle = factory.createCar(ObjectNamer.getName("vehicle"));
-                entitySize = sizeManager.getLength("car");
-                break;
-        }
+        Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
+        String name = randomVehicle.getKey();
+        Vehicle vehicle = randomVehicle.getValue();
+        float entitySize = sizeManager.getLength(name);
 
         int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
         float distance =  randomPositioner.getRandomDistance(laneNo, entitySize, false);
 
+        vehicle = fillDataProps(vehicle, distance, name);
         return addVehicle(vehicle, laneNo, distance);
     }
 
@@ -314,13 +301,13 @@ public class ModelBuilder {
     }
 
 
-    private <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
+    private  <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
         entity = fillDataProps(entity, distance, entityName);
         entity.addSpeedX((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
         entity.addSpeedY((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
         entity.addAccelerationX(0F);
         entity.addAccelerationY(0F);
-
+        entity.addValueInDollars(0F);
         return entity;
     }
 
@@ -328,7 +315,7 @@ public class ModelBuilder {
         entity.addDistance(distance);
         entity.addLength(sizeManager.getLength(entityName));
         entity.addWidth(sizeManager.getWidth(entityName));
-
+        entity.addValueInDollars(50000F);
         return entity;
     }
 

@@ -64,17 +64,20 @@ public class Visualization {
      * Static function that allows to generate .png image from Model object
      * file will be placed in resources/vis_out directory with name:
      * vis__dd_MM_yyyy__HH_mm_ss (where dd_MM_yyyy__HH_mm_ss is current date and time)
+     * @return filename with picture
      */
-    public static void getImage(Model model) {
+    public static String getImage(Model model) {
         Visualization vs = new Visualization(model);
-
+        String pictureName=null;
         vs.frame.pack();
         try {
-            ImageHandler.saveImage(vs.background);
+            pictureName = ImageHandler.saveImage(vs.background);
         } catch (IOException ex) {
             System.out.println("Unable to create visualization for: " + model.toString());
         } finally {
             vs.frame.dispose();
         }
+        return pictureName;
     }
+
 }

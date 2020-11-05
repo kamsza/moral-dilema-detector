@@ -30,7 +30,7 @@ public class ScenarioFactory {
     }
 
     public ScenarioFactory carOvertaking() {
-        modelBuilder.addOvertakenVehicle();
+//        modelBuilder.addOvertakenVehicle();
         return this;
     }
 
