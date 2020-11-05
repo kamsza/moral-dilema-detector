@@ -3,7 +3,7 @@ package generator;
 import java.util.HashMap;
 import java.util.Map;
 
-class ObjectNamer {
+public class ObjectNamer {
     static Map<String, Integer> idMap = new HashMap<>();
     static int scenario_id = -1;
 
@@ -21,7 +21,7 @@ class ObjectNamer {
      * @param name name of a variable
      * @return string with unique name, containing scenario id and unique identifier if needed
      */
-    static String getName(String name) {
+    public static String getName(String name) {
         if(name.equals("scenario"))
             scenario_id++;
 
