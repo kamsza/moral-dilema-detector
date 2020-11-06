@@ -72,8 +72,8 @@ public class Main {
                 .build();
 
         for(int i=0; i<1; i++) {
-//            Model scenarioModel = getModelFromGenerator(factory);
-            Model scenarioModel = getModelFromReader(factory,197);
+            Model scenarioModel = getModelFromGenerator(factory);
+//            Model scenarioModel = getModelFromReader(factory,197);
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
@@ -105,14 +105,14 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
-//            consequenceContainer.saveConsequencesToOntology();
+            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
-//            try {
-//                factory.saveOwlOntology();
-//            } catch (OWLOntologyStorageException ignored) {
-//            }
-//            Visualization.getImage(scenarioModel);
+            try {
+                factory.saveOwlOntology();
+            } catch (OWLOntologyStorageException ignored) {
+            }
+            Visualization.getImage(scenarioModel);
         }
     }
 
