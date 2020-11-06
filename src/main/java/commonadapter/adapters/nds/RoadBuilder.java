@@ -52,7 +52,7 @@ public class RoadBuilder {
         roadPrx = RoadPrx.checkedCast(basePrx);
 
         try {
-            RoutingTile routingTile = getDeserializedRoutingTile(jsonFilePath);
+           // RoutingTile routingTile = getDeserializedRoutingTile(jsonFilePath);
             LaneTile laneTile = getDeserializedLaneTile(jsonFilePath);
 //            routingTile
 //                    .fixedRoadAttributeSetList

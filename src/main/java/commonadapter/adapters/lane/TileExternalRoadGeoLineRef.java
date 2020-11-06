@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class TileExternalRoadGeoLineRef {
     @JsonProperty("positiveLinkDirection")
-    public Integer positiveLinkDirection;
+    public Boolean positiveLinkDirection;
     @JsonProperty("roadGeoLineId")
     public Integer roadGeoLineId;
 }

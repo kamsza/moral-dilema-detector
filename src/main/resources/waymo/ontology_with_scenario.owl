@@ -3265,31 +3265,6 @@
     
 
 
-    <!-- ROAD/f51e6322-6bcc-4d2b-8839-e38d99351d6b -->
-
-    <owl:NamedIndividual rdf:about="ROAD/f51e6322-6bcc-4d2b-8839-e38d99351d6b">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="ROADATTRIBUTES/10ecde2f-10d0-4c88-b96f-31e6f54e0881"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- ROADATTRIBUTES/10ecde2f-10d0-4c88-b96f-31e6f54e0881 -->
-
-    <owl:NamedIndividual rdf:about="ROADATTRIBUTES/10ecde2f-10d0-4c88-b96f-31e6f54e0881">
-        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#waymo_lane_0 -->
 
     <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#waymo_lane_0"/>

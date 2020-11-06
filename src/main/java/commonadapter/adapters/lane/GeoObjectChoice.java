@@ -7,11 +7,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "extTileIdx",
-        "tileExternalRoadGeoLineReference"
+        "tileExternalRoadGeoLineReference",
+        "positiveLinkDirection",
+        "roadGeoLineId"
 })
 public class GeoObjectChoice {
     @JsonProperty("extTileIdx")
     public Integer extTileIdx;
     @JsonProperty("tileExternalRoadGeoLineReference")
     public TileExternalRoadGeoLineRef tileExternalRoadGeoLineRef;
+    @JsonProperty("positiveLinkDirection")
+    public Boolean positiveLinkDirection;
+    @JsonProperty("roadGeoLineId")
+    public Integer roadGeoLineId;
 }

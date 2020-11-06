@@ -16,5 +16,5 @@ public class RoadGeoLineReferenceChoice {
     @JsonProperty("isExternalRoadGeoLineReference")
     public Boolean isExternalRoadGeoLineReference;
     @JsonProperty("__objectChoice")
-    public List<GeoObjectChoice> objectChoice;
+    public GeoObjectChoice objectChoice;
 }

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "hasColor",
         "color",
         "hasBoundaryMaterial",
+        "laneBoundaryMaterial",
         "laneRange"
 })
 public class SequentialElement {
@@ -27,6 +28,8 @@ public class SequentialElement {
     public String color;
     @JsonProperty("hasBoundaryMaterial")
     public Boolean hasBoundaryMaterial;
+    @JsonProperty("laneBoundaryMaterial")
+    public String laneBoundaryMaterial;
     @JsonProperty("laneRange")
     public LaneRange laneRange;
 }
