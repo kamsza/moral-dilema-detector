@@ -64,8 +64,8 @@ public class BaseScenarioGenerator2 {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-        addVehicle(model);
-//        addPedestrian(model);
+//        addVehicle(model);
+        addPedestrian(model);
 
         return model;
     }
@@ -116,7 +116,7 @@ public class BaseScenarioGenerator2 {
         person.addAccelerationY(0F);
         person.addWidth(50F);
         person.addLength(50F);
-        person.addDistance(3000F);
+        person.addDistance(2000F);
 //        person.addValueInDollars(10000F);
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
         person.addIs_on_lane(lane);
@@ -297,7 +297,7 @@ public class BaseScenarioGenerator2 {
         RandomPositioner randomPositioner = model.getRandomPositioner();
         //Assume that vehicle speed is in kmph
 //        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
-        vehicle.addSpeedX((float) (20));
+        vehicle.addSpeedX((float) (40));
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);
