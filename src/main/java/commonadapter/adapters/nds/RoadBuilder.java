@@ -6,25 +6,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
-import commonadapter.adapters.lane.LaneTile;
+import commonadapter.adapters.nds.lane.LaneTile;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
 import commonadapter.adapters.nds.routing.fixedAttributes.RoutingAttr;
 import commonadapter.adapters.nds.routing.fixedAttributes.SharedAttr;
+import commonadapter.adapters.nds.routing.links.LinkData;
+import commonadapter.adapters.nds.routing.simpleIntersection.IntersectionData;
 import commonadapter.adapters.waymo.CommunicationUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RoadBuilder {
 
     private Communicator communicator;
     private ManagerPrx managerPrx;
-    private RoadPrx roadPrx;
-    private RoadAttributesPrx roadAttributesPrx;
+    private List<RoadPrx> roadPrxList = new ArrayList<>();
+    private List<Set<IntersectionPoint>> roadPointsList = new ArrayList<>();
+    private List<Coordinates>startOfRoadCoordinates = new ArrayList<>();
+    Logger logger = Logger.getLogger(RoadBuilder.class.getName());
+    private static final float maxAngleDegree = 360f;
+    private static final float angleCoefficient = 64f;
+    private static final double metresInOneDegree = 111000;
 
     public RoadBuilder(String[] args) {
-
         try {
             initializeConnection(args);
         } catch (Exception ex) {
@@ -33,80 +43,164 @@ public class RoadBuilder {
     }
 
     private void initializeConnection(String[] args) {
-
         communicator = Util.initialize(args);
         ObjectPrx base = communicator.stringToProxy("factory/factory1:tcp -h localhost -p 10000");
         this.managerPrx = ManagerPrx.checkedCast(base);
     }
 
-
     public static void main(String[] args) {
-        //new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\routing\\routingTile_545554860.json");
-        new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\lane\\laneTile_545554855.json");
+        new RoadBuilder(args).buildRoads("src\\main\\resources\\nds\\routing\\routingTile_545554861.json");
     }
 
-    public void buildRoad(String jsonFilePath)  {
-
-        String roadId = managerPrx.create(ItemType.ROAD);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(roadId));
-        roadPrx = RoadPrx.checkedCast(basePrx);
-
+    public void buildRoads(String jsonFilePath) {
         try {
-           // RoutingTile routingTile = getDeserializedRoutingTile(jsonFilePath);
-            LaneTile laneTile = getDeserializedLaneTile(jsonFilePath);
-//            routingTile
-//                    .fixedRoadAttributeSetList
-//                    .attributeList
-//                    .data
-//                    .forEach(this::addRoadAttributes);
-//
-//            managerPrx.persist();
-            System.out.println("CREATED ROAD ID = " + roadId);
-        } catch (Exception ex) {
+            RoutingTile routingTile = getDeserializedRoutingTile(jsonFilePath);
+            AtomicInteger roadNumber = new AtomicInteger(0);
+            routingTile
+                    .links
+                    .link
+                    .data
+                    .forEach(link -> {
+                        addLink(link, roadNumber.getAndIncrement());
+                    });
+
+            String tileId = extractTileId("src\\main\\resources\\nds\\routing\\routingTile_545555100.json");
+            routingTile
+                    .simpleIntersection
+                    .simpleIntersection
+                    .data
+                    .forEach(intersection -> addIntersection(intersection, tileId));
+
+            roadNumber.set(0);
+            roadPointsList.forEach(intersectionsOfRoad -> {
+                addEndOfRoad(intersectionsOfRoad, roadNumber.getAndIncrement());
+                    });
+
+
+            roadNumber.set(0);
+            routingTile
+                    .fixedRoadAttributeSetList
+                    .attributeList
+                    .data
+                    .forEach(attributes -> {
+                        addRoadAttributes(attributes, roadNumber.getAndIncrement());
+                    });
+
+            managerPrx.persist();
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    private static String extractTileId(String jsonFilePath) {
+        int size = jsonFilePath.length();
+        return jsonFilePath.substring(size - 14, size - 5);
+    }
+
     private RoutingTile getDeserializedRoutingTile(String jsonFilePath) throws IOException {
-
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File(jsonFilePath), new TypeReference<RoutingTile>(){});
+        return mapper.readValue(new File(jsonFilePath), new TypeReference<RoutingTile>() {
+        });
     }
 
-    private LaneTile getDeserializedLaneTile(String jsonFilePath) throws IOException {
-
+    private static LaneTile getDeserializedLaneTile(String jsonFilePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File(jsonFilePath), new TypeReference<LaneTile>(){});
+        return mapper.readValue(new File(jsonFilePath), new TypeReference<LaneTile>() {
+        });
     }
 
-    private void addRoadAttributes(AttributeData attributeData) {
+    private void addLink(LinkData link, int roadNumber) {
+        String roadId = managerPrx.create(ItemType.ROAD);
+        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(roadId));
+        RoadPrx roadPrx = RoadPrx.checkedCast(basePrx);
 
+        roadPrx.setStartAngle(calculateAngle(link.startAngle));
+        roadPrx.setEndAngle(calculateAngle(link.endAngle));
+
+        roadPrxList.add(roadNumber, roadPrx);
+        roadPointsList.add(roadNumber, new HashSet<>());
+        logger.log(Level.INFO, "Added road with number: " + roadNumber);
+    }
+
+    private void addIntersection(IntersectionData intersectionData, String tileId) {
+        String junctionId = managerPrx.create(ItemType.JUNCTION);
+        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(junctionId));
+        JunctionPrx junctionPrx = JunctionPrx.checkedCast(basePrx);
+
+        Coordinates tileCenterCoordinates = calculateTileCoordinates(tileId);
+        Integer x_shift = intersectionData.position.dx;
+        Integer y_shift = intersectionData.position.dy;
+        Coordinates intersectionCoordinates = calculateIntersectionCoordinates(tileCenterCoordinates, x_shift, y_shift);
+
+        junctionPrx.setLatitude(String.valueOf(intersectionCoordinates.getLatitude()));
+        junctionPrx.setLongitude(String.valueOf(intersectionCoordinates.getLongitude()));
+
+        intersectionData.connectedLinks.data.forEach(link -> {
+            Integer roadNumber = link.linkReferenceChoice.objectChoice.linkId;
+            Boolean isIntersectionStartOfRoad = link.linkReferenceChoice.objectChoice.positiveLinkDirection;
+            if (isIntersectionStartOfRoad) {
+                roadPrxList.get(roadNumber).setStarts(junctionId);
+                startOfRoadCoordinates.set(roadNumber, intersectionCoordinates);
+            }
+
+            Set<IntersectionPoint> linksSet = roadPointsList.get(roadNumber);
+            linksSet.add(new IntersectionPoint(junctionId, intersectionCoordinates));
+            roadPointsList.set(roadNumber, linksSet);
+        });
+    }
+
+    private void addEndOfRoad(Set<IntersectionPoint> intersectionsSet, int roadNumber) {
+        IntersectionPoint endPoint = intersectionsSet.stream()
+                .max(Comparator.comparing(intersection -> {
+                            double latitude = intersection.getCoordinates().getLongitude();
+                            double longitude = intersection.getCoordinates().getLongitude();
+                            double startPointLatitude = startOfRoadCoordinates.get(roadNumber).getLatitude();
+                            double startPointLongitude = startOfRoadCoordinates.get(roadNumber).getLongitude();
+                            return Math.sqrt(Math.pow((latitude - startPointLatitude), 2) + Math.pow((longitude - startPointLongitude), 2));
+                        })).get();
+        roadPrxList.get(roadNumber).setEnds(endPoint.getIntersectionId());
+    }
+
+    private void addRoadAttributes(AttributeData attributeData, int roadNumber) {
         String roadAttributesId = managerPrx.create(ItemType.ROADATTRIBUTES);
         ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(roadAttributesId));
-        roadAttributesPrx = RoadAttributesPrx.checkedCast(basePrx);
+        RoadAttributesPrx roadAttributesPrx = RoadAttributesPrx.checkedCast(basePrx);
 
-        roadPrx.setRoadAttributes(roadAttributesId);
+        assignSharedAttributes(roadAttributesPrx, attributeData.sharedAttr);
+        assignRoutingAttributes(roadAttributesPrx, attributeData.routingAttr);
 
-        assignSharedAttributes(attributeData.sharedAttr);
-        assignRoutingAttributes(attributeData.routingAttr);
-
+        roadPrxList.get(roadNumber).setRoadAttributes(roadAttributesId);
+        logger.log(Level.INFO, "Added road attributes to road with number: " + roadNumber);
     }
 
-    private void assignSharedAttributes(SharedAttr sharedAttr) {
-
-        roadAttributesPrx.setFerry(sharedAttr.ferry);
-        roadAttributesPrx.setTunnel(sharedAttr.tunnel);
-        roadAttributesPrx.setBridge(sharedAttr.bridge);
-        roadAttributesPrx.setToll(!sharedAttr.toll.equals("IN_NO_DIRECTION"));
-        roadAttributesPrx.setControlledAccess(sharedAttr.controlledAccess);
-        roadAttributesPrx.setServiceArea(sharedAttr.serviceArea);
+    private float calculateAngle(int number) {
+        return (float)number * maxAngleDegree / angleCoefficient;
     }
 
-    private void assignRoutingAttributes(RoutingAttr routingAttr) {
-
-        roadAttributesPrx.setUrban(routingAttr.urban);
-        roadAttributesPrx.setMotorway(routingAttr.motorway);
+    private Coordinates calculateTileCoordinates(String tileId) {
+        Coordinates coordinates = new Coordinates(1.0, 2.0);
+        // TODO
+        return  coordinates;
     }
 
+    private Coordinates calculateIntersectionCoordinates(Coordinates tileCenterCoordinates, Integer x_shift, Integer y_shift) {
+        double longitude = tileCenterCoordinates.getLongitude() + x_shift / metresInOneDegree;
+        double latitude = tileCenterCoordinates.getLatitude() + y_shift / metresInOneDegree;
+        return new Coordinates(longitude, latitude);
+    }
+
+    private void assignSharedAttributes(RoadAttributesPrx roadAttrPrx, SharedAttr sharedAttr) {
+        roadAttrPrx.setFerry(sharedAttr.ferry);
+        roadAttrPrx.setTunnel(sharedAttr.tunnel);
+        roadAttrPrx.setBridge(sharedAttr.bridge);
+        roadAttrPrx.setToll(!sharedAttr.toll.equals("IN_NO_DIRECTION"));
+        roadAttrPrx.setControlledAccess(sharedAttr.controlledAccess);
+        roadAttrPrx.setServiceArea(sharedAttr.serviceArea);
+    }
+
+    private void assignRoutingAttributes(RoadAttributesPrx roadAttrPrx, RoutingAttr routingAttr) {
+        roadAttrPrx.setUrban(routingAttr.urban);
+        roadAttrPrx.setMotorway(routingAttr.motorway);
+    }
 
 }
