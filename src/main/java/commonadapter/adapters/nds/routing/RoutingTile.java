@@ -28,7 +28,7 @@ public class RoutingTile {
     @JsonProperty("simpleIntersection")
     public SimpleIntersection simpleIntersection;
     @JsonProperty("links")
-    public Links link;
+    public Links links;
     @JsonProperty("link2TileList")
     public Link2TileList link2TileList;
     @JsonProperty("externalTileIdList")

@@ -7,17 +7,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "positiveLinkDirection",
-        "linkId",
-        "extTileIdx",
-        "tileExternalLinkReference"
+        "linkId"
 })
-public class ObjectChoice {
+public class TileExternalLinkReference {
     @JsonProperty("positiveLinkDirection")
     public Boolean positiveLinkDirection;
     @JsonProperty("linkId")
     public Integer linkId;
-    @JsonProperty("extTileIdx")
-    public Integer extTileIdx;
-    @JsonProperty("tileExternalLinkReference")
-    public TileExternalLinkReference tileExternalLinkReference;
 }
