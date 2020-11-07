@@ -42,7 +42,7 @@ public class RoadBuilder {
 
     public static void main(String[] args) {
         //new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\routing\\routingTile_545554860.json");
-        new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\lane\\laneTile_545554860.json");
+        new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\lane\\laneTile_545554855.json");
     }
 
     public void buildRoad(String jsonFilePath)  {
