@@ -35,7 +35,6 @@ public class DecisionCostCalculator {
         return result;
     }
 
-
     private int calculateCostOfMaterialConsequence(Decision decision) {
         int sum = 0;
         HashMap<PhilosophyParameter, Integer> parameters = customPhilosophy.getParameters();
@@ -45,7 +44,6 @@ public class DecisionCostCalculator {
         }
         return (int) (sum * parameters.get(PhilosophyParameter.MATERIAL_VALUE_TABLE)) / 1000;
     }
-
 
     private int calculateCostOfHealthConsequence(Decision decision) {
         int result = 0;

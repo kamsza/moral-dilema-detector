@@ -24,6 +24,10 @@ public class CollisionConsequencePredictor {
     }
 
     private boolean isPedestrian(Actor victimActor, Living_entity victim){
+        /*
+         Check if entity described in victimActor is same as Living_entity victim. If true, then it must be pedestrian.
+         It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
+       */
         return victimActor.getEntityName().equals(victim.getOwlIndividual().getIRI().toString());
     }
 
@@ -35,11 +39,10 @@ public class CollisionConsequencePredictor {
         for (Living_entity victim : individualVictims) {
             ConsequenceType consequenceType;
             if (isPedestrian(victimActor, victim)) {
-                //System.out.println("ARE PEDESTRIANS : " + victimActor.getEntityName() + "   " + victim.getOwlIndividual().getIRI().toString());
                 consequenceType = getHealthConsequenceTypeForPedestrian(
                         getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
             } else {
-                 consequenceType = getHealthConsequenceType(
+                consequenceType = getHealthConsequenceType(
                         getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
             }
             if (consequenceType != ConsequenceType.NO_CONSEQUENCE) {
@@ -63,7 +66,6 @@ public class CollisionConsequencePredictor {
             }
         }
         consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
-
     }
 
     private double getCollisionSpeed(RigidBody victimRB, RigidBody otherRB) {
@@ -135,7 +137,6 @@ public class CollisionConsequencePredictor {
         } else if (living_entity != null) {
             result.add(living_entity);
         }
-
         return result;
     }
 
@@ -211,7 +212,6 @@ public class CollisionConsequencePredictor {
         return probability;
     }
 
-
     private double pedestrianMinorInjuryProbability(double speed) {
         speed = PhysicsUtils.MetersToKmph(speed);
         double probability;
@@ -241,7 +241,6 @@ public class CollisionConsequencePredictor {
         }
         return probability;
     }
-
 
     private double getProbabilityFromLinearFunction(double x1, double y1, double x2, double y2, double speed) {
         return (y2 - y1) / (x2 - x1) * (speed - x1) + y1;
