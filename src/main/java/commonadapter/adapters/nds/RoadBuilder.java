@@ -7,6 +7,7 @@ import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
 import commonadapter.adapters.lane.LaneTile;
+import commonadapter.adapters.lane.attrMaps.Feature;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
 import commonadapter.adapters.nds.routing.fixedAttributes.RoutingAttr;
@@ -42,7 +43,7 @@ public class RoadBuilder {
 
     public static void main(String[] args) {
         //new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\routing\\routingTile_545554860.json");
-        new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\lane\\laneTile_545554855.json");
+        new RoadBuilder(args).buildRoad("src\\main\\resources\\nds\\lane\\laneTile_545555000.json");
     }
 
     public void buildRoad(String jsonFilePath)  {

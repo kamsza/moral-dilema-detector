@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "associationType",
+        "numFeatureReferences",
+        "featureReferences",
+        "guidanceFeatureType",
+        "baseLinkReference",
         "startPosition",
         "endPosition",
         "id",
@@ -23,6 +28,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "attributePoints"
 })
 public class ValueObjectChoice {
+    @JsonProperty("associationType")
+    public String associationType;
+    @JsonProperty("numFeatureReferences")
+    public Integer numFeatureReferences;
+    @JsonProperty("featureReferences")
+    public FeatureReferences featureReferences;
+    @JsonProperty("guidanceFeatureType")
+    public String guidanceFeatureType;
+    @JsonProperty("baseLinkReference")
+    public BaseLinkReference baseLinkReference;
     @JsonProperty("startPosition")
     public StartPosition startPosition;
     @JsonProperty("endPosition")

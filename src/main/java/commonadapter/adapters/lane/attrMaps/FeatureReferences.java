@@ -8,9 +8,9 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-       "data"
+        "data"
 })
-public class AttrMap {
+public class FeatureReferences {
     @JsonProperty("data")
-    public List<MapAttrElement> data;
+    public List<FeatureReferencesElement> data;
 }

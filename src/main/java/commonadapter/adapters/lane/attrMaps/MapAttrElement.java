@@ -12,7 +12,8 @@ import commonadapter.adapters.lane.attrMaps.Values4OneFeature;
         "attrRefHeader",
         "attrMapType",
         "numEntries",
-        "values4OneFeature"
+        "values4OneFeature",
+        "values4ManyFeatures"
 })
 public class MapAttrElement {
     @JsonProperty("attrRefHeader")
@@ -23,4 +24,7 @@ public class MapAttrElement {
     public Integer numEntries;
     @JsonProperty("values4OneFeature")
     public Values4OneFeature values4OneFeature;
+    @JsonProperty("values4ManyFeatures")
+    public Values4ManyFeatures values4ManyFeatures;
+
 }
