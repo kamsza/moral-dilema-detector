@@ -53,6 +53,8 @@ class SurroundingPanel extends JPanel {
         if(length != Visualization.WIDTH) length -= 10;
 
         for(int x1 = x; x1 < x + length; x1 += imgLength) {
+            if(x1 > Visualization.WIDTH)
+                break;
             int x2 = Math.min(x1 + imgLength, x + length);
             int y2 = y + imgHeight;
             g.drawImage(img, x1, y, x2, y2, 0, 0, imgLength, imgHeight, this);
