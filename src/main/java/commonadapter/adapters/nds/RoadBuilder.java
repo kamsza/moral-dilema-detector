@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
-import commonadapter.adapters.lane.LaneTile;
 import commonadapter.adapters.nds.lane.LaneTile;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
