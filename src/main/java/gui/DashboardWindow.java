@@ -14,6 +14,7 @@ import visualization.Visualization;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -174,6 +175,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
     private void jButtonLoadFromFileAction() {
         JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("OWL files","owl"));
+
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
         } else
