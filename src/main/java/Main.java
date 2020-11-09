@@ -4,8 +4,8 @@ import DilemmaDetector.Consequences.DecisionCostCalculator;
 import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
+import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
-import DilemmaDetector.Simulator.RigidBodyMapper;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
@@ -21,7 +21,6 @@ import visualization.Visualization;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

@@ -7,6 +7,7 @@ import generator.Model;
 import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jdesktop.swingx.prompt.PromptSupport;
 import project.Decision;
 import project.MyFactory;
 import visualization.Visualization;
@@ -26,7 +27,7 @@ import java.util.List;
 public class DashboardWindow extends JFrame implements ActionListener {
 
     private JButton jButtonLoadFromFile;
-    private JLabel jLabelSelectedFile;
+    private JTextField jTextFieldScenarioName;
     private JButton jButtonLoadScenario;
     private JComboBox jComboBoxScenarios;
     private JButton jButtonGenerateScenario;
@@ -60,6 +61,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();
     private boolean isAnyCustomPhilosophy = true;
+    private String pathToOwlFile = "";
 
 
     public DashboardWindow() {
@@ -80,9 +82,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jButtonLoadFromFile.addActionListener(this);
         add(jButtonLoadFromFile);
 
-        jLabelSelectedFile = new JLabel(NO_FILE_SELECTED, SwingConstants.CENTER);
-        jLabelSelectedFile.setBounds(20, 40, 300, 30);
-        add(jLabelSelectedFile);
+        jTextFieldScenarioName = new JTextField("");
+        jTextFieldScenarioName.setBounds(20, 40, 300, 30);
+        add(jTextFieldScenarioName);
+        PromptSupport.setPrompt("Enter scenario name", jTextFieldScenarioName);
 
         jButtonLoadScenario = new JButton("Load");
         jButtonLoadScenario.setBounds(320, 40, 100, 30);
@@ -148,16 +151,33 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonLoadScenarioAction() {
-        WarningWindow warningWindow = new WarningWindow(this, "Not implemented yet");
-        warningWindow.setVisible(true);
+        if (StringUtils.isBlank(jTextFieldScenarioName.getText())) {
+            WarningWindow warningWindow = new WarningWindow(this, "Enter scenario name");
+            warningWindow.setVisible(true);
+        }
+        if (StringUtils.isBlank(pathToOwlFile)) {
+            WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
+            warningWindow.setVisible(true);
+        }
+
+        scenarioModel = OntologyLogic.getModelFromOntology(pathToOwlFile, jTextFieldScenarioName.getText());
+        pictureName = Visualization.getImage(scenarioModel);
+        jLabelImageScenario.setIcon(
+                getImageIcon(System.getProperty("user.dir")
+                        + "\\src\\main\\resources\\vis_out\\"
+                        + pictureName));
+
+        consequenceContainer = new ConsequenceContainer(factory);
+        collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+
     }
 
     private void jButtonLoadFromFileAction() {
         JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            jLabelSelectedFile.setText(jFileChooser.getSelectedFile().getAbsolutePath());
+            pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
         } else
-            jLabelSelectedFile.setText(NO_FILE_SELECTED);
+            pathToOwlFile = "";
     }
 
     private void jButtonGenerateScenarioAction() {
@@ -202,12 +222,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
                 int dilemmaThreshold = customPhilosophy.getParameters().get(PhilosophyParameter.DILEMMA_THRESHOLD);
                 String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts, dilemmaThreshold);
-                if(bestDecision != null){
+                if (bestDecision != null) {
                     bestDecision = changeSnakeCase(bestDecision);
                     jLabelBestDecision.setText("Best decision: " + bestDecision);
                     jLabelBestDecision.setVisible(true);
-                }
-                else{
+                } else {
                     jLabelBestDecision.setText("There is no good decision");
                 }
                 jLabelBestDecision.setVisible(true);

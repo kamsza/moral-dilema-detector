@@ -2,6 +2,7 @@ package gui.logic;
 
 import DilemmaDetector.Consequences.CollisionConsequencePredictor;
 import DilemmaDetector.Consequences.IConsequenceContainer;
+import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.BaseScenarioGenerator2;
@@ -24,18 +25,40 @@ import java.util.*;
 public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
+    public static final String pathToOntology = "src/main/resources/traffic_ontology.owl";
 
     public static MyFactory getFactory() {
+        return getFactory(pathToOntology);
+    }
+
+    public static MyFactory getFactory(String pathToOwlFile) {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = null;
         try {
-            ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
+            ontology = ontologyManager.loadOntologyFromOntologyDocument(new File(pathToOwlFile));
         } catch (OWLOntologyCreationException e) {
             System.err.println("Problem during loading ontology");
             e.printStackTrace();
         }
         return new MyFactory(ontology);
     }
+
+    public static Model getModelFromOntology(String pathToOwlFile, String scenarioName) {
+
+        ScenarioReader scenarioReader = null;
+        try {
+            scenarioReader = new ScenarioReader();
+        } catch (OWLOntologyCreationException e) {
+            System.err.println("Problem with ScenarioReader");
+            e.printStackTrace();
+        }
+        int scenarioNumber = Integer.parseInt(StringUtils.substringBefore(scenarioName, "_"));
+        Model model = scenarioReader.getModel(scenarioNumber);
+        DecisionGenerator decisionGenerator = new DecisionGenerator(getFactory(pathToOwlFile), baseIRI);
+        decisionGenerator.generate(model);
+        return model;
+    }
+
 
     // na razie na sztywno korzystamy z BaseScenarioGenerator2
     public static Model getModelFromGenerator(MyFactory factory) {
@@ -96,7 +119,7 @@ public class OntologyLogic {
                 decisionsWithMinimalCost.add(decisionName);
             }
         }
-        if(currentMinimum > dilemmaThreshold){
+        if (currentMinimum > dilemmaThreshold) {
             return null;
         }
 
