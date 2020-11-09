@@ -42,7 +42,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
     /// CONST
     private final String NO_FILE_SELECTED = "No file selected";
-    private final List<String> possibleScenariosList = new ArrayList<String>(Arrays.asList("Simple scenario",
+    private final List<String> POSSIBLE_SCENARIOS_LIST = new ArrayList<String>(Arrays.asList("Simple scenario",
             "Scenario with animals",
             "Scenario with crosswalk"));
     private final int IMAGE_WIDTH = 820;
@@ -89,7 +89,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jButtonLoadScenario.addActionListener(this);
         add(jButtonLoadScenario);
 
-        jComboBoxScenarios = new JComboBox(possibleScenariosList.toArray());
+        jComboBoxScenarios = new JComboBox(POSSIBLE_SCENARIOS_LIST.toArray());
         jComboBoxScenarios.setBounds(440, 10, 400, 30);
         add(jComboBoxScenarios);
 
@@ -200,13 +200,18 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
                 }
 
-                String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts);
-
-                bestDecision = changeSnakeCase(bestDecision);
-
-
-                jLabelBestDecision.setText("Best decision: " + bestDecision);
+                int dilemmaThreshold = customPhilosophy.getParameters().get(PhilosophyParameter.DILEMMA_THRESHOLD);
+                String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts, dilemmaThreshold);
+                if(bestDecision != null){
+                    bestDecision = changeSnakeCase(bestDecision);
+                    jLabelBestDecision.setText("Best decision: " + bestDecision);
+                    jLabelBestDecision.setVisible(true);
+                }
+                else{
+                    jLabelBestDecision.setText("There is no good decision");
+                }
                 jLabelBestDecision.setVisible(true);
+
 
                 int numberOfDecisions = decisionCosts.size();
 
@@ -275,7 +280,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         return customPhilosophiesNames;
     }
 
-    public CustomPhilosophy getCustomPhilosophyByName(String name) {
+    private CustomPhilosophy getCustomPhilosophyByName(String name) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(System.getProperty("user.dir") +

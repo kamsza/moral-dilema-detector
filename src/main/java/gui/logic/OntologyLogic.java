@@ -82,7 +82,7 @@ public class OntologyLogic {
 
     // optymalnie jechać cały nie wykonywać manewrów,
     // jeśli konieczny to preferowane są w prawo ze względu na ruch prawostronny
-    public static String getOptimumDecision(Map<String, Integer> decisionCosts) {
+    public static String getOptimumDecision(Map<String, Integer> decisionCosts, int dilemmaThreshold) {
         ArrayList<String> decisionsWithMinimalCost = new ArrayList<>();
         int currentMinimum = Integer.MAX_VALUE;
         for (String decisionName : decisionCosts.keySet()) {
@@ -96,6 +96,10 @@ public class OntologyLogic {
                 decisionsWithMinimalCost.add(decisionName);
             }
         }
+        if(currentMinimum > dilemmaThreshold){
+            return null;
+        }
+
         if (decisionsWithMinimalCost.size() == 1) {
             return decisionsWithMinimalCost.get(0);
         }

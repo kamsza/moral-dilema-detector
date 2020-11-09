@@ -1,6 +1,5 @@
 package DilemmaDetector.Consequences;
 
-import DilemmaDetector.ParameterizedPhilosophy;
 import project.*;
 
 import java.util.HashMap;
@@ -30,8 +29,18 @@ public class DecisionCostCalculator {
         int result = 0;
         result += calculateCostOfHealthConsequence(decision);
         result += calculateCostOfMaterialConsequence(decision);
+        result += calculateCostOfTakingAction(decision);
         // dalej inne typy
         System.out.println("DECISION : " + decision.getOwlIndividual().getIRI().toString() + " | POINTS: " + result);
+        return result;
+    }
+
+    private int calculateCostOfTakingAction(Decision decision){
+        int result = 0;
+        System.out.println(decision.toString());
+        if(decision.toString().indexOf("follow") == -1){
+            result = customPhilosophy.getParameters().get(PhilosophyParameter.TAKING_ACTION);
+        }
         return result;
     }
 
@@ -42,7 +51,7 @@ public class DecisionCostCalculator {
         for (Map.Entry<String, Double> consequence : consequences) {
             sum += (int) Math.round(consequence.getValue());
         }
-        return (int) (sum * parameters.get(PhilosophyParameter.MATERIAL_VALUE_TABLE)) / 1000;
+        return (int) (sum * parameters.get(PhilosophyParameter.MATERIAL_VALUE)) / 1000;
     }
 
     private int calculateCostOfHealthConsequence(Decision decision) {
