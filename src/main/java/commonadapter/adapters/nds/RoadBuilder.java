@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
+import commonadapter.adapters.lane.LaneTile;
 import commonadapter.adapters.nds.lane.LaneTile;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
@@ -28,7 +29,7 @@ public class RoadBuilder {
     private ManagerPrx managerPrx;
     private List<RoadPrx> roadPrxList = new ArrayList<>();
     private List<Set<IntersectionPoint>> roadPointsList = new ArrayList<>();
-    private List<Coordinates>startOfRoadCoordinates = new ArrayList<>();
+    private List<Coordinates> startOfRoadCoordinates = new ArrayList<>();
     Logger logger = Logger.getLogger(RoadBuilder.class.getName());
     private static final float maxAngleDegree = 360f;
     private static final float angleCoefficient = 64f;
@@ -74,7 +75,7 @@ public class RoadBuilder {
             roadNumber.set(0);
             roadPointsList.forEach(intersectionsOfRoad -> {
                 addEndOfRoad(intersectionsOfRoad, roadNumber.getAndIncrement());
-                    });
+            });
 
 
             roadNumber.set(0);
@@ -152,12 +153,12 @@ public class RoadBuilder {
     private void addEndOfRoad(Set<IntersectionPoint> intersectionsSet, int roadNumber) {
         IntersectionPoint endPoint = intersectionsSet.stream()
                 .max(Comparator.comparing(intersection -> {
-                            double latitude = intersection.getCoordinates().getLongitude();
-                            double longitude = intersection.getCoordinates().getLongitude();
-                            double startPointLatitude = startOfRoadCoordinates.get(roadNumber).getLatitude();
-                            double startPointLongitude = startOfRoadCoordinates.get(roadNumber).getLongitude();
-                            return Math.sqrt(Math.pow((latitude - startPointLatitude), 2) + Math.pow((longitude - startPointLongitude), 2));
-                        })).get();
+                    double latitude = intersection.getCoordinates().getLongitude();
+                    double longitude = intersection.getCoordinates().getLongitude();
+                    double startPointLatitude = startOfRoadCoordinates.get(roadNumber).getLatitude();
+                    double startPointLongitude = startOfRoadCoordinates.get(roadNumber).getLongitude();
+                    return Math.sqrt(Math.pow((latitude - startPointLatitude), 2) + Math.pow((longitude - startPointLongitude), 2));
+                })).get();
         roadPrxList.get(roadNumber).setEnds(endPoint.getIntersectionId());
     }
 
@@ -173,17 +174,108 @@ public class RoadBuilder {
         logger.log(Level.INFO, "Added road attributes to road with number: " + roadNumber);
     }
 
-    private float calculateAngle(int number) {
-        return (float)number * maxAngleDegree / angleCoefficient;
+    private static float calculateAngle(int number) {
+        return (float) number * maxAngleDegree / angleCoefficient;
     }
 
-    private Coordinates calculateTileCoordinates(String tileId) {
-        Coordinates coordinates = new Coordinates(1.0, 2.0);
-        // TODO
-        return  coordinates;
+    private static Coordinates calculateTileCoordinates(String tileId) {
+        int tileDec = Integer.parseInt(tileId);
+        String tileBin = Integer.toBinaryString(tileDec);
+
+        //removing first three bits (tile level)
+        StringBuilder sb = new StringBuilder(tileBin);
+        for (int i = 0; i < 5; i++) {
+            sb.deleteCharAt(0);
+        }
+        tileBin = sb.toString();
+
+        //add "0"'s to tile number
+        while (tileBin.length() < 27) {
+            tileBin = "0" + tileBin;
+        }
+
+        //decoding Morton code
+        String x = "";
+        String y = "";
+        for (int i = 0; i < tileBin.length(); i++) {
+            if (i % 2 == 0) {
+                x = x + tileBin.charAt(i);
+            } else {
+                y = y + tileBin.charAt(i);
+            }
+        }
+
+        //shifting coordinates
+        String transformedX = "";
+        String transformedY = "";
+        String newX = "";
+        String newY = "";
+        Boolean changedX = false;
+        boolean changedY = false;
+
+        if (String.valueOf(x.charAt(0)).equals("1")) {
+            changedX = true;
+            Long tmp = Long.parseLong(x, 2);
+            tmp = tmp - 1;
+            transformedX = Long.toBinaryString(tmp);
+            for (int i = 0; i < transformedX.length(); i++) {
+                if (String.valueOf(transformedX.charAt(i)).equals("0")) {
+                    newX = newX + "1";
+                } else {
+                    newX = newX + "0";
+                }
+            }
+        }
+
+        if (String.valueOf(y.charAt(0)).equals("1")) {
+            changedY = true;
+            Long tmp2 = Long.parseLong(y, 2);
+            tmp2 = tmp2 - 1;
+            transformedY = Long.toBinaryString(tmp2);
+            for (int i = 0; i < transformedY.length(); i++) {
+                if (String.valueOf(transformedX.charAt(i)).equals("0")) {
+                    newY = newY + "1";
+                } else {
+                    newY = newY + "0";
+                }
+            }
+        }
+
+        if (changedX) {
+            x = newX;
+        }
+
+        if (changedY) {
+            y = newY;
+        }
+
+        x = x + "000000000000000000";
+        y = y + "000000000000000000";
+
+        //convert to decimal
+        Long decimalValueX = Long.parseLong(x, 2);
+        Long decimalValueY = Long.parseLong(y, 2);
+
+        //convert to coordinates
+        double coorXratio = decimalValueX / 2147483648.0;
+        double coorYratio = decimalValueY / 1073741824.0;
+
+        double coorX = coorXratio * 180;
+        double coorY = coorYratio * 90;
+
+
+        if (changedX) {
+            coorX = -coorX;
+        }
+
+        if (changedY) {
+            coorY = -coorY;
+        }
+
+        return new Coordinates(coorX, coorY);
     }
 
-    private Coordinates calculateIntersectionCoordinates(Coordinates tileCenterCoordinates, Integer x_shift, Integer y_shift) {
+    private static Coordinates calculateIntersectionCoordinates(Coordinates tileCenterCoordinates, Integer x_shift, Integer y_shift) {
         double longitude = tileCenterCoordinates.getLongitude() + x_shift / metresInOneDegree;
         double latitude = tileCenterCoordinates.getLatitude() + y_shift / metresInOneDegree;
         return new Coordinates(longitude, latitude);
