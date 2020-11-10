@@ -37,7 +37,8 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
             {"Animal severe injury", 1, "Info"},
             {"Animal lightly injury", 1, "Info"},
             {"Material damages per 1000$", 0, "Info"},
-            {"Breaking the law", 0, "Info"}
+            {"Taking action", 0, "Info"},
+            {"Dilemma threshold", 1, "Info"}
     };
     private DefaultTableModel model = new DefaultTableModel(data, columnNames) {
         private static final long serialVersionUID = 1L;

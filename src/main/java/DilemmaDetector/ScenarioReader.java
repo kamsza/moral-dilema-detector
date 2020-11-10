@@ -1,3 +1,5 @@
+package DilemmaDetector;
+
 import generator.Model;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;

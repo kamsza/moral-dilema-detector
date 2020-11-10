@@ -31,8 +31,10 @@ public class CustomPhilosophy {
         parameters.put(PhilosophyParameter.ANIMAL_LIFE, tableValues.get("Animal life"));
         parameters.put(PhilosophyParameter.ANIMAL_SEVERE_INJURY, tableValues.get("Animal severe injury"));
         parameters.put(PhilosophyParameter.ANIMAL_LIGHTLY_INJURY, tableValues.get("Animal lightly injury"));
-        parameters.put(PhilosophyParameter.MATERIAL_VALUE_TABLE, tableValues.get("Material damages per 1000$"));
-        parameters.put(PhilosophyParameter.BREAKING_THE_LAW_TABLE, tableValues.get("Breaking the law"));
+        parameters.put(PhilosophyParameter.MATERIAL_VALUE, tableValues.get("Material damages per 1000$"));
+//        parameters.put(PhilosophyParameter.BREAKING_THE_LAW, tableValues.get("Breaking the law"));
+        parameters.put(PhilosophyParameter.TAKING_ACTION,tableValues.get("Taking action"));
+        parameters.put(PhilosophyParameter.DILEMMA_THRESHOLD, tableValues.get("Dilemma threshold"));
     }
 
     public static CustomPhilosophy getSimplestPhilosophy() {
