@@ -9,7 +9,6 @@ import generator.BaseScenarioGenerator2;
 import generator.DecisionGenerator;
 import generator.Model;
 import org.apache.commons.lang3.StringUtils;
-import org.nfunk.jep.function.Str;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;

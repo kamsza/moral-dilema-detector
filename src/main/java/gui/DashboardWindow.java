@@ -292,6 +292,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 PATH_CUSTOM_PHILOSOPHIES);
         List<String> customPhilosophiesNames = new ArrayList<>();
         for (String name : f.list()) {
+            if(name.equals(".gitignore")) continue;
             customPhilosophiesNames.add(StringUtils.substringBefore(name, ".json"));
         }
         if (customPhilosophiesNames.size() == 0) {
