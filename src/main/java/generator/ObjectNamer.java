@@ -7,6 +7,11 @@ public class ObjectNamer {
     static Map<String, Integer> idMap = new HashMap<>();
     static int scenario_id = -1;
 
+    static void reset() {
+        scenario_id = -1;
+        idMap.clear();
+    }
+
     /**
      * Allows to set the identifier of the first scenario
      */
