@@ -3,7 +3,6 @@ package DilemmaDetector.Simulator;
 import DilemmaDetector.Consequences.CollisionConsequencePredictor;
 import generator.Model;
 import project.*;
-import project.impl.DefaultDecision;
 
 import java.util.*;
 
@@ -65,9 +64,11 @@ public class SimulatorEngine {
 
 
             if (action instanceof Turn_left) {
-                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), false);
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather(), false);
             } else if (action instanceof Turn_right) {
-                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather().getClass(), true);
+                BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather(), true);
+            } else if (action instanceof Stop) {
+                BasicActionsApplier.CarBreaking(mainVehicle.getRigidBody(), model.getWeather());
             } else if (action instanceof Follow) {
             }
             else{
@@ -84,7 +85,7 @@ public class SimulatorEngine {
                 }
                 int laneNumber = sign*Integer.parseInt(string[5].substring(0, string[5].length()-1));
                 System.out.println(laneNumber);
-                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather().getClass(), 0, laneNumber, laneWidth);
+                changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather(), 0, laneNumber, laneWidth);
             }
 
             mainVehicle.getRigidBody().update(TIME_PART);

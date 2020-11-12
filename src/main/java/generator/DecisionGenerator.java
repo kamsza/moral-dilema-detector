@@ -36,6 +36,12 @@ public class DecisionGenerator {
         model.getScenario().addHas_decision(decision_3);
         actionByDecision.put(decision_3, action_3);
 
+        Decision decision_4 = factory.createDecision(ObjectNamer.getName("decision"));
+        Stop action_4 = factory.createStop(ObjectNamer.getName("stop"));
+        decision_4.addHas_action(action_4);
+        model.getScenario().addHas_decision(decision_4);
+        actionByDecision.put(decision_4, action_4);
+
 //        adding decisions and actions for changing lanes
         for(Model.Side side : model.getLanes().keySet()){
             for(Integer lane_number : model.getLanes().get(side).keySet()){
