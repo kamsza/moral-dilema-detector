@@ -48,7 +48,11 @@ public class DecisionGenerator {
                 if(lane_number != 0) {
                     Decision decision = factory.createDecision(ObjectNamer.getName("decision"));
                     String action_name = "change_lane_" + side.toString().toLowerCase() + "_by_" + lane_number;
-                    Action action = factory.createAction(ObjectNamer.getName(action_name));
+                    Change_lane action = factory.createChange_lane(ObjectNamer.getName(action_name));
+                    if(side == Model.Side.LEFT)
+                        action.addLane_change_by(lane_number);
+                    else if(side == Model.Side.RIGHT)
+                        action.addLane_change_by(-lane_number);
                     decision.addHas_action(action);
                     model.getScenario().addHas_decision(decision);
                     actionByDecision.put(decision, action);

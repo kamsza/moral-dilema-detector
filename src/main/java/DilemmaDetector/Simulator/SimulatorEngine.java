@@ -69,21 +69,8 @@ public class SimulatorEngine {
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather(), true);
             } else if (action instanceof Stop) {
                 BasicActionsApplier.CarBreaking(mainVehicle.getRigidBody(), model.getWeather());
-            } else if (action instanceof Follow) {
-            }
-            else{
-                // changing lanes
-                // parsing String for now, have to change ontology to make use of instanceof
-                String[] string = action.getOwlIndividual().toString().split("_");
-                int sign;
-                if(string[3].equals("right")){
-                    sign = -1;
-                }
-
-                else{
-                    sign = 1;
-                }
-                int laneNumber = sign*Integer.parseInt(string[5].substring(0, string[5].length()-1));
+            } else if (action instanceof Change_lane){
+                int laneNumber = ((Change_lane)action).getLane_change_by().iterator().next();//sign*Integer.parseInt(string[5].substring(0, string[5].length()-1));
                 System.out.println(laneNumber);
                 changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather(), 0, laneNumber, laneWidth);
             }

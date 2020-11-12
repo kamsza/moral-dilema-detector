@@ -28,9 +28,9 @@ public class CollisionDetector {
 //                collidedActors.add(surroundingActor);
             }
         }
-//        if (detectOutOfRoad(mainVehicle)) {
-//            collidedActors.add(mainVehicle);
-//        }
+        if (detectOutOfRoad(mainVehicle)) {
+            collidedActors.add(mainVehicle);
+        }
         for (Actor entry : actors) {
             if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
                 collidedActors.add(entry);
@@ -46,12 +46,12 @@ public class CollisionDetector {
         int lastLaneLeft =  scenarioModel.getLanes().get(Model.Side.LEFT).entrySet().size() + 1;
         int lastLaneRight = scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet().size() + 1;
 
-        double leftBorderY = lastLaneLeft * RigidBodyMapper.LANE_WIDTH * (-1);
-        double rightBorderY = lastLaneRight * RigidBodyMapper.LANE_WIDTH;
+        double leftBorderY = lastLaneLeft * RigidBodyMapper.LANE_WIDTH;
+        double rightBorderY = lastLaneRight * RigidBodyMapper.LANE_WIDTH * (-1);
 
         double vehicleY = mainVehicle.getRigidBody().getPosition().y;
 
-        if (vehicleY < leftBorderY ||  vehicleY > rightBorderY){
+        if (vehicleY > leftBorderY || vehicleY < rightBorderY){
             System.out.println("Main vehicle out of road ");
             outOfRoad = true;
         }
