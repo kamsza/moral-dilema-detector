@@ -70,8 +70,7 @@ public class SimulatorEngine {
             } else if (action instanceof Stop) {
                 BasicActionsApplier.CarBreaking(mainVehicle.getRigidBody(), model.getWeather());
             } else if (action instanceof Change_lane){
-                int laneNumber = ((Change_lane)action).getLane_change_by().iterator().next();//sign*Integer.parseInt(string[5].substring(0, string[5].length()-1));
-                System.out.println(laneNumber);
+                int laneNumber = ((Change_lane)action).getLane_change_by().iterator().next();
                 changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather(), 0, laneNumber, laneWidth);
             }
 

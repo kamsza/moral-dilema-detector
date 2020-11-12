@@ -6,12 +6,12 @@ public class RigidBody {
     private Vector2 position;
     private Vector2 previousPosition = Vector2.zero();
     private Vector2 speed = Vector2.zero();
-    private Vector2 acceleration= Vector2.zero();
+    private Vector2 acceleration = Vector2.zero();
 
     private Vector2 initialPosition;
     private Vector2 initialPreviousPosition = Vector2.zero();
     private Vector2 initialSpeed = Vector2.zero();
-    private Vector2 initialAcceleration= Vector2.zero();
+    private Vector2 initialAcceleration = Vector2.zero();
 
     public RigidBody(Vector2 position, Vector2 speed, Vector2 acceleration, Vector2 previousPosition){
         this.position = position;

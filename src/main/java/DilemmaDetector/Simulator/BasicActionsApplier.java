@@ -4,12 +4,20 @@ import project.*;
 
 public class BasicActionsApplier {
     final static private double GRAVITY = 9.81;
+    private static Vector2 last_breaking = Vector2.zero();
 
     static public void CarBreaking(RigidBody car, Weather weather){
         double frictionCoefficient = getTireRoadFriction(weather);
         Vector2 breaking = car.getSpeed().getNormalized().mul(-1);
         breaking.mul(GRAVITY * frictionCoefficient);
-        car.setAcceleration(breaking);
+        if(last_breaking.equals(new Vector2(breaking).mul(-1))) {
+            car.setSpeed(Vector2.zero());
+            car.setAcceleration(Vector2.zero());
+        }
+        else{
+            last_breaking = breaking;
+            car.setAcceleration(breaking);
+        }
     }
 
     // This function has to be run every frame of simulation in order to update centripetal acceleration direction
