@@ -77,10 +77,6 @@ public class Main {
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
 
-            int lastLeftLane  = leftLanes.size();
-            int lastRightLane = rightLanes.size();
-
-
             Visualization.getImage(scenarioModel);
 
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
@@ -89,7 +85,7 @@ public class Main {
                     new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
 
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
-            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
+            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
             System.out.println("Collided entities:");
             for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()){
                 for(Actor actor : entry.getValue()){

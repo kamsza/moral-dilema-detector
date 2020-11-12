@@ -25,6 +25,10 @@ public class DecisionCostCalculator {
         customPhilosophy = CustomPhilosophy.getSimplestPhilosophy();
     }
 
+    public void setCustomPhilosophy(CustomPhilosophy customPhilosophy) {
+        this.customPhilosophy = customPhilosophy;
+    }
+
     public int getSummarizedCostForDecision(Decision decision) {
         int result = 0;
         result += calculateCostOfHealthConsequence(decision);
