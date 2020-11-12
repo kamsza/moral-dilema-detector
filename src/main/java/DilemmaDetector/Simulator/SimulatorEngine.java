@@ -35,7 +35,7 @@ public class SimulatorEngine {
         collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
     }
 
-    public Map<Decision, Set<Actor>> simulateAll(int lastLaneLeft, int lastLaneRight) {
+    public Map<Decision, Set<Actor>> simulateAll() {
         Map<Decision, Set<Actor>> collided = new HashMap<>();
         for (Map.Entry<Decision, Action> entry : this.model.getActionByDecision().entrySet()) {
             System.out.println(entry.getValue().getOwlIndividual().toString() + " \n \n");

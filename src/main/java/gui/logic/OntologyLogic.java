@@ -84,11 +84,7 @@ public class OntologyLogic {
         CollisionConsequencePredictor collisionConsequencePredictor =
                 new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
-        Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
-        int lastLeftLane = leftLanes.size();
-        Set rightLanes = scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
-        int lastRightLane = rightLanes.size();
-        Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
+        Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
 
         // pytanie czy może to być w tym miejscu, bo umieszczenie tego później miałoby sens,
         // jeśli korzytalibyśmy z MoralDilemmaDetector
