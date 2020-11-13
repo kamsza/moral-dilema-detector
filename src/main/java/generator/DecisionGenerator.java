@@ -18,10 +18,14 @@ public class DecisionGenerator {
         HashMap<Decision, Action> actionByDecision = new HashMap<>();
         model.setActionByDecision(actionByDecision);
 
-        createBasicDecision("turn_left", model, actionByDecision);
-        createBasicDecision("turn_right", model, actionByDecision);
-        createBasicDecision("follow", model, actionByDecision);
-        createBasicDecision("stop", model, actionByDecision);
+        Follow follow = factory.createFollow(ObjectNamer.getName("follow"));
+        createBasicDecision(follow, model, actionByDecision);
+        Turn_left turn_left = factory.createTurn_left(ObjectNamer.getName("turn_left"));
+        createBasicDecision(turn_left, model, actionByDecision);
+        Turn_right turn_right = factory.createTurn_right(ObjectNamer.getName("turn_right"));
+        createBasicDecision(turn_right, model, actionByDecision);
+        Stop stop = factory.createStop(ObjectNamer.getName("stop"));
+        createBasicDecision(stop, model, actionByDecision);
 
 //        adding decisions and actions for changing lanes
         for(Model.Side side : model.getLanes().keySet()){
@@ -42,23 +46,8 @@ public class DecisionGenerator {
         }
     }
 
-    private void createBasicDecision(String name, Model model, HashMap<Decision, Action> actionByDecision){
+    private void createBasicDecision(Action action, Model model, HashMap<Decision, Action> actionByDecision){
         Decision decision = factory.createDecision(ObjectNamer.getName("decision"));
-        Action action;
-        switch(name){
-            case "follow":
-                action = factory.createFollow(ObjectNamer.getName("follow"));
-                break;
-            case "turn_left":
-                action = factory.createTurn_left(ObjectNamer.getName("turn_left"));
-                break;
-            case "turn_right":
-                action = factory.createTurn_right(ObjectNamer.getName("turn_right"));
-                break;
-            default:
-                action = factory.createStop(ObjectNamer.getName("stop"));
-                break;
-        }
         decision.addHas_action(action);
         model.getScenario().addHas_decision(decision);
         actionByDecision.put(decision, action);
