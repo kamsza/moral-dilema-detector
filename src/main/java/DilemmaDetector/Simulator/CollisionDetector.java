@@ -25,12 +25,9 @@ public class CollisionDetector {
         for (Actor surroundingActor: surroundingActors) {
             if (detectCollisionWithRigidBodyInMoment(surroundingActor.getRigidBody(), surroundingActor.getEntityName())) {
                 collidedActors.add(mainVehicle);
-//                collidedActors.add(surroundingActor);
             }
         }
-        if (detectOutOfRoad(mainVehicle)) {
-            collidedActors.add(mainVehicle);
-        }
+
         for (Actor entry : actors) {
             if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
                 collidedActors.add(entry);
