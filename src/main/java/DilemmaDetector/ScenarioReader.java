@@ -1,3 +1,5 @@
+package DilemmaDetector;
+
 import generator.Model;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -16,9 +18,17 @@ public class ScenarioReader {
     public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
 
     public ScenarioReader() throws OWLOntologyCreationException {
+        this("src/main/resources/traffic_ontology.owl");
+    }
+
+    public ScenarioReader(String ontologyPath) throws OWLOntologyCreationException {
         this.ontologyManager = OWLManager.createOWLOntologyManager();
-        this.ontology = this.ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
+        this.ontology = this.ontologyManager.loadOntologyFromOntologyDocument(new File(ontologyPath));
         this.factory = new MyFactory(ontology);
+    }
+
+    public MyFactory getFactory() {
+        return factory;
     }
 
     public Model getModel(int scenarioNumber) {

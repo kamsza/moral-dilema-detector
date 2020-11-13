@@ -4,8 +4,8 @@ import DilemmaDetector.Consequences.DecisionCostCalculator;
 import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
+import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
-import DilemmaDetector.Simulator.RigidBodyMapper;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
@@ -21,7 +21,6 @@ import visualization.Visualization;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,15 +71,11 @@ public class Main {
                 .build();
 
         for(int i=0; i<1; i++) {
-//            Model scenarioModel = getModelFromGenerator(factory);
-            Model scenarioModel = getModelFromReader(factory,197);
+            Model scenarioModel = getModelFromGenerator(factory);
+//            Model scenarioModel = getModelFromReader(factory,197);
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
-
-            int lastLeftLane  = leftLanes.size();
-            int lastRightLane = rightLanes.size();
-
 
             Visualization.getImage(scenarioModel);
 
@@ -90,7 +85,7 @@ public class Main {
                     new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
 
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
-            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
+            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
             System.out.println("Collided entities:");
             for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()){
                 for(Actor actor : entry.getValue()){
@@ -105,14 +100,14 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
-//            consequenceContainer.saveConsequencesToOntology();
+            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
-//            try {
-//                factory.saveOwlOntology();
-//            } catch (OWLOntologyStorageException ignored) {
-//            }
-//            Visualization.getImage(scenarioModel);
+            try {
+                factory.saveOwlOntology();
+            } catch (OWLOntologyStorageException ignored) {
+            }
+            Visualization.getImage(scenarioModel);
         }
     }
 

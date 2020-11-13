@@ -101,9 +101,9 @@ public class RigidBodyMapper {
 
 
         if (side == Model.Side.LEFT) {
-            positionY = laneNumber * LANE_WIDTH * (-1);
-        } else if (side == Model.Side.RIGHT) {
             positionY = laneNumber * LANE_WIDTH;
+        } else if (side == Model.Side.RIGHT) {
+            positionY = laneNumber * LANE_WIDTH * (-1);
         } else {
             positionY = 0;
         }
