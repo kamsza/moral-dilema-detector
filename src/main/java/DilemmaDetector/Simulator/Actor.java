@@ -6,8 +6,6 @@ import project.Entity;
 import java.util.Iterator;
 
 public class Actor{
-    public static final int LANE_WIDTH = 300;
-
     private RigidBody rigidBody;
     private String entityName;
     private double valueInDollars = 0.0;

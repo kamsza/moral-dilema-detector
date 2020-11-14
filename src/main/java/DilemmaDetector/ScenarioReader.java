@@ -114,6 +114,14 @@ public class ScenarioReader {
             }
         }
 
+        for (Living_entity entity : scenario.getHas_pedestrian()) {
+                Lane lane = null;
+                for (Lane l : entity.getIs_on_lane()) {
+                    lane = l;
+                }
+                entities.get(lane).add(entity);
+        }
+
         Model model = new Model.Builder().
                 setScenario(scenario).
                 setWeather(weather).
@@ -184,7 +192,7 @@ public class ScenarioReader {
 
     public static void main(String[] args) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
-        scenarioReader.getModel(197);
+        scenarioReader.getModel(230);
     }
 
 
