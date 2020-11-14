@@ -8,7 +8,7 @@ public class Logger {
 
         switch (messageType) {
             case INFO:
-                messageColor = ConsoleColors.GREEN;
+                messageColor = ConsoleColors.YELLOW;
                 break;
             case ERROR:
                 messageColor = ConsoleColors.RED;

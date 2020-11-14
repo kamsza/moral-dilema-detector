@@ -29,7 +29,7 @@ public class WaymoScenarioBuilder {
         this.proxyService = new IceProxyService();
     }
 
-    public void createScenario()  {
+    public String createScenario()  {
 
         ScenarioPrx scenarioPrx = proxyService.createScenarioPrx();
 
@@ -48,6 +48,28 @@ public class WaymoScenarioBuilder {
             ex.printStackTrace();
         }
 
+        return scenarioPrx.getId();
+
+    }
+
+    public void updateScenario(String scenarioId)  {
+
+        ScenarioPrx scenarioPrx = proxyService.getScenarioPrx(scenarioId);
+
+        try {
+            List<LidarView> lidarViews = getDeserializedLidarViews(waymoJsonFilePath);
+            lidarViews.stream()
+                    .flatMap(lidarView -> lidarView.labels.stream())
+                    .forEach(label -> addEntityBasedOnLabel(scenarioPrx, label));
+
+            proxyService.persistOntologyChanges();
+
+            Logger.printLogMessage("UPDATED SCENARIO ID = " + scenarioPrx.getId(), LogMessageType.INFO);
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
     }
 
     private void addMainVehicleToScenario(ScenarioPrx scenarioPrx) {

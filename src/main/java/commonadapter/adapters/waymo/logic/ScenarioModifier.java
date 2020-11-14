@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+// FOR TEST PURPOSE ONLY
+
 public class ScenarioModifier {
 
     private Communicator communicator;

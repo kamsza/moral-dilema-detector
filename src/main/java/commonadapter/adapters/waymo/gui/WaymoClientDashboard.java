@@ -1,7 +1,6 @@
 package commonadapter.adapters.waymo.gui;
 
 import commonadapter.adapters.waymo.logic.WaymoScenarioBuilder;
-import commonadapter.server.logic.Server;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -10,13 +9,13 @@ import java.awt.event.ActionListener;
 
 public class WaymoClientDashboard extends JFrame implements ActionListener {
 
-    private Server server;
-    private Thread serverThread;
     private String waymoJsonFilePath;
 
     private JButton selectWaymoDataButton;
     private JComboBox<String> availableScenarioIdsComboBox;
     private JButton generateButton;
+    private JLabel createdScenarioIdLabel;
+    private JTextField createdScenarioIdTextField;
 
 
     public WaymoClientDashboard() {
@@ -36,15 +35,15 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
         selectWaymoDataButton.addActionListener(this);
         add(selectWaymoDataButton);
 
-        availableScenarioIdsComboBox = new JComboBox<String>(new String[] { "345", "678", "Michal" });
-        availableScenarioIdsComboBox.setBounds(20, 90, 400, 50);
-        add(availableScenarioIdsComboBox);
-
         generateButton = new JButton("Generate");
-        generateButton.setBounds(20, 160, 400, 50);
+        generateButton.setBounds(20, 90, 400, 50);
         generateButton.addActionListener(this);
         //generateButton.setVisible(true);
         add(generateButton);
+
+        createdScenarioIdTextField = new JFormattedTextField();
+        createdScenarioIdTextField.setBounds(20, 160, 400, 50);
+        add(createdScenarioIdTextField);
 
     }
 
@@ -80,7 +79,18 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
 
         WaymoScenarioBuilder builder = new WaymoScenarioBuilder(waymoJsonFilePath);
 
-        builder.createScenario();
+        String enteredText = createdScenarioIdTextField.getText();
+
+        if (enteredText.isEmpty()) {
+
+            String createdScenarioId = builder.createScenario();
+            createdScenarioIdTextField.setText(createdScenarioId);
+        } else {
+
+            builder.updateScenario(enteredText);
+        }
+
+
 
     }
 
