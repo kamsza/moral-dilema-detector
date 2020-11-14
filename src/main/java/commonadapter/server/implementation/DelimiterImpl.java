@@ -7,8 +7,8 @@ public class DelimiterImpl extends RoadPointImpl implements Delimiter {
 
     private project.Delimiter delimiter;
 
-    public DelimiterImpl(String id, MyFactory owlFactory) {
+    public DelimiterImpl(String id, project.Delimiter ontoDelimiter, MyFactory owlFactory) {
         super(id, owlFactory);
-        super.roadPoint = this.delimiter = owlFactory.createDelimiter(id);
+        super.roadPoint = this.delimiter = ontoDelimiter;
     }
 }

@@ -8,9 +8,9 @@ public class PedestrianImpl extends EntityImpl implements Pedestrian {
 
     private project.Pedestrian pedestrian;
 
-    public PedestrianImpl(String id, MyFactory owlFactory) {
+    public PedestrianImpl(String id, project.Pedestrian ontoPedestrian, MyFactory owlFactory) {
         super(id, owlFactory);
-        super.entity = this.pedestrian = owlFactory.createPedestrian(id);
+        super.entity = this.pedestrian = ontoPedestrian;
     }
 
 

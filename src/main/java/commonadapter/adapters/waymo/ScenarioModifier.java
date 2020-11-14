@@ -14,13 +14,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class ScenarioBuilder {
+public class ScenarioModifier {
 
     private Communicator communicator;
     private ManagerPrx managerPrx;
     private ScenarioPrx scenarioPrx;
 
-    public ScenarioBuilder(String[] args) {
+    public ScenarioModifier(String[] args) {
 
         try {
             initializeConnection(args);
@@ -41,12 +41,15 @@ public class ScenarioBuilder {
 
 
     public static void main(String[] args) {
-        new ScenarioBuilder(args).buildScenario("src\\main\\resources\\waymo\\waymo-projected-lidar-labels-short.json");
+        new ScenarioModifier(args).modifyScenario(
+                "src\\main\\resources\\waymo\\waymo-projected-lidar-labels-short-2.json",
+                "SCENARIO-df0ac6dd-b373-40d2-a9eb-a8f7c0da0243"
+                );
     }
 
-    public void buildScenario(String jsonFilePath)  {
+    public void modifyScenario(String jsonFilePath, String id)  {
 
-        String scenarioId = managerPrx.create(ItemType.SCENARIO);
+        String scenarioId = managerPrx.load(id, ItemType.SCENARIO);
         ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(scenarioId));
         scenarioPrx = ScenarioPrx.checkedCast(basePrx);
 

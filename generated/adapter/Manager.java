@@ -17,6 +17,8 @@ package adapter;
 
 public interface Manager extends com.zeroc.Ice.Object
 {
+    String load(String itemId, ItemType type, com.zeroc.Ice.Current current);
+
     String create(ItemType type, com.zeroc.Ice.Current current);
 
     void persist(com.zeroc.Ice.Current current);
@@ -43,6 +45,29 @@ public interface Manager extends com.zeroc.Ice.Object
     static String ice_staticId()
     {
         return "::adapter::Manager";
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_load(Manager obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_itemId;
+        ItemType iceP_type;
+        iceP_itemId = istr.readString();
+        iceP_type = ItemType.ice_read(istr);
+        inS.endReadParams();
+        String ret = obj.load(iceP_itemId, iceP_type, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
     }
 
     /**
@@ -89,6 +114,7 @@ public interface Manager extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
+        "load",
         "persist"
     };
 
@@ -126,6 +152,10 @@ public interface Manager extends com.zeroc.Ice.Object
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 5:
+            {
+                return _iceD_load(this, in, current);
+            }
+            case 6:
             {
                 return _iceD_persist(this, in, current);
             }
