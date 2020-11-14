@@ -1,7 +1,8 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.RoadPoint;
 import com.zeroc.Ice.Current;
+import commonadapter.server.logic.models.BaseItemImpl;
 import project.MyFactory;
 
 public abstract class RoadPointImpl extends BaseItemImpl implements RoadPoint {

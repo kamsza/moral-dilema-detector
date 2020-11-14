@@ -1,12 +1,13 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.*;
 import com.zeroc.Ice.Current;
 import com.zeroc.Ice.Identity;
-import commonadapter.server.implementation.exceptions.OntologyItemCreationException;
-import commonadapter.server.implementation.exceptions.OntologyItemLoadingException;
-import commonadapter.server.implementation.logging.LogMessageType;
-import commonadapter.server.implementation.logging.Logger;
+import commonadapter.server.logic.services.OntologyService;
+import commonadapter.server.logic.exceptions.OntologyItemCreationException;
+import commonadapter.server.logic.exceptions.OntologyItemLoadingException;
+import commonadapter.server.logic.logging.LogMessageType;
+import commonadapter.server.logic.logging.Logger;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,14 +17,14 @@ import static commonadapter.CommunicationUtils.GLOBAL_ICE_CATEGORY;
 
 public class ManagerImpl implements Manager {
 
-    OntologyLoader ontologyLoader;
+    OntologyService ontologyService;
 
-    private Set<String> itemIds;
+    private Set<String> loadedItemIds;
 
-    public ManagerImpl() {
+    public ManagerImpl(String ontologyfilePath) {
 
-        itemIds = new TreeSet<>();
-        ontologyLoader = new OntologyLoader("", "");
+        loadedItemIds = new TreeSet<>();
+        ontologyService = new OntologyService(ontologyfilePath);
     }
 
 
@@ -42,12 +43,12 @@ public class ManagerImpl implements Manager {
 
         try {
 
-            loadedItem = ontologyLoader.loadItem(itemId, type);
+            loadedItem = ontologyService.loadItem(itemId, type);
             id = loadedItem.getId();
 
             current.adapter.add(loadedItem, new Identity(id, GLOBAL_ICE_CATEGORY));
 
-            itemIds.add(id);
+            loadedItemIds.add(id);
 
         } catch (OntologyItemLoadingException ex) {
 
@@ -67,12 +68,12 @@ public class ManagerImpl implements Manager {
 
         try {
 
-            createdItem = ontologyLoader.createAndLoadItem(type);
+            createdItem = ontologyService.createAndLoadItem(type);
             id = createdItem.getId();
 
             current.adapter.add(createdItem, new Identity(id, GLOBAL_ICE_CATEGORY));
 
-            itemIds.add(id);
+            loadedItemIds.add(id);
 
         } catch (OntologyItemCreationException ex) {
 
@@ -86,11 +87,11 @@ public class ManagerImpl implements Manager {
     @Override
     public void persist(Current current) {
 
-        ontologyLoader.persist();
+        ontologyService.persist();
 
         StringBuffer sb = new StringBuffer();
 
-        itemIds.forEach(id -> {
+        loadedItemIds.forEach(id -> {
             sb.append(id);
             sb.append("\n");
         });
@@ -101,6 +102,6 @@ public class ManagerImpl implements Manager {
 
     private boolean checkIfLoaded(String itemId) {
 
-        return itemIds.contains(itemId);
+        return loadedItemIds.contains(itemId);
     }
 }

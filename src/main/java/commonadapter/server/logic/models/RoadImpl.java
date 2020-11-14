@@ -1,7 +1,8 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.Road;
 import com.zeroc.Ice.Current;
+import commonadapter.server.logic.models.BaseItemImpl;
 import project.MyFactory;
 
 public class RoadImpl extends BaseItemImpl implements Road {

@@ -1,7 +1,6 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.Junction;
-import com.zeroc.Ice.Current;
 import project.MyFactory;
 
 public class JunctionImpl extends RoadPointImpl implements Junction {

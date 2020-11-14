@@ -1,12 +1,11 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.services;
 
 import adapter.ItemType;
-import com.zeroc.Ice.Current;
-import com.zeroc.Ice.Identity;
-import commonadapter.server.implementation.exceptions.OntologyItemCreationException;
-import commonadapter.server.implementation.exceptions.OntologyItemLoadingException;
-import commonadapter.server.implementation.logging.LogMessageType;
-import commonadapter.server.implementation.logging.Logger;
+import commonadapter.server.logic.exceptions.OntologyItemCreationException;
+import commonadapter.server.logic.exceptions.OntologyItemLoadingException;
+import commonadapter.server.logic.logging.LogMessageType;
+import commonadapter.server.logic.logging.Logger;
+import commonadapter.server.logic.models.*;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -15,19 +14,20 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
-public class OntologyLoader {
+public class OntologyService {
 
     public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
 
     private MyFactory owlFactory;
 
-    // TODO: export paths to config
-    private String ontologyFilePath = "src\\main\\resources\\waymo\\ontology_with_scenario.owl";
+    private String ontologyFilePath;
 
-    public OntologyLoader(String ontologyFilePath, String outputFilePath) {
+    public OntologyService(String ontologyFilePath) {
+
+        this.ontologyFilePath = ontologyFilePath;
+
         try {
             prepareOntology();
         } catch (OWLOntologyCreationException ex) {

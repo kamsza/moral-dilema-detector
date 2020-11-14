@@ -1,4 +1,4 @@
-package commonadapter.server.implementation.exceptions;
+package commonadapter.server.logic.exceptions;
 
 public class OntologyItemCreationException extends Exception {
 

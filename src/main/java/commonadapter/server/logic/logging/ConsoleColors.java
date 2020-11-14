@@ -1,4 +1,4 @@
-package commonadapter.server.implementation.logging;
+package commonadapter.server.logic.logging;
 
 public class ConsoleColors {
     // Reset

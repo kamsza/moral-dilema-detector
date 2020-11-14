@@ -1,4 +1,4 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.LaneBoundary;
 import com.zeroc.Ice.Current;

@@ -1,4 +1,4 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.Entity;
 import com.zeroc.Ice.Current;

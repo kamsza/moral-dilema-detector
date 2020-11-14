@@ -1,7 +1,7 @@
-package commonadapter.server.implementation;
+package commonadapter.server.logic.models;
 
 import adapter.Pedestrian;
-import com.zeroc.Ice.Current;
+import commonadapter.server.logic.models.EntityImpl;
 import project.MyFactory;
 
 public class PedestrianImpl extends EntityImpl implements Pedestrian {
