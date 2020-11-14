@@ -6,8 +6,8 @@ import com.zeroc.Ice.Identity;
 import commonadapter.server.logic.services.OntologyService;
 import commonadapter.server.logic.exceptions.OntologyItemCreationException;
 import commonadapter.server.logic.exceptions.OntologyItemLoadingException;
-import commonadapter.server.logic.logging.LogMessageType;
-import commonadapter.server.logic.logging.Logger;
+import commonadapter.logging.LogMessageType;
+import commonadapter.logging.Logger;
 
 import java.util.Set;
 import java.util.TreeSet;

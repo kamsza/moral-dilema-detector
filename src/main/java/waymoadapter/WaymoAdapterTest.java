@@ -1,9 +1,9 @@
 package waymoadapter;
 
-import commonadapter.adapters.waymo.lidardata.Box;
-import commonadapter.adapters.waymo.lidardata.Label;
-import commonadapter.adapters.waymo.lidardata.Metadata;
-import commonadapter.adapters.waymo.lidardata.Type;
+import commonadapter.adapters.waymo.logic.lidardata.Box;
+import commonadapter.adapters.waymo.logic.lidardata.Label;
+import commonadapter.adapters.waymo.logic.lidardata.Metadata;
+import commonadapter.adapters.waymo.logic.lidardata.Type;
 
 public class WaymoAdapterTest {
 

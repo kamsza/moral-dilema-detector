@@ -7,8 +7,8 @@ import com.zeroc.Ice.Identity;
 import com.zeroc.Ice.ObjectAdapter;
 import com.zeroc.Ice.Util;
 import commonadapter.server.logic.models.ManagerImpl;
-import commonadapter.server.logic.logging.LogMessageType;
-import commonadapter.server.logic.logging.Logger;
+import commonadapter.logging.LogMessageType;
+import commonadapter.logging.Logger;
 
 public class Server implements Runnable {
 

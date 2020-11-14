@@ -3315,27 +3315,27 @@
     
 
 
-    <!-- LANE-e1ba4a94-c30f-4688-886a-f5ec4ae4d66a -->
+    <!-- LANE-2857f778-1c99-45c8-a812-b4d3f88436f4 -->
 
-    <owl:NamedIndividual rdf:about="LANE-e1ba4a94-c30f-4688-886a-f5ec4ae4d66a">
+    <owl:NamedIndividual rdf:about="LANE-2857f778-1c99-45c8-a812-b4d3f88436f4">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- LANE-f61de4b3-e46b-48c7-bdcc-6c5772dad36b -->
+    <!-- LANE-a30d18a0-5fbe-4080-b89f-d2d676adb103 -->
 
-    <owl:NamedIndividual rdf:about="LANE-f61de4b3-e46b-48c7-bdcc-6c5772dad36b">
+    <owl:NamedIndividual rdf:about="LANE-a30d18a0-5fbe-4080-b89f-d2d676adb103">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- PEDESTRIAN-6f68c1c4-328f-4eac-af86-147b4c02f406 -->
+    <!-- PEDESTRIAN-25818e6d-ec13-484b-bec7-ee9ef0a60c66 -->
 
-    <owl:NamedIndividual rdf:about="PEDESTRIAN-6f68c1c4-328f-4eac-af86-147b4c02f406">
+    <owl:NamedIndividual rdf:about="PEDESTRIAN-25818e6d-ec13-484b-bec7-ee9ef0a60c66">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE-f61de4b3-e46b-48c7-bdcc-6c5772dad36b"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE-a30d18a0-5fbe-4080-b89f-d2d676adb103"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.094022155</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.14411505</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">499.24704</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
@@ -3347,11 +3347,21 @@
     
 
 
-    <!-- VEHICLE-0e9ca970-ab49-4514-b606-f757cfac1b00 -->
+    <!-- SCENARIO-570939f7-883f-4af2-8fe2-fdfceeb7d703 -->
 
-    <owl:NamedIndividual rdf:about="VEHICLE-0e9ca970-ab49-4514-b606-f757cfac1b00">
+    <owl:NamedIndividual rdf:about="SCENARIO-570939f7-883f-4af2-8fe2-fdfceeb7d703">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_pedestrian rdf:resource="PEDESTRIAN-25818e6d-ec13-484b-bec7-ee9ef0a60c66"/>
+        <webprotege:has_vehicle rdf:resource="VEHICLE-a83767ba-5959-4dfb-b595-f9457c183313"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- VEHICLE-a83767ba-5959-4dfb-b595-f9457c183313 -->
+
+    <owl:NamedIndividual rdf:about="VEHICLE-a83767ba-5959-4dfb-b595-f9457c183313">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
-        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE-e1ba4a94-c30f-4688-886a-f5ec4ae4d66a"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="LANE-2857f778-1c99-45c8-a812-b4d3f88436f4"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.2642983E-13</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.275903E-12</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">67.0679</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
@@ -3483,6 +3493,22 @@
     
 
 
+    <!-- http://www.w3.org/2003/11/LANE-e1ba4a94-c30f-4688-886a-f5ec4ae4d66a -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/LANE-e1ba4a94-c30f-4688-886a-f5ec4ae4d66a">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/LANE-f61de4b3-e46b-48c7-bdcc-6c5772dad36b -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/LANE-f61de4b3-e46b-48c7-bdcc-6c5772dad36b">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.w3.org/2003/11/PEDESTRIAN-1b43c233-3fb3-404e-9a87-c423683e2df3 -->
 
     <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/PEDESTRIAN-1b43c233-3fb3-404e-9a87-c423683e2df3">
@@ -3504,6 +3530,22 @@
     <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/PEDESTRIAN-634d5fd4-e5af-4e97-8c0b-a8c25d5bf833">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="http://www.w3.org/2003/11/LANE-080c321b-ec3d-4bf1-8f70-1386502fa80b"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.094022155</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.14411505</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">499.24704</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">41.20149</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.25162393</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.09572044</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">76.34049</BDGSqwMbfBgw7pUJ8IOnJ1:width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/PEDESTRIAN-6f68c1c4-328f-4eac-af86-147b4c02f406 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/PEDESTRIAN-6f68c1c4-328f-4eac-af86-147b4c02f406">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/pedestrian"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="http://www.w3.org/2003/11/LANE-f61de4b3-e46b-48c7-bdcc-6c5772dad36b"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.094022155</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
         <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.14411505</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
         <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">499.24704</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
@@ -3565,10 +3607,26 @@
 
     <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/SCENARIO-df0ac6dd-b373-40d2-a9eb-a8f7c0da0243">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
-        <webprotege:has_pedestrian rdf:resource="PEDESTRIAN-6f68c1c4-328f-4eac-af86-147b4c02f406"/>
         <webprotege:has_pedestrian rdf:resource="http://www.w3.org/2003/11/PEDESTRIAN-1b43c233-3fb3-404e-9a87-c423683e2df3"/>
-        <webprotege:has_vehicle rdf:resource="VEHICLE-0e9ca970-ab49-4514-b606-f757cfac1b00"/>
+        <webprotege:has_pedestrian rdf:resource="http://www.w3.org/2003/11/PEDESTRIAN-6f68c1c4-328f-4eac-af86-147b4c02f406"/>
+        <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/VEHICLE-0e9ca970-ab49-4514-b606-f757cfac1b00"/>
         <webprotege:has_vehicle rdf:resource="http://www.w3.org/2003/11/VEHICLE-d11c4328-93a6-4ee4-a3bb-f8366b9f89f1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/VEHICLE-0e9ca970-ab49-4514-b606-f757cfac1b00 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/VEHICLE-0e9ca970-ab49-4514-b606-f757cfac1b00">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="http://www.w3.org/2003/11/LANE-e1ba4a94-c30f-4688-886a-f5ec4ae4d66a"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.2642983E-13</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-1.275903E-12</BDGSqwMbfBgw7pUJ8IOnJ1:accelerationY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">67.0679</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:length rdf:datatype="http://www.w3.org/2001/XMLSchema#float">134.1358</BDGSqwMbfBgw7pUJ8IOnJ1:length>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedX rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.006889945</BDGSqwMbfBgw7pUJ8IOnJ1:speedX>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:speedY rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.032628413</BDGSqwMbfBgw7pUJ8IOnJ1:speedY>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:width rdf:datatype="http://www.w3.org/2001/XMLSchema#float">207.76724</BDGSqwMbfBgw7pUJ8IOnJ1:width>
     </owl:NamedIndividual>
     
 

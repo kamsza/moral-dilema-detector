@@ -1,5 +1,5 @@
 
-package commonadapter.adapters.waymo.lidardata;
+package commonadapter.adapters.waymo.logic.lidardata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

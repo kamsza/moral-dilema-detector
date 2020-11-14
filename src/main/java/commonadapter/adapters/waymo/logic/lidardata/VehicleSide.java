@@ -1,4 +1,4 @@
-package commonadapter.adapters.waymo.lidardata;
+package commonadapter.adapters.waymo.logic.lidardata;
 
 public enum VehicleSide {
 
