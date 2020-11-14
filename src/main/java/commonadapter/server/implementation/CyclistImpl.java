@@ -7,8 +7,8 @@ public class CyclistImpl extends EntityImpl implements Cyclist {
 
     private project.Cyclist cyclist;
 
-    public CyclistImpl(String id, MyFactory owlFactory) {
+    public CyclistImpl(String id, project.Cyclist ontoCyclist, MyFactory owlFactory) {
         super(id, owlFactory);
-        super.entity = this.cyclist = owlFactory.createCyclist(id);
+        super.entity = this.cyclist = ontoCyclist;
     }
 }

@@ -2,16 +2,15 @@ package commonadapter.server.implementation;
 
 import adapter.Scenario;
 import com.zeroc.Ice.Current;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
 
 public class ScenarioImpl extends BaseItemImpl implements Scenario {
 
     private project.Scenario scenario;
 
-    public ScenarioImpl(String id, MyFactory owlFactory) {
+    public ScenarioImpl(String id, project.Scenario ontoScenario, MyFactory owlFactory) {
         super(id, owlFactory);
-        this.scenario = owlFactory.createScenario(id);
+        this.scenario = ontoScenario;
     }
 
     @Override

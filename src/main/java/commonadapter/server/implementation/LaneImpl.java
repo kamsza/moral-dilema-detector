@@ -8,9 +8,9 @@ public class LaneImpl extends BaseItemImpl implements Lane {
 
     private project.Lane lane;
 
-    public LaneImpl(String id, MyFactory owlFactory) {
+    public LaneImpl(String id, project.Lane ontoLane, MyFactory owlFactory) {
         super(id, owlFactory);
-        this.lane = owlFactory.createLane(id);
+        this.lane = ontoLane;
     }
 
     @Override

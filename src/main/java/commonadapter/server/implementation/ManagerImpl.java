@@ -1,114 +1,106 @@
 package commonadapter.server.implementation;
 
 import adapter.*;
-import com.google.common.io.Files;
 import com.zeroc.Ice.Current;
 import com.zeroc.Ice.Identity;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.MyFactory;
+import commonadapter.server.implementation.exceptions.OntologyItemCreationException;
+import commonadapter.server.implementation.exceptions.OntologyItemLoadingException;
+import commonadapter.server.implementation.logging.LogMessageType;
+import commonadapter.server.implementation.logging.Logger;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static commonadapter.CommunicationUtils.GLOBAL_ICE_CATEGORY;
+
 
 public class ManagerImpl implements Manager {
 
-    // TODO: export paths to config
-    private String ontologyFilePath = "src\\main\\resources\\traffic_ontology.owl";
-    private String outputFilePath = "src\\main\\resources\\waymo\\ontology_with_scenario.owl";
+    OntologyLoader ontologyLoader;
 
-    private Map<String, BaseItemImpl> items;
-
-    public MyFactory owlFactory;
+    private Set<String> itemIds;
 
     public ManagerImpl() {
 
-        items = new HashMap<>();
-
-        try {
-            prepareOntology();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
-        }
+        itemIds = new TreeSet<>();
+        ontologyLoader = new OntologyLoader("", "");
     }
 
-    private void prepareOntology() throws IOException, OWLOntologyCreationException {
 
-        File original = new File(ontologyFilePath);
-        File copied = new File(outputFilePath);
-
-        com.google.common.io.Files.copy(original, copied);
-
-        OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(copied);
-
-        this.owlFactory = new MyFactory(ontology);
-    }
 
     @Override
-    public String create(ItemType type, Current current) {
+    public String load(String itemId, ItemType type, Current current) {
 
-        BaseItemImpl item = null;
+        if (checkIfLoaded(itemId))
+            return itemId;
 
-        String uuid = UUID.randomUUID().toString();
-        String id = type.toString() + "/" + uuid;
+        // else
 
-        switch (type) {
-            case SCENARIO:
-                item = new ScenarioImpl(id, owlFactory);
-                break;
-            case VEHICLE:
-                item = new VehicleImpl(id, owlFactory);
-                break;
-            case PEDESTRIAN:
-                item = new PedestrianImpl(id, owlFactory);
-                break;
-            case CYCLIST:
-                item = new CyclistImpl(id, owlFactory);
-                break;
-            case LANE:
-                item = new LaneImpl(id, owlFactory);
-                break;
-            case ROAD:
-                item = new RoadImpl(id, owlFactory);
-                break;
-            case DELIMITER:
-                item = new DelimiterImpl(id, owlFactory);
-                break;
-            case JUNCTION:
-                item = new JunctionImpl(id, owlFactory);
-                break;
-            case LANEBOUNDARY:
-                item = new LaneBoundaryImpl(id, owlFactory);
-                break;
-            case ROADATTRIBUTES:
-                item = new RoadAttributesImpl(id, owlFactory);
-                break;
+        String id = "";
+
+        BaseItemImpl loadedItem = null;
+
+        try {
+
+            loadedItem = ontologyLoader.loadItem(itemId, type);
+            id = loadedItem.getId();
+
+            current.adapter.add(loadedItem, new Identity(id, GLOBAL_ICE_CATEGORY));
+
+            itemIds.add(id);
+
+        } catch (OntologyItemLoadingException ex) {
+
+            Logger.printLogMessage(ex.getMessage(), LogMessageType.ERROR);
         }
-
-        items.put(id, item);
-
-        current.adapter.add(item, new Identity(uuid, type.toString()));
 
         return id;
     }
 
 
+    @Override
+    public String create(ItemType type, Current current) {
+
+        String id = "";
+
+        BaseItemImpl createdItem = null;
+
+        try {
+
+            createdItem = ontologyLoader.createAndLoadItem(type);
+            id = createdItem.getId();
+
+            current.adapter.add(createdItem, new Identity(id, GLOBAL_ICE_CATEGORY));
+
+            itemIds.add(id);
+
+        } catch (OntologyItemCreationException ex) {
+
+            Logger.printLogMessage(ex.getMessage(), LogMessageType.ERROR);
+        }
+
+        return id;
+    }
+
 
     @Override
     public void persist(Current current) {
-        try {
-            this.owlFactory.saveOwlOntology();
-        } catch (OWLOntologyStorageException e) {
-            e.printStackTrace();
-        }
+
+        ontologyLoader.persist();
+
+        StringBuffer sb = new StringBuffer();
+
+        itemIds.forEach(id -> {
+            sb.append(id);
+            sb.append("\n");
+        });
+
+        Logger.printLogMessage(sb.toString(), LogMessageType.INFO);
+
+    }
+
+    private boolean checkIfLoaded(String itemId) {
+
+        return itemIds.contains(itemId);
     }
 }

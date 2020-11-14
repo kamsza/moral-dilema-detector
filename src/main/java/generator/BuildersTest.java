@@ -2,6 +2,8 @@ package generator;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import project.MyFactory;
+import project.Passenger;
 import visualization.Visualization;
 
 import java.io.FileNotFoundException;
@@ -10,11 +12,24 @@ import java.lang.reflect.InvocationTargetException;
 public class BuildersTest {
     public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, OWLOntologyStorageException {
         BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
+        MyFactory factory = MyFactorySingleton.getFactory();
+        RandomSubclassGenerator subclassGenerator = new RandomSubclassGenerator(factory);
 
-        for(int i = 0; i < 50; i++) {
-            Model model = baseScenarioGenerator.generate();
-            model.export();
+
+        for(int i = 0; i < 100; i++) {
+            Passenger p = subclassGenerator.generatePassengerSubclass(ObjectNamer.getName("passenger"));
+            System.out.println(p.toString());
         }
+
+//        for(int i = 0; i < 40; i++) {
+//            Model model = baseScenarioGenerator.generate();
+//
+//            Model newModel = new ScenarioFactory(model).carApproaching().getModel();
+//
+//            Visualization.getImage(newModel);
+//            newModel.export();
+//        }
+
 //        for(int i = 0; i < 50; i++) {
 //            Model model = baseScenarioGenerator.generate();
 

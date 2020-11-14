@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
+import commonadapter.CommunicationUtils;
 import commonadapter.adapters.waymo.lidardata.Label;
 import commonadapter.adapters.waymo.lidardata.LidarView;
 
@@ -33,7 +34,7 @@ public class ScenarioBuilder {
 
         communicator = Util.initialize(args);
 
-        ObjectPrx base = communicator.stringToProxy("factory/factory1:tcp -h localhost -p 10000");
+        ObjectPrx base = communicator.stringToProxy(CommunicationUtils.getInternetAddress("manager"));
 
         this.managerPrx = ManagerPrx.checkedCast(base);
     }

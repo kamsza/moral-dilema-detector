@@ -8,9 +8,9 @@ public class RoadAttributesImpl extends BaseItemImpl implements RoadAttributes {
 
     private project.Road_attributes roadAttributes;
 
-    public RoadAttributesImpl(String id, MyFactory owlFactory) {
+    public RoadAttributesImpl(String id, project.Road_attributes ontoRoadAttributes, MyFactory owlFactory) {
         super(id, owlFactory);
-        this.roadAttributes = owlFactory.createRoad_attributes(id);
+        this.roadAttributes = ontoRoadAttributes;
     }
 
     @Override

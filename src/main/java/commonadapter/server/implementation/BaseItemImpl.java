@@ -18,4 +18,8 @@ public abstract class BaseItemImpl implements BaseItem {
     public String getId(Current current) {
         return id;
     }
+
+    public String getId() {
+        return id;
+    }
 }

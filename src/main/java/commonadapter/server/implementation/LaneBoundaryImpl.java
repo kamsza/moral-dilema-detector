@@ -8,9 +8,9 @@ public class LaneBoundaryImpl extends BaseItemImpl implements LaneBoundary {
 
     private project.Lane_boundary laneBoundary;
 
-    public LaneBoundaryImpl(String id, MyFactory owlFactory) {
+    public LaneBoundaryImpl(String id, project.Lane_boundary ontoLaneBoundary, MyFactory owlFactory) {
         super(id, owlFactory);
-        this.laneBoundary = owlFactory.createLane_boundary(id);
+        this.laneBoundary = ontoLaneBoundary;
     }
 
     @Override
