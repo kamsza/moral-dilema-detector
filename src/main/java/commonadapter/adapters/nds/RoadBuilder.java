@@ -49,7 +49,7 @@ public class RoadBuilder {
     }
 
     public static void main(String[] args) {
-        new RoadBuilder(args).buildRoads("src\\main\\resources\\nds\\routing\\routingTile_545554861.json");
+        new RoadBuilder(args).buildRoads("src\\main\\resources\\nds\\routing\\routingTile_545555100.json");
     }
 
     public void buildRoads(String jsonFilePath) {
@@ -188,7 +188,7 @@ public class RoadBuilder {
         }
         tileBin = sb.toString();
 
-        //add "0"'s to tile number
+        //adding "0"'s to tile number
         while (tileBin.length() < 27) {
             tileBin = "0" + tileBin;
         }
@@ -205,39 +205,20 @@ public class RoadBuilder {
         }
 
         //shifting coordinates
-        String transformedX = "";
-        String transformedY = "";
         String newX = "";
         String newY = "";
-        Boolean changedX = false;
+        boolean changedX = false;
         boolean changedY = false;
+
 
         if (String.valueOf(x.charAt(0)).equals("1")) {
             changedX = true;
-            Long tmp = Long.parseLong(x, 2);
-            tmp = tmp - 1;
-            transformedX = Long.toBinaryString(tmp);
-            for (int i = 0; i < transformedX.length(); i++) {
-                if (String.valueOf(transformedX.charAt(i)).equals("0")) {
-                    newX = newX + "1";
-                } else {
-                    newX = newX + "0";
-                }
-            }
+            newX = decodeComplementTwo(x);
         }
 
         if (String.valueOf(y.charAt(0)).equals("1")) {
             changedY = true;
-            Long tmp2 = Long.parseLong(y, 2);
-            tmp2 = tmp2 - 1;
-            transformedY = Long.toBinaryString(tmp2);
-            for (int i = 0; i < transformedY.length(); i++) {
-                if (String.valueOf(transformedX.charAt(i)).equals("0")) {
-                    newY = newY + "1";
-                } else {
-                    newY = newY + "0";
-                }
-            }
+            newY = decodeComplementTwo(y);
         }
 
         if (changedX) {
@@ -251,33 +232,58 @@ public class RoadBuilder {
         x = x + "000000000000000000";
         y = y + "000000000000000000";
 
-        //convert to decimal
-        Long decimalValueX = Long.parseLong(x, 2);
-        Long decimalValueY = Long.parseLong(y, 2);
+        //converting to decimal
+        long decimalValueX = Long.parseLong(x, 2);
+        long decimalValueY = Long.parseLong(y, 2);
 
-        //convert to coordinates
-        double coorXratio = decimalValueX / 2147483648.0;
-        double coorYratio = decimalValueY / 1073741824.0;
+        //converting to coordinates
+
+        Coordinates finalCoor = convertToCoordinates(decimalValueX,decimalValueY);
+
+        if (changedX) {
+            finalCoor.setLongitude(-finalCoor.getLongitude());
+        }
+
+        if (changedY) {
+            finalCoor.setLatitude(-finalCoor.getLatitude());
+        }
+
+        return finalCoor;
+    }
+
+    private static Coordinates calculateIntersectionCoordinates(Coordinates tileCenterCoordinates, Integer x_shift, Integer y_shift) {
+        double x = tileCenterCoordinates.getLongitude();
+        double y = tileCenterCoordinates.getLatitude();
+
+        long decimalX = (long)(((x/180) * 2147483648.0) + x_shift);
+        long decimalY = (long)(((y/90) * 1073741824.0) + y_shift);
+
+        return convertToCoordinates(decimalX, decimalY);
+    }
+
+    private static String decodeComplementTwo(String coor){
+        long tmp2 = Long.parseLong(coor, 2);
+        tmp2 = tmp2 - 1;
+        String transformedCoor = Long.toBinaryString(tmp2);
+        String newCoor = "";
+        for (int i = 0; i < transformedCoor.length(); i++) {
+            if (String.valueOf(transformedCoor.charAt(i)).equals("0")) {
+                newCoor = newCoor + "1";
+            } else {
+                newCoor = newCoor + "0";
+            }
+        }
+        return newCoor;
+    }
+
+    private static Coordinates convertToCoordinates(long x,long y){
+        double coorXratio = x / 2147483648.0;
+        double coorYratio = y / 1073741824.0;
 
         double coorX = coorXratio * 180;
         double coorY = coorYratio * 90;
 
-
-        if (changedX) {
-            coorX = -coorX;
-        }
-
-        if (changedY) {
-            coorY = -coorY;
-        }
-
         return new Coordinates(coorX, coorY);
-    }
-
-    private static Coordinates calculateIntersectionCoordinates(Coordinates tileCenterCoordinates, Integer x_shift, Integer y_shift) {
-        double longitude = tileCenterCoordinates.getLongitude() + x_shift / metresInOneDegree;
-        double latitude = tileCenterCoordinates.getLatitude() + y_shift / metresInOneDegree;
-        return new Coordinates(longitude, latitude);
     }
 
     private void assignSharedAttributes(RoadAttributesPrx roadAttrPrx, SharedAttr sharedAttr) {
@@ -293,5 +299,4 @@ public class RoadBuilder {
         roadAttrPrx.setUrban(routingAttr.urban);
         roadAttrPrx.setMotorway(routingAttr.motorway);
     }
-
 }

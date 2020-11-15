@@ -8,9 +8,9 @@ class Coordinates {
     private Double longitude;
     Logger logger = Logger.getLogger(Coordinates.class.getName());
 
-    public Coordinates(double latitude, double longitude) {
-        this.latitude = latitude;
+    public Coordinates(double longitude, double latitude) {
         this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public double getLatitude() {
