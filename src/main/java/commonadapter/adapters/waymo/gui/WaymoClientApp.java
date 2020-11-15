@@ -1,7 +1,5 @@
 package commonadapter.adapters.waymo.gui;
 
-import commonadapter.server.gui.ServerDashboard;
-
 import javax.swing.*;
 
 public class WaymoClientApp {

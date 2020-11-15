@@ -31,23 +31,17 @@ public class ManagerImpl implements Manager {
 
     @Override
     public String load(String itemId, ItemType type, Current current) {
-
         if (checkIfLoaded(itemId))
             return itemId;
 
         // else
-
         String id = "";
-
         BaseItemImpl loadedItem = null;
 
         try {
-
             loadedItem = ontologyService.loadItem(itemId, type);
             id = loadedItem.getId();
-
             current.adapter.add(loadedItem, new Identity(id, GLOBAL_ICE_CATEGORY));
-
             loadedItemIds.add(id);
 
         } catch (OntologyItemLoadingException ex) {
@@ -61,18 +55,12 @@ public class ManagerImpl implements Manager {
 
     @Override
     public String create(ItemType type, Current current) {
-
         String id = "";
-
         BaseItemImpl createdItem = null;
-
         try {
-
             createdItem = ontologyService.createAndLoadItem(type);
             id = createdItem.getId();
-
             current.adapter.add(createdItem, new Identity(id, GLOBAL_ICE_CATEGORY));
-
             loadedItemIds.add(id);
 
         } catch (OntologyItemCreationException ex) {
