@@ -59,6 +59,7 @@ public class BaseScenarioGenerator2 {
         Scenario scenario = factory.createScenario(ObjectNamer.getName("scenario"));
         model.setScenario(scenario);
 
+
         // add objects
         addRoad(model);
         addEnvData(model);
@@ -90,8 +91,8 @@ public class BaseScenarioGenerator2 {
 
         float vehicleSpeed = (float) (0);
 
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
-
+//        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
 
         vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
@@ -120,6 +121,7 @@ public class BaseScenarioGenerator2 {
 //        person.addValueInDollars(10000F);
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
         person.addIs_on_lane(lane);
+        model.getScenario().addHas_pedestrian(person);
         model.getEntities().get(lane).add(person);
     }
 
@@ -144,7 +146,7 @@ public class BaseScenarioGenerator2 {
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
 //        lanesCount = rand.nextInt(4) + 1;
-        lanesCount = 5;
+        lanesCount = 3;
         model.setLanesCount(lanesCount);
 
 
@@ -301,7 +303,6 @@ public class BaseScenarioGenerator2 {
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);
-
 
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
