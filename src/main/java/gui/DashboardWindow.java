@@ -40,6 +40,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JButton jButtonCustomPhilosophyInfo;
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
+    private JCheckBox jCheckBoxEnableBreaking;
+    private JTable jTableWithResults;
 
 
     /// CONST
@@ -105,6 +107,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jLabelImageScenario = new JLabel(getStartingImageIcon());
         jLabelImageScenario.setBounds(20, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
         add(jLabelImageScenario);
+
+        jCheckBoxEnableBreaking = new JCheckBox("Enable breaking", true);
+        jCheckBoxEnableBreaking.setBounds(20, 490, 150, 20);
+        add(jCheckBoxEnableBreaking);
 
         jLabelSelectPhilosophyPrompt = new JLabel("Select custom philosophy");
         jLabelSelectPhilosophyPrompt.setBounds(50, 515, 200, 30);
@@ -175,7 +181,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
     private void jButtonLoadFromFileAction() {
         JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        jFileChooser.setFileFilter(new FileNameExtensionFilter("OWL files","owl"));
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("OWL files", "owl"));
 
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
@@ -184,6 +190,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonGenerateScenarioAction() {
+        // TODO
         // różne rodzaje w zależności od comboboxa z rodzajami, na razie na sztywno
         scenarioModel = OntologyLogic.getModelFromGenerator(factory);
         pictureName = Visualization.getImage(scenarioModel);
@@ -210,14 +217,18 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 WarningWindow warningWindow = new WarningWindow(this, "Add custom philosophy");
                 warningWindow.setVisible(true);
             } else {
-                // wczytujemy wybraną filozofię
+                // load selected philosophy
+                decisionCosts = new HashMap<>();
                 String philosophyName = jComboBoxCustomPhilosophies.getSelectedItem().toString() + ".json";
                 CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
-                System.out.println(philosophyName);
-                System.out.println(customPhilosophy);
+
 
                 DecisionCostCalculator decisionCostCalculator =
                         new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
+
+                if (!jCheckBoxEnableBreaking.isSelected()) {
+                    OntologyLogic.removeStopDecision(collidedEntities);
+                }
 
                 for (Decision decision : collidedEntities.keySet()) {
                     decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
@@ -237,25 +248,42 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
                 int numberOfDecisions = decisionCosts.size();
 
+                if (jTableWithResults != null) {
+                    DefaultTableModel defaultTableModel = (DefaultTableModel) jTableWithResults.getModel();
+                    while (defaultTableModel.getRowCount() > 0) {
+                        defaultTableModel.removeRow(0);
+                    }
+                    for (String decisionName : decisionCosts.keySet()) {
+                        Object[] row = new Object[2];
+                        row[0] = changeSnakeCase(decisionName);
+                        row[1] = decisionCosts.get(decisionName);
+                        defaultTableModel.addRow(row);
+                    }
 
-                String[] columnNames = {"Action", "Moral cost"};
-                Object[][] data = new Object[numberOfDecisions][2];
-                int i = 0;
-                for (String decisionName : decisionCosts.keySet()) {
-                    data[i][0] = changeSnakeCase(decisionName);
-                    data[i][1] = decisionCosts.get(decisionName);
-                    i++;
+                    jTableWithResults.repaint();
+                    jScrollPaneWithResults.repaint();
+                    this.repaint();
+
+                } else {
+
+                    String[] columnNames = {"Action", "Moral cost"};
+                    Object[][] data = new Object[numberOfDecisions][2];
+                    int i = 0;
+                    for (String decisionName : decisionCosts.keySet()) {
+                        data[i][0] = changeSnakeCase(decisionName);
+                        data[i][1] = decisionCosts.get(decisionName);
+                        i++;
+                    }
+                    DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
+                        private static final long serialVersionUID = 1L;
+                    };
+                    jTableWithResults = new JTable(defaultTableModel);
+                    jScrollPaneWithResults = new JScrollPane(jTableWithResults);
+                    int jScrollPanelHeight = (jTableWithResults.getRowCount() + 1) * jTableWithResults.getRowHeight() + 7;
+                    if (jScrollPanelHeight > 150) jScrollPanelHeight = 150;
+                    jScrollPaneWithResults.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 600, 400, jScrollPanelHeight);
+                    add(jScrollPaneWithResults);
                 }
-                DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
-                    private static final long serialVersionUID = 1L;
-                };
-                JTable jTable = new JTable(defaultTableModel);
-
-                jScrollPaneWithResults = new JScrollPane(jTable);
-                int jScrollPanelHeight = (jTable.getRowCount() + 1) * jTable.getRowHeight() + 7;
-                if (jScrollPanelHeight > 150) jScrollPanelHeight = 150;
-                jScrollPaneWithResults.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 600, 400, jScrollPanelHeight);
-                add(jScrollPaneWithResults);
             }
         }
     }
@@ -292,7 +320,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 PATH_CUSTOM_PHILOSOPHIES);
         List<String> customPhilosophiesNames = new ArrayList<>();
         for (String name : f.list()) {
-            if(name.equals(".gitignore")) continue;
+            if (name.equals(".gitignore")) continue;
             customPhilosophiesNames.add(StringUtils.substringBefore(name, ".json"));
         }
         if (customPhilosophiesNames.size() == 0) {
