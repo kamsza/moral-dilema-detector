@@ -46,7 +46,7 @@ public class CollisionDetectorTest{
         //rigidBody on right side of mainVehicle
         RigidBody rigidBody3 = new RigidBody();
         rigidBody3.setWidth(3.0);
-        rigidBody3.setLength(1.0);
+        rigidBody3.setLength(5.0);
         rigidBody3.setPosition(new Vector2(0, -2));
 
         //rigidBody on front left side of mainVehicle
@@ -85,7 +85,7 @@ public class CollisionDetectorTest{
         //rigidBody on right side of mainVehicle
         RigidBody rigidBody3 = new RigidBody();
         rigidBody3.setWidth(3.0);
-        rigidBody3.setLength(1.0);
+        rigidBody3.setLength(5.0);
         rigidBody3.setPosition(new Vector2(0, -4));
 
         //rigidBody on front left side of mainVehicle
