@@ -47,5 +47,16 @@ public class RoadImpl extends BaseItemImpl implements Road {
         this.road.addHas_road_attributes(attributes);
     }
 
+    @Override
+    public void setAverageSpeed(int averageSpeed, Current current) {
+
+        this.road.addAverage_speed(averageSpeed);
+    }
+
+    @Override
+    public void setSpeedLimit(int speedLimit, Current current) {
+        this.road.addSpeed_limit(speedLimit);
+    }
+
 
 }

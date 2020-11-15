@@ -1,7 +1,6 @@
 package commonadapter.server.logic.models;
 
 import adapter.Vehicle;
-import commonadapter.server.logic.models.EntityImpl;
 import project.MyFactory;
 
 public class VehicleImpl extends EntityImpl implements Vehicle {

@@ -197,6 +197,78 @@ public interface RoadPrx extends BaseItemPrx
         return f;
     }
 
+    default void setAverageSpeed(int averageSpeed)
+    {
+        setAverageSpeed(averageSpeed, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setAverageSpeed(int averageSpeed, java.util.Map<String, String> context)
+    {
+        _iceI_setAverageSpeedAsync(averageSpeed, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAverageSpeedAsync(int averageSpeed)
+    {
+        return _iceI_setAverageSpeedAsync(averageSpeed, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setAverageSpeedAsync(int averageSpeed, java.util.Map<String, String> context)
+    {
+        return _iceI_setAverageSpeedAsync(averageSpeed, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_averageSpeed -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setAverageSpeedAsync(int iceP_averageSpeed, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setAverageSpeed", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_averageSpeed);
+                 }, null);
+        return f;
+    }
+
+    default void setSpeedLimit(int speedLimit)
+    {
+        setSpeedLimit(speedLimit, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setSpeedLimit(int speedLimit, java.util.Map<String, String> context)
+    {
+        _iceI_setSpeedLimitAsync(speedLimit, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedLimitAsync(int speedLimit)
+    {
+        return _iceI_setSpeedLimitAsync(speedLimit, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setSpeedLimitAsync(int speedLimit, java.util.Map<String, String> context)
+    {
+        return _iceI_setSpeedLimitAsync(speedLimit, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_speedLimit -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setSpeedLimitAsync(int iceP_speedLimit, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setSpeedLimit", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_speedLimit);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.
