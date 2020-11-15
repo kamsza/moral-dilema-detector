@@ -39,10 +39,10 @@ public class DecisionCostCalculator {
         return result;
     }
 
-    private int calculateCostOfTakingAction(Decision decision){
+    private int calculateCostOfTakingAction(Decision decision) {
         int result = 0;
         System.out.println(decision.toString());
-        if(decision.toString().indexOf("follow") == -1){
+        if (decision.toString().indexOf("follow") == -1 && decision.toString().indexOf("stop") == -1) {
             result = customPhilosophy.getParameters().get(PhilosophyParameter.TAKING_ACTION);
         }
         return result;
