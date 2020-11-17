@@ -27,6 +27,10 @@ public interface Road extends BaseItem
 
     void setRoadAttributes(String roadAttributesId, com.zeroc.Ice.Current current);
 
+    void setAverageSpeed(int averageSpeed, com.zeroc.Ice.Current current);
+
+    void setSpeedLimit(int speedLimit, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -142,6 +146,42 @@ public interface Road extends BaseItem
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setAverageSpeed(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        int iceP_averageSpeed;
+        iceP_averageSpeed = istr.readInt();
+        inS.endReadParams();
+        obj.setAverageSpeed(iceP_averageSpeed, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setSpeedLimit(Road obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        int iceP_speedLimit;
+        iceP_speedLimit = istr.readInt();
+        inS.endReadParams();
+        obj.setSpeedLimit(iceP_speedLimit, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
@@ -150,9 +190,11 @@ public interface Road extends BaseItem
         "ice_ids",
         "ice_isA",
         "ice_ping",
+        "setAverageSpeed",
         "setEndAngle",
         "setEnds",
         "setRoadAttributes",
+        "setSpeedLimit",
         "setStartAngle",
         "setStarts"
     };
@@ -192,21 +234,29 @@ public interface Road extends BaseItem
             }
             case 5:
             {
-                return _iceD_setEndAngle(this, in, current);
+                return _iceD_setAverageSpeed(this, in, current);
             }
             case 6:
             {
-                return _iceD_setEnds(this, in, current);
+                return _iceD_setEndAngle(this, in, current);
             }
             case 7:
             {
-                return _iceD_setRoadAttributes(this, in, current);
+                return _iceD_setEnds(this, in, current);
             }
             case 8:
             {
-                return _iceD_setStartAngle(this, in, current);
+                return _iceD_setRoadAttributes(this, in, current);
             }
             case 9:
+            {
+                return _iceD_setSpeedLimit(this, in, current);
+            }
+            case 10:
+            {
+                return _iceD_setStartAngle(this, in, current);
+            }
+            case 11:
             {
                 return _iceD_setStarts(this, in, current);
             }

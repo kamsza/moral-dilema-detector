@@ -1,37 +1,74 @@
 package DilemmaDetector.Simulator;
 
-import java.util.LinkedList;
-import java.util.List;
+import generator.Model;
+import project.Surrounding;
+
+import java.util.*;
 
 public class CollisionDetector {
 
+    private Model scenarioModel;
     private List<Actor> actors;
+    private List<Actor> surroundingActors;
     private Actor mainVehicle;
 
-    public CollisionDetector(Actor mainVehicle,
-                             List<Actor> actors) {
+    public CollisionDetector(Model model, Actor mainVehicle,
+                             List<Actor> actors, List<Actor> surroundingActors) {
+        this.scenarioModel = model;
         this.mainVehicle = mainVehicle;
         this.actors = actors;
+        this.surroundingActors = surroundingActors;
     }
 
-    public List<Actor> detectCollisionInMoment() {
-        List<Actor> collidedActors = new LinkedList<>();
+    public Set<Actor> detectCollisionInMoment() {
+        Set<Actor> collidedActors = new LinkedHashSet<>();
+        for (Actor surroundingActor: surroundingActors) {
+            if (detectCollisionWithRigidBodyInMoment(surroundingActor.getRigidBody(), surroundingActor.getEntityName())) {
+                collidedActors.add(mainVehicle);
+//                collidedActors.add(surroundingActor);
+            }
+        }
+//        if (detectOutOfRoad(mainVehicle)) {
+//            collidedActors.add(mainVehicle);
+//        }
         for (Actor entry : actors) {
-            if (detectCollisionWithRigidbodyInMoment(entry.getRigidBody()))
+            if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
                 collidedActors.add(entry);
+                collidedActors.add(mainVehicle);
+            }
         }
 
         return collidedActors;
     }
 
+    public boolean detectOutOfRoad(Actor mainVehicle){
+        boolean outOfRoad = false;
+        int lastLaneLeft =  scenarioModel.getLanes().get(Model.Side.LEFT).entrySet().size() + 1;
+        int lastLaneRight = scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet().size() + 1;
 
-    public boolean detectCollisionWithRigidbodyInMoment(RigidBody rigidBody) {
+        double leftBorderY = lastLaneLeft * RigidBodyMapper.LANE_WIDTH * (-1);
+        double rightBorderY = lastLaneRight * RigidBodyMapper.LANE_WIDTH;
+
+        double vehicleY = mainVehicle.getRigidBody().getPosition().y;
+
+        if (vehicleY < leftBorderY ||  vehicleY > rightBorderY){
+            System.out.println("Main vehicle out of road ");
+            outOfRoad = true;
+        }
+
+        return outOfRoad;
+    }
+
+
+
+    public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody, String entityName) {
         boolean isCollision = false;
-        double vehicleWidth = rigidBody.getWidth();
-        double vehicleLength = rigidBody.getLength();
+        double rigidBodyWidth = rigidBody.getWidth();
+        double rigidBodyLength = rigidBody.getLength();
         Vector2 distanceBetweenRigidBodies = getDistanceBetweenRigidBodies(mainVehicle.getRigidBody(), rigidBody);
-        if(distanceBetweenRigidBodies.x < (vehicleWidth + mainVehicle.getRigidBody().getWidth()) /2
-                && distanceBetweenRigidBodies.y < (vehicleLength + mainVehicle.getRigidBody().getLength()) /2) {
+        if(distanceBetweenRigidBodies.y < (rigidBodyWidth + mainVehicle.getRigidBody().getWidth()) /2
+                && distanceBetweenRigidBodies.x < (rigidBodyLength + mainVehicle.getRigidBody().getLength()) /2) {
+            System.out.println("Collision with " + entityName + "  " + rigidBody.getPosition());
             isCollision = true;
         }
         return isCollision;
