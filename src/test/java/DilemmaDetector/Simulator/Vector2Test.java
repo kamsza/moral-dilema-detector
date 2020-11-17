@@ -6,26 +6,26 @@ import org.junit.Test;
 public class Vector2Test {
     @Test
     public void zeroVectorTest() {
-        Assert.assertEquals(Vector2.zero(), new Vector2(0,0));
+        Assert.assertEquals(new Vector2(0,0), Vector2.zero());
     }
 
     @Test
     public void magnitudeTest(){
         Vector2 vector = new Vector2(-3, 4);
-        Assert.assertEquals(vector.getMagnitude(), 5, 0);
+        Assert.assertEquals(5, vector.getMagnitude(), 0);
     }
 
     @Test
     public void normalizedVectorTest(){
         Vector2 vector = new Vector2(-3, 4);
         Vector2 normalizedVector = new Vector2(-3.0/5, 4.0/5);
-        Assert.assertEquals(vector.getNormalized(), normalizedVector);
+        Assert.assertEquals(normalizedVector, vector.getNormalized());
     }
 
     @Test
     public void normalizedZeroVectorTest(){
         Vector2 zeroVector = Vector2.zero();
-        Assert.assertEquals(zeroVector.getNormalized(), zeroVector);
+        Assert.assertEquals(zeroVector, zeroVector.getNormalized());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class Vector2Test {
         Vector2 vector2 = new Vector2(50, -100);
         Vector2 addedVectors = new Vector2(-50, -50);
         vector1.add(vector2);
-        Assert.assertEquals(vector1, addedVectors);
+        Assert.assertEquals(addedVectors, vector1);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class Vector2Test {
         Vector2 vector2 = new Vector2(50, -100);
         Vector2 subVectors = new Vector2(-150, 150);
         vector1.sub(vector2);
-        Assert.assertEquals(vector1, subVectors);
+        Assert.assertEquals(subVectors, vector1);
     }
 
     @Test
@@ -52,6 +52,6 @@ public class Vector2Test {
         double multiplier = -3.0;
         Vector2 mulVector = new Vector2(30, -15);
         vector.mul(multiplier);
-        Assert.assertEquals(vector, mulVector);
+        Assert.assertEquals(mulVector, vector);
     }
 }
