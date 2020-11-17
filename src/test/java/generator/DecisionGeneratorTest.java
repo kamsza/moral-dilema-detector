@@ -58,6 +58,7 @@ public class DecisionGeneratorTest {
         List<Class> expectedActionClasses = List.of(Follow.class, Stop.class, Turn_right.class, Turn_left.class,
                 Change_lane.class, Change_lane.class, Change_lane.class, Change_lane.class, Change_lane.class);
         // iterate over expectedActionClasses and remove 1 matching entry from map
+        // that way we make sure we have the right amount of the right type of action
         for(Class actionClass : expectedActionClasses){
             for(Iterator<Map.Entry<Decision, Action>> it = actionByDecision.entrySet().iterator(); it.hasNext();){
                 Map.Entry<Decision, Action> entry = it.next();

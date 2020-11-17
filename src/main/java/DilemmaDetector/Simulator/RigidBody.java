@@ -52,6 +52,9 @@ public class RigidBody {
     }
 
     public void update(double deltaTime) {
+        if(deltaTime <= 0){
+            throw new IllegalArgumentException("deltaTime argument has to be positive");
+        }
         updatePosition(deltaTime);
         updateSpeed(deltaTime);
     };
