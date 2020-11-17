@@ -16,13 +16,8 @@ public class DecisionGenerator {
         actionByDecision = new HashMap<>();
     }
 
-    public DecisionGenerator(MyFactory factory, String baseIRI, Map<Decision, Action> actionByDecision){
-        this.baseIRI = baseIRI;
-        this.factory = factory;
-        this.actionByDecision = actionByDecision;
-    }
-
     public void generate(Model model){
+        actionByDecision.clear();
         model.setActionByDecision(this.actionByDecision);
 
         Follow follow = factory.createFollow(ObjectNamer.getName("follow"));
@@ -55,5 +50,9 @@ public class DecisionGenerator {
         decision.addHas_action(action);
         model.getScenario().addHas_decision(decision);
         this.actionByDecision.put(decision, action);
+    }
+
+    public Map<Decision, Action> getActionByDecision() {
+        return actionByDecision;
     }
 }

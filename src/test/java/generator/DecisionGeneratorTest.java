@@ -31,7 +31,6 @@ public class DecisionGeneratorTest {
 
     @Test
     public void generateActionByDecisionMapTest() {
-        Map<Decision, Action> actionByDecision = new HashMap<>();
         String baseIRI = "anything";
         MyFactory factoryMock = mock(MyFactory.class);
         Change_lane changeLaneMock = mock(Change_lane.class);
@@ -52,8 +51,9 @@ public class DecisionGeneratorTest {
         Map<Model.Side, TreeMap<Integer, Lane>> lanesMap = getExampleLaneMap(3, 2);
         when(modelMock.getLanes()).thenReturn(lanesMap);
 
-        DecisionGenerator decisionGenerator = new DecisionGenerator(factoryMock, baseIRI, actionByDecision);
+        DecisionGenerator decisionGenerator = new DecisionGenerator(factoryMock, baseIRI);
         decisionGenerator.generate(modelMock);
+        Map<Decision, Action> actionByDecision = decisionGenerator.getActionByDecision();
 
         List<Class> expectedActionClasses = List.of(Follow.class, Stop.class, Turn_right.class, Turn_left.class,
                 Change_lane.class, Change_lane.class, Change_lane.class, Change_lane.class, Change_lane.class);

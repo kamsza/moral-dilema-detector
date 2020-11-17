@@ -38,6 +38,14 @@ public class Vector2Test {
     }
 
     @Test
+    public void addZeroToVectorTest(){
+        Vector2 vector = new Vector2(-100, 50);
+        Vector2 addedVectors = new Vector2(-100, 50);
+        vector.add(Vector2.zero());
+        Assert.assertEquals(addedVectors, vector);
+    }
+
+    @Test
     public void subVectorsTest(){
         Vector2 vector1 = new Vector2(-100, 50);
         Vector2 vector2 = new Vector2(50, -100);
@@ -47,11 +55,27 @@ public class Vector2Test {
     }
 
     @Test
-    public void mulVectorsTest(){
+    public void subZeroFromVectorTest(){
+        Vector2 vector = new Vector2(-100, 50);
+        Vector2 subVectors = new Vector2(-100, 50);
+        vector.sub(Vector2.zero());
+        Assert.assertEquals(subVectors, vector);
+    }
+
+    @Test
+    public void mulVectorTest(){
         Vector2 vector = new Vector2(-10, 5);
         double multiplier = -3.0;
         Vector2 mulVector = new Vector2(30, -15);
         vector.mul(multiplier);
         Assert.assertEquals(mulVector, vector);
+    }
+
+    @Test
+    public void mulByZeroVectorTest(){
+        Vector2 vector = new Vector2(-10, 5);
+        double multiplier = 0;
+        vector.mul(multiplier);
+        Assert.assertEquals(Vector2.zero(), vector);
     }
 }
