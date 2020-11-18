@@ -1,0 +1,126 @@
+{
+  "coordWidth": 11,
+  "header": {
+    "contentMask": {
+      "hasFixedRoadAttributeSetList": true,
+      "hasSimpleIntersectionList": true,
+      "hasLinkList": true,
+      "hasRouteUpLinkList": false,
+      "hasRouteDownLinkList": false,
+      "hasLinkToTileList": true,
+      "hasLinkIdRangeList": false,
+      "hasSimpleIntersectionIdRangeList": false,
+      "hasAttributeMaps": false,
+      "hasExternalTileIdList": true
+    },
+    "fixedRoadAttributeSetListOffset": 22,
+    "simpleIntersectionOffset": 26,
+    "linksOffset": 35,
+    "link2TileListOffset": 44,
+    "externalTileIdListOffset": 51
+  },
+  "fixedRoadAttributeSetList": {
+    "numAttributeSets": 1,
+    "attributeList": {
+      "data": [
+        {
+          "sharedAttr": {
+            "priorityRoadClass": 0,
+            "linkType": "NO_SPECIAL",
+            "travelDirection": "IN_POSITIVE_DIRECTION",
+            "ferry": false,
+            "tunnel": false,
+            "bridge": false,
+            "toll": "IN_NO_DIRECTION",
+            "controlledAccess": true,
+            "serviceArea": false
+          },
+          "routingAttr": {
+            "functionalRoadClass": 0,
+            "urban": false,
+            "complexIntersection": false,
+            "pluralJunction": false,
+            "motorway": true
+          }
+        }
+      ]
+    }
+  },
+  "simpleIntersection": {
+    "coordWidth": 11,
+    "numIntersections": 1,
+    "simpleIntersection": {
+      "data": [
+        {
+          "coordWidth": 11,
+          "position": {
+            "numBits": 11,
+            "dx": 1019,
+            "dy": -993
+          },
+          "numLinks": 1,
+          "connectedLinks": {
+            "data": [
+              {
+                "isExternalLinkReference": false,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": false,
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "linkId": 0
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "links": {
+    "numLinks": 1,
+    "link": {
+      "data": [
+        {
+          "length": 29944,
+          "attrSource": "INDEX_16",
+          "attrInfo": {
+            "attrSource": "INDEX_16",
+            "__objectChoice": 0
+          },
+          "averageSpeed": 98,
+          "startAngle": 20,
+          "endAngle": 49
+        }
+      ]
+    }
+  },
+  "link2TileList": {
+    "numLinks": 1,
+    "tileRef": {
+      "data": [
+        {
+          "linkId": 0,
+          "extTileColl": {
+            "numExtTileIds": 2,
+            "extTileIdx": {
+              "data": [
+                0,
+                1
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "externalTileIdList": {
+    "numTileIds": 2,
+    "tileId": {
+      "data": [
+        545554861,
+        545554855
+      ]
+    }
+  }
+}
