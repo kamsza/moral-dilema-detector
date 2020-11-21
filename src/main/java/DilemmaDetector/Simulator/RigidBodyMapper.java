@@ -43,6 +43,7 @@ public class RigidBodyMapper {
     public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
         Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
+        Map<Lane, ArrayList<Non_living_entity>> obstaclesMap = model.getObjects();
 
         List<Actor> result = new LinkedList<>();
 
@@ -62,6 +63,11 @@ public class RigidBodyMapper {
                 for (Living_entity entity : livingEntityMap.get(lane)) {
                     RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber);
                     result.add(new Actor(entity, rigidBody));
+                }
+
+                for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForObstacle(obstacle, side, laneNumber);
+                    result.add(new Actor(obstacle, rigidBody));
                 }
             }
         }
@@ -148,12 +154,37 @@ public class RigidBodyMapper {
         rigidBody.setPosition(new Vector2(positionX, positionY));
         rigidBody.setLength(length);
         rigidBody.setWidth(width);
+        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
+        return rigidBody;
+    }
 
+    public static RigidBody rigidBodyForObstacle(Entity entity, Model.Side side, int laneNumber) {
+        RigidBody rigidBody = new RigidBody();
 
+        double positionX;
+        double positionY;
+        double width, length, distanceToRoad;
+        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
+        length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
+        distanceToRoad = PhysicsUtils.CmToMeters(getProperty(entity, "distanceToRoad"));
+        positionX = PhysicsUtils.CmToMeters(getProperty(entity, "distance"));
+
+        if (side == Model.Side.LEFT) {
+            positionY = laneNumber * LANE_WIDTH;
+        } else if (side == Model.Side.RIGHT) {
+            positionY = laneNumber * LANE_WIDTH * (-1);
+        } else {
+            positionY = 0;
+        }
+
+        rigidBody.setPosition(new Vector2(positionX, positionY));
+        rigidBody.setLength(length);
+        rigidBody.setWidth(width);
         rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
 
         return rigidBody;
     }
+
 
     public static double getValueInDollars(Entity entity){
         return getProperty(entity, "valueInDollars");
