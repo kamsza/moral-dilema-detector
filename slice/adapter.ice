@@ -88,6 +88,8 @@ module adapter
     void setStarts(string roadPointId);
     void setEnds(string roadPointId);
     void setRoadAttributes(string roadAttributesId);
+    void setAverageSpeed(int averageSpeed);
+    void setSpeedLimit(int speedLimit);
   };
 
   interface RoadAttributes extends BaseItem
@@ -120,7 +122,11 @@ module adapter
 
   interface Manager
   {
+    string load(string itemId, ItemType type);
+
     string create(ItemType type);
+
+
 
     void persist();
   };
