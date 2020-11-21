@@ -1124,6 +1124,16 @@
     
 
 
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane_number -->
+
+    <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane_number">
+        <rdfs:subPropertyOf rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane_properties"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane_properties -->
 
     <owl:DatatypeProperty rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane_properties"/>
@@ -3332,6 +3342,96 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/scenario"/>
+        <webprotege:has_vehicle rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_vehicle_1"/>
+        <webprotege:has_vehicle rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_vehicle_2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_junction -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_junction">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_0 -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_0">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_road rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lane_number rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</BDGSqwMbfBgw7pUJ8IOnJ1:lane_number>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lane_width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">400</BDGSqwMbfBgw7pUJ8IOnJ1:lane_width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_left -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_left">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_road rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_1"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lane_number rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</BDGSqwMbfBgw7pUJ8IOnJ1:lane_number>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lane_width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">400</BDGSqwMbfBgw7pUJ8IOnJ1:lane_width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_on_2nd_road -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_on_2nd_road">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#lane"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_road rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_2"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lane_number rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</BDGSqwMbfBgw7pUJ8IOnJ1:lane_number>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:lane_width rdf:datatype="http://www.w3.org/2001/XMLSchema#int">350</BDGSqwMbfBgw7pUJ8IOnJ1:lane_width>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_1 -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#int">270</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_2 -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_road_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_junction"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_vehicle_1 -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_vehicle_1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_0"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_vehicle_2 -->
+
+    <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_vehicle_2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction_lane_left"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:distance rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1000</BDGSqwMbfBgw7pUJ8IOnJ1:distance>
+    </owl:NamedIndividual>
     
 
 
