@@ -38,7 +38,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JComboBox jComboBoxCustomPhilosophies;
     private JButton jButtonCalculate;
     private JLabel jLabelBestDecision;
-    private JButton jButtonCustomPhilosophyInfo;
+    private JButton jButtonCustomPhilosophyShowDetails;
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
     private JCheckBox jCheckBoxEnableBraking;
@@ -131,10 +131,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jComboBoxCustomPhilosophies.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 500, 300, 30);
         add(jComboBoxCustomPhilosophies);
 
-        jButtonCustomPhilosophyInfo = new JButton("Info");
-        jButtonCustomPhilosophyInfo.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
-        jButtonCustomPhilosophyInfo.addActionListener(this);
-        add(jButtonCustomPhilosophyInfo);
+        jButtonCustomPhilosophyShowDetails = new JButton("Show details");
+        jButtonCustomPhilosophyShowDetails.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
+        jButtonCustomPhilosophyShowDetails.addActionListener(this);
+        add(jButtonCustomPhilosophyShowDetails);
 
         jButtonCalculate = new JButton("Calculate");
         jButtonCalculate.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 530, 200, 30);
@@ -152,15 +152,22 @@ public class DashboardWindow extends JFrame implements ActionListener {
         Object eventSource = e.getSource();
         if (eventSource == jButtonLoadFromFile) jButtonLoadFromFileAction();
         if (eventSource == jButtonLoadScenario) jButtonLoadScenarioAction();
-        if (eventSource == jButtonCustomPhilosophyInfo) jButtonCustomPhilosophyInfo();
+        if (eventSource == jButtonCustomPhilosophyShowDetails) jButtonCustomPhilosophyShowDetailsAction();
         if (eventSource == jButtonGenerateScenario) jButtonGenerateScenarioAction();
         if (eventSource == jButtonAddCustomPhilosophy) jButtonAddCustomPhilosophyAction();
         if (eventSource == jButtonCalculate) jButtonCalculateAction();
     }
 
-    private void jButtonCustomPhilosophyInfo() {
-        WarningWindow warningWindow = new WarningWindow(this, "Not implemented yet");
-        warningWindow.setVisible(true);
+    private void jButtonCustomPhilosophyShowDetailsAction() {
+        if (!isAnyCustomPhilosophy) {
+            WarningWindow warningWindow = new WarningWindow(this, "No custom philosophies to display");
+            warningWindow.setVisible(true);
+        } else {
+            String philosophyName = jComboBoxCustomPhilosophies.getSelectedItem().toString() + ".json";
+            CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
+            CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow(this, customPhilosophy);
+            customPhilosophyWindow.setVisible(true);
+        }
     }
 
     private void jButtonLoadScenarioAction() {
@@ -210,7 +217,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonAddCustomPhilosophyAction() {
-        CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow(this);
+        CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow(this, true);
         customPhilosophyWindow.setVisible(true);
     }
 
@@ -295,6 +302,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     }
                     DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
                         private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public boolean isCellEditable(int row, int column) {
+                            return false;
+                        }
                     };
                     jTableWithResults = new JTable(defaultTableModel);
                     jScrollPaneWithResults = new JScrollPane(jTableWithResults);
@@ -393,6 +405,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
         data[0][0] = value;
         DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
             private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
         return defaultTableModel;
     }

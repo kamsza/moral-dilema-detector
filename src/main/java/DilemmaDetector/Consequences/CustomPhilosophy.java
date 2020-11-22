@@ -33,7 +33,7 @@ public class CustomPhilosophy {
         parameters.put(PhilosophyParameter.ANIMAL_LIGHTLY_INJURY, tableValues.get("Animal lightly injury"));
         parameters.put(PhilosophyParameter.MATERIAL_VALUE, tableValues.get("Material damages per 1000$"));
 //        parameters.put(PhilosophyParameter.BREAKING_THE_LAW, tableValues.get("Breaking the law"));
-        parameters.put(PhilosophyParameter.TAKING_ACTION,tableValues.get("Taking action"));
+        parameters.put(PhilosophyParameter.TAKING_ACTION, tableValues.get("Taking action"));
         parameters.put(PhilosophyParameter.DILEMMA_THRESHOLD, tableValues.get("Dilemma threshold"));
     }
 
@@ -41,7 +41,12 @@ public class CustomPhilosophy {
         CustomPhilosophy customPhilosophy = new CustomPhilosophy();
         customPhilosophy.setPhilosophyName("Simple");
         for (PhilosophyParameter philosophyParameter : PhilosophyParameter.values()) {
-            customPhilosophy.getParameters().put(philosophyParameter, 1);
+            if (philosophyParameter.equals(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE) || philosophyParameter.equals(PhilosophyParameter.DILEMMA_THRESHOLD)) {
+                customPhilosophy.getParameters().put(philosophyParameter, 1);
+            } else {
+                customPhilosophy.getParameters().put(philosophyParameter, 0);
+            }
+
         }
         return customPhilosophy;
     }
