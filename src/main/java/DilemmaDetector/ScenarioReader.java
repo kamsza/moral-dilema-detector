@@ -62,7 +62,7 @@ public class ScenarioReader {
         while (iterator.hasNext()) {
             leftLanesCount = (int) iterator.next();
         }
-        rightLanesCount = lanesCount - leftLanesCount;
+        rightLanesCount = lanesCount - leftLanesCount - 1;
 
         Lane lane_0 = getLane0FromOntology(scenarioNumber);
         entities.put(lane_0, new ArrayList<Living_entity>() {
@@ -106,7 +106,7 @@ public class ScenarioReader {
 
         for (Vehicle v : scenario.getHas_vehicle()) {
             String vehicleName = v.getOwlIndividual().getIRI().toString();
-            if (!v.getOwlIndividual().getIRI().toString().contains("vehicle_main")) {
+            if (!vehicleName.contains("vehicle_main")) {
                 Lane lane = null;
                 for (Lane l : v.getIs_on_lane()) {
                     lane = l;
@@ -117,13 +117,13 @@ public class ScenarioReader {
         }
 
         for (Living_entity entity : scenario.getHas_pedestrian()) {
-                Lane lane = null;
-                String entityName = entity.getOwlIndividual().getIRI().toString();
-                for (Lane l : entity.getIs_on_lane()) {
-                    lane = l;
-                }
-                entity = getEntityAsSpecificClass(entityName);
-                entities.get(lane).add(entity);
+            String entityName = entity.getOwlIndividual().getIRI().toString();
+            Lane lane = null;
+            for (Lane l : entity.getIs_on_lane()) {
+                lane = l;
+            }
+             entity = getEntityAsSpecificClass(entityName);
+             entities.get(lane).add(entity);
         }
 
         Model model = new Model.Builder().
