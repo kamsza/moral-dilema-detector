@@ -169,22 +169,27 @@ public class ScenarioReader {
         return factory.getDriver(IRI_PREFIX + String.valueOf(number) + "_driver");
     }
 
+    private void addSurroundingToList(List <Surrounding> surroundingList, Scenario scenario, Model.Side side){
+        Collection<? extends Surrounding> surrounding = null;
+        if (side == Model.Side.LEFT)
+            surrounding = scenario.getHas_surrounding_left();
+        else
+            surrounding = scenario.getHas_surrounding_right();
+
+        for (Surrounding s: surrounding){
+            String surroundingName = s.getOwlIndividual().getIRI().toString();
+            s = getSurroundingAsSpecificClass(surroundingName);
+            surroundingList.add(s);
+        }
+    }
+
     private Map<Model.Side, ArrayList<Surrounding>> getSurroundingFromScenario(Scenario scenario) {
         Map<Model.Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
         ArrayList<Surrounding> left_surrounding = new ArrayList<>();
         ArrayList<Surrounding> right_surrounding = new ArrayList<>();
 
-        for (Surrounding s: scenario.getHas_surrounding_left()){
-            String surroundingName = s.getOwlIndividual().getIRI().toString();
-            s = getSurroundingAsSpecificClass(surroundingName);
-            left_surrounding.add(s);
-        }
-
-        for (Surrounding s: scenario.getHas_surrounding_right()){
-            String surroundingName = s.getOwlIndividual().getIRI().toString();
-            s = getSurroundingAsSpecificClass(surroundingName);
-            right_surrounding.add(s);
-        }
+        addSurroundingToList(left_surrounding, scenario, Model.Side.LEFT);
+        addSurroundingToList(right_surrounding, scenario, Model.Side.RIGHT);
 
         surrounding.put(Model.Side.LEFT, left_surrounding);
         surrounding.put(Model.Side.RIGHT, right_surrounding);

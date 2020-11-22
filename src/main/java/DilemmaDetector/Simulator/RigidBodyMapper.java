@@ -7,6 +7,8 @@ import java.util.*;
 
 public class RigidBodyMapper {
 
+    public enum ActorType{SURROUNDING, LIVING, VEHICLE, OBSTACLE}
+
     //TODO get lane width from ontology? is it in centimeters
     public static final double LANE_WIDTH = PhysicsUtils.CmToMeters(300);
 
@@ -32,7 +34,7 @@ public class RigidBodyMapper {
             }
 
             for (Surrounding s : pair.getValue()) {
-                RigidBody rigidBody = RigidBodyMapper.rigidBodyForSurrounding(s, side, laneNumber);
+                RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(s, side, laneNumber, ActorType.SURROUNDING);
                 Actor surroundingActor = new Actor(s, rigidBody);
                 result.add(surroundingActor);
             }
@@ -54,19 +56,19 @@ public class RigidBodyMapper {
                 Lane lane = (Lane) childPair.getValue();
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
                     if (vehicle != model.getVehicle()) {
-                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber);
+                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber, ActorType.VEHICLE);
                         Actor actor = new Actor(vehicle, rigidBody);
                         actor.setValueInDollars(RigidBodyMapper.getValueInDollars(vehicle));
                         result.add(actor);
                     }
                 }
                 for (Living_entity entity : livingEntityMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber);
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber, ActorType.LIVING);
                     result.add(new Actor(entity, rigidBody));
                 }
 
                 for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForObstacle(obstacle, side, laneNumber);
+                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(obstacle, side, laneNumber, ActorType.OBSTACLE);
                     result.add(new Actor(obstacle, rigidBody));
                 }
             }
@@ -94,87 +96,117 @@ public class RigidBodyMapper {
         return rigidBody;
     }
 
-    public static RigidBody rigidBodyForEntity(Entity entity, Model.Side side, int laneNumber) {
+//    public static RigidBody rigidBodyForEntity(Entity entity, Model.Side side, int laneNumber) {
+//        RigidBody rigidBody = new RigidBody();
+//
+//        double positionX;
+//        double positionY;
+//        double accelX, accelY, speedX, speedY, width, length;
+//
+//        Object[] pos = entity.getDistance().toArray();
+//        positionX = (float) pos[0];// It is in cm, so we change it to meters
+//        positionX = PhysicsUtils.CmToMeters(positionX);
+//
+//
+//        if (side == Model.Side.LEFT) {
+//            positionY = laneNumber * LANE_WIDTH;
+//        } else if (side == Model.Side.RIGHT) {
+//            positionY = laneNumber * LANE_WIDTH * (-1);
+//        } else {
+//            positionY = 0;
+//        }
+//
+//        accelX = PhysicsUtils.CmToMeters(getProperty(entity, "accelX"));
+//        accelY = PhysicsUtils.CmToMeters(getProperty(entity, "accelY"));
+//        speedX = PhysicsUtils.KmphToMeters(getProperty(entity, "speedX"));
+//        speedY = PhysicsUtils.KmphToMeters(getProperty(entity, "speedY"));
+//        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
+//        length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
+//        rigidBody.setPosition(new Vector2(positionX, positionY));
+//        rigidBody.setSpeed(new Vector2(speedX, speedY));
+//        rigidBody.setAcceleration(new Vector2(accelX, accelY));
+//        rigidBody.setLength(length);
+//        rigidBody.setWidth(width);
+//        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
+//
+//        return rigidBody;
+//    }
+//
+//
+//    public static RigidBody rigidBodyForSurrounding(Entity entity, Model.Side side, int laneNumber) {
+//        RigidBody rigidBody = new RigidBody();
+//
+//        double positionX;
+//        double positionY;
+//        double width, length, distanceToRoad;
+//        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
+//        length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
+//        distanceToRoad = PhysicsUtils.CmToMeters(getProperty(entity, "distanceToRoad"));
+//        positionX = PhysicsUtils.CmToMeters(getProperty(entity, "distance"));
+//
+//        if (side == Model.Side.LEFT) {
+//            positionY = (laneNumber + 1) * LANE_WIDTH + distanceToRoad + width / 2;
+//        } else if (side == Model.Side.RIGHT) {
+//            positionY = (laneNumber + 1) * LANE_WIDTH * (-1) - distanceToRoad - width / 2;
+//        } else {
+//            positionY = 0;
+//        }
+//
+//        rigidBody.setPosition(new Vector2(positionX, positionY));
+//        rigidBody.setLength(length);
+//        rigidBody.setWidth(width);
+//        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
+//        return rigidBody;
+//    }
+
+    public static RigidBody rigidBodyForEntity(Entity entity, Model.Side side, int laneNumber, ActorType actorType) {
         RigidBody rigidBody = new RigidBody();
 
         double positionX;
-        double positionY;
-        double accelX, accelY, speedX, speedY, width, length, valueInDollars;
-
-        Object[] pos = entity.getDistance().toArray();
-        positionX = (float) pos[0];// It is in cm, so we change it to meters
-        positionX = PhysicsUtils.CmToMeters(positionX);
-
-
-        if (side == Model.Side.LEFT) {
-            positionY = laneNumber * LANE_WIDTH;
-        } else if (side == Model.Side.RIGHT) {
-            positionY = laneNumber * LANE_WIDTH * (-1);
-        } else {
-            positionY = 0;
-        }
-
-        accelX = PhysicsUtils.CmToMeters(getProperty(entity, "accelX"));
-        accelY = PhysicsUtils.CmToMeters(getProperty(entity, "accelY"));
-        speedX = PhysicsUtils.KmphToMeters(getProperty(entity, "speedX"));
-        speedY = PhysicsUtils.KmphToMeters(getProperty(entity, "speedY"));
-        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
-        length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
-        valueInDollars = getProperty(entity, "valueInDollars");
-        rigidBody.setPosition(new Vector2(positionX, positionY));
-        rigidBody.setSpeed(new Vector2(speedX, speedY));
-        rigidBody.setAcceleration(new Vector2(accelX, accelY));
-        rigidBody.setLength(length);
-        rigidBody.setWidth(width);
-        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
-
-        return rigidBody;
-    }
-
-
-    public static RigidBody rigidBodyForSurrounding(Entity entity, Model.Side side, int laneNumber) {
-        RigidBody rigidBody = new RigidBody();
-
-        double positionX;
-        double positionY;
+        double positionY = 0;
         double width, length, distanceToRoad;
         width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
         length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
-        distanceToRoad = PhysicsUtils.CmToMeters(getProperty(entity, "distanceToRoad"));
         positionX = PhysicsUtils.CmToMeters(getProperty(entity, "distance"));
 
-        if (side == Model.Side.LEFT) {
-            positionY = (laneNumber + 1) * LANE_WIDTH + distanceToRoad + width / 2;
-        } else if (side == Model.Side.RIGHT) {
-            positionY = (laneNumber + 1) * LANE_WIDTH * (-1) - distanceToRoad - width / 2;
-        } else {
-            positionY = 0;
+        if (actorType == ActorType.SURROUNDING){
+            distanceToRoad = PhysicsUtils.CmToMeters(getProperty(entity, "distanceToRoad"));
+            if (side == Model.Side.LEFT) {
+                positionY = (laneNumber + 1) * LANE_WIDTH + distanceToRoad + width / 2;
+            } else if (side == Model.Side.RIGHT) {
+                positionY = (laneNumber + 1) * LANE_WIDTH * (-1) - distanceToRoad - width / 2;
+            } else {
+                positionY = 0;
+            }
+        }
+        else if (actorType == ActorType.OBSTACLE) {
+            if (side == Model.Side.LEFT) {
+                positionY = laneNumber * LANE_WIDTH;
+            } else if (side == Model.Side.RIGHT) {
+                positionY = laneNumber * LANE_WIDTH * (-1);
+            } else {
+                positionY = 0;
+            }
         }
 
-        rigidBody.setPosition(new Vector2(positionX, positionY));
-        rigidBody.setLength(length);
-        rigidBody.setWidth(width);
-        rigidBody.setInitialValues(rigidBody.getPosition(), rigidBody.getSpeed(), rigidBody.getAcceleration());
-        return rigidBody;
-    }
+        else if (actorType == ActorType.LIVING || actorType == ActorType.VEHICLE){
+            double accelX, accelY, speedX, speedY;
 
-    public static RigidBody rigidBodyForObstacle(Entity entity, Model.Side side, int laneNumber) {
-        RigidBody rigidBody = new RigidBody();
+            if (side == Model.Side.LEFT) {
+                positionY = laneNumber * LANE_WIDTH;
+            } else if (side == Model.Side.RIGHT) {
+                positionY = laneNumber * LANE_WIDTH * (-1);
+            } else {
+                positionY = 0;
+            }
 
-        double positionX;
-        double positionY;
-        double width, length, distanceToRoad;
-        width = PhysicsUtils.CmToMeters(getProperty(entity, "width"));
-        length = PhysicsUtils.CmToMeters(getProperty(entity, "length"));
-        distanceToRoad = PhysicsUtils.CmToMeters(getProperty(entity, "distanceToRoad"));
-        positionX = PhysicsUtils.CmToMeters(getProperty(entity, "distance"));
+            accelX = PhysicsUtils.CmToMeters(getProperty(entity, "accelX"));
+            accelY = PhysicsUtils.CmToMeters(getProperty(entity, "accelY"));
+            speedX = PhysicsUtils.KmphToMeters(getProperty(entity, "speedX"));
+            speedY = PhysicsUtils.KmphToMeters(getProperty(entity, "speedY"));
 
-        if (side == Model.Side.LEFT) {
-            positionY = laneNumber * LANE_WIDTH;
-        } else if (side == Model.Side.RIGHT) {
-            positionY = laneNumber * LANE_WIDTH * (-1);
-        } else {
-            positionY = 0;
+            rigidBody.setSpeed(new Vector2(speedX, speedY));
+            rigidBody.setAcceleration(new Vector2(accelX, accelY));
         }
 
         rigidBody.setPosition(new Vector2(positionX, positionY));
