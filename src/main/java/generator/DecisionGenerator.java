@@ -1,31 +1,33 @@
 package generator;
 
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class DecisionGenerator {
     String baseIRI;
     MyFactory factory;
+    private Map<Decision, Action> actionByDecision;
 
     public DecisionGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
+        actionByDecision = new HashMap<>();
     }
 
     public void generate(Model model){
-        HashMap<Decision, Action> actionByDecision = new HashMap<>();
-        model.setActionByDecision(actionByDecision);
+        actionByDecision.clear();
+        model.setActionByDecision(this.actionByDecision);
 
         Follow follow = factory.createFollow(ObjectNamer.getName("follow"));
-        createDecision(follow, model, actionByDecision);
+        createDecision(follow, model);
         Turn_left turn_left = factory.createTurn_left(ObjectNamer.getName("turn_left"));
-        createDecision(turn_left, model, actionByDecision);
+        createDecision(turn_left, model);
         Turn_right turn_right = factory.createTurn_right(ObjectNamer.getName("turn_right"));
-        createDecision(turn_right, model, actionByDecision);
+        createDecision(turn_right, model);
         Stop stop = factory.createStop(ObjectNamer.getName("stop"));
-        createDecision(stop, model, actionByDecision);
+        createDecision(stop, model);
 
 //        adding decisions and actions for changing lanes
         for(Model.Side side : model.getLanes().keySet()){
@@ -37,16 +39,20 @@ public class DecisionGenerator {
                         action.addLane_change_by(lane_number);
                     else if(side == Model.Side.RIGHT)
                         action.addLane_change_by(-lane_number);
-                    createDecision(action, model, actionByDecision);
+                    createDecision(action, model);
                 }
             }
         }
     }
 
-    private void createDecision(Action action, Model model, HashMap<Decision, Action> actionByDecision){
+    private void createDecision(Action action, Model model){
         Decision decision = factory.createDecision(ObjectNamer.getName("decision"));
         decision.addHas_action(action);
         model.getScenario().addHas_decision(decision);
-        actionByDecision.put(decision, action);
+        this.actionByDecision.put(decision, action);
+    }
+
+    public Map<Decision, Action> getActionByDecision() {
+        return actionByDecision;
     }
 }
