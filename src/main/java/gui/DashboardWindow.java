@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -42,6 +43,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JScrollPane jScrollPaneWithResults;
     private JCheckBox jCheckBoxEnableBraking;
     private JTable jTableWithResults;
+    private JTable jTableWithMoralResult;
+    private JScrollPane jScrollPaneWithMoralResult;
+    private JTable jTableWithBestDecision;
+    private JScrollPane jScrollPaneWithBestDecision;
 
 
     /// CONST
@@ -54,6 +59,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private final int CENTER_CUSTOM_PHILOSOPHIES = 100;
     private final String PATH_CUSTOM_PHILOSOPHIES = "\\src\\main\\resources\\gui\\customPhilosophies\\";
     private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Blank_scenario.png";
+    private final int oneRowJTableHeight = 48;
 
 
     //business logic variables
@@ -237,20 +243,30 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     }
                 }
 
+                String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts);
                 int dilemmaThreshold = customPhilosophy.getParameters().get(PhilosophyParameter.DILEMMA_THRESHOLD);
-                String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts, dilemmaThreshold);
-                if (bestDecision != null) {
-                    bestDecision = changeSnakeCase(bestDecision);
-                    jLabelBestDecision.setText("Best decision: " + bestDecision);
-                    jLabelBestDecision.setVisible(true);
-                } else {
-                    jLabelBestDecision.setText("There is no good decision");
-                }
-                jLabelBestDecision.setVisible(true);
+                boolean isMoralDilemma = decisionCosts.get(bestDecision) > dilemmaThreshold ? true : false;
+                String isMoralDilemmaString = isMoralDilemma ? "YES" : "NO";
+                if (jTableWithMoralResult != null) {
+                    refreshOneRowTable(isMoralDilemmaString, jTableWithMoralResult, jScrollPaneWithMoralResult);
+                    refreshOneRowTable(changeSnakeCase(bestDecision), jTableWithBestDecision, jScrollPaneWithBestDecision);
 
+                } else {
+                    jTableWithMoralResult = new JTable(prepareDefaultModel("Moral dilemma", isMoralDilemmaString));
+                    centerValuesInTable(jTableWithMoralResult);
+                    jScrollPaneWithMoralResult = new JScrollPane(jTableWithMoralResult);
+                    jScrollPaneWithMoralResult.setBounds(20, 600, 250, oneRowJTableHeight);
+                    add(jScrollPaneWithMoralResult);
+
+                    jTableWithBestDecision =
+                            new JTable(prepareDefaultModel("Optimum decision", changeSnakeCase(bestDecision)));
+                    centerValuesInTable(jTableWithBestDecision);
+                    jScrollPaneWithBestDecision = new JScrollPane(jTableWithBestDecision);
+                    jScrollPaneWithBestDecision.setBounds(20, 600 + oneRowJTableHeight, 250, oneRowJTableHeight);
+                    add(jScrollPaneWithBestDecision);
+                }
 
                 int numberOfDecisions = decisionCosts.size();
-
                 if (jTableWithResults != null) {
                     DefaultTableModel defaultTableModel = (DefaultTableModel) jTableWithResults.getModel();
                     while (defaultTableModel.getRowCount() > 0) {
@@ -357,6 +373,34 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private String changeSnakeCase(String s) {
         s = s.replaceAll("_", " ");
         return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
+
+    private void refreshOneRowTable(String valueToRefresh, JTable jTable, JScrollPane jScrollPane) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTable.getModel();
+        defaultTableModel.removeRow(0);
+        Object[] row = new Object[1];
+        row[0] = valueToRefresh;
+        defaultTableModel.addRow(row);
+        jTable.repaint();
+        jScrollPane.repaint();
+        this.repaint();
+    }
+
+    private DefaultTableModel prepareDefaultModel(String columnName, String value) {
+        String[] columnNames = {columnName};
+        Object[][] data = new Object[1][1];
+        data[0][0] = value;
+        DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
+            private static final long serialVersionUID = 1L;
+        };
+        return defaultTableModel;
+    }
+
+    private void centerValuesInTable(JTable jTable) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     }
 
 }

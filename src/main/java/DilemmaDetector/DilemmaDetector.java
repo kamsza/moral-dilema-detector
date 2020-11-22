@@ -135,8 +135,7 @@ public class DilemmaDetector {
     }
 
     private Decision getBestDecision(int dilemmaThreshold){
-        String bestDecisionName = OntologyLogic.getOptimumDecision(getDecisionCostMapByString(),
-                philosophy.getParameters().get(dilemmaThreshold));
+        String bestDecisionName = OntologyLogic.getOptimumDecision(getDecisionCostMapByString());
         Set<Decision> decisions = decisionCosts.keySet();
         Decision bestDecision = decisions.stream().filter(s ->
                 s.toString().equals(bestDecisionName)
