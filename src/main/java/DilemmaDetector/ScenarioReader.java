@@ -62,7 +62,7 @@ public class ScenarioReader {
         while (iterator.hasNext()) {
             leftLanesCount = (int) iterator.next();
         }
-        rightLanesCount = lanesCount - leftLanesCount;
+        rightLanesCount = lanesCount - leftLanesCount - 1;
 
         Lane lane_0 = getLane0FromOntology(scenarioNumber);
         entities.put(lane_0, new ArrayList<Living_entity>() {
@@ -105,21 +105,25 @@ public class ScenarioReader {
         lanes.put(Model.Side.LEFT, lanes_left);
 
         for (Vehicle v : scenario.getHas_vehicle()) {
-            if (!v.getOwlIndividual().getIRI().toString().contains("vehicle_main")) {
+            String vehicleName = v.getOwlIndividual().getIRI().toString();
+            if (!vehicleName.contains("vehicle_main")) {
                 Lane lane = null;
                 for (Lane l : v.getIs_on_lane()) {
                     lane = l;
                 }
+                v = getVehicleAsSpecificClass(vehicleName);
                 vehicles.get(lane).add(v);
             }
         }
 
         for (Living_entity entity : scenario.getHas_pedestrian()) {
-                Lane lane = null;
-                for (Lane l : entity.getIs_on_lane()) {
-                    lane = l;
-                }
-                entities.get(lane).add(entity);
+            String entityName = entity.getOwlIndividual().getIRI().toString();
+            Lane lane = null;
+            for (Lane l : entity.getIs_on_lane()) {
+                lane = l;
+            }
+             entity = getEntityAsSpecificClass(entityName);
+             entities.get(lane).add(entity);
         }
 
         Model model = new Model.Builder().
@@ -165,13 +169,27 @@ public class ScenarioReader {
         return factory.getDriver(IRI_PREFIX + String.valueOf(number) + "_driver");
     }
 
+    private void addSurroundingToList(List <Surrounding> surroundingList, Scenario scenario, Model.Side side){
+        Collection<? extends Surrounding> surrounding = null;
+        if (side == Model.Side.LEFT)
+            surrounding = scenario.getHas_surrounding_left();
+        else
+            surrounding = scenario.getHas_surrounding_right();
+
+        for (Surrounding s: surrounding){
+            String surroundingName = s.getOwlIndividual().getIRI().toString();
+            s = getSurroundingAsSpecificClass(surroundingName);
+            surroundingList.add(s);
+        }
+    }
+
     private Map<Model.Side, ArrayList<Surrounding>> getSurroundingFromScenario(Scenario scenario) {
         Map<Model.Side, ArrayList<Surrounding>> surrounding = new HashMap<>();
         ArrayList<Surrounding> left_surrounding = new ArrayList<>();
         ArrayList<Surrounding> right_surrounding = new ArrayList<>();
 
-        left_surrounding.addAll(scenario.getHas_surrounding_left());
-        right_surrounding.addAll(scenario.getHas_surrounding_right());
+        addSurroundingToList(left_surrounding, scenario, Model.Side.LEFT);
+        addSurroundingToList(right_surrounding, scenario, Model.Side.RIGHT);
 
         surrounding.put(Model.Side.LEFT, left_surrounding);
         surrounding.put(Model.Side.RIGHT, right_surrounding);
@@ -195,5 +213,68 @@ public class ScenarioReader {
         scenarioReader.getModel(230);
     }
 
+    private Vehicle getVehicleAsSpecificClass(String vehicleName){
+        Vehicle v = factory.getVehicle(vehicleName);
+
+        if (factory.getTruck(vehicleName) != null)
+            v = factory.getTruck(vehicleName);
+        else if (factory.getBicycle(vehicleName) != null)
+            v = factory.getBicycle(vehicleName);
+        else if (factory.getMotorcycle(vehicleName) != null)
+            v = factory.getMotorcycle(vehicleName);
+        else if (factory.getCar(vehicleName) != null)
+            v = factory.getCar(vehicleName);
+
+        return v;
+    }
+
+    private Surrounding getSurroundingAsSpecificClass(String surroundingName){
+        Surrounding s = factory.getSurrounding(surroundingName);
+
+        if (factory.getBushes(surroundingName) != null)
+            s = factory.getBushes(surroundingName);
+        else if (factory.getCycling_path(surroundingName) != null)
+            s = factory.getCycling_path(surroundingName);
+        else if (factory.getDitch(surroundingName) != null)
+            s = factory.getDitch(surroundingName);
+        else if (factory.getEdge(surroundingName) != null)
+            s = factory.getEdge(surroundingName);
+        else if (factory.getField(surroundingName) != null)
+            s = factory.getField(surroundingName);
+        else if (factory.getForest(surroundingName) != null)
+            s = factory.getForest(surroundingName);
+        else if (factory.getNoise_barrier(surroundingName) != null)
+            s = factory.getNoise_barrier(surroundingName);
+        else if (factory.getPavement(surroundingName) != null)
+            s = factory.getPavement(surroundingName);
+        else if (factory.getRailway(surroundingName) != null)
+            s = factory.getRailway(surroundingName);
+        else if (factory.getRoad_sign_post(surroundingName) != null)
+            s = factory.getRoad_sign_post(surroundingName);
+        else if (factory.getSecurity_side_barrier(surroundingName) != null)
+            s = factory.getSecurity_side_barrier(surroundingName);
+        else if (factory.getStreet_lamp(surroundingName) != null)
+            s = factory.getSecurity_side_barrier(surroundingName);
+        else if (factory.getTree(surroundingName) != null)
+            s = factory.getTree(surroundingName);
+        else if (factory.getWall(surroundingName) != null)
+            s = factory.getWall(surroundingName);
+
+        return s;
+    }
+
+    private Living_entity getEntityAsSpecificClass(String entityName){
+        Living_entity e = factory.getLiving_entity(entityName);
+        if (factory.getPerson(entityName) != null)
+            e = factory.getPerson(entityName);
+        else if (factory.getStock(entityName) != null)
+            e = factory.getStock(entityName);
+        else if (factory.getPet(entityName) != null)
+            e = factory.getPet(entityName);
+        else if (factory.getWild(entityName) != null)
+            e = factory.getWild(entityName);
+
+        return e;
+    }
 
 }
