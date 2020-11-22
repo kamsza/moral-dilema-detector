@@ -146,13 +146,4 @@ public class OntologyLogic {
                 .orElse(null);
     }
 
-    public static void removeStopDecision(Map<Decision, Set<Actor>> collidedEntities){
-        Iterator<Map.Entry<Decision, Set<Actor>>> iterator = collidedEntities.entrySet().iterator();
-        while (iterator.hasNext()){
-            if(iterator.next().getKey().toString().indexOf("stop")!= -1){
-                iterator.remove();
-            }
-        }
-    }
-
 }

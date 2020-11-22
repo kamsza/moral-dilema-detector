@@ -40,7 +40,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JButton jButtonCustomPhilosophyInfo;
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
-    private JCheckBox jCheckBoxEnableBreaking;
+    private JCheckBox jCheckBoxEnableBraking;
     private JTable jTableWithResults;
 
 
@@ -108,9 +108,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jLabelImageScenario.setBounds(20, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
         add(jLabelImageScenario);
 
-        jCheckBoxEnableBreaking = new JCheckBox("Enable breaking", true);
-        jCheckBoxEnableBreaking.setBounds(20, 490, 150, 20);
-        add(jCheckBoxEnableBreaking);
+        jCheckBoxEnableBraking = new JCheckBox("Enable braking", true);
+        jCheckBoxEnableBraking.setBounds(20, 490, 150, 20);
+        add(jCheckBoxEnableBraking);
 
         jLabelSelectPhilosophyPrompt = new JLabel("Select custom philosophy");
         jLabelSelectPhilosophyPrompt.setBounds(50, 515, 200, 30);
@@ -226,12 +226,15 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 DecisionCostCalculator decisionCostCalculator =
                         new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
 
-                if (!jCheckBoxEnableBreaking.isSelected()) {
-                    OntologyLogic.removeStopDecision(collidedEntities);
-                }
 
                 for (Decision decision : collidedEntities.keySet()) {
-                    decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
+                    if (jCheckBoxEnableBraking.isSelected()) {
+                        decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
+                    } else {
+                        if (decision.toString().indexOf("stop") == -1) {
+                            decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
+                        }
+                    }
                 }
 
                 int dilemmaThreshold = customPhilosophy.getParameters().get(PhilosophyParameter.DILEMMA_THRESHOLD);
