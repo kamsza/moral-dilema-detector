@@ -4,6 +4,7 @@ import DilemmaDetector.Consequences.*;
 import DilemmaDetector.Simulator.Actor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import generator.Model;
+import generator.MyFactorySingleton;
 import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
@@ -75,7 +76,16 @@ public class DashboardWindow extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.err.println("Problem with UI Manager");
         }
-        factory = OntologyLogic.getFactory();
+//        factory = OntologyLogic.getFactory();
+
+        try {
+                factory = MyFactorySingleton.getFactory();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (OWLOntologyCreationException e) {
+                e.printStackTrace();
+        }
+
 
         setSize(880, 800);
         setResizable(false);

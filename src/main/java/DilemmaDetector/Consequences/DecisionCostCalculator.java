@@ -63,16 +63,25 @@ public class DecisionCostCalculator {
         for (ConsequenceType consequenceType :
                 List.of(ConsequenceType.KILLED, ConsequenceType.SEVERELY_INJURED, ConsequenceType.LIGHTLY_INJURED)) {
             result += calculateCostOfHealthConsequenceOfType(decision, consequenceType);
-            System.out.println(calculateCostOfHealthConsequenceOfType(decision, consequenceType));
-            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDUPPPPPPPAAAAA");
-        }
+            System.out.println(calculateCostOfHealthConsequenceOfType(decision, consequenceType)); }
         return result;
     }
 
-    private boolean humanInsideMainVehicle(Vehicle mainVehicle, String victimName) {
-        if (mainVehicle == null)
+    private boolean humanInsideVehicle(Vehicle vehicle, String victimName){
+        return (passengerInsideVehicle(vehicle, victimName) || driverInsideVehicle(vehicle, victimName));
+    }
+
+    private boolean passengerInsideVehicle(Vehicle vehicle, String victimName) {
+        if (vehicle == null)
             return false;
-        return mainVehicle.getVehicle_has_passenger().stream().map(p -> ((Passenger) p).getOwlIndividual().getIRI().toString())
+        return vehicle.getVehicle_has_passenger().stream().map(p -> ((Passenger) p).getOwlIndividual().getIRI().toString())
+                .anyMatch(p -> p.equals(victimName));
+    }
+
+    private boolean driverInsideVehicle(Vehicle vehicle, String victimName) {
+        if (vehicle == null)
+            return false;
+        return vehicle.getVehicle_has_driver().stream().map(d -> ((Driver) d).getOwlIndividual().getIRI().toString())
                 .anyMatch(p -> p.equals(victimName));
     }
 
@@ -80,12 +89,11 @@ public class DecisionCostCalculator {
         int result = 0;
         List<String> victims = consequenceContainer.getHealthConsequencesOfType(decision, consequenceType);
         for (String victimName : victims) {
-            System.out.println("DDDDDDDD " + victimName);
             HashMap<PhilosophyParameter, Integer> parameters = customPhilosophy.getParameters();
             //extract scenario number to get main vehicle
             String scenarioNumber = victimName.split("_")[0];
             Vehicle mainVehicle = factory.getVehicle(scenarioNumber + "_vehicle_main");
-            if (humanInsideMainVehicle(mainVehicle, victimName)) {
+            if (humanInsideVehicle(mainVehicle, victimName)) {
                 switch (consequenceType) {
                     case KILLED:
                         result += parameters.get(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE);
