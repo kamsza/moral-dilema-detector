@@ -27,9 +27,20 @@ import java.util.Set;
 public class Main {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
+    public static MyFactory factory;
+
+    static {
+        try {
+            factory = MyFactorySingleton.getFactory();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (OWLOntologyCreationException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -44,11 +55,15 @@ public class Main {
         return model;
     }
 
-    public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
-        scenarioModel = new ScenarioFactory(scenarioModel)
-                    .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
-//                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
-        return scenarioModel;
+    public static void getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        new ScenarioFactory(scenarioModel)
+                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
+//                    .animalOnRoad(new int[]{3}, new double[]{1}).getModel();
+
+//        new ModelBuilder(scenarioModel)
+//                .addAnimal(new int[]{5}, new double[]{1.0});
+
+//        return scenarioModel;
     }
 
     public static void main(String[] args) throws OWLOntologyCreationException, OWLOntologyStorageException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, FileNotFoundException {
@@ -56,7 +71,6 @@ public class Main {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
-        MyFactory factory = new MyFactory(ontology);
         MoralDilemmaDetector.Builder builder = new MoralDilemmaDetector.Builder();
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
@@ -70,9 +84,14 @@ public class Main {
                 //.addModule(new MaterialValueModule(factory))
                 .build();
 
+//        DecisionGenerator decisionGenerator = new DecisionGenerator();
+
         for(int i=0; i<1; i++) {
             Model scenarioModel = getModelFromGenerator(factory);
-//            Model scenarioModel = getModelFromReader(factory,197);
+            getModelUsingModelBuilder(scenarioModel);
+
+            System.out.println(scenarioModel.getPassengers());
+            System.out.println(scenarioModel.getObjects());
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
@@ -100,14 +119,13 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
-            consequenceContainer.saveConsequencesToOntology();
+//            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
+//
 
-            try {
-                factory.saveOwlOntology();
-            } catch (OWLOntologyStorageException ignored) {
-            }
             Visualization.getImage(scenarioModel);
+//            factory.saveOwlOntology();
+
         }
     }
 

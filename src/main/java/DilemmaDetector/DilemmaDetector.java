@@ -12,6 +12,7 @@ import project.Decision;
 import project.MyFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +74,7 @@ public class DilemmaDetector {
         updateFactory();
     }
 
-    public void calculateMorality(int scenarioNumber) {
+    public void calculateMorality(int scenarioNumber) throws FileNotFoundException, OWLOntologyCreationException {
         loadScenarioByName(scenarioNumber);
         decisionGenerator.generate(model);
 
@@ -82,7 +83,7 @@ public class DilemmaDetector {
         calculateDecisionCosts();
     }
 
-    public void calculateDecisionCosts() {
+    public void calculateDecisionCosts() throws FileNotFoundException, OWLOntologyCreationException {
         Set<Decision> decisions = OntologyLogic.getCollidedEntities(consequenceContainer, factory, model).keySet();
 
         DecisionCostCalculator decisionCostCalculator =
@@ -117,7 +118,7 @@ public class DilemmaDetector {
                 new DecisionCostCalculator(consequenceContainer, factory, philosophy);
     }
 
-    private void loadScenarioByName(int scenarioNumber) {
+    private void loadScenarioByName(int scenarioNumber) throws FileNotFoundException, OWLOntologyCreationException {
         if (scenarioReader == null){
             System.out.println("ERROR: Ontology not loaded, call loadOntology() first.");
         }

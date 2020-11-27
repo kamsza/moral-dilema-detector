@@ -120,6 +120,9 @@ public class RandomSubclassGenerator {
 
     private <T extends WrappedIndividualImpl> T generateSubclass(Class<T> clazz, OWLClass type, String iriName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<String> classNames = getSubclassesNames(type);
+        System.out.println(classNames);
+        System.out.println("DDAAAAAAASDDDDDDDASDA");
+        System.out.println(classNames.size());
         String randomSubclassName = classNames.get(random.nextInt(classNames.size()));
 
         List<String> availableMethods = Stream.of(factory.getClass().getDeclaredMethods())

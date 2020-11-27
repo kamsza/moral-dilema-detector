@@ -38,7 +38,7 @@ public class BaseScenarioGenerator2 {
     private int mainVehicleLaneId;
     private int lanesMovingLeftCount;
     private int lanesMovingRightCount;
-    private float roadDist = 6400F;
+    private float roadDist = 20000F;
 
     public BaseScenarioGenerator2() throws FileNotFoundException, OWLOntologyCreationException {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
@@ -67,8 +67,13 @@ public class BaseScenarioGenerator2 {
         addMainVehicle(model);
 //        addVehicle(model);
         addPedestrian(model);
+//        addObstacle(model);
 
         return model;
+    }
+
+    private void addObstacle(Model model){
+        Non_living_entity non_living_entity = factory.createRock("obstacle");
     }
 
 
@@ -91,8 +96,8 @@ public class BaseScenarioGenerator2 {
 
         float vehicleSpeed = (float) (0);
 
-//        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
-        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+//        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
 
         vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
@@ -123,8 +128,39 @@ public class BaseScenarioGenerator2 {
         person.addIs_on_lane(lane);
         model.getScenario().addHas_pedestrian(person);
         model.getEntities().get(lane).add(person);
+
+
+        Person person1 = factory.createPerson(ObjectNamer.getName("person"));
+        person1.addSpeedY(0F);
+        person1.addSpeedX(0F);
+        person1.addAccelerationX(0F);
+        person1.addAccelerationY(0F);
+        person1.addWidth(50F);
+        person1.addLength(50F);
+        person1.addDistance(2200F);
+//        person.addValueInDollars(10000F);
+        lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        person1.addIs_on_lane(lane);
+        model.getScenario().addHas_pedestrian(person1);
+        model.getEntities().get(lane).add(person1);
     }
 
+//    private void addAnimal(Model model){
+//        Animal animal = factory.createPerson(ObjectNamer.getName("person"));
+//        animal.addSpeedY(0F);
+//        animal.addSpeedX(0F);
+//        animal.addAccelerationX(0F);
+//        animal.addAccelerationY(0F);
+//        animal.addWidth(50F);
+//        animal.addLength(50F);
+//        animal.addDistance(2000F);
+////        person.addValueInDollars(10000F);
+//        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+//        animal.addIs_on_lane(lane);
+//        model.getScenario().addHas_animal(person);
+//        model.getEntities().get(lane).add(animal);
+//    }
+//
     private void addEnvData(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // create objects
         Weather weather = subclassGenerator.generateWeatherSubclass(ObjectNamer.getName("weather"));
@@ -146,7 +182,7 @@ public class BaseScenarioGenerator2 {
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
 //        lanesCount = rand.nextInt(4) + 1;
-        lanesCount = 3;
+        lanesCount = 5;
         model.setLanesCount(lanesCount);
 
 
@@ -299,7 +335,7 @@ public class BaseScenarioGenerator2 {
         RandomPositioner randomPositioner = model.getRandomPositioner();
         //Assume that vehicle speed is in kmph
 //        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
-        vehicle.addSpeedX((float) (40));
+        vehicle.addSpeedX((float) (35));
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);

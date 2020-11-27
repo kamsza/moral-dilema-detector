@@ -2,8 +2,10 @@ package DilemmaDetector.Simulator;
 
 import DilemmaDetector.Consequences.CollisionConsequencePredictor;
 import generator.Model;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.*;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SimulatorEngine {
@@ -23,7 +25,7 @@ public class SimulatorEngine {
 
     private CollisionConsequencePredictor consequencePredictor;
 
-    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor) {
+    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
@@ -31,7 +33,7 @@ public class SimulatorEngine {
 
         this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
         this.actors = RigidBodyMapper.createActors(model);
-        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
+        this.collisionDetector = new CollisionDetector(model, mainVehicle, actors, surroundingActors);
     }
 
     public Map<Decision, Set<Actor>> simulateAll() {
@@ -53,15 +55,21 @@ public class SimulatorEngine {
             actor.getRigidBody().setToInitialValues();
         }
 
-        while (currentTime < MOVING_TIME) {
-            currentTime += TIME_PART;
-            System.out.println(
-                    "Pos: " + mainVehicle.getRigidBody().getPosition() +
-                            " | PrevPos: " + mainVehicle.getRigidBody().getPreviousPosition() +
-                            " | Speed: " + mainVehicle.getRigidBody().getSpeed() +
-                            " = " + mainVehicle.getRigidBody().getSpeed().getMagnitude() +
-                            " | Acc: " + mainVehicle.getRigidBody().getAcceleration());
+        boolean wasCollisionWithPedestrian;
+        boolean simulationAfterCollision = false;
+        double extraTime = 1;
 
+        Set<Actor> collided = new LinkedHashSet<>();
+        double SIMULATION_TIME = MOVING_TIME;
+        while (currentTime < SIMULATION_TIME) {
+            currentTime += TIME_PART;
+//            System.out.println("CURRENT TIME + " + currentTime + "  SIMULATION TIME  + "  + SIMULATION_TIME +
+//                    "Pos: " + mainVehicle.getRigidBody().getPosition() +
+//                            " | PrevPos: " + mainVehicle.getRigidBody().getPreviousPosition() +
+//                            " | Speed: " + mainVehicle.getRigidBody().getSpeed() +
+//                            " = " + mainVehicle.getRigidBody().getSpeed().getMagnitude() +
+//                            " | Acc: " + mainVehicle.getRigidBody().getAcceleration());
+//
 
             if (action instanceof Turn_left) {
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather(), false);
@@ -79,25 +87,36 @@ public class SimulatorEngine {
                 actor.getRigidBody().update(TIME_PART);
             }
 
-            Set<Actor> collided = collisionDetector.detectCollisionInMoment();
-
-            if (!collided.isEmpty()) {
-                System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
-                if(collided.size() == 1){
-                    System.out.println("Create consequences");
-                    for (Actor actor : collided) {
-                        consequencePredictor.createCollisionConsequences(decision, actor);
-                    }
-                }
-                for(Actor victim : collided){
-                    for(Actor other : collided){
-                        if(!victim.equals(other)){
-                           consequencePredictor.createCollisionConsequences(decision, victim, other);
-                        }
-                    }
-                }
-                return collided;
+            wasCollisionWithPedestrian = collisionDetector.detectCollisionInMoment(collided);
+            if (wasCollisionWithPedestrian && !simulationAfterCollision){
+                SIMULATION_TIME = currentTime + extraTime;
+                simulationAfterCollision = true;
             }
+
+//            if(!wasCollisionWithPedestrian && !collided.isEmpty()){
+//                return collided;
+//            }
+
+        }
+
+        if (!collided.isEmpty()) {
+            System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
+            collided.stream().map(a -> a.getEntityName()).forEach(System.out::println);
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++++");
+            if(collided.size() == 1){
+                System.out.println("Create consequences");
+                for (Actor actor : collided) {
+                    consequencePredictor.createCollisionConsequences(decision, actor);
+                }
+            }
+            for(Actor victim : collided){
+                for(Actor other : collided){
+                    if(!victim.equals(other)){
+                        consequencePredictor.createCollisionConsequences(decision, victim, other);
+                    }
+                }
+            }
+            return collided;
         }
         return new LinkedHashSet<>();
     }

@@ -65,6 +65,7 @@ public class ScenarioReader {
         rightLanesCount = lanesCount - leftLanesCount;
 
         Lane lane_0 = getLane0FromOntology(scenarioNumber);
+
         entities.put(lane_0, new ArrayList<Living_entity>() {
         });
         objects.put(lane_0, new ArrayList<Non_living_entity>() {

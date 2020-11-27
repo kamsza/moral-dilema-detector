@@ -8,6 +8,7 @@ import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.prompt.PromptSupport;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Decision;
 import project.MyFactory;
 import visualization.Visualization;
@@ -21,6 +22,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -145,9 +147,25 @@ public class DashboardWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
         if (eventSource == jButtonLoadFromFile) jButtonLoadFromFileAction();
-        if (eventSource == jButtonLoadScenario) jButtonLoadScenarioAction();
+        if (eventSource == jButtonLoadScenario) {
+            try {
+                jButtonLoadScenarioAction();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (OWLOntologyCreationException ex) {
+                ex.printStackTrace();
+            }
+        }
         if (eventSource == jButtonCustomPhilosophyInfo) jButtonCustomPhilosophyInfo();
-        if (eventSource == jButtonGenerateScenario) jButtonGenerateScenarioAction();
+        if (eventSource == jButtonGenerateScenario) {
+            try {
+                jButtonGenerateScenarioAction();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (OWLOntologyCreationException ex) {
+                ex.printStackTrace();
+            }
+        }
         if (eventSource == jButtonAddCustomPhilosophy) jButtonAddCustomPhilosophyAction();
         if (eventSource == jButtonCalculate) jButtonCalculateAction();
     }
@@ -157,7 +175,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         warningWindow.setVisible(true);
     }
 
-    private void jButtonLoadScenarioAction() {
+    private void jButtonLoadScenarioAction() throws FileNotFoundException, OWLOntologyCreationException {
         if (StringUtils.isBlank(jTextFieldScenarioName.getText())) {
             WarningWindow warningWindow = new WarningWindow(this, "Enter scenario name");
             warningWindow.setVisible(true);
@@ -189,7 +207,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
             pathToOwlFile = "";
     }
 
-    private void jButtonGenerateScenarioAction() {
+    private void jButtonGenerateScenarioAction() throws FileNotFoundException, OWLOntologyCreationException {
         // TODO
         // różne rodzaje w zależności od comboboxa z rodzajami, na razie na sztywno
         scenarioModel = OntologyLogic.getModelFromGenerator(factory);

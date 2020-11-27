@@ -3,6 +3,7 @@ package generator;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.*;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 public class DecisionGenerator {
@@ -12,6 +13,10 @@ public class DecisionGenerator {
     public DecisionGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
+    }
+
+    public DecisionGenerator() throws FileNotFoundException, OWLOntologyCreationException {
+        this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
     }
 
     public void generate(Model model){

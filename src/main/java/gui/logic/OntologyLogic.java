@@ -5,9 +5,7 @@ import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
-import generator.BaseScenarioGenerator2;
-import generator.DecisionGenerator;
-import generator.Model;
+import generator.*;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -18,6 +16,7 @@ import project.Decision;
 import project.MyFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -60,11 +59,14 @@ public class OntologyLogic {
 
 
     // na razie na sztywno korzystamy z BaseScenarioGenerator2
-    public static Model getModelFromGenerator(MyFactory factory) {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+    public static Model getModelFromGenerator(MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+        BaseScenarioGenerator generator = new BaseScenarioGenerator();
+
         Model model = null;
         try {
             model = generator.generate();
+            new ScenarioFactory(model)
+                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
         } catch (NoSuchMethodException e) {
             System.err.println("Problem during generating scenario");
             e.printStackTrace();
@@ -75,12 +77,12 @@ public class OntologyLogic {
             System.err.println("Problem during generating scenario");
             e.printStackTrace();
         }
-        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
+        DecisionGenerator decisionGenerator = new DecisionGenerator();
         decisionGenerator.generate(model);
         return model;
     }
 
-    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
+    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
         CollisionConsequencePredictor collisionConsequencePredictor =
                 new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);

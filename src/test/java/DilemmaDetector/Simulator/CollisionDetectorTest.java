@@ -5,6 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.*;
 import project.Entity;
+
+import java.io.FileNotFoundException;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -13,7 +16,7 @@ public class CollisionDetectorTest{
     private Actor vehicleActor;
 
     @Before
-    public void init() {
+    public void init() throws FileNotFoundException, OWLOntologyCreationException {
         RigidBody rigidBody = new RigidBody();
         rigidBody.setWidth(2.0);
         rigidBody.setLength(5.0);

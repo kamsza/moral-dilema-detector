@@ -63,6 +63,8 @@ public class DecisionCostCalculator {
         for (ConsequenceType consequenceType :
                 List.of(ConsequenceType.KILLED, ConsequenceType.SEVERELY_INJURED, ConsequenceType.LIGHTLY_INJURED)) {
             result += calculateCostOfHealthConsequenceOfType(decision, consequenceType);
+            System.out.println(calculateCostOfHealthConsequenceOfType(decision, consequenceType));
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDUPPPPPPPAAAAA");
         }
         return result;
     }
@@ -78,6 +80,7 @@ public class DecisionCostCalculator {
         int result = 0;
         List<String> victims = consequenceContainer.getHealthConsequencesOfType(decision, consequenceType);
         for (String victimName : victims) {
+            System.out.println("DDDDDDDD " + victimName);
             HashMap<PhilosophyParameter, Integer> parameters = customPhilosophy.getParameters();
             //extract scenario number to get main vehicle
             String scenarioNumber = victimName.split("_")[0];

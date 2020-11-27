@@ -36,7 +36,7 @@ public class BaseScenarioGenerator {
 
     private int lanesCount;
     private int mainVehicleLaneId;
-    private float roadDist = 6400F;
+    private float roadDist = 20000F;
 
     public BaseScenarioGenerator() throws FileNotFoundException, OWLOntologyCreationException {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
@@ -62,7 +62,7 @@ public class BaseScenarioGenerator {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-        addPedestrian(model);
+//        addPedestrian(model);
 //        addVehicle(model);
         return model;
     }
