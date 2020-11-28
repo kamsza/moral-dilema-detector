@@ -65,7 +65,7 @@ public class SimulatorEngine {
         }
 
         boolean collisionNotWithPedestrian = false;
-        int collisionWithPedestrians = 0;
+        int collisionWithPedestrianCount = 0;
 
         double SIMULATION_TIME = MOVING_TIME;
         while (currentTime < SIMULATION_TIME && !collisionNotWithPedestrian) {
@@ -98,8 +98,8 @@ public class SimulatorEngine {
             Set<Actor> collidedInMoment = collisionDetector.detectCollisionInMoment();
             for(Actor actor : collidedInMoment ){
                 if(factoryWrapper.isPedestrian(actor) ){
-                    collisionWithPedestrians +=1;
-                    if(collisionWithPedestrians == 1) {
+                    collisionWithPedestrianCount +=1;
+                    if(collisionWithPedestrianCount == 1) {
                         SIMULATION_TIME = updateSimulationTime(currentTime);
                     }
                 }
@@ -137,8 +137,6 @@ public class SimulatorEngine {
     }
 
     private double updateSimulationTime(double currentTime) {
-        double SIMULATION_TIME;
-        SIMULATION_TIME = currentTime + EXTRA_TIME;
-        return SIMULATION_TIME;
+        return currentTime + EXTRA_TIME;
     }
 }
