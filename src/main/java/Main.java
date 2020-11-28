@@ -56,7 +56,8 @@ public class Main {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
-        MyFactory factory = new MyFactory(ontology);
+//        MyFactory factory = new MyFactory(ontology);
+        MyFactory factory = MyFactorySingleton.getFactory();
         MoralDilemmaDetector.Builder builder = new MoralDilemmaDetector.Builder();
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
@@ -100,13 +101,13 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
-            consequenceContainer.saveConsequencesToOntology();
+//            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
-            try {
-                factory.saveOwlOntology();
-            } catch (OWLOntologyStorageException ignored) {
-            }
+//            try {
+//                factory.saveOwlOntology();
+//            } catch (OWLOntologyStorageException ignored) {
+//            }
             Visualization.getImage(scenarioModel);
         }
     }

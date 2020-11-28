@@ -65,8 +65,8 @@ public class BaseScenarioGenerator2 {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-//        addVehicle(model);
-        addPedestrian(model);
+        addVehicle(model);
+//        addPedestrian(model);
 
         return model;
     }
@@ -91,8 +91,8 @@ public class BaseScenarioGenerator2 {
 
         float vehicleSpeed = (float) (0);
 
-//        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
-        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+//        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
 
         vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
@@ -103,7 +103,7 @@ public class BaseScenarioGenerator2 {
         vehicle1.addSpeedY(0F);
         vehicle1.addAccelerationY(0F);
         vehicle1.addAccelerationX(0F);
-        vehicle1.addValueInDollars(1000000F);
+        vehicle1.addValueInDollars(100000F);
 
         model.getVehicles().get(lane).add(vehicle1);
 
@@ -123,6 +123,21 @@ public class BaseScenarioGenerator2 {
         person.addIs_on_lane(lane);
         model.getScenario().addHas_pedestrian(person);
         model.getEntities().get(lane).add(person);
+
+        Person person1 = factory.createPerson(ObjectNamer.getName("person"));
+        person1.addSpeedY(0F);
+        person1.addSpeedX(0F);
+        person1.addAccelerationX(0F);
+        person1.addAccelerationY(0F);
+        person1.addWidth(50F);
+        person1.addLength(50F);
+        person1.addDistance(2200F);
+//        person.addValueInDollars(10000F);
+        lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        person1.addIs_on_lane(lane);
+        model.getScenario().addHas_pedestrian(person1);
+        model.getEntities().get(lane).add(person1);
+
     }
 
     private void addEnvData(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {

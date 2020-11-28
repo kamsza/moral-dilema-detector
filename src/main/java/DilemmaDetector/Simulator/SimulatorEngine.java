@@ -12,6 +12,9 @@ public class SimulatorEngine {
     private static final double MOVING_TIME = 5.0;
     //each TIME_PART we check if there is a collision between main vehicle and some different entity
     private static final double TIME_PART = 0.01;
+    //after first collision with pedestrian we continue simulation for extra time to detect next collisions
+    private static final double EXTRA_TIME = 1.0;
+
 
     private Model model;
 
@@ -48,13 +51,19 @@ public class SimulatorEngine {
         double currentTime = 0;
         int laneWidth = 3;
 
+        Set<Actor> collided = new LinkedHashSet<>();
         mainVehicle.getRigidBody().setToInitialValues();
         for (Actor actor : actors){
             actor.getRigidBody().setToInitialValues();
         }
 
-        while (currentTime < MOVING_TIME) {
+        boolean collisionNotWithPedestrian = false;
+        int collisionWithPedestrians = 0;
+
+        double SIMULATION_TIME = MOVING_TIME;
+        while (currentTime < SIMULATION_TIME && !collisionNotWithPedestrian) {
             currentTime += TIME_PART;
+            System.out.print("Current time: " + currentTime + " | Simulation time: " + SIMULATION_TIME  + " | ");
             System.out.println(
                     "Pos: " + mainVehicle.getRigidBody().getPosition() +
                             " | PrevPos: " + mainVehicle.getRigidBody().getPreviousPosition() +
@@ -79,26 +88,50 @@ public class SimulatorEngine {
                 actor.getRigidBody().update(TIME_PART);
             }
 
-            Set<Actor> collided = collisionDetector.detectCollisionInMoment();
-
-            if (!collided.isEmpty()) {
-                System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
-                if(collided.size() == 1){
-                    System.out.println("Create consequences");
-                    for (Actor actor : collided) {
-                        consequencePredictor.createCollisionConsequences(decision, actor);
+            Set<Actor> collidedInMoment = collisionDetector.detectCollisionInMoment();
+            for(Actor actor : collidedInMoment ){
+                if(Utils.isPedestrian(actor) ){
+                    collisionWithPedestrians +=1;
+                    if(collisionWithPedestrians == 1) {
+                        SIMULATION_TIME = updateSimulationTime(currentTime);
                     }
                 }
-                for(Actor victim : collided){
-                    for(Actor other : collided){
-                        if(!victim.equals(other)){
-                           consequencePredictor.createCollisionConsequences(decision, victim, other);
-                        }
+                else if(!Utils.isPedestrian(actor)){
+                    if (!actor.equals(mainVehicle)) {
+                        collisionNotWithPedestrian = true;
                     }
                 }
-                return collided;
             }
+            if (!collidedInMoment.isEmpty())
+                collided.addAll(collidedInMoment);
+        }
+
+        if (!collided.isEmpty()) {
+            System.out.println("Collision in action: " + action.toString() + "  " + collided.size());
+            collided.stream().map(a-> a.getEntityName()).forEach(System.out::println);
+            System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
+
+            if(collided.size() == 1){
+                System.out.println("Create consequences");
+                for (Actor actor : collided) {
+                    consequencePredictor.createCollisionConsequences(decision, actor);
+                }
+            }
+            for(Actor victim : collided){
+                for(Actor other : collided){
+                    if(!victim.equals(other)){
+                        consequencePredictor.createCollisionConsequences(decision, victim, other);
+                    }
+                }
+            }
+            return collided;
         }
         return new LinkedHashSet<>();
+    }
+
+    private double updateSimulationTime(double currentTime) {
+        double SIMULATION_TIME;
+        SIMULATION_TIME = currentTime + EXTRA_TIME;
+        return SIMULATION_TIME;
     }
 }

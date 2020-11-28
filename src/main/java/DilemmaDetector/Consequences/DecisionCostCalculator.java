@@ -67,11 +67,24 @@ public class DecisionCostCalculator {
         return result;
     }
 
-    private boolean humanInsideMainVehicle(Vehicle mainVehicle, String victimName) {
+    private boolean humanInsideMainVehicle(Vehicle vehicle, String victimName) {
+        if (vehicle == null)
+            return false;
+        else return passengerInsideVehicle(vehicle, victimName) || driverInsideVehicle(vehicle, victimName);
+    }
+
+    private boolean passengerInsideVehicle(Vehicle mainVehicle, String victimName) {
         if (mainVehicle == null)
             return false;
         return mainVehicle.getVehicle_has_passenger().stream().map(p -> ((Passenger) p).getOwlIndividual().getIRI().toString())
                 .anyMatch(p -> p.equals(victimName));
+    }
+
+    private boolean driverInsideVehicle(Vehicle mainVehicle, String victimName) {
+        if (mainVehicle == null)
+            return false;
+        return mainVehicle.getVehicle_has_driver().stream().map(d -> ((Driver) d).getOwlIndividual().getIRI().toString())
+                .anyMatch(d -> d.equals(victimName));
     }
 
     private int calculateCostOfHealthConsequenceOfType(Decision decision, ConsequenceType consequenceType) {

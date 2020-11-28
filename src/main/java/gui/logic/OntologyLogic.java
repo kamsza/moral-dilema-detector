@@ -5,9 +5,7 @@ import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
-import generator.BaseScenarioGenerator2;
-import generator.DecisionGenerator;
-import generator.Model;
+import generator.*;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -18,6 +16,7 @@ import project.Decision;
 import project.MyFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -26,8 +25,24 @@ public class OntologyLogic {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
     public static final String pathToOntology = "src/main/resources/traffic_ontology.owl";
 
+//    public static MyFactory getFactory() {
+//        return getFactory(pathToOntology);
+//    }
+
     public static MyFactory getFactory() {
-        return getFactory(pathToOntology);
+        MyFactory factory = null;
+        try {
+            factory = MyFactorySingleton.getFactory();
+        }
+        catch (FileNotFoundException e){
+            System.err.println("Problem during loading ontology - file not found");
+            e.printStackTrace();
+        }
+        catch (OWLOntologyCreationException e){
+            System.err.println("Problem during loading ontology");
+            e.printStackTrace();
+        }
+        return factory;
     }
 
     public static MyFactory getFactory(String pathToOwlFile) {
@@ -59,9 +74,9 @@ public class OntologyLogic {
     }
 
 
-    // na razie na sztywno korzystamy z BaseScenarioGenerator2
-    public static Model getModelFromGenerator(MyFactory factory) {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+    // na razie na sztywno korzystamy z BaseScenarioGenerator + dodalem pieszych uzywajac modelBuildera
+    public static Model getModelFromGenerator(MyFactory factory){
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = null;
         try {
             model = generator.generate();
@@ -75,6 +90,20 @@ public class OntologyLogic {
             System.err.println("Problem during generating scenario");
             e.printStackTrace();
         }
+
+        try {
+            new ScenarioFactory(model)
+                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
+        }
+        catch (FileNotFoundException e){
+            System.err.println("Problem during generating scenario - file not found");
+            e.printStackTrace();
+        }
+        catch (OWLOntologyCreationException e){
+            System.err.println("Problem during generating scenario");
+            e.printStackTrace();
+        }
+
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
