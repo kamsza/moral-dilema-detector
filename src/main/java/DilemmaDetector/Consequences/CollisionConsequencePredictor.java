@@ -28,14 +28,6 @@ public class CollisionConsequencePredictor {
         this.factoryWrapper = factoryWrapper;
     }
 
-    /**
-      Check if entity described in victimActor is same as Living_entity victim. If true, then it must be pedestrian.
-      It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
-    */
-    private boolean isPedestrian(Actor victimActor, Living_entity victim){
-        return victimActor.getEntityName().equals(victim.getOwlIndividual().getIRI().toString());
-    }
-
     public void createCollisionConsequences(Decision decision, Actor victimActor, Actor other) {
         List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
         double speed = getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody());
@@ -43,7 +35,7 @@ public class CollisionConsequencePredictor {
         double materialConsequenceValueOther = getMaterialConsequence(other, speed);
         for (Living_entity victim : individualVictims) {
             ConsequenceType consequenceType;
-            if (isPedestrian(victimActor, victim)) {
+            if (factoryWrapper.isPedestrian(victimActor)) {
                 consequenceType = getHealthConsequenceTypeForPedestrian(
                         getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
             } else {
