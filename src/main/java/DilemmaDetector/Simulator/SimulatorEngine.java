@@ -77,7 +77,7 @@ public class SimulatorEngine {
             } else if (action instanceof Turn_right) {
                 BasicActionsApplier.CarTurning(mainVehicle.getRigidBody(), model.getWeather(), true);
             } else if (action instanceof Stop) {
-                BasicActionsApplier.CarBreaking(mainVehicle.getRigidBody(), model.getWeather());
+                BasicActionsApplier.CarBraking(mainVehicle.getRigidBody(), model.getWeather());
             } else if (action instanceof Change_lane){
                 int laneNumber = ((Change_lane)action).getLane_change_by().iterator().next();
                 changeLaneActionApplier.CarChangeLanes(mainVehicle.getRigidBody(), model.getWeather(), 0, laneNumber, laneWidth);

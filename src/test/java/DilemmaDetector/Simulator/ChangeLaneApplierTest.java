@@ -9,12 +9,12 @@ import project.Weather;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
-public class ChangeLineApplierTest {
+public class ChangeLaneApplierTest {
     private static final double MOVING_TIME = 5.0;
     private static final double TIME_PART = 0.01;
 
     @Test
-    public void changeLineTest(){
+    public void changeLaneTest(){
         ChangeLaneActionApplier changeLaneActionApplier = new ChangeLaneActionApplier();
         int startLaneNumber = 0;
         int endLaneNumber = 3;
