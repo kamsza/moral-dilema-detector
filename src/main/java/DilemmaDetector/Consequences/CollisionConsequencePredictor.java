@@ -1,6 +1,7 @@
 package DilemmaDetector.Consequences;
 
 import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.FactoryWrapper;
 import DilemmaDetector.Simulator.PhysicsUtils;
 import DilemmaDetector.Simulator.RigidBody;
 import generator.Model;
@@ -14,13 +15,18 @@ import java.util.List;
 
 public class CollisionConsequencePredictor {
     private IConsequenceContainer consequenceContainer;
-    private MyFactory factory;
     private Model model;
+    private FactoryWrapper factoryWrapper;
 
-    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory, Model model) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, Model model) {
         this.consequenceContainer = consequenceContainer;
-        this.factory = factory;
         this.model = model;
+        try{
+            this.factoryWrapper = new FactoryWrapper();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private boolean isPedestrian(Actor victimActor, Living_entity victim){
@@ -32,7 +38,7 @@ public class CollisionConsequencePredictor {
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor, Actor other) {
-        List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
+        List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
         double speed = getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody());
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
         double materialConsequenceValueOther = getMaterialConsequence(other, speed);
@@ -54,7 +60,7 @@ public class CollisionConsequencePredictor {
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor) {
-        List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
+        List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
 
         double speed = victimActor.getRigidBody().getSpeed().getMagnitude();
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
@@ -123,21 +129,6 @@ public class CollisionConsequencePredictor {
             return ConsequenceType.LIGHTLY_INJURED;
 
         return ConsequenceType.NO_CONSEQUENCE;
-    }
-
-    private List<Living_entity> getLivingEntitiesFromActor(Actor actor) {
-        Vehicle vehicle = factory.getVehicle(actor.getEntity());
-        Living_entity living_entity = factory.getLiving_entity(actor.getEntity());
-        List<Living_entity> result = new ArrayList<>();
-
-        if (vehicle != null) {
-//            System.out.println("Get victims from vehicle");
-            result.addAll(vehicle.getVehicle_has_passenger());
-            result.addAll(vehicle.getVehicle_has_driver());
-        } else if (living_entity != null) {
-            result.add(living_entity);
-        }
-        return result;
     }
 
     private double minorInjuryProbability(double speed) {
@@ -244,5 +235,9 @@ public class CollisionConsequencePredictor {
 
     private double getProbabilityFromLinearFunction(double x1, double y1, double x2, double y2, double speed) {
         return (y2 - y1) / (x2 - x1) * (speed - x1) + y1;
+    }
+
+    public void setFactoryWrapper(FactoryWrapper factoryWrapper){
+        this.factoryWrapper = factoryWrapper;
     }
 }
