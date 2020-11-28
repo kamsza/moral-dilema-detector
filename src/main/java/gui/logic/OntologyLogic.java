@@ -25,9 +25,6 @@ public class OntologyLogic {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
     public static final String pathToOntology = "src/main/resources/traffic_ontology.owl";
 
-//    public static MyFactory getFactory() {
-//        return getFactory(pathToOntology);
-//    }
 
     public static MyFactory getFactory() {
         MyFactory factory = null;
@@ -111,7 +108,7 @@ public class OntologyLogic {
 
     public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
-                new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
+                new CollisionConsequencePredictor(consequenceContainer, scenarioModel);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
         Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
 

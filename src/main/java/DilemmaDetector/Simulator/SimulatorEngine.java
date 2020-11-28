@@ -25,6 +25,7 @@ public class SimulatorEngine {
     private CollisionDetector collisionDetector;
 
     private CollisionConsequencePredictor consequencePredictor;
+    private FactoryWrapper factoryWrapper;
 
     public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor) {
         this.model = model;
@@ -35,6 +36,12 @@ public class SimulatorEngine {
         this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
         this.actors = RigidBodyMapper.createActors(model);
         collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
+        try{
+            this.factoryWrapper = new FactoryWrapper();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Map<Decision, Set<Actor>> simulateAll() {
@@ -90,13 +97,13 @@ public class SimulatorEngine {
 
             Set<Actor> collidedInMoment = collisionDetector.detectCollisionInMoment();
             for(Actor actor : collidedInMoment ){
-                if(Utils.isPedestrian(actor) ){
+                if(factoryWrapper.isPedestrian(actor) ){
                     collisionWithPedestrians +=1;
                     if(collisionWithPedestrians == 1) {
                         SIMULATION_TIME = updateSimulationTime(currentTime);
                     }
                 }
-                else if(!Utils.isPedestrian(actor)){
+                else if(!factoryWrapper.isPedestrian(actor)){
                     if (!actor.equals(mainVehicle)) {
                         collisionNotWithPedestrian = true;
                     }
