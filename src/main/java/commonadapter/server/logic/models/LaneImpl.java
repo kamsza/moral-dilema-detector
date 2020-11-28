@@ -39,4 +39,10 @@ public class LaneImpl extends BaseItemImpl implements Lane {
         project.Road road = owlFactory.getRoad(roadId);
         this.lane.addIs_on_road(road);
     }
+
+    @Override
+    public void setLaneNumber(int laneNumber, Current current) {
+
+        this.lane.addLane_number(laneNumber);
+    }
 }
