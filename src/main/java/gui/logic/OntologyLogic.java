@@ -82,7 +82,7 @@ public class OntologyLogic {
 
     public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
-                new CollisionConsequencePredictor(consequenceContainer, scenarioModel);
+                new CollisionConsequencePredictor(consequenceContainer);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
         Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
 

@@ -10,7 +10,6 @@ import org.junit.Test;
 import project.Decision;
 import project.Living_entity;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -36,8 +35,7 @@ public class CollisionConsequencePredictorTest {
         when(factoryWrapperMock.getLivingEntitiesFromActor(any())).thenReturn(livingEntities);
 
         CollisionConsequencePredictor collisionConsequencePredictor =
-                new CollisionConsequencePredictor(consequenceContainerMock, mock(Model.class));
-        collisionConsequencePredictor.setFactoryWrapper(factoryWrapperMock);
+                new CollisionConsequencePredictor(consequenceContainerMock, factoryWrapperMock);
         collisionConsequencePredictor.createCollisionConsequences(mock(Decision.class), actorMock);
         Assert.assertEquals(2, ref.injuredPeople);
         Assert.assertEquals(1000, ref.moneyLost, 0.1);

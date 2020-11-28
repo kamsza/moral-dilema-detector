@@ -4,23 +4,17 @@ import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.FactoryWrapper;
 import DilemmaDetector.Simulator.PhysicsUtils;
 import DilemmaDetector.Simulator.RigidBody;
-import generator.Model;
 import project.Decision;
 import project.Living_entity;
-import project.MyFactory;
-import project.Vehicle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionConsequencePredictor {
     private IConsequenceContainer consequenceContainer;
-    private Model model;
     private FactoryWrapper factoryWrapper;
 
-    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, Model model) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer) {
         this.consequenceContainer = consequenceContainer;
-        this.model = model;
         try{
             this.factoryWrapper = new FactoryWrapper();
         }
@@ -29,11 +23,16 @@ public class CollisionConsequencePredictor {
         }
     }
 
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, FactoryWrapper factoryWrapper) {
+        this.consequenceContainer = consequenceContainer;
+        this.factoryWrapper = factoryWrapper;
+    }
+
+    /**
+      Check if entity described in victimActor is same as Living_entity victim. If true, then it must be pedestrian.
+      It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
+    */
     private boolean isPedestrian(Actor victimActor, Living_entity victim){
-        /*
-         Check if entity described in victimActor is same as Living_entity victim. If true, then it must be pedestrian.
-         It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
-       */
         return victimActor.getEntityName().equals(victim.getOwlIndividual().getIRI().toString());
     }
 
@@ -235,9 +234,5 @@ public class CollisionConsequencePredictor {
 
     private double getProbabilityFromLinearFunction(double x1, double y1, double x2, double y2, double speed) {
         return (y2 - y1) / (x2 - x1) * (speed - x1) + y1;
-    }
-
-    public void setFactoryWrapper(FactoryWrapper factoryWrapper){
-        this.factoryWrapper = factoryWrapper;
     }
 }
