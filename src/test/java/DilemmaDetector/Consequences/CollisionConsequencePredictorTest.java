@@ -4,7 +4,6 @@ import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.FactoryWrapper;
 import DilemmaDetector.Simulator.RigidBody;
 import DilemmaDetector.Simulator.Vector2;
-import generator.Model;
 import org.junit.Assert;
 import org.junit.Test;
 import project.Decision;
