@@ -74,6 +74,18 @@ public class ScenarioReader {
         TreeMap<Integer, Lane> lane_center = new TreeMap<>() {{
             put(0, lane_0);
         }};
+
+        for(Vehicle v: lane_0.getLane_has_vehicle()) {
+            String vehicleName = v.getOwlIndividual().getIRI().toString();
+            v = getVehicleAsSpecificClass(vehicleName);
+            vehicles.get(lane_0).add(v);
+        }
+
+        for(Living_entity entity: lane_0.getLane_has_pedestrian()){
+            String entityName = entity.getOwlIndividual().getIRI().toString();
+            entity = getEntityAsSpecificClass(entityName);
+            entities.get(lane_0).add(entity);
+        }
         lanes.put(Model.Side.CENTER, lane_center);
 
 
@@ -87,6 +99,18 @@ public class ScenarioReader {
             });
             vehicles.put(lane, new ArrayList<Vehicle>() {
             });
+
+            for(Vehicle v: lane.getLane_has_vehicle()) {
+                String vehicleName = v.getOwlIndividual().getIRI().toString();
+                v = getVehicleAsSpecificClass(vehicleName);
+                vehicles.get(lane).add(v);
+            }
+
+            for(Living_entity entity: lane.getLane_has_pedestrian()){
+                String entityName = entity.getOwlIndividual().getIRI().toString();
+                entity = getEntityAsSpecificClass(entityName);
+                entities.get(lane).add(entity);
+            }
         }
         lanes.put(Model.Side.RIGHT, lanes_right);
 
@@ -103,28 +127,6 @@ public class ScenarioReader {
             });
         }
         lanes.put(Model.Side.LEFT, lanes_left);
-
-        for (Vehicle v : scenario.getHas_vehicle()) {
-            String vehicleName = v.getOwlIndividual().getIRI().toString();
-            if (!vehicleName.contains("vehicle_main")) {
-                Lane lane = null;
-                for (Lane l : v.getIs_on_lane()) {
-                    lane = l;
-                }
-                v = getVehicleAsSpecificClass(vehicleName);
-                vehicles.get(lane).add(v);
-            }
-        }
-
-        for (Living_entity entity : scenario.getHas_pedestrian()) {
-            String entityName = entity.getOwlIndividual().getIRI().toString();
-            Lane lane = null;
-            for (Lane l : entity.getIs_on_lane()) {
-                lane = l;
-            }
-             entity = getEntityAsSpecificClass(entityName);
-             entities.get(lane).add(entity);
-        }
 
         Model model = new Model.Builder().
                 setScenario(scenario).
@@ -254,7 +256,7 @@ public class ScenarioReader {
         else if (factory.getSecurity_side_barrier(surroundingName) != null)
             s = factory.getSecurity_side_barrier(surroundingName);
         else if (factory.getStreet_lamp(surroundingName) != null)
-            s = factory.getSecurity_side_barrier(surroundingName);
+            s = factory.getStreet_lamp(surroundingName);
         else if (factory.getTree(surroundingName) != null)
             s = factory.getTree(surroundingName);
         else if (factory.getWall(surroundingName) != null)

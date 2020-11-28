@@ -73,7 +73,7 @@ public class OntologyLogic {
 
     // na razie na sztywno korzystamy z BaseScenarioGenerator + dodalem pieszych uzywajac modelBuildera
     public static Model getModelFromGenerator(MyFactory factory){
-        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
+        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = null;
         try {
             model = generator.generate();
@@ -88,18 +88,18 @@ public class OntologyLogic {
             e.printStackTrace();
         }
 
-        try {
-            new ScenarioFactory(model)
-                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
-        }
-        catch (FileNotFoundException e){
-            System.err.println("Problem during generating scenario - file not found");
-            e.printStackTrace();
-        }
-        catch (OWLOntologyCreationException e){
-            System.err.println("Problem during generating scenario");
-            e.printStackTrace();
-        }
+//        try {
+//            new ScenarioFactory(model)
+//                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
+//        }
+//        catch (FileNotFoundException e){
+//            System.err.println("Problem during generating scenario - file not found");
+//            e.printStackTrace();
+//        }
+//        catch (OWLOntologyCreationException e){
+//            System.err.println("Problem during generating scenario");
+//            e.printStackTrace();
+//        }
 
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
