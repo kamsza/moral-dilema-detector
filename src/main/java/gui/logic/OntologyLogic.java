@@ -82,8 +82,8 @@ public class OntologyLogic {
 
     public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
-                new CollisionConsequencePredictor(consequenceContainer);
-        SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
+                new CollisionConsequencePredictor(consequenceContainer, factory);
+        SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor, factory);
         Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
 
         // pytanie czy może to być w tym miejscu, bo umieszczenie tego później miałoby sens,
