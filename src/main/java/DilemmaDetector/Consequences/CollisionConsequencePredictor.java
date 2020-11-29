@@ -32,7 +32,6 @@ public class CollisionConsequencePredictor {
         List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
         double speed = getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody());
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
-        double materialConsequenceValueOther = getMaterialConsequence(other, speed);
         for (Living_entity victim : individualVictims) {
             ConsequenceType consequenceType;
             if (factoryWrapper.isPedestrian(victimActor)) {
@@ -47,7 +46,6 @@ public class CollisionConsequencePredictor {
             }
         }
         consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
-        consequenceContainer.addMaterialConsequence(decision, other.getEntityName(), materialConsequenceValueOther);
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor) {
