@@ -174,22 +174,30 @@ public class DashboardWindow extends JFrame implements ActionListener {
         if (StringUtils.isBlank(jTextFieldScenarioName.getText())) {
             WarningWindow warningWindow = new WarningWindow(this, "Enter scenario name");
             warningWindow.setVisible(true);
+        } else {
+            if (StringUtils.isBlank(pathToOwlFile)) {
+                WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
+                warningWindow.setVisible(true);
+            } else {
+
+                try {
+                    scenarioModel = OntologyLogic.getModelFromOntology(pathToOwlFile, jTextFieldScenarioName.getText());
+                }
+                catch(IllegalArgumentException exception){
+                    WarningWindow warningWindow = new WarningWindow(this, "There is no such scenario in owl file");
+                    warningWindow.setVisible(true);
+                    return;
+                }
+                pictureName = Visualization.getImage(scenarioModel);
+                jLabelImageScenario.setIcon(
+                        getImageIcon(System.getProperty("user.dir")
+                                + "\\src\\main\\resources\\vis_out\\"
+                                + pictureName));
+
+                consequenceContainer = new ConsequenceContainer(factory);
+                collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+            }
         }
-        if (StringUtils.isBlank(pathToOwlFile)) {
-            WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
-            warningWindow.setVisible(true);
-        }
-
-        scenarioModel = OntologyLogic.getModelFromOntology(pathToOwlFile, jTextFieldScenarioName.getText());
-        pictureName = Visualization.getImage(scenarioModel);
-        jLabelImageScenario.setIcon(
-                getImageIcon(System.getProperty("user.dir")
-                        + "\\src\\main\\resources\\vis_out\\"
-                        + pictureName));
-
-        consequenceContainer = new ConsequenceContainer(factory);
-        collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
-
     }
 
     private void jButtonLoadFromFileAction() {
