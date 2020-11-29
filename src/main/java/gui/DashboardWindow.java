@@ -264,7 +264,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 String isMoralDilemmaString = isMoralDilemma ? "YES" : "NO";
                 if (jTableWithMoralResult != null) {
                     refreshOneRowTable(isMoralDilemmaString, jTableWithMoralResult, jScrollPaneWithMoralResult);
-                    refreshOneRowTable(changeSnakeCase(bestDecision), jTableWithBestDecision, jScrollPaneWithBestDecision);
+                    refreshOneRowTable(prepareDecisionNameToDisplay(bestDecision), jTableWithBestDecision, jScrollPaneWithBestDecision);
 
                 } else {
                     jTableWithMoralResult = new JTable(prepareDefaultModel("Moral dilemma", isMoralDilemmaString));
@@ -274,7 +274,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     add(jScrollPaneWithMoralResult);
 
                     jTableWithBestDecision =
-                            new JTable(prepareDefaultModel("Optimum decision", changeSnakeCase(bestDecision)));
+                            new JTable(prepareDefaultModel("Optimum decision", prepareDecisionNameToDisplay(bestDecision)));
                     centerValuesInTable(jTableWithBestDecision);
                     jScrollPaneWithBestDecision = new JScrollPane(jTableWithBestDecision);
                     jScrollPaneWithBestDecision.setBounds(20, 600 + oneRowJTableHeight, 250, oneRowJTableHeight);
@@ -289,7 +289,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     }
                     for (String decisionName : decisionCosts.keySet()) {
                         Object[] row = new Object[2];
-                        row[0] = changeSnakeCase(decisionName);
+                        row[0] = prepareDecisionNameToDisplay(decisionName);
                         row[1] = decisionCosts.get(decisionName);
                         defaultTableModel.addRow(row);
                     }
@@ -304,7 +304,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     Object[][] data = new Object[numberOfDecisions][2];
                     int i = 0;
                     for (String decisionName : decisionCosts.keySet()) {
-                        data[i][0] = changeSnakeCase(decisionName);
+                        data[i][0] = prepareDecisionNameToDisplay(decisionName);
                         data[i][1] = decisionCosts.get(decisionName);
                         i++;
                     }
@@ -388,6 +388,19 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private String getActionNameFromDecision(String decisionString) {
         String tmp = StringUtils.substringAfter(decisionString, "has_action: _");
         return StringUtils.substringBefore(tmp, ";");
+    }
+
+    private String prepareDecisionNameToDisplay(String s) {
+        if(s.startsWith("stop")) return "Stop";
+        if(s.startsWith("turn_right")) return "Turn right";
+        if(s.startsWith("turn_left")) return "Turn left";
+        if(s.startsWith("follow")) return "Follow";
+
+        int byIndex = s.indexOf("by");
+        String ending = s.substring(byIndex+3);
+        String correctNumber = StringUtils.substringBefore(ending, "_");
+        String snakeCaseResult = StringUtils.substringBefore(s,"by") + "by_" + correctNumber;
+        return changeSnakeCase(snakeCaseResult);
     }
 
     private String changeSnakeCase(String s) {
