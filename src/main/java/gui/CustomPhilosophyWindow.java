@@ -4,6 +4,7 @@ package gui;
 import DilemmaDetector.Consequences.CustomPhilosophy;
 import DilemmaDetector.Consequences.PhilosophyParameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -86,6 +87,7 @@ public abstract class CustomPhilosophyWindow extends JFrame {
 
     protected String mapObjectToJSON(Object object) {
         ObjectMapper Obj = new ObjectMapper();
+        Obj.enable(SerializationFeature.INDENT_OUTPUT);
         String jsonStr = null;
         try {
 
