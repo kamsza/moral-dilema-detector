@@ -35,6 +35,7 @@ public class DecisionCostCalculatorTest {
     @Test
     public void takingActionDecisionCostTest(){
         DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(mock(ConsequenceContainer.class), mock(MyFactory.class));
+        decisionCostCalculator.setCustomPhilosophy(CustomPhilosophy.getSimplestPhilosophyWithOnesForTest());
         Decision decisionMock = createDecisionMock("turn_left");
         int cost = decisionCostCalculator.getSummarizedCostForDecision(decisionMock);
         Assert.assertEquals(1, cost);
@@ -48,6 +49,7 @@ public class DecisionCostCalculatorTest {
         when(consequenceContainerMock.getMaterialConsequences(any())).thenReturn(map.entrySet());
 
         DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(consequenceContainerMock, mock(MyFactory.class));
+        decisionCostCalculator.setCustomPhilosophy(CustomPhilosophy.getSimplestPhilosophyWithOnesForTest());
         Decision decisionMock = createDecisionMock("follow");
         int cost = decisionCostCalculator.getSummarizedCostForDecision(decisionMock);
         Assert.assertEquals(10000/1000, cost);
@@ -61,6 +63,7 @@ public class DecisionCostCalculatorTest {
         when(myFactoryMock.getHuman(anyString())).thenReturn(mock(Human.class));
 
         DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(consequenceContainerMock, myFactoryMock);
+        decisionCostCalculator.setCustomPhilosophy(CustomPhilosophy.getSimplestPhilosophyWithOnesForTest());
         Decision decisionMock = createDecisionMock("follow");
         int cost = decisionCostCalculator.getSummarizedCostForDecision(decisionMock);
         Assert.assertEquals(3, cost);

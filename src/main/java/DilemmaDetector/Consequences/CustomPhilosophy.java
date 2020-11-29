@@ -46,7 +46,15 @@ public class CustomPhilosophy {
             } else {
                 customPhilosophy.getParameters().put(philosophyParameter, 0);
             }
+        }
+        return customPhilosophy;
+    }
 
+    public static CustomPhilosophy getSimplestPhilosophyWithOnesForTest() {
+        CustomPhilosophy customPhilosophy = new CustomPhilosophy();
+        customPhilosophy.setPhilosophyName("SimpleWithOnes");
+        for (PhilosophyParameter philosophyParameter : PhilosophyParameter.values()) {
+                customPhilosophy.getParameters().put(philosophyParameter, 1);
         }
         return customPhilosophy;
     }
