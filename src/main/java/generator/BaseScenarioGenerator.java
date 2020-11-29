@@ -43,6 +43,10 @@ public class BaseScenarioGenerator {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
     }
 
+    public BaseScenarioGenerator(String ontologyFilepath) throws FileNotFoundException, OWLOntologyCreationException {
+        this(MyFactorySingleton.getFactory(ontologyFilepath), MyFactorySingleton.baseIRI);
+    }
+
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;

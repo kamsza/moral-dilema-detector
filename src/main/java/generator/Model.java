@@ -1,5 +1,6 @@
 package generator;
 
+import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Action;
@@ -17,7 +18,10 @@ import project.Time;
 import project.Vehicle;
 import project.Weather;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -296,9 +300,30 @@ public class Model {
         this.actionByDecision = actionByDecision;
     }
 
-    public void export() throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
+    public void export() throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
+        export(false);
+    }
+
+    public void export(boolean overrideFile) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
+        String template = "src/main/resources/ontologies/traffic_ontology.owl";
+        export(template, overrideFile);
+    }
+
+    public void export(String filepath, boolean overrideFile) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         MyFactory factory = MyFactorySingleton.getFactory();
-        factory.saveOwlOntology();
+        String exportFilepath = filepath;
+        if(!overrideFile) {
+            String extension = ".owl";
+            String template = "src/main/resources/ontologies/traffic_ontology";
+            exportFilepath = template + extension;
+            int index = 1;
+            while (new File(exportFilepath).exists()) {
+                exportFilepath = template + " (" + index + ")" + extension;
+                index++;
+            }
+        }
+        FileOutputStream outputStream = FileUtils.openOutputStream(new File(exportFilepath), false);
+        factory.getOwlOntology().getOWLOntologyManager().saveOntology(factory.getOwlOntology(), outputStream);
     }
 
     public enum Side {LEFT, CENTER, RIGHT}
