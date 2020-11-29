@@ -7,6 +7,7 @@ import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
 import commonadapter.CommunicationUtils;
+import commonadapter.adapters.waymo.logic.lidardata.Box;
 import commonadapter.adapters.waymo.logic.lidardata.Label;
 import commonadapter.adapters.waymo.logic.lidardata.LidarView;
 import commonadapter.adapters.waymo.logic.services.IceProxyService;
@@ -34,6 +35,9 @@ public class WaymoScenarioBuilder {
         ScenarioPrx scenarioPrx = proxyService.createScenarioPrx();
 
         try {
+
+            addMainVehicleToScenario(scenarioPrx);
+
             List<LidarView> lidarViews = getDeserializedLidarViews(waymoJsonFilePath);
             lidarViews.stream()
                     .flatMap(lidarView -> lidarView.labels.stream())
@@ -41,7 +45,7 @@ public class WaymoScenarioBuilder {
 
             proxyService.persistOntologyChanges();
 
-            Logger.printLogMessage("CREATED SCENARIO ID = " + scenarioPrx.getId(), LogMessageType.INFO);
+            Logger.printLogMessage("CREATED SCENARIO: ID = " + scenarioPrx.getId(), LogMessageType.INFO);
 
         } catch (Exception ex) {
 
@@ -72,10 +76,11 @@ public class WaymoScenarioBuilder {
         }
     }
 
-    private void addMainVehicleToScenario(ScenarioPrx scenarioPrx) {
+    private void addMainVehicleToScenario(ScenarioPrx scenarioPrx) throws IOException {
 
         VehiclePrx mainVehiclePrx = proxyService.createVehiclePrx();
 
+        addEntityBasedOnLabel(scenarioPrx, getMainVehicleArtificialLabel());
     }
 
     private void addEntityBasedOnLabel(ScenarioPrx scenarioPrx, Label label) {
@@ -148,8 +153,10 @@ public class WaymoScenarioBuilder {
         return mapper.readValue(new File(jsonFilePath), new TypeReference<List<LidarView>>(){});
     }
 
-    private Label getMainVehicleArtificialLabel() {
-        return new Label();
+    private Label getMainVehicleArtificialLabel() throws IOException {
+
+        String jsonFilePath = "src\\main\\resources\\waymo\\waymo-projected-lidar-label-artificial.json";
+        return new ObjectMapper().readValue(new File(jsonFilePath), new TypeReference<Label>(){});
     }
 
 }
