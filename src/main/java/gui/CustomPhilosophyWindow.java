@@ -164,7 +164,6 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
                     dashboardWindow.updateCustomPhilosophiesList();
                     setVisible(false);
                     dispose();
-
                 }
             } else {
                 WarningWindow warningWindow = new WarningWindow(this, "Please enter philosophy name");

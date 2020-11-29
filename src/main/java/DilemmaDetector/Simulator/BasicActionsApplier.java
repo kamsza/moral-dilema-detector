@@ -4,19 +4,19 @@ import project.*;
 
 public class BasicActionsApplier {
     final static private double GRAVITY = 9.81;
-    private static Vector2 last_breaking = Vector2.zero();
+    private static Vector2 last_braking = Vector2.zero();
 
-    static public void CarBreaking(RigidBody car, Weather weather){
+    static public void CarBraking(RigidBody car, Weather weather){
         double frictionCoefficient = getTireRoadFriction(weather);
-        Vector2 breaking = car.getSpeed().getNormalized().mul(-1);
-        breaking.mul(GRAVITY * frictionCoefficient);
-        if(last_breaking.equals(new Vector2(breaking).mul(-1))) {
+        Vector2 braking = car.getSpeed().getNormalized().mul(-1);
+        braking.mul(GRAVITY * frictionCoefficient);
+        if(last_braking.equals(new Vector2(braking).mul(-1))) {
             car.setSpeed(Vector2.zero());
             car.setAcceleration(Vector2.zero());
         }
         else{
-            last_breaking = breaking;
-            car.setAcceleration(breaking);
+            last_braking = braking;
+            car.setAcceleration(braking);
         }
     }
 
@@ -65,5 +65,9 @@ public class BasicActionsApplier {
             result = 0.5;
         }
         return result;
+    }
+
+    public static double getGRAVITY() {
+        return GRAVITY;
     }
 }

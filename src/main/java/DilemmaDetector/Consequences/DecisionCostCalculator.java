@@ -67,12 +67,20 @@ public class DecisionCostCalculator {
         return result;
     }
 
-    private boolean humanInsideMainVehicle(Vehicle mainVehicle, String victimName) {
+       private boolean passengerInsideVehicle(Vehicle mainVehicle, String victimName) {
         if (mainVehicle == null)
             return false;
         return mainVehicle.getVehicle_has_passenger().stream().map(p -> ((Passenger) p).getOwlIndividual().getIRI().toString())
                 .anyMatch(p -> p.equals(victimName));
     }
+
+    private boolean driverInsideVehicle(Vehicle mainVehicle, String victimName){
+        if (mainVehicle == null)
+            return false;
+        return mainVehicle.getVehicle_has_driver().stream().map(d -> ((Driver) d).getOwlIndividual().getIRI().toString())
+                .anyMatch(d -> d.equals(victimName));
+    }
+
 
     private int calculateCostOfHealthConsequenceOfType(Decision decision, ConsequenceType consequenceType) {
         int result = 0;
@@ -82,7 +90,7 @@ public class DecisionCostCalculator {
             //extract scenario number to get main vehicle
             String scenarioNumber = victimName.split("_")[0];
             Vehicle mainVehicle = factory.getVehicle(scenarioNumber + "_vehicle_main");
-            if (humanInsideMainVehicle(mainVehicle, victimName)) {
+            if (passengerInsideVehicle(mainVehicle, victimName) || driverInsideVehicle(mainVehicle, victimName)) {
                 switch (consequenceType) {
                     case KILLED:
                         result += parameters.get(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE);
