@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 public class CustomPhilosophyWindow extends JFrame implements ActionListener {
 
@@ -53,7 +54,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
     public CustomPhilosophyWindow(DashboardWindow dashboardWindow, boolean isCreatingNewPhilosophy) {
 
         setBasicProperties(dashboardWindow);
-        Object[][]data = prepareData(CustomPhilosophy.getSimplestPhilosophy());
+        Object[][] data = prepareData(CustomPhilosophy.getSimplestPhilosophy());
         DefaultTableModel model = getDefaultTableModel(data);
         jTable = new JTable(model);
         prepareJTableToEditing(model);
@@ -87,7 +88,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         this.customPhilosophy = customPhilosophy;
 
         setBasicProperties(dashboardWindow);
-        Object[][]data = prepareData(customPhilosophy);
+        Object[][] data = prepareData(customPhilosophy);
         DefaultTableModel model = getDefaultTableModel(data);
         jTable = new JTable(model);
         prepareJTableToEditing(model);
@@ -139,53 +140,55 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         Object eventSource = e.getSource();
         if (eventSource == jButtonSave) {
             String philosophyName = jTextField.getText();
-
-            //TODO jeszcze sprawdzenie czy nazwy się nie powtarzają
             if (StringUtils.isNotBlank(philosophyName)) {
-                CustomPhilosophy customPhilosophy = new CustomPhilosophy();
-                customPhilosophy.setPhilosophyName(philosophyName);
-                HashMap<String, Integer> tableValues = getTableValues();
-                customPhilosophy.setParametersFromHashMap(tableValues);
-                System.out.println(customPhilosophy.toString());
-                // Creating Object of ObjectMapper define in Jakson Api
-                ObjectMapper Obj = new ObjectMapper();
-                String jsonStr = null;
-                try {
+                List<String> savedPhilosophiesNames = dashboardWindow.getCustomPhilosophiesNames();
+                if (savedPhilosophiesNames.contains(philosophyName)) {
+                    WarningWindow warningWindow = new WarningWindow(this, "This philosophy name is not unique");
+                    warningWindow.setVisible(true);
+                } else {
+                    CustomPhilosophy customPhilosophy = new CustomPhilosophy();
+                    customPhilosophy.setPhilosophyName(philosophyName);
+                    HashMap<String, Integer> tableValues = getTableValues();
+                    customPhilosophy.setParametersFromHashMap(tableValues);
+                    String philosophyJSON = mapObjectToJSON(customPhilosophy);
 
-                    jsonStr = Obj.writeValueAsString(customPhilosophy);
+                    try (FileWriter file = new FileWriter(System.getProperty("user.dir") +
+                            "\\src\\main\\resources\\gui\\customPhilosophies\\" + philosophyName + ".json")) {
 
+                        file.write(philosophyJSON);
+                        file.flush();
 
-                    // Displaying JSON String
-                    System.out.println(jsonStr);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    dashboardWindow.updateCustomPhilosophiesList();
+                    setVisible(false);
+                    dispose();
+
                 }
-
-                //Write JSON file
-                try (FileWriter file = new FileWriter(System.getProperty("user.dir") +
-                        "\\src\\main\\resources\\gui\\customPhilosophies\\" + philosophyName + ".json")) {
-
-                    file.write(jsonStr);
-                    file.flush();
-
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                dashboardWindow.updateCustomPhilosophiesList();
-                setVisible(false);
-                dispose();
-
-
             } else {
                 WarningWindow warningWindow = new WarningWindow(this, "Please enter philosophy name");
                 warningWindow.setVisible(true);
             }
         }
-        if (eventSource == jButtonDiscard) {
+        if (eventSource == jButtonDiscard || eventSource == jButtonReturn) {
             setVisible(false);
             dispose();
         }
-        if (eventSource == jButtonReturn) {
+        if (eventSource == jButtonSaveChanges) {
+            HashMap<String, Integer> tableValues = getTableValues();
+            customPhilosophy.setParametersFromHashMap(tableValues);
+            String philosophyJSON = mapObjectToJSON(customPhilosophy);
+            try (FileWriter file = new FileWriter(System.getProperty("user.dir") +
+                    "\\src\\main\\resources\\gui\\customPhilosophies\\" + customPhilosophy.getPhilosophyName() + ".json")) {
+
+                file.write(philosophyJSON);
+                file.flush();
+
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            dashboardWindow.updateCustomPhilosophiesList();
             setVisible(false);
             dispose();
         }
@@ -218,7 +221,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         return defaultTableModel;
     }
 
-    private void prepareJTableToEditing(DefaultTableModel model){
+    private void prepareJTableToEditing(DefaultTableModel model) {
         jTable.setSurrendersFocusOnKeystroke(true);
         TableColumnModel tableColumnModel = jTable.getColumnModel();
         tableColumnModel.getColumn(1).setCellEditor(new SpinnerEditor());
@@ -235,5 +238,17 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         jTable.setShowVerticalLines(false);
     }
 
+    private String mapObjectToJSON(Object object) {
+        ObjectMapper Obj = new ObjectMapper();
+        String jsonStr = null;
+        try {
+
+            jsonStr = Obj.writeValueAsString(object);
+            System.out.println(jsonStr);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return jsonStr;
+    }
 }
 
