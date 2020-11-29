@@ -91,8 +91,8 @@ public class BaseScenarioGenerator2 {
 
         float vehicleSpeed = (float) (0);
 
-//        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
-        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+//        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
 
         vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
@@ -103,13 +103,19 @@ public class BaseScenarioGenerator2 {
         vehicle1.addSpeedY(0F);
         vehicle1.addAccelerationY(0F);
         vehicle1.addAccelerationX(0F);
-        vehicle1.addValueInDollars(1000000F);
+        vehicle1.addValueInDollars(100000F);
 
         model.getVehicles().get(lane).add(vehicle1);
 
     }
 
     private void addPedestrian(Model model) {
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        addPedestrianOnLane(model, lane, 2000F);
+        addPedestrianOnLane(model, lane, 2200F);
+    }
+
+    private void addPedestrianOnLane(Model model, Lane lane, float distance){
         Person person = factory.createPerson(ObjectNamer.getName("person"));
         person.addSpeedY(0F);
         person.addSpeedX(0F);
@@ -117,9 +123,7 @@ public class BaseScenarioGenerator2 {
         person.addAccelerationY(0F);
         person.addWidth(50F);
         person.addLength(50F);
-        person.addDistance(2000F);
-//        person.addValueInDollars(10000F);
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        person.addDistance(distance);
         person.addIs_on_lane(lane);
         model.getScenario().addHas_pedestrian(person);
         model.getEntities().get(lane).add(person);

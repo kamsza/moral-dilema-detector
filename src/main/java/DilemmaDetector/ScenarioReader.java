@@ -254,7 +254,7 @@ public class ScenarioReader {
         else if (factory.getSecurity_side_barrier(surroundingName) != null)
             s = factory.getSecurity_side_barrier(surroundingName);
         else if (factory.getStreet_lamp(surroundingName) != null)
-            s = factory.getSecurity_side_barrier(surroundingName);
+            s = factory.getStreet_lamp(surroundingName);
         else if (factory.getTree(surroundingName) != null)
             s = factory.getTree(surroundingName);
         else if (factory.getWall(surroundingName) != null)

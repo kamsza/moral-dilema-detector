@@ -122,8 +122,8 @@ public class DilemmaDetector {
             System.out.println("ERROR: Ontology not loaded, call loadOntology() first.");
         }
         model = scenarioReader.getModel(scenarioNumber);
-        collisionConsequencePredictor = new CollisionConsequencePredictor(consequenceContainer);
-        simulatorEngine = new SimulatorEngine(model, collisionConsequencePredictor);
+        collisionConsequencePredictor = new CollisionConsequencePredictor(consequenceContainer, factory);
+        simulatorEngine = new SimulatorEngine(model, collisionConsequencePredictor, factory);
     }
 
     private Map<String, Integer> getDecisionCostMapByString(){
