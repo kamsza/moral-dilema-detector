@@ -165,7 +165,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         } else {
             String philosophyName = jComboBoxCustomPhilosophies.getSelectedItem().toString() + ".json";
             CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
-            CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow(this, customPhilosophy);
+            CustomPhilosophyWindow customPhilosophyWindow = new ModifyCustomPhilosophyWindow(this, customPhilosophy);
             customPhilosophyWindow.setVisible(true);
         }
     }
@@ -217,7 +217,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonAddCustomPhilosophyAction() {
-        CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow(this, true);
+        CustomPhilosophyWindow customPhilosophyWindow = new AddCustomPhilosophyWindow(this);
         customPhilosophyWindow.setVisible(true);
     }
 

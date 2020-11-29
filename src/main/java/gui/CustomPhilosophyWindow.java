@@ -4,44 +4,21 @@ package gui;
 import DilemmaDetector.Consequences.CustomPhilosophy;
 import DilemmaDetector.Consequences.PhilosophyParameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
-public class CustomPhilosophyWindow extends JFrame implements ActionListener {
+public abstract class CustomPhilosophyWindow extends JFrame {
 
-    //common
-    private JTable jTable;
-    private JScrollPane jScrollPane;
-    private DashboardWindow dashboardWindow;
-
-    //add new
-    private JButton jButtonSave;
-    private JButton jButtonDiscard;
-    private JLabel jLabelPromptToEnterName;
-    private JTextField jTextField;
-
-    //show details/modify
-    private JButton jButtonSaveChanges;
-    private JButton jButtonReturn;
-    private JButton jButtonDelete;
-
-    private CustomPhilosophy customPhilosophy;
-
-
+    protected JTable jTable;
+    protected JScrollPane jScrollPane;
+    protected DashboardWindow dashboardWindow;
     private String[] columnNames = {"Parameter", "Moral value", ""};
 
-
-    public void setBasicProperties(DashboardWindow dashboardWindow) {
+    public CustomPhilosophyWindow(DashboardWindow dashboardWindow){
         setSize(430, 450);
         setResizable(false);
         setTitle("Moral dilemma detector");
@@ -50,72 +27,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         this.dashboardWindow = dashboardWindow;
     }
 
-
-    public CustomPhilosophyWindow(DashboardWindow dashboardWindow, boolean isCreatingNewPhilosophy) {
-
-        setBasicProperties(dashboardWindow);
-        Object[][] data = prepareData(CustomPhilosophy.getSimplestPhilosophy());
-        DefaultTableModel model = getDefaultTableModel(data);
-        jTable = new JTable(model);
-        prepareJTableToEditing(model);
-
-        jScrollPane = new JScrollPane(jTable);
-        jScrollPane.setBounds(10, 10, 400, 200);
-        add(jScrollPane);
-
-        jLabelPromptToEnterName = new JLabel("Enter cutom philosophy name");
-        jLabelPromptToEnterName.setBounds(80, 220, 250, 30);
-        add(jLabelPromptToEnterName);
-
-        jTextField = new JTextField();
-        jTextField.setBounds(80, 250, 250, 20);
-        add(jTextField);
-
-        jButtonDiscard = new JButton("Discard");
-        jButtonDiscard.setBounds(80, 300, 100, 60);
-        jButtonDiscard.addActionListener(this);
-        add(jButtonDiscard);
-
-        jButtonSave = new JButton("Save");
-        jButtonSave.setBounds(230, 300, 100, 60);
-        jButtonSave.addActionListener(this);
-        add(jButtonSave);
-
-    }
-
-    public CustomPhilosophyWindow(DashboardWindow dashboardWindow, CustomPhilosophy customPhilosophy) {
-        setTitle("Custom philosophy " + customPhilosophy.getPhilosophyName());
-        this.customPhilosophy = customPhilosophy;
-
-        setBasicProperties(dashboardWindow);
-        Object[][] data = prepareData(customPhilosophy);
-        DefaultTableModel model = getDefaultTableModel(data);
-        jTable = new JTable(model);
-        prepareJTableToEditing(model);
-
-        jScrollPane = new JScrollPane(jTable);
-        jScrollPane.setBounds(10, 10, 400, 200);
-        add(jScrollPane);
-
-        jButtonSaveChanges = new JButton("Save changes");
-        jButtonSaveChanges.setBounds(50, 300, 100, 60);
-        jButtonSaveChanges.addActionListener(this);
-        add(jButtonSaveChanges);
-
-        jButtonReturn = new JButton("Don't save");
-        jButtonReturn.setBounds(150, 300, 100, 60);
-        jButtonReturn.addActionListener(this);
-        add(jButtonReturn);
-
-        jButtonDelete = new JButton("Delete");
-        jButtonDelete.setBounds(250, 300, 100, 60);
-        jButtonDelete.addActionListener(this);
-        add(jButtonDelete);
-
-
-    }
-
-    private Object[][] prepareData(CustomPhilosophy customPhilosophy) {
+    protected Object[][] prepareData(CustomPhilosophy customPhilosophy) {
         HashMap<PhilosophyParameter, Integer> parameters = customPhilosophy.getParameters();
         Object[][] data = {
                 {"Human life inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE), "Info"},
@@ -135,72 +47,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
     }
 
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object eventSource = e.getSource();
-        if (eventSource == jButtonSave) {
-            String philosophyName = jTextField.getText();
-            if (StringUtils.isNotBlank(philosophyName)) {
-                List<String> savedPhilosophiesNames = dashboardWindow.getCustomPhilosophiesNames();
-                if (savedPhilosophiesNames.contains(philosophyName)) {
-                    WarningWindow warningWindow = new WarningWindow(this, "This philosophy name is not unique");
-                    warningWindow.setVisible(true);
-                } else {
-                    CustomPhilosophy customPhilosophy = new CustomPhilosophy();
-                    customPhilosophy.setPhilosophyName(philosophyName);
-                    HashMap<String, Integer> tableValues = getTableValues();
-                    customPhilosophy.setParametersFromHashMap(tableValues);
-                    String philosophyJSON = mapObjectToJSON(customPhilosophy);
-
-                    try (FileWriter file = new FileWriter(System.getProperty("user.dir") +
-                            "\\src\\main\\resources\\gui\\customPhilosophies\\" + philosophyName + ".json")) {
-
-                        file.write(philosophyJSON);
-                        file.flush();
-
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                    dashboardWindow.updateCustomPhilosophiesList();
-                    setVisible(false);
-                    dispose();
-                }
-            } else {
-                WarningWindow warningWindow = new WarningWindow(this, "Please enter philosophy name");
-                warningWindow.setVisible(true);
-            }
-        }
-        if (eventSource == jButtonDiscard || eventSource == jButtonReturn) {
-            setVisible(false);
-            dispose();
-        }
-        if (eventSource == jButtonSaveChanges) {
-            HashMap<String, Integer> tableValues = getTableValues();
-            customPhilosophy.setParametersFromHashMap(tableValues);
-            String philosophyJSON = mapObjectToJSON(customPhilosophy);
-            try (FileWriter file = new FileWriter(System.getProperty("user.dir") +
-                    "\\src\\main\\resources\\gui\\customPhilosophies\\" + customPhilosophy.getPhilosophyName() + ".json")) {
-
-                file.write(philosophyJSON);
-                file.flush();
-
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-            dashboardWindow.updateCustomPhilosophiesList();
-            setVisible(false);
-            dispose();
-        }
-        if (eventSource == jButtonDelete) {
-            File file = new File(System.getProperty("user.dir") +
-                    "\\src\\main\\resources\\gui\\customPhilosophies\\" + customPhilosophy.getPhilosophyName() + ".json");
-            file.delete();
-            dashboardWindow.updateCustomPhilosophiesList();
-            setVisible(false);
-        }
-    }
-
-    public HashMap<String, Integer> getTableValues() {
+    protected HashMap<String, Integer> getTableValues() {
         HashMap<String, Integer> result = new HashMap<>();
 
         for (int i = 0; i < jTable.getRowCount(); i++) {
@@ -209,7 +56,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         return result;
     }
 
-    private DefaultTableModel getDefaultTableModel(Object[][] data) {
+    protected DefaultTableModel getDefaultTableModel(Object[][] data) {
         DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
             private static final long serialVersionUID = 1L;
 
@@ -220,7 +67,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         return defaultTableModel;
     }
 
-    private void prepareJTableToEditing(DefaultTableModel model) {
+    protected void prepareJTableToEditing(DefaultTableModel model) {
         jTable.setSurrendersFocusOnKeystroke(true);
         TableColumnModel tableColumnModel = jTable.getColumnModel();
         tableColumnModel.getColumn(1).setCellEditor(new SpinnerEditor());
@@ -237,7 +84,7 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         jTable.setShowVerticalLines(false);
     }
 
-    private String mapObjectToJSON(Object object) {
+    protected String mapObjectToJSON(Object object) {
         ObjectMapper Obj = new ObjectMapper();
         String jsonStr = null;
         try {
@@ -249,5 +96,18 @@ public class CustomPhilosophyWindow extends JFrame implements ActionListener {
         }
         return jsonStr;
     }
+
+    protected String getFullPathOfFileForGivenPhilosophyName(String philosophyName ){
+          return  System.getProperty("user.dir") +
+            "\\src\\main\\resources\\gui\\customPhilosophies\\" + philosophyName + ".json";
+    }
+
+    protected void closeWindowWithoutAction(){
+        setVisible(false);
+        dispose();
+    }
+
+
+
 }
 
