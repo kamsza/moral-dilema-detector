@@ -1,6 +1,5 @@
 package DilemmaDetector.Consequences;
 
-import com.github.jsonldjava.utils.Obj;
 import generator.ObjectNamer;
 import project.*;
 

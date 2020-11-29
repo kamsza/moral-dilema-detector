@@ -1,44 +1,40 @@
 package DilemmaDetector.Consequences;
 
 import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.FactoryWrapper;
 import DilemmaDetector.Simulator.PhysicsUtils;
 import DilemmaDetector.Simulator.RigidBody;
-import generator.Model;
 import project.Decision;
 import project.Living_entity;
-import project.MyFactory;
-import project.Vehicle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionConsequencePredictor {
     private IConsequenceContainer consequenceContainer;
-    private MyFactory factory;
-    private Model model;
+    private FactoryWrapper factoryWrapper;
 
-    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory, Model model) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer) {
         this.consequenceContainer = consequenceContainer;
-        this.factory = factory;
-        this.model = model;
+        try{
+            this.factoryWrapper = new FactoryWrapper();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    private boolean isPedestrian(Actor victimActor, Living_entity victim){
-        /*
-         Check if entity described in victimActor is same as Living_entity victim. If true, then it must be pedestrian.
-         It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
-       */
-        return victimActor.getEntityName().equals(victim.getOwlIndividual().getIRI().toString());
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, FactoryWrapper factoryWrapper) {
+        this.consequenceContainer = consequenceContainer;
+        this.factoryWrapper = factoryWrapper;
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor, Actor other) {
-        List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
+        List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
         double speed = getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody());
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
-        double materialConsequenceValueOther = getMaterialConsequence(other, speed);
         for (Living_entity victim : individualVictims) {
             ConsequenceType consequenceType;
-            if (isPedestrian(victimActor, victim)) {
+            if (factoryWrapper.isPedestrian(victimActor)) {
                 consequenceType = getHealthConsequenceTypeForPedestrian(
                         getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
             } else {
@@ -50,11 +46,10 @@ public class CollisionConsequencePredictor {
             }
         }
         consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
-        consequenceContainer.addMaterialConsequence(decision, other.getEntityName(), materialConsequenceValueOther);
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor) {
-        List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
+        List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
 
         double speed = victimActor.getRigidBody().getSpeed().getMagnitude();
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
@@ -123,21 +118,6 @@ public class CollisionConsequencePredictor {
             return ConsequenceType.LIGHTLY_INJURED;
 
         return ConsequenceType.NO_CONSEQUENCE;
-    }
-
-    private List<Living_entity> getLivingEntitiesFromActor(Actor actor) {
-        Vehicle vehicle = factory.getVehicle(actor.getEntity());
-        Living_entity living_entity = factory.getLiving_entity(actor.getEntity());
-        List<Living_entity> result = new ArrayList<>();
-
-        if (vehicle != null) {
-//            System.out.println("Get victims from vehicle");
-            result.addAll(vehicle.getVehicle_has_passenger());
-            result.addAll(vehicle.getVehicle_has_driver());
-        } else if (living_entity != null) {
-            result.add(living_entity);
-        }
-        return result;
     }
 
     private double minorInjuryProbability(double speed) {

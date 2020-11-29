@@ -82,7 +82,7 @@ public class Main {
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
             IConsequenceContainer consequenceContainer = new ConsequenceContainer(factory);
             CollisionConsequencePredictor collisionConsequencePredictor =
-                    new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
+                    new CollisionConsequencePredictor(consequenceContainer);
 
             SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
             Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
