@@ -1,15 +1,11 @@
 package DilemmaDetector.Simulator;
 
-import generator.Model;
 import project.Entity;
-
-import java.util.Iterator;
 
 public class Actor{
     private RigidBody rigidBody;
     private String entityName;
     private double valueInDollars = 0.0;
-
 
     public Actor(Entity entity, RigidBody rigidBody) {
         this.entityName = entity.getOwlIndividual().getIRI().toString();
