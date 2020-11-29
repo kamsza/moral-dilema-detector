@@ -6,6 +6,7 @@ import DilemmaDetector.Simulator.PhysicsUtils;
 import DilemmaDetector.Simulator.RigidBody;
 import project.Decision;
 import project.Living_entity;
+import project.MyFactory;
 
 import java.util.List;
 
@@ -13,14 +14,9 @@ public class CollisionConsequencePredictor {
     private IConsequenceContainer consequenceContainer;
     private FactoryWrapper factoryWrapper;
 
-    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory) {
         this.consequenceContainer = consequenceContainer;
-        try{
-            this.factoryWrapper = new FactoryWrapper();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        this.factoryWrapper = new FactoryWrapper(factory);
     }
 
     public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, FactoryWrapper factoryWrapper) {

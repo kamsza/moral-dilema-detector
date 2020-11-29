@@ -12,10 +12,6 @@ import java.util.List;
 public class FactoryWrapper {
     private final MyFactory factory;
 
-    public FactoryWrapper() throws FileNotFoundException, OWLOntologyCreationException {
-        this(MyFactorySingleton.getFactory());
-    }
-
     public FactoryWrapper(MyFactory factory) {
         this.factory = factory;
     }

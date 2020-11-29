@@ -65,8 +65,8 @@ public class BaseScenarioGenerator2 {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-        addVehicle(model);
-//        addPedestrian(model);
+//        addVehicle(model);
+        addPedestrian(model);
 
         return model;
     }

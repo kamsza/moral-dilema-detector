@@ -22,27 +22,27 @@ public class DecisionGenerator {
 
         Follow follow = factory.createFollow(ObjectNamer.getName("follow"));
         createDecision(follow, model);
-        Turn_left turn_left = factory.createTurn_left(ObjectNamer.getName("turn_left"));
-        createDecision(turn_left, model);
-        Turn_right turn_right = factory.createTurn_right(ObjectNamer.getName("turn_right"));
-        createDecision(turn_right, model);
-        Stop stop = factory.createStop(ObjectNamer.getName("stop"));
-        createDecision(stop, model);
-
-//        adding decisions and actions for changing lanes
-        for(Model.Side side : model.getLanes().keySet()){
-            for(Integer lane_number : model.getLanes().get(side).keySet()){
-                if(lane_number != 0) {
-                    String action_name = "change_lane_" + side.toString().toLowerCase() + "_by_" + lane_number;
-                    Change_lane action = factory.createChange_lane(ObjectNamer.getName(action_name));
-                    if(side == Model.Side.LEFT)
-                        action.addLane_change_by(lane_number);
-                    else if(side == Model.Side.RIGHT)
-                        action.addLane_change_by(-lane_number);
-                    createDecision(action, model);
-                }
-            }
-        }
+//        Turn_left turn_left = factory.createTurn_left(ObjectNamer.getName("turn_left"));
+//        createDecision(turn_left, model);
+//        Turn_right turn_right = factory.createTurn_right(ObjectNamer.getName("turn_right"));
+//        createDecision(turn_right, model);
+//        Stop stop = factory.createStop(ObjectNamer.getName("stop"));
+//        createDecision(stop, model);
+//
+////        adding decisions and actions for changing lanes
+//        for(Model.Side side : model.getLanes().keySet()){
+//            for(Integer lane_number : model.getLanes().get(side).keySet()){
+//                if(lane_number != 0) {
+//                    String action_name = "change_lane_" + side.toString().toLowerCase() + "_by_" + lane_number;
+//                    Change_lane action = factory.createChange_lane(ObjectNamer.getName(action_name));
+//                    if(side == Model.Side.LEFT)
+//                        action.addLane_change_by(lane_number);
+//                    else if(side == Model.Side.RIGHT)
+//                        action.addLane_change_by(-lane_number);
+//                    createDecision(action, model);
+//                }
+//            }
+//        }
     }
 
     private void createDecision(Action action, Model model){

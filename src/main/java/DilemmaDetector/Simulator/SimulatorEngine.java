@@ -27,7 +27,7 @@ public class SimulatorEngine {
     private CollisionConsequencePredictor consequencePredictor;
     private FactoryWrapper factoryWrapper;
 
-    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor) {
+    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor, MyFactory factory) {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
@@ -36,12 +36,7 @@ public class SimulatorEngine {
         this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
         this.actors = RigidBodyMapper.createActors(model);
         collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
-        try{
-            this.factoryWrapper = new FactoryWrapper();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        this.factoryWrapper = new FactoryWrapper(factory);
     }
 
     public Map<Decision, Set<Actor>> simulateAll() {
