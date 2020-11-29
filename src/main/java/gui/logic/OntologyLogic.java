@@ -5,7 +5,9 @@ import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
-import generator.*;
+import generator.BaseScenarioGenerator2;
+import generator.DecisionGenerator;
+import generator.Model;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -16,7 +18,6 @@ import project.Decision;
 import project.MyFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -25,21 +26,8 @@ public class OntologyLogic {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
     public static final String pathToOntology = "src/main/resources/traffic_ontology.owl";
 
-
     public static MyFactory getFactory() {
-        MyFactory factory = null;
-        try {
-            factory = MyFactorySingleton.getFactory();
-        }
-        catch (FileNotFoundException e){
-            System.err.println("Problem during loading ontology - file not found");
-            e.printStackTrace();
-        }
-        catch (OWLOntologyCreationException e){
-            System.err.println("Problem during loading ontology");
-            e.printStackTrace();
-        }
-        return factory;
+        return getFactory(pathToOntology);
     }
 
     public static MyFactory getFactory(String pathToOwlFile) {
@@ -71,9 +59,9 @@ public class OntologyLogic {
     }
 
 
-    // na razie na sztywno korzystamy z BaseScenarioGenerator + dodalem pieszych uzywajac modelBuildera
-    public static Model getModelFromGenerator(MyFactory factory){
-        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
+    // na razie na sztywno korzystamy z BaseScenarioGenerator2
+    public static Model getModelFromGenerator(MyFactory factory) {
+        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = null;
         try {
             model = generator.generate();
@@ -87,20 +75,6 @@ public class OntologyLogic {
             System.err.println("Problem during generating scenario");
             e.printStackTrace();
         }
-
-        try {
-            new ScenarioFactory(model)
-                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
-        }
-        catch (FileNotFoundException e){
-            System.err.println("Problem during generating scenario - file not found");
-            e.printStackTrace();
-        }
-        catch (OWLOntologyCreationException e){
-            System.err.println("Problem during generating scenario");
-            e.printStackTrace();
-        }
-
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
@@ -108,7 +82,7 @@ public class OntologyLogic {
 
     public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
-                new CollisionConsequencePredictor(consequenceContainer, scenarioModel);
+                new CollisionConsequencePredictor(consequenceContainer);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
         Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
 
@@ -126,7 +100,7 @@ public class OntologyLogic {
 
     // optymalnie jechać cały nie wykonywać manewrów,
     // jeśli konieczny to preferowane są w prawo ze względu na ruch prawostronny
-    public static String getOptimumDecision(Map<String, Integer> decisionCosts, int dilemmaThreshold) {
+    public static String getOptimumDecision(Map<String, Integer> decisionCosts) {
         ArrayList<String> decisionsWithMinimalCost = new ArrayList<>();
         int currentMinimum = Integer.MAX_VALUE;
         for (String decisionName : decisionCosts.keySet()) {
@@ -140,10 +114,6 @@ public class OntologyLogic {
                 decisionsWithMinimalCost.add(decisionName);
             }
         }
-        if (currentMinimum > dilemmaThreshold) {
-            return null;
-        }
-
         if (decisionsWithMinimalCost.size() == 1) {
             return decisionsWithMinimalCost.get(0);
         }
@@ -170,15 +140,6 @@ public class OntologyLogic {
                 .sorted()
                 .findFirst()
                 .orElse(null);
-    }
-
-    public static void removeStopDecision(Map<Decision, Set<Actor>> collidedEntities){
-        Iterator<Map.Entry<Decision, Set<Actor>>> iterator = collidedEntities.entrySet().iterator();
-        while (iterator.hasNext()){
-            if(iterator.next().getKey().toString().indexOf("stop")!= -1){
-                iterator.remove();
-            }
-        }
     }
 
 }

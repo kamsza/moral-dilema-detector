@@ -16,16 +16,16 @@ public class FactoryWrapper {
         this(MyFactorySingleton.getFactory());
     }
 
-    public FactoryWrapper(MyFactory factory){
+    public FactoryWrapper(MyFactory factory) {
         this.factory = factory;
     }
 
-    public boolean isPedestrian(Actor victimActor){
-        /**
-        *Get living entity from actor using factory.
-        *If living entity name is equal to victim actor entity name it means that it has to be pedestrian
-        * It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
-       **/
+    /**
+     * Get living entity from actor using factory.
+     * If living entity name is equal to victim actor entity name it means that it has to be pedestrian
+     * It's a hack because of problems with ontology classes factory.getPedestrian(victim) will not work properly
+     **/
+    public boolean isPedestrian(Actor victimActor) {
         Living_entity victim = factory.getLiving_entity(victimActor.getEntity());
         if (victim == null)
             return false;

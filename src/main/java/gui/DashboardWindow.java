@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
@@ -37,11 +38,15 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JComboBox jComboBoxCustomPhilosophies;
     private JButton jButtonCalculate;
     private JLabel jLabelBestDecision;
-    private JButton jButtonCustomPhilosophyInfo;
+    private JButton jButtonCustomPhilosophyShowDetails;
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
-    private JCheckBox jCheckBoxEnableBreaking;
+    private JCheckBox jCheckBoxEnableBraking;
     private JTable jTableWithResults;
+    private JTable jTableWithMoralResult;
+    private JScrollPane jScrollPaneWithMoralResult;
+    private JTable jTableWithBestDecision;
+    private JScrollPane jScrollPaneWithBestDecision;
 
 
     /// CONST
@@ -54,6 +59,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private final int CENTER_CUSTOM_PHILOSOPHIES = 100;
     private final String PATH_CUSTOM_PHILOSOPHIES = "\\src\\main\\resources\\gui\\customPhilosophies\\";
     private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Blank_scenario.png";
+    private final int oneRowJTableHeight = 48;
 
 
     //business logic variables
@@ -108,9 +114,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jLabelImageScenario.setBounds(20, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
         add(jLabelImageScenario);
 
-        jCheckBoxEnableBreaking = new JCheckBox("Enable breaking", true);
-        jCheckBoxEnableBreaking.setBounds(20, 490, 150, 20);
-        add(jCheckBoxEnableBreaking);
+        jCheckBoxEnableBraking = new JCheckBox("Enable braking", true);
+        jCheckBoxEnableBraking.setBounds(20, 490, 150, 20);
+        add(jCheckBoxEnableBraking);
 
         jLabelSelectPhilosophyPrompt = new JLabel("Select custom philosophy");
         jLabelSelectPhilosophyPrompt.setBounds(50, 515, 200, 30);
@@ -125,10 +131,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jComboBoxCustomPhilosophies.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 500, 300, 30);
         add(jComboBoxCustomPhilosophies);
 
-        jButtonCustomPhilosophyInfo = new JButton("Info");
-        jButtonCustomPhilosophyInfo.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
-        jButtonCustomPhilosophyInfo.addActionListener(this);
-        add(jButtonCustomPhilosophyInfo);
+        jButtonCustomPhilosophyShowDetails = new JButton("Show details");
+        jButtonCustomPhilosophyShowDetails.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
+        jButtonCustomPhilosophyShowDetails.addActionListener(this);
+        add(jButtonCustomPhilosophyShowDetails);
 
         jButtonCalculate = new JButton("Calculate");
         jButtonCalculate.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 530, 200, 30);
@@ -146,15 +152,22 @@ public class DashboardWindow extends JFrame implements ActionListener {
         Object eventSource = e.getSource();
         if (eventSource == jButtonLoadFromFile) jButtonLoadFromFileAction();
         if (eventSource == jButtonLoadScenario) jButtonLoadScenarioAction();
-        if (eventSource == jButtonCustomPhilosophyInfo) jButtonCustomPhilosophyInfo();
+        if (eventSource == jButtonCustomPhilosophyShowDetails) jButtonCustomPhilosophyShowDetailsAction();
         if (eventSource == jButtonGenerateScenario) jButtonGenerateScenarioAction();
         if (eventSource == jButtonAddCustomPhilosophy) jButtonAddCustomPhilosophyAction();
         if (eventSource == jButtonCalculate) jButtonCalculateAction();
     }
 
-    private void jButtonCustomPhilosophyInfo() {
-        WarningWindow warningWindow = new WarningWindow(this, "Not implemented yet");
-        warningWindow.setVisible(true);
+    private void jButtonCustomPhilosophyShowDetailsAction() {
+        if (!isAnyCustomPhilosophy) {
+            WarningWindow warningWindow = new WarningWindow(this, "No custom philosophies to display");
+            warningWindow.setVisible(true);
+        } else {
+            String philosophyName = jComboBoxCustomPhilosophies.getSelectedItem().toString() + ".json";
+            CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
+            CustomPhilosophyWindow customPhilosophyWindow = new ModifyCustomPhilosophyWindow(this, customPhilosophy);
+            customPhilosophyWindow.setVisible(true);
+        }
     }
 
     private void jButtonLoadScenarioAction() {
@@ -204,7 +217,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonAddCustomPhilosophyAction() {
-        CustomPhilosophyWindow customPhilosophyWindow = new CustomPhilosophyWindow(this);
+        CustomPhilosophyWindow customPhilosophyWindow = new AddCustomPhilosophyWindow(this);
         customPhilosophyWindow.setVisible(true);
     }
 
@@ -226,28 +239,41 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 DecisionCostCalculator decisionCostCalculator =
                         new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
 
-                if (!jCheckBoxEnableBreaking.isSelected()) {
-                    OntologyLogic.removeStopDecision(collidedEntities);
-                }
 
                 for (Decision decision : collidedEntities.keySet()) {
-                    decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
+                    if (jCheckBoxEnableBraking.isSelected()) {
+                        decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
+                    } else {
+                        if (decision.toString().indexOf("stop") == -1) {
+                            decisionCosts.put(getActionNameFromDecision(decision.toString()), decisionCostCalculator.getSummarizedCostForDecision(decision));
+                        }
+                    }
                 }
 
+                String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts);
                 int dilemmaThreshold = customPhilosophy.getParameters().get(PhilosophyParameter.DILEMMA_THRESHOLD);
-                String bestDecision = OntologyLogic.getOptimumDecision(decisionCosts, dilemmaThreshold);
-                if (bestDecision != null) {
-                    bestDecision = changeSnakeCase(bestDecision);
-                    jLabelBestDecision.setText("Best decision: " + bestDecision);
-                    jLabelBestDecision.setVisible(true);
-                } else {
-                    jLabelBestDecision.setText("There is no good decision");
-                }
-                jLabelBestDecision.setVisible(true);
+                boolean isMoralDilemma = decisionCosts.get(bestDecision) > dilemmaThreshold ? true : false;
+                String isMoralDilemmaString = isMoralDilemma ? "YES" : "NO";
+                if (jTableWithMoralResult != null) {
+                    refreshOneRowTable(isMoralDilemmaString, jTableWithMoralResult, jScrollPaneWithMoralResult);
+                    refreshOneRowTable(changeSnakeCase(bestDecision), jTableWithBestDecision, jScrollPaneWithBestDecision);
 
+                } else {
+                    jTableWithMoralResult = new JTable(prepareDefaultModel("Moral dilemma", isMoralDilemmaString));
+                    centerValuesInTable(jTableWithMoralResult);
+                    jScrollPaneWithMoralResult = new JScrollPane(jTableWithMoralResult);
+                    jScrollPaneWithMoralResult.setBounds(20, 600, 250, oneRowJTableHeight);
+                    add(jScrollPaneWithMoralResult);
+
+                    jTableWithBestDecision =
+                            new JTable(prepareDefaultModel("Optimum decision", changeSnakeCase(bestDecision)));
+                    centerValuesInTable(jTableWithBestDecision);
+                    jScrollPaneWithBestDecision = new JScrollPane(jTableWithBestDecision);
+                    jScrollPaneWithBestDecision.setBounds(20, 600 + oneRowJTableHeight, 250, oneRowJTableHeight);
+                    add(jScrollPaneWithBestDecision);
+                }
 
                 int numberOfDecisions = decisionCosts.size();
-
                 if (jTableWithResults != null) {
                     DefaultTableModel defaultTableModel = (DefaultTableModel) jTableWithResults.getModel();
                     while (defaultTableModel.getRowCount() > 0) {
@@ -276,6 +302,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     }
                     DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
                         private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public boolean isCellEditable(int row, int column) {
+                            return false;
+                        }
                     };
                     jTableWithResults = new JTable(defaultTableModel);
                     jScrollPaneWithResults = new JScrollPane(jTableWithResults);
@@ -354,6 +385,39 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private String changeSnakeCase(String s) {
         s = s.replaceAll("_", " ");
         return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
+
+    private void refreshOneRowTable(String valueToRefresh, JTable jTable, JScrollPane jScrollPane) {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTable.getModel();
+        defaultTableModel.removeRow(0);
+        Object[] row = new Object[1];
+        row[0] = valueToRefresh;
+        defaultTableModel.addRow(row);
+        jTable.repaint();
+        jScrollPane.repaint();
+        this.repaint();
+    }
+
+    private DefaultTableModel prepareDefaultModel(String columnName, String value) {
+        String[] columnNames = {columnName};
+        Object[][] data = new Object[1][1];
+        data[0][0] = value;
+        DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        return defaultTableModel;
+    }
+
+    private void centerValuesInTable(JTable jTable) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     }
 
 }

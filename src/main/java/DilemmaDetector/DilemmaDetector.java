@@ -122,7 +122,7 @@ public class DilemmaDetector {
             System.out.println("ERROR: Ontology not loaded, call loadOntology() first.");
         }
         model = scenarioReader.getModel(scenarioNumber);
-        collisionConsequencePredictor = new CollisionConsequencePredictor(consequenceContainer, model);
+        collisionConsequencePredictor = new CollisionConsequencePredictor(consequenceContainer);
         simulatorEngine = new SimulatorEngine(model, collisionConsequencePredictor);
     }
 
@@ -135,8 +135,7 @@ public class DilemmaDetector {
     }
 
     private Decision getBestDecision(int dilemmaThreshold){
-        String bestDecisionName = OntologyLogic.getOptimumDecision(getDecisionCostMapByString(),
-                philosophy.getParameters().get(dilemmaThreshold));
+        String bestDecisionName = OntologyLogic.getOptimumDecision(getDecisionCostMapByString());
         Set<Decision> decisions = decisionCosts.keySet();
         Decision bestDecision = decisions.stream().filter(s ->
                 s.toString().equals(bestDecisionName)
