@@ -29,7 +29,7 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -44,8 +44,8 @@ public class Main {
         return model;
     }
 
-    public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
-        scenarioModel = new ScenarioFactory(scenarioModel)
+    public static Model getModelUsingModelBuilder(Model scenarioModel, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+        scenarioModel = new ScenarioFactory(scenarioModel, factory)
                     .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
 //                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
         return scenarioModel;
@@ -74,6 +74,9 @@ public class Main {
             Model scenarioModel = getModelFromGenerator(factory);
 //            Model scenarioModel = getModelFromReader(factory,197);
 
+            new ScenarioFactory(scenarioModel, factory)
+                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
+
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
 
@@ -100,7 +103,7 @@ public class Main {
                 for (Actor a : entry.getValue()) System.out.println(a.getEntity());
             }
 
-            consequenceContainer.saveConsequencesToOntology();
+//            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
             try {

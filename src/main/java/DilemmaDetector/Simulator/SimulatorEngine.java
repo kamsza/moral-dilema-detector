@@ -5,6 +5,7 @@ import generator.Model;
 import project.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SimulatorEngine {
 
@@ -59,11 +60,12 @@ public class SimulatorEngine {
             actor.getRigidBody().setToInitialValues();
         }
 
-        boolean collisionNotWithPedestrian = false;
+        boolean collisionWithSurrounding = false;
+        boolean collsionWithVehicle = false;
         int collisionWithPedestrianCount = 0;
 
         double SIMULATION_TIME = MOVING_TIME;
-        while (currentTime < SIMULATION_TIME && !collisionNotWithPedestrian) {
+        while (currentTime < SIMULATION_TIME && !collisionWithSurrounding && !collsionWithVehicle) {
             currentTime += TIME_PART;
             System.out.print("Current time: " + currentTime + " | Simulation time: " + SIMULATION_TIME  + " | ");
             System.out.println(
@@ -98,14 +100,21 @@ public class SimulatorEngine {
                         SIMULATION_TIME = updateSimulationTime(currentTime);
                     }
                 }
-                else if(!factoryWrapper.isPedestrian(actor)){
+                else if (factoryWrapper.isSurrounding(actor)){
+                    collisionWithSurrounding = true;
+                }
+                else if(factoryWrapper.isVehicle(actor)){
                     if (!actor.equals(mainVehicle)) {
-                        collisionNotWithPedestrian = true;
+                        collsionWithVehicle = true;
                     }
                 }
             }
+
+            Set<Actor> collidedInMomentWithoutSurroundingActors =
+                    collidedInMoment.stream().filter(a -> !factoryWrapper.isSurrounding(a)).collect(Collectors.toSet());
+
             if (!collidedInMoment.isEmpty())
-                collided.addAll(collidedInMoment);
+                collided.addAll(collidedInMomentWithoutSurroundingActors);
         }
 
         if (!collided.isEmpty()) {

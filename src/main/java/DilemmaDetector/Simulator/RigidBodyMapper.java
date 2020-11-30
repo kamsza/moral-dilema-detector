@@ -21,7 +21,6 @@ public class RigidBodyMapper {
         int lastLeftLane = leftLanes.size();
         int lastRightLane = rightLanes.size();
 
-
         Map<Model.Side, ArrayList<Surrounding>> surrounding = model.getSurrounding();
         List<Actor> result = new LinkedList<>();
         for (Map.Entry<Model.Side, ArrayList<Surrounding>> pair : surrounding.entrySet()) {
@@ -45,7 +44,7 @@ public class RigidBodyMapper {
     public static List<Actor> createActors(Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
         Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
-        Map<Lane, ArrayList<Non_living_entity>> obstaclesMap = model.getObjects();
+//        Map<Lane, ArrayList<Non_living_entity>> obstaclesMap = model.getObjects();
 
         List<Actor> result = new LinkedList<>();
 
@@ -67,10 +66,10 @@ public class RigidBodyMapper {
                     result.add(new Actor(entity, rigidBody));
                 }
 
-                for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(obstacle, side, laneNumber, ActorType.OBSTACLE);
-                    result.add(new Actor(obstacle, rigidBody));
-                }
+//                for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
+//                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(obstacle, side, laneNumber, ActorType.OBSTACLE);
+//                    result.add(new Actor(obstacle, rigidBody));
+//                }
             }
         }
         return result;

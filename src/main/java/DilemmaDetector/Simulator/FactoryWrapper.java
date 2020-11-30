@@ -4,6 +4,7 @@ import generator.MyFactorySingleton;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Living_entity;
 import project.MyFactory;
+import project.On_the_side;
 import project.Vehicle;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -28,6 +29,20 @@ public class FactoryWrapper {
         return victimActor.getEntityName().equals(victim.getOwlIndividual().getIRI().toString());
     }
 
+    public boolean isSurrounding(Actor victimActor) {
+        On_the_side surrounding = factory.getOn_the_side(victimActor.getEntity());
+        if (surrounding == null)
+            return false;
+        return victimActor.getEntityName().equals(surrounding.getOwlIndividual().getIRI().toString());
+    }
+
+    public boolean isVehicle(Actor victimActor) {
+        Vehicle vehicle = factory.getVehicle(victimActor.getEntity());
+        if (vehicle == null)
+            return false;
+        return victimActor.getEntityName().equals(vehicle.getOwlIndividual().getIRI().toString());
+    }
+
     public List<Living_entity> getLivingEntitiesFromActor(Actor actor) {
         Vehicle vehicle = factory.getVehicle(actor.getEntity());
         Living_entity living_entity = factory.getLiving_entity(actor.getEntity());
@@ -41,5 +56,4 @@ public class FactoryWrapper {
         }
         return result;
     }
-
 }

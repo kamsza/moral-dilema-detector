@@ -17,9 +17,9 @@ public class ModelBuilder {
     private RandomPositioner randomPositioner;
     private MyFactory factory;
 
-    public ModelBuilder(Model model) throws FileNotFoundException, OWLOntologyCreationException {
+    public ModelBuilder(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
-        this.factory = MyFactorySingleton.getFactory();
+        this.factory = factory;
         this.subclassGenerator = new RandomSubclassGenerator(factory);
         this.randomPositioner = model.getRandomPositioner();
         this.sizeManager = model.getSizeManager();
