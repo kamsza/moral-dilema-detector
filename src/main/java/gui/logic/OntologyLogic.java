@@ -46,7 +46,7 @@ public class OntologyLogic {
 
         ScenarioReader scenarioReader = null;
         try {
-            scenarioReader = new ScenarioReader();
+            scenarioReader = new ScenarioReader(pathToOwlFile);
         } catch (OWLOntologyCreationException e) {
             System.err.println("Problem with ScenarioReader");
             e.printStackTrace();
