@@ -15,6 +15,7 @@ public class ModifyCustomPhilosophyWindow extends CustomPhilosophyWindow impleme
     private JButton jButtonSaveChanges;
     private JButton jButtonReturn;
     private JButton jButtonDelete;
+    private JLabel jLabelPhilosophyName;
 
     private CustomPhilosophy customPhilosophy;
 
@@ -23,13 +24,17 @@ public class ModifyCustomPhilosophyWindow extends CustomPhilosophyWindow impleme
         super(dashboardWindow);
         this.customPhilosophy = customPhilosophy;
 
+        jLabelPhilosophyName = new JLabel("Philosophy: " + customPhilosophy.getPhilosophyName());
+        jLabelPhilosophyName.setBounds(10, 10, 400, 30);
+        add(jLabelPhilosophyName);
+
         Object[][] data = prepareData(customPhilosophy);
         DefaultTableModel model = getDefaultTableModel(data);
         jTable = new JTable(model);
         prepareJTableToEditing(model);
 
         jScrollPane = new JScrollPane(jTable);
-        jScrollPane.setBounds(10, 10, 400, 200);
+        jScrollPane.setBounds(10, 40, 400, 200);
         add(jScrollPane);
 
         jButtonSaveChanges = new JButton("Save changes");
