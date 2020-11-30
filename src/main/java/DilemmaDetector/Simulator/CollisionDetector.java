@@ -30,9 +30,11 @@ public class CollisionDetector {
         }
 
         for (Actor entry : actors) {
-            if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
-                collidedActors.add(entry);
-                collidedActors.add(mainVehicle);
+            if (entry.collidable) {
+                if (detectCollisionWithRigidBodyInMoment(entry.getRigidBody(), entry.getEntityName())) {
+                    collidedActors.add(entry);
+                    collidedActors.add(mainVehicle);
+                }
             }
         }
 
@@ -53,7 +55,6 @@ public class CollisionDetector {
             System.out.println("Main vehicle out of road ");
             outOfRoad = true;
         }
-
         return outOfRoad;
     }
 

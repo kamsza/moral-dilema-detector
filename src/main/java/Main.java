@@ -29,7 +29,7 @@ public class Main {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
+        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -37,7 +37,7 @@ public class Main {
     }
 
     public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
-        ScenarioReader scenarioReader = new ScenarioReader();
+        ScenarioReader scenarioReader = new ScenarioReader(factory);
         Model model = scenarioReader.getModel(number);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
@@ -71,11 +71,11 @@ public class Main {
                 .build();
 
         for(int i=0; i<1; i++) {
-            Model scenarioModel = getModelFromGenerator(factory);
-//            Model scenarioModel = getModelFromReader(factory,197);
+//            Model scenarioModel = getModelFromGenerator(factory);
+            Model scenarioModel = getModelFromReader(factory,232);
 
-            new ScenarioFactory(scenarioModel, factory)
-                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
+//            new ScenarioFactory(scenarioModel, factory)
+//                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
@@ -106,10 +106,10 @@ public class Main {
 //            consequenceContainer.saveConsequencesToOntology();
             System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
-            try {
-                factory.saveOwlOntology();
-            } catch (OWLOntologyStorageException ignored) {
-            }
+//            try {
+//                factory.saveOwlOntology();
+//            } catch (OWLOntologyStorageException ignored) {
+//            }
             Visualization.getImage(scenarioModel);
         }
     }

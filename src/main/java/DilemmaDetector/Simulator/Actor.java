@@ -5,11 +5,13 @@ import project.Entity;
 public class Actor{
     private RigidBody rigidBody;
     private String entityName;
+    final boolean collidable;
     private double valueInDollars = 0.0;
 
-    public Actor(Entity entity, RigidBody rigidBody) {
+    public Actor(Entity entity, RigidBody rigidBody, boolean collidable) {
         this.entityName = entity.getOwlIndividual().getIRI().toString();
         this.rigidBody = rigidBody;
+        this.collidable = collidable;
     }
 
     public void setValueInDollars(double valueInDollars) {

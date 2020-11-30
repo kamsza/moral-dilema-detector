@@ -27,12 +27,17 @@ public class ScenarioReader {
         this.factory = new MyFactory(ontology);
     }
 
+    public ScenarioReader(MyFactory factory){
+        this.factory = factory;
+    }
+
     public MyFactory getFactory() {
         return factory;
     }
 
     public Model getModel(int scenarioNumber) {
         Scenario scenario = getScenarioFromOntology(scenarioNumber);
+        System.out.println(scenario);
         if (scenario == null){
             throw new IllegalArgumentException("No scenario with number " + scenarioNumber);
         }

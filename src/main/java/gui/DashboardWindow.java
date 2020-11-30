@@ -8,6 +8,7 @@ import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.prompt.PromptSupport;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Decision;
 import project.MyFactory;
 import visualization.Visualization;
@@ -181,13 +182,18 @@ public class DashboardWindow extends JFrame implements ActionListener {
             } else {
 
                 try {
-                    scenarioModel = OntologyLogic.getModelFromOntology(pathToOwlFile, jTextFieldScenarioName.getText());
+//                    scenarioModel = OntologyLogic.getModelFromOntology(pathToOwlFile, jTextFieldScenarioName.getText());
+                    scenarioModel = OntologyLogic.getModelFromReader(factory, jTextFieldScenarioName.getText());
                 }
                 catch(IllegalArgumentException exception){
                     WarningWindow warningWindow = new WarningWindow(this, "There is no such scenario in owl file");
                     warningWindow.setVisible(true);
                     return;
                 }
+                catch (OWLOntologyCreationException e){
+                    e.printStackTrace();
+                }
+
                 pictureName = Visualization.getImage(scenarioModel);
                 jLabelImageScenario.setIcon(
                         getImageIcon(System.getProperty("user.dir")

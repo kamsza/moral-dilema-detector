@@ -2,10 +2,9 @@ package DilemmaDetector.Simulator;
 
 import generator.MyFactorySingleton;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.Living_entity;
-import project.MyFactory;
-import project.On_the_side;
-import project.Vehicle;
+import org.swrlapi.drools.owl.properties.P;
+import project.*;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,9 @@ public class FactoryWrapper {
         On_the_side surrounding = factory.getOn_the_side(victimActor.getEntity());
         if (surrounding == null)
             return false;
+        System.out.println(victimActor.getEntityName());
+        System.out.println(surrounding.getOwlIndividual().getIRI().toString());
+        System.out.println(victimActor.getEntityName().equals(surrounding.getOwlIndividual().getIRI().toString()));
         return victimActor.getEntityName().equals(surrounding.getOwlIndividual().getIRI().toString());
     }
 
@@ -41,6 +43,22 @@ public class FactoryWrapper {
         if (vehicle == null)
             return false;
         return victimActor.getEntityName().equals(vehicle.getOwlIndividual().getIRI().toString());
+    }
+
+    public boolean isCollidableObstacle(String obstacleName )  {
+        Concrete_barrier concrete_barrier = factory.getConcrete_barrier(obstacleName);
+        Plastic_barrier plastic_barrier = factory.getPlastic_barrier(obstacleName);
+        Rock rock = factory.getRock(obstacleName);
+
+        Street_tidy street_tidy = factory.getStreet_tidy(obstacleName);
+        Pedestrian_crossing pedestrian_crossing = factory.getPedestrian_crossing(obstacleName);
+        Speed_bump speed_bump = factory.getSpeed_bump(obstacleName);
+
+        if (concrete_barrier != null || plastic_barrier != null || rock != null)
+            return true;
+        else if(street_tidy != null || pedestrian_crossing != null || speed_bump != null)
+            return false;
+        return false;
     }
 
     public List<Living_entity> getLivingEntitiesFromActor(Actor actor) {

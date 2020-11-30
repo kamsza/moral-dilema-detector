@@ -31,13 +31,13 @@ public class SimulatorEngine {
     public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor, MyFactory factory) {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
-        this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
+        this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()), true);
         this.mainVehicle.setValueInDollars(RigidBodyMapper.getValueInDollars(model.getVehicle()));
 
-        this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
-        this.actors = RigidBodyMapper.createActors(model);
-        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
         this.factoryWrapper = new FactoryWrapper(factory);
+        this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
+        this.actors = RigidBodyMapper.createActors(factoryWrapper, model);
+        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
     }
 
     public Map<Decision, Set<Actor>> simulateAll() {
@@ -61,11 +61,12 @@ public class SimulatorEngine {
         }
 
         boolean collisionWithSurrounding = false;
-        boolean collsionWithVehicle = false;
+        boolean collisionWithVehicle = false;
+        boolean collisionWithObstacle = false;
         int collisionWithPedestrianCount = 0;
 
         double SIMULATION_TIME = MOVING_TIME;
-        while (currentTime < SIMULATION_TIME && !collisionWithSurrounding && !collsionWithVehicle) {
+        while (currentTime < SIMULATION_TIME && !collisionWithSurrounding && !collisionWithVehicle &&!collisionWithObstacle) {
             currentTime += TIME_PART;
             System.out.print("Current time: " + currentTime + " | Simulation time: " + SIMULATION_TIME  + " | ");
             System.out.println(
@@ -105,16 +106,22 @@ public class SimulatorEngine {
                 }
                 else if(factoryWrapper.isVehicle(actor)){
                     if (!actor.equals(mainVehicle)) {
-                        collsionWithVehicle = true;
+                        collisionWithVehicle = true;
                     }
+                }
+                else if(factoryWrapper.isCollidableObstacle(actor.getEntityName())){
+                    collisionWithObstacle = true;
                 }
             }
 
-            Set<Actor> collidedInMomentWithoutSurroundingActors =
-                    collidedInMoment.stream().filter(a -> !factoryWrapper.isSurrounding(a)).collect(Collectors.toSet());
+            Set<Actor> collidedInMomentWithoutSurroundingAndObstacles =
+                    collidedInMoment.stream().filter(
+                            a -> !factoryWrapper.isSurrounding(a) &&
+                                    !factoryWrapper.isCollidableObstacle(a.getEntityName())).
+                            collect(Collectors.toSet());
 
             if (!collidedInMoment.isEmpty())
-                collided.addAll(collidedInMomentWithoutSurroundingActors);
+                collided.addAll(collidedInMomentWithoutSurroundingAndObstacles);
         }
 
         if (!collided.isEmpty()) {
