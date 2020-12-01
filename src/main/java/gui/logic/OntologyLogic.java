@@ -23,11 +23,8 @@ import java.util.*;
 public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
-    public static final String pathToOntology = "src/main/resources/traffic_ontology.owl";
+    public static final String defaultPathToOntology = "src/main/resources/traffic_ontology.owl";
 
-    public static MyFactory getFactory() {
-        return getFactory(pathToOntology);
-    }
 
     public static MyFactory getFactory(String pathToOwlFile) {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
@@ -41,34 +38,12 @@ public class OntologyLogic {
         return new MyFactory(ontology);
     }
 
-    public static Model getModelFromOntology(String pathToOwlFile, String scenarioName) {
+    public static Model getModelFromOntology(MyFactory factory, String scenarioName) {
 
-        ScenarioReader scenarioReader = null;
-        try {
-            scenarioReader = new ScenarioReader();
-        } catch (OWLOntologyCreationException e) {
-            System.err.println("Problem with ScenarioReader");
-            e.printStackTrace();
-        }
+        ScenarioReader scenarioReader = new ScenarioReader(factory);
         int scenarioNumber = Integer.parseInt(StringUtils.substringBefore(scenarioName, "_"));
         Model model = scenarioReader.getModel(scenarioNumber);
-
-//
-//        try {
-//            new ScenarioFactory(factory, model)
-//                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
-//        }
-//        catch (FileNotFoundException e){
-//            System.err.println("Problem during generating scenario - file not found");
-//            e.printStackTrace();
-//        }
-//        catch (OWLOntologyCreationException e){
-//            System.err.println("Problem during generating scenario");
-//            e.printStackTrace();
-//        }
-
-
-        DecisionGenerator decisionGenerator = new DecisionGenerator(getFactory(pathToOwlFile), baseIRI);
+        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
     }
@@ -114,15 +89,16 @@ public class OntologyLogic {
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor, factory);
         Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
 
-        // pytanie czy może to być w tym miejscu, bo umieszczenie tego później miałoby sens,
-        // jeśli korzytalibyśmy z MoralDilemmaDetector
+        return collidedEntities;
+    }
+
+    public static void saveOwlOntology(MyFactory factory){
         try {
             factory.saveOwlOntology();
         } catch (OWLOntologyStorageException e) {
             System.err.println("Problem during saving ontology");
             e.printStackTrace();
         }
-        return collidedEntities;
     }
 
 
