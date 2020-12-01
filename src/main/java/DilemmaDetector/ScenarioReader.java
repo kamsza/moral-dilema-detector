@@ -194,7 +194,9 @@ public class ScenarioReader {
     }
 
     private Weather getWeatherFromOntology(int number) {
-        return factory.getWeather(IRI_PREFIX + String.valueOf(number) + "_weather");
+        String weatherName = IRI_PREFIX + String.valueOf(number) + "_weather";
+        Weather w = factory.getWeather(weatherName);
+        return getWeatherAsSpecificClass(weatherName);
     }
 
     private Time getTimeFromOntology(int number) {
@@ -255,6 +257,25 @@ public class ScenarioReader {
     public static void main(String[] args) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
         scenarioReader.getModel(230);
+    }
+
+    private Weather getWeatherAsSpecificClass(String weatherName){
+        Weather w = factory.getWeather(weatherName);
+
+        if (factory.getSunny(weatherName) != null)
+            w = factory.getSunny(weatherName);
+        else if (factory.getFog(weatherName) != null)
+            w = factory.getFog(weatherName);
+        else if (factory.getShower(weatherName) != null)
+            w = factory.getShower(weatherName);
+        else if (factory.getHeavy_rain(weatherName) != null)
+            w = factory.getHeavy_rain(weatherName);
+        else if (factory.getHeavy_rain(weatherName) != null)
+            w = factory.getHeavy_rain(weatherName);
+        else if (factory.getSnow(weatherName) != null)
+            w = factory.getGlaze(weatherName);
+
+        return w;
     }
 
     private Vehicle getVehicleAsSpecificClass(String vehicleName){
