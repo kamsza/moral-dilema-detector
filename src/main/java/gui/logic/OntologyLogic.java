@@ -5,10 +5,7 @@ import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
-import generator.BaseScenarioGenerator2;
-import generator.DecisionGenerator;
-import generator.Model;
-import generator.ScenarioFactory;
+import generator.*;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -21,7 +18,6 @@ import project.MyFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.FileAlreadyExistsException;
 import java.util.*;
 
 public class OntologyLogic {
@@ -49,36 +45,38 @@ public class OntologyLogic {
 
         ScenarioReader scenarioReader = null;
         try {
-            scenarioReader = new ScenarioReader(pathToOwlFile);
+            scenarioReader = new ScenarioReader();
         } catch (OWLOntologyCreationException e) {
             System.err.println("Problem with ScenarioReader");
             e.printStackTrace();
         }
-
         int scenarioNumber = Integer.parseInt(StringUtils.substringBefore(scenarioName, "_"));
-        System.out.println("SCENARIO NUMBER : " + scenarioNumber);
-
         Model model = scenarioReader.getModel(scenarioNumber);
+
+//
+//        try {
+//            new ScenarioFactory(factory, model)
+//                    .pedestrianOnCrossing(new int[]{10}, new double[]{1}).getModel();
+//        }
+//        catch (FileNotFoundException e){
+//            System.err.println("Problem during generating scenario - file not found");
+//            e.printStackTrace();
+//        }
+//        catch (OWLOntologyCreationException e){
+//            System.err.println("Problem during generating scenario");
+//            e.printStackTrace();
+//        }
+
+
         DecisionGenerator decisionGenerator = new DecisionGenerator(getFactory(pathToOwlFile), baseIRI);
         decisionGenerator.generate(model);
         return model;
     }
 
-    //different way of getting scenario from reader
-    public static Model getModelFromReader(MyFactory factory, String scenarioName) throws OWLOntologyCreationException {
-        ScenarioReader scenarioReader = new ScenarioReader(factory);
-        int scenarioNumber = Integer.parseInt(StringUtils.substringBefore(scenarioName, "_"));
-        System.out.println("SCENARIO NUMBER : " + scenarioNumber);
 
-        Model model = scenarioReader.getModel(scenarioNumber);
-        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
-        decisionGenerator.generate(model);
-        return model;
-    }
-
-    // na razie na sztywno korzystamy z BaseScenarioGenerator2
+    // na razie na sztywno korzystamy z BaseScenarioGenerator
     public static Model getModelFromGenerator(MyFactory factory) {
-        BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
+        BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = null;
         try {
             model = generator.generate();
@@ -92,14 +90,16 @@ public class OntologyLogic {
             System.err.println("Problem during generating scenario");
             e.printStackTrace();
         }
+
         try {
-            model = new ScenarioFactory(model, factory)
-                    .pedestrianOnCrossing(new int[]{5}, new double[]{1}).getModel();
-        }
-        catch (FileNotFoundException e){
+            new ScenarioFactory(model, factory)
+                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
+        }catch (FileNotFoundException e){
+            System.err.println("File not found in generating");
             e.printStackTrace();
         }
         catch (OWLOntologyCreationException e){
+            System.err.println("Cannot create ontology");
             e.printStackTrace();
         }
 

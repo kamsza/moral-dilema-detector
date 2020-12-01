@@ -99,6 +99,8 @@ public class BaseScenarioGenerator {
         vehicle1.addAccelerationY(0F);
         vehicle1.addAccelerationX(0F);
         vehicle1.addValueInDollars(1000000F);
+        vehicle1.addIs_on_lane(lane);
+        lane.addLane_has_vehicle(vehicle1);
 
         model.getVehicles().get(lane).add(vehicle1);
 
@@ -115,6 +117,8 @@ public class BaseScenarioGenerator {
         person.addDistance(3000F);
 //        person.addValueInDollars(10000F);
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        person.addIs_on_lane(lane);
+        lane.addLane_has_pedestrian(person);
         model.getEntities().get(lane).add(person);
     }
 
@@ -219,6 +223,12 @@ public class BaseScenarioGenerator {
         surrounding.put(Model.Side.LEFT, left_surrounding);
         ArrayList<Surrounding> right_surrounding = createSurroundingList();
         surrounding.put(Model.Side.RIGHT, right_surrounding);
+        for (Surrounding s: left_surrounding) {
+            model.getScenario().addHas_surrounding_left(s);
+        }
+        for (Surrounding s: right_surrounding) {
+            model.getScenario().addHas_surrounding_right(s);
+        }
 
         // add to model
         model.setSurrounding(surrounding);
@@ -289,6 +299,8 @@ public class BaseScenarioGenerator {
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        vehicle.addIs_on_lane(lane);
+        lane.addLane_has_vehicle(vehicle);
         model.getVehicles().get(lane).add(vehicle);
         model.setDriver(driver);
         model.setPassengers(passengers);
