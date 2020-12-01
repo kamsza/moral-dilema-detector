@@ -69,15 +69,6 @@ public class FactoryWrapper {
         return false;
     }
 
-    public boolean isObstacleOrSurrounding(String obstacleName)  {
-        On_the_lane obstacle = factory.getOn_the_lane(obstacleName);
-        On_the_side surrounding = factory.getOn_the_side(obstacleName);
-
-        if (obstacle != null || surrounding != null)
-            return true;
-        return false;
-    }
-
     public List<Living_entity> getLivingEntitiesFromActor(Actor actor) {
         Vehicle vehicle = factory.getVehicle(actor.getEntity());
         Living_entity living_entity = factory.getLiving_entity(actor.getEntity());

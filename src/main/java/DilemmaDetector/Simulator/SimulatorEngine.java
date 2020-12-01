@@ -94,7 +94,9 @@ public class SimulatorEngine {
             }
 
             Set<Actor> collidedInMoment = collisionDetector.detectCollisionInMoment();
-            for(Actor actor : collidedInMoment ){
+            Iterator<Actor> iterator = collidedInMoment.iterator();
+            while (iterator.hasNext()){
+                Actor actor = iterator.next();
                 if(factoryWrapper.isPedestrian(actor) ){
                     collisionWithPedestrianCount +=1;
                     if(collisionWithPedestrianCount == 1) {
@@ -103,6 +105,7 @@ public class SimulatorEngine {
                 }
                 else if (factoryWrapper.isSurrounding(actor)){
                     collisionWithSurrounding = true;
+                    iterator.remove();
                 }
                 else if(factoryWrapper.isVehicle(actor)){
                     if (!actor.equals(mainVehicle)) {
@@ -111,16 +114,11 @@ public class SimulatorEngine {
                 }
                 else if(factoryWrapper.isObstacle(actor.getEntityName())){
                     collisionWithObstacle = true;
+                    iterator.remove();
                 }
             }
-
-            Set<Actor> collidedInMomentWithoutSurroundingAndObstacles =
-                    collidedInMoment.stream().filter(
-                            a -> !factoryWrapper.isObstacleOrSurrounding(a.getEntityName())).
-                            collect(Collectors.toSet());
-
             if (!collidedInMoment.isEmpty())
-                collided.addAll(collidedInMomentWithoutSurroundingAndObstacles);
+                collided.addAll(collidedInMoment);
         }
 
         if (!collided.isEmpty()) {

@@ -179,9 +179,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
                 warningWindow.setVisible(true);
             } else {
-
                    factory = OntologyLogic.getFactory(pathToOwlFile);
-
                 try {
                     scenarioModel = OntologyLogic.getModelFromOntology(factory, jTextFieldScenarioName.getText());
                 }
@@ -190,7 +188,6 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     warningWindow.setVisible(true);
                     return;
                 }
-
 
                 pictureName = Visualization.getImage(scenarioModel);
                 jLabelImageScenario.setIcon(

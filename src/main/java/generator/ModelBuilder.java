@@ -238,25 +238,8 @@ public class ModelBuilder {
         pedestrianCrossing.addDistance(distance);
         pedestrianCrossing = fillDataProps(pedestrianCrossing, distance, "pedestrian_crossing");
 
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet()) {
-            Lane l = lane.getValue();
-            l.addLane_has_object(pedestrianCrossing);
-            pedestrianCrossing.addIs_on_lane(l);
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-        }
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet()) {
-            Lane l = lane.getValue();
-            l.addLane_has_object(pedestrianCrossing);
-            pedestrianCrossing.addIs_on_lane(l);
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-        }
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet()) {
-            Lane l = lane.getValue();
-            l.addLane_has_object(pedestrianCrossing);
-            pedestrianCrossing.addIs_on_lane(l);
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+        for (Model.Side side : Model.Side.values()) {
+            addPedestrianCrossingOnLanes(pedestrianCrossing, side);
         }
 
         while (peopleCount > 0) {
@@ -347,5 +330,14 @@ public class ModelBuilder {
         if(laneNo < 0 || laneNo >= lanes)
             laneNo = mainCarLane;
         return laneNo;
+    }
+
+    private void addPedestrianCrossingOnLanes(On_the_road pedestrianCrossing, Model.Side side){
+        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(side).entrySet()) {
+            Lane l = lane.getValue();
+            l.addLane_has_object(pedestrianCrossing);
+            pedestrianCrossing.addIs_on_lane(l);
+            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+        }
     }
 }
