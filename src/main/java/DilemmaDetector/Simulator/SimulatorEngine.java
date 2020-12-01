@@ -109,15 +109,14 @@ public class SimulatorEngine {
                         collisionWithVehicle = true;
                     }
                 }
-                else if(factoryWrapper.isCollidableObstacle(actor.getEntityName())){
+                else if(factoryWrapper.isObstacle(actor.getEntityName())){
                     collisionWithObstacle = true;
                 }
             }
 
             Set<Actor> collidedInMomentWithoutSurroundingAndObstacles =
                     collidedInMoment.stream().filter(
-                            a -> !factoryWrapper.isSurrounding(a) &&
-                                    !factoryWrapper.isCollidableObstacle(a.getEntityName())).
+                            a -> !factoryWrapper.isObstacleOrSurrounding(a.getEntityName())).
                             collect(Collectors.toSet());
 
             if (!collidedInMoment.isEmpty())
