@@ -8,7 +8,6 @@ import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.prompt.PromptSupport;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Decision;
 import project.MyFactory;
 import visualization.Visualization;
@@ -80,7 +79,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.err.println("Problem with UI Manager");
         }
-        factory = OntologyLogic.getFactory();
+        factory = OntologyLogic.getFactory(OntologyLogic.defaultPathToOntology);
 
         setSize(880, 800);
         setResizable(false);
@@ -181,18 +180,17 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 warningWindow.setVisible(true);
             } else {
 
+                   factory = OntologyLogic.getFactory(pathToOwlFile);
+
                 try {
-                    scenarioModel = OntologyLogic.getModelFromOntology(pathToOwlFile, jTextFieldScenarioName.getText());
-//                    scenarioModel = OntologyLogic.getModelFromReader(factory, jTextFieldScenarioName.getText());
+                    scenarioModel = OntologyLogic.getModelFromOntology(factory, jTextFieldScenarioName.getText());
                 }
                 catch(IllegalArgumentException exception){
                     WarningWindow warningWindow = new WarningWindow(this, "There is no such scenario in owl file");
                     warningWindow.setVisible(true);
                     return;
                 }
-//                catch (OWLOntologyCreationException e){
-//                    e.printStackTrace();
-//                }
+
 
                 pictureName = Visualization.getImage(scenarioModel);
                 jLabelImageScenario.setIcon(
@@ -228,6 +226,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
         consequenceContainer = new ConsequenceContainer(factory);
         collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+        OntologyLogic.saveOwlOntology(factory);
     }
 
     private void jButtonAddCustomPhilosophyAction() {
