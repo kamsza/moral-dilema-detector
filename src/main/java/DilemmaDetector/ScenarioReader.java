@@ -82,8 +82,10 @@ public class ScenarioReader {
 
         for(Vehicle v: lane_0.getLane_has_vehicle()) {
             String vehicleName = v.getOwlIndividual().getIRI().toString();
-            v = getVehicleAsSpecificClass(vehicleName);
-            vehicles.get(lane_0).add(v);
+            if (!vehicleName.equals(mainVehicle.getOwlIndividual().getIRI().toString())) {
+                v = getVehicleAsSpecificClass(vehicleName);
+                vehicles.get(lane_0).add(v);
+            }
         }
 
         for(Living_entity entity: lane_0.getLane_has_pedestrian()){
@@ -114,8 +116,10 @@ public class ScenarioReader {
 
             for(Vehicle v: lane.getLane_has_vehicle()) {
                 String vehicleName = v.getOwlIndividual().getIRI().toString();
-                v = getVehicleAsSpecificClass(vehicleName);
-                vehicles.get(lane).add(v);
+                if (!vehicleName.equals(mainVehicle.getOwlIndividual().getIRI().toString())) {
+                    v = getVehicleAsSpecificClass(vehicleName);
+                    vehicles.get(lane).add(v);
+                }
             }
 
             for(Living_entity entity: lane.getLane_has_pedestrian()){
@@ -146,8 +150,10 @@ public class ScenarioReader {
 
             for(Vehicle v: lane.getLane_has_vehicle()) {
                 String vehicleName = v.getOwlIndividual().getIRI().toString();
-                v = getVehicleAsSpecificClass(vehicleName);
-                vehicles.get(lane).add(v);
+                if (!vehicleName.equals(mainVehicle.getOwlIndividual().getIRI().toString())) {
+                    v = getVehicleAsSpecificClass(vehicleName);
+                    vehicles.get(lane).add(v);
+                }
             }
 
             for(Living_entity entity: lane.getLane_has_pedestrian()){
