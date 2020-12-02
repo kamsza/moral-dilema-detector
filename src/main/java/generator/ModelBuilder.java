@@ -17,9 +17,9 @@ public class ModelBuilder {
     private RandomPositioner randomPositioner;
     private MyFactory factory;
 
-    public ModelBuilder(Model model) throws FileNotFoundException, OWLOntologyCreationException {
+    public ModelBuilder(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
-        this.factory = MyFactorySingleton.getFactory();
+        this.factory = factory;
         this.subclassGenerator = new RandomSubclassGenerator(factory);
         this.randomPositioner = model.getRandomPositioner();
         this.sizeManager = model.getSizeManager();
@@ -60,6 +60,8 @@ public class ModelBuilder {
         Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
         animal = fillDataProps(animal, distance, "animal", 10, 5);
         animal.addValueInDollars(100F);
+        animal.addIs_on_lane(lane);
+        lane.addLane_has_pedestrian(animal);
         model.getEntities().get(lane).add(animal);
 
         return this;
@@ -168,6 +170,8 @@ public class ModelBuilder {
         vehicle.addAccelerationX(0F);
         vehicle.addAccelerationY(0F);
 
+        vehicle.addIs_on_lane(vehicleLane);
+        vehicleLane.addLane_has_vehicle(vehicle);
         model.getVehicles().get(vehicleLane).add(vehicle);
 
         return this;
@@ -210,6 +214,8 @@ public class ModelBuilder {
 
         On_the_lane object = subclassGenerator.generateSurroundingOnLaneSubclass(ObjectNamer.getName("surrounding"));
         object = fillDataProps(object, distance, "obstacle");
+        object.addIs_on_lane(lane);
+        lane.addLane_has_object(object);
         model.getObjects().get(lane).add(object);
 
         return this;
@@ -232,14 +238,9 @@ public class ModelBuilder {
         pedestrianCrossing.addDistance(distance);
         pedestrianCrossing = fillDataProps(pedestrianCrossing, distance, "pedestrian_crossing");
 
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+        for (Model.Side side : Model.Side.values()) {
+            addPedestrianCrossingOnLanes(pedestrianCrossing, side);
+        }
 
         while (peopleCount > 0) {
             int laneNo = randomPositioner.getRandomLaneNumber(1F);
@@ -250,8 +251,9 @@ public class ModelBuilder {
             Person person = factory.createPerson(ObjectNamer.getName("person"));
             person = fillDataProps(person, personDistance, "person", 7, 4);
             model.getEntities().get(lane).add(person);
+            lane.addLane_has_pedestrian(person);
+            person.addIs_on_lane(lane);
         }
-
         return this;
     }
 
@@ -289,8 +291,10 @@ public class ModelBuilder {
 
         Person person = factory.createPerson(ObjectNamer.getName("person"));
         person = fillDataProps(person, distance, "person", 7, 4);
-
+        lane.addLane_has_pedestrian(person);
+        person.addIs_on_lane(lane);
         model.getEntities().get(lane).add(person);
+
 
         return this;
     }
@@ -326,5 +330,14 @@ public class ModelBuilder {
         if(laneNo < 0 || laneNo >= lanes)
             laneNo = mainCarLane;
         return laneNo;
+    }
+
+    private void addPedestrianCrossingOnLanes(On_the_road pedestrianCrossing, Model.Side side){
+        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(side).entrySet()) {
+            Lane l = lane.getValue();
+            l.addLane_has_object(pedestrianCrossing);
+            pedestrianCrossing.addIs_on_lane(l);
+            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+        }
     }
 }

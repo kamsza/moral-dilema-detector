@@ -27,12 +27,17 @@ public class ScenarioReader {
         this.factory = new MyFactory(ontology);
     }
 
+    public ScenarioReader(MyFactory factory){
+        this.factory = factory;
+    }
+
     public MyFactory getFactory() {
         return factory;
     }
 
     public Model getModel(int scenarioNumber) {
         Scenario scenario = getScenarioFromOntology(scenarioNumber);
+        System.out.println(scenario);
         if (scenario == null){
             throw new IllegalArgumentException("No scenario with number " + scenarioNumber);
         }
@@ -74,57 +79,12 @@ public class ScenarioReader {
         TreeMap<Integer, Lane> lane_center = new TreeMap<>() {{
             put(0, lane_0);
         }};
+
+        addObjectsOnLane(entities, objects, vehicles, mainVehicle, lane_0);
         lanes.put(Model.Side.CENTER, lane_center);
 
-
-        TreeMap<Integer, Lane> lanes_right = new TreeMap<>();
-        for (int i = 1; i <= rightLanesCount; i++) {
-            Lane lane = getLaneRightFromOntology(scenarioNumber, i);
-            lanes_right.put(i, lane);
-            entities.put(lane, new ArrayList<Living_entity>() {
-            });
-            objects.put(lane, new ArrayList<Non_living_entity>() {
-            });
-            vehicles.put(lane, new ArrayList<Vehicle>() {
-            });
-        }
-        lanes.put(Model.Side.RIGHT, lanes_right);
-
-        // left lanes
-        TreeMap<Integer, Lane> lanes_left = new TreeMap<>();
-        for (int i = 1; i <= leftLanesCount; i++) {
-            Lane lane = getLaneLeftFromOntology(scenarioNumber, i);
-            lanes_left.put(i, lane);
-            entities.put(lane, new ArrayList<Living_entity>() {
-            });
-            objects.put(lane, new ArrayList<Non_living_entity>() {
-            });
-            vehicles.put(lane, new ArrayList<Vehicle>() {
-            });
-        }
-        lanes.put(Model.Side.LEFT, lanes_left);
-
-        for (Vehicle v : scenario.getHas_vehicle()) {
-            String vehicleName = v.getOwlIndividual().getIRI().toString();
-            if (!vehicleName.contains("vehicle_main")) {
-                Lane lane = null;
-                for (Lane l : v.getIs_on_lane()) {
-                    lane = l;
-                }
-                v = getVehicleAsSpecificClass(vehicleName);
-                vehicles.get(lane).add(v);
-            }
-        }
-
-        for (Living_entity entity : scenario.getHas_pedestrian()) {
-            String entityName = entity.getOwlIndividual().getIRI().toString();
-            Lane lane = null;
-            for (Lane l : entity.getIs_on_lane()) {
-                lane = l;
-            }
-             entity = getEntityAsSpecificClass(entityName);
-             entities.get(lane).add(entity);
-        }
+        addLanesWithTheirObjects(leftLanesCount, Model.Side.LEFT, lanes, entities, objects, vehicles, scenarioNumber, mainVehicle);
+        addLanesWithTheirObjects(rightLanesCount, Model.Side.RIGHT, lanes, entities, objects, vehicles, scenarioNumber, mainVehicle);
 
         Model model = new Model.Builder().
                 setScenario(scenario).
@@ -145,12 +105,67 @@ public class ScenarioReader {
         return model;
     }
 
+    private void addLanesWithTheirObjects(int lanesCount, Model.Side side,
+                                          Map<Model.Side, TreeMap<Integer, Lane>> lanes,
+                                          Map<Lane, ArrayList<Living_entity>> entities,
+                                          Map<Lane, ArrayList<Non_living_entity>> objects,
+                                          Map<Lane, ArrayList<Vehicle>> vehicles,
+                                          int scenarioNumber, Vehicle mainVehicle) {
+
+        TreeMap<Integer, Lane> lanesMap = new TreeMap<>();
+        for (int i = 1; i <= lanesCount; i++) {
+            Lane lane = null;
+            if (side == Model.Side.LEFT)
+                lane = getLaneLeftFromOntology(scenarioNumber, i);
+            else if (side == Model.Side.RIGHT)
+                lane = getLaneRightFromOntology(scenarioNumber, i);
+
+            lanesMap.put(i, lane);
+            entities.put(lane, new ArrayList<Living_entity>() {
+            });
+            objects.put(lane, new ArrayList<Non_living_entity>() {
+            });
+            vehicles.put(lane, new ArrayList<Vehicle>() {
+            });
+
+            addObjectsOnLane(entities, objects, vehicles, mainVehicle, lane);
+        }
+        lanes.put(side, lanesMap);
+    }
+
+    private void addObjectsOnLane(Map<Lane, ArrayList<Living_entity>> entities,
+                                  Map<Lane, ArrayList<Non_living_entity>> objects,
+                                  Map<Lane, ArrayList<Vehicle>> vehicles,
+                                  Vehicle mainVehicle, Lane lane) {
+        for(Vehicle v: lane.getLane_has_vehicle()) {
+            String vehicleName = v.getOwlIndividual().getIRI().toString();
+            if (!vehicleName.equals(mainVehicle.getOwlIndividual().getIRI().toString())) {
+                v = getVehicleAsSpecificClass(vehicleName);
+                vehicles.get(lane).add(v);
+            }
+        }
+        for(Living_entity entity: lane.getLane_has_pedestrian()){
+            String entityName = entity.getOwlIndividual().getIRI().toString();
+            entity = getEntityAsSpecificClass(entityName);
+            entities.get(lane).add(entity);
+        }
+
+        for(Non_living_entity object: lane.getLane_has_object()){
+            String objectName = object.getOwlIndividual().getIRI().toString();
+            object = getObjectAsSpecificClass(objectName);
+            objects.get(lane).add(object);
+        }
+    }
+
+
     private Scenario getScenarioFromOntology(int number) {
         return factory.getScenario(IRI_PREFIX + String.valueOf(number) + "_scenario");
     }
 
     private Weather getWeatherFromOntology(int number) {
-        return factory.getWeather(IRI_PREFIX + String.valueOf(number) + "_weather");
+        String weatherName = IRI_PREFIX + String.valueOf(number) + "_weather";
+        Weather w = factory.getWeather(weatherName);
+        return getWeatherAsSpecificClass(weatherName);
     }
 
     private Time getTimeFromOntology(int number) {
@@ -211,6 +226,25 @@ public class ScenarioReader {
     public static void main(String[] args) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
         scenarioReader.getModel(230);
+    }
+
+    private Weather getWeatherAsSpecificClass(String weatherName){
+        Weather w = factory.getWeather(weatherName);
+
+        if (factory.getSunny(weatherName) != null)
+            w = factory.getSunny(weatherName);
+        else if (factory.getFog(weatherName) != null)
+            w = factory.getFog(weatherName);
+        else if (factory.getShower(weatherName) != null)
+            w = factory.getShower(weatherName);
+        else if (factory.getHeavy_rain(weatherName) != null)
+            w = factory.getHeavy_rain(weatherName);
+        else if (factory.getSnow(weatherName) != null)
+            w = factory.getSnow(weatherName);
+        else if (factory.getGlaze(weatherName) != null)
+            w = factory.getGlaze(weatherName);
+
+        return w;
     }
 
     private Vehicle getVehicleAsSpecificClass(String vehicleName){
@@ -277,4 +311,21 @@ public class ScenarioReader {
         return e;
     }
 
+    private Non_living_entity getObjectAsSpecificClass(String objectName){
+        Non_living_entity object = factory.getNon_living_entity(objectName);
+        if( factory.getConcrete_barrier(objectName) != null)
+            object = factory.getConcrete_barrier(objectName);
+        else if (factory.getPlastic_barrier(objectName) != null)
+            object = factory.getPlastic_barrier(objectName);
+        else if (factory.getRock(objectName) != null)
+            object = factory.getRock(objectName);
+        else if (factory.getStreet_tidy(objectName) != null)
+            object = factory.getStreet_tidy(objectName);
+        else if (factory.getPedestrian_crossing(objectName) != null)
+            object = factory.getPedestrian_crossing(objectName);
+        else if (factory.getSpeed_bump(objectName) != null)
+            object = factory.getSpeed_bump(objectName);
+
+        return object;
+    }
 }

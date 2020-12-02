@@ -5,6 +5,7 @@ import generator.Model;
 import project.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SimulatorEngine {
 
@@ -30,13 +31,13 @@ public class SimulatorEngine {
     public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor, MyFactory factory) {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
-        this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()));
+        this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()), true);
         this.mainVehicle.setValueInDollars(RigidBodyMapper.getValueInDollars(model.getVehicle()));
 
-        this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
-        this.actors = RigidBodyMapper.createActors(model);
-        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
         this.factoryWrapper = new FactoryWrapper(factory);
+        this.surroundingActors = RigidBodyMapper.createSurroundingActors(model);
+        this.actors = RigidBodyMapper.createActors(factoryWrapper, model);
+        collisionDetector = new CollisionDetector(model, mainVehicle, this.actors, this.surroundingActors);
     }
 
     public Map<Decision, Set<Actor>> simulateAll() {
@@ -59,11 +60,13 @@ public class SimulatorEngine {
             actor.getRigidBody().setToInitialValues();
         }
 
-        boolean collisionNotWithPedestrian = false;
+        boolean collisionWithSurrounding = false;
+        boolean collisionWithVehicle = false;
+        boolean collisionWithObstacle = false;
         int collisionWithPedestrianCount = 0;
 
         double SIMULATION_TIME = MOVING_TIME;
-        while (currentTime < SIMULATION_TIME && !collisionNotWithPedestrian) {
+        while (currentTime < SIMULATION_TIME && !collisionWithSurrounding && !collisionWithVehicle &&!collisionWithObstacle) {
             currentTime += TIME_PART;
             System.out.print("Current time: " + currentTime + " | Simulation time: " + SIMULATION_TIME  + " | ");
             System.out.println(
@@ -91,17 +94,27 @@ public class SimulatorEngine {
             }
 
             Set<Actor> collidedInMoment = collisionDetector.detectCollisionInMoment();
-            for(Actor actor : collidedInMoment ){
+            Iterator<Actor> iterator = collidedInMoment.iterator();
+            while (iterator.hasNext()){
+                Actor actor = iterator.next();
                 if(factoryWrapper.isPedestrian(actor) ){
                     collisionWithPedestrianCount +=1;
                     if(collisionWithPedestrianCount == 1) {
                         SIMULATION_TIME = updateSimulationTime(currentTime);
                     }
                 }
-                else if(!factoryWrapper.isPedestrian(actor)){
+                else if (factoryWrapper.isSurrounding(actor)){
+                    collisionWithSurrounding = true;
+                    iterator.remove();
+                }
+                else if(factoryWrapper.isVehicle(actor)){
                     if (!actor.equals(mainVehicle)) {
-                        collisionNotWithPedestrian = true;
+                        collisionWithVehicle = true;
                     }
+                }
+                else if(factoryWrapper.isObstacle(actor.getEntityName())){
+                    collisionWithObstacle = true;
+                    iterator.remove();
                 }
             }
             if (!collidedInMoment.isEmpty())

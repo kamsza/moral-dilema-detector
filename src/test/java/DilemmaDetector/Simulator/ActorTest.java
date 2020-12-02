@@ -1,6 +1,7 @@
 package DilemmaDetector.Simulator;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -10,6 +11,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ActorTest {
+    
     private Actor createMockActor(String name){
         Entity entityMock = mock(Entity.class);
         OWLNamedIndividual owlNamedIndividualMock = mock(OWLNamedIndividual.class);
@@ -17,7 +19,7 @@ public class ActorTest {
         when(owlNamedIndividualMock.getIRI()).thenReturn(iriMock);
         when(iriMock.toString()).thenReturn(name);
         when(entityMock.getOwlIndividual()).thenReturn(owlNamedIndividualMock);
-        return new Actor(entityMock, mock(RigidBody.class));
+        return new Actor(entityMock, mock(RigidBody.class), true);
     }
 
     @Test

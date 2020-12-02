@@ -2,6 +2,7 @@ package DilemmaDetector.Simulator;
 import generator.Model;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.*;
 import project.Entity;
@@ -25,7 +26,7 @@ public class CollisionDetectorTest{
         when(entityMock.getOwlIndividual()).thenReturn(owlIndividualMock);
         when(owlIndividualMock.getIRI()).thenReturn(iriMock);
         when(iriMock.toString()).thenReturn("entity");
-        vehicleActor = new Actor(entityMock, rigidBody);
+        vehicleActor = new Actor(entityMock, rigidBody, true);
         collisionDetector = new CollisionDetector(mock(Model.class), vehicleActor, null, null);
     }
 

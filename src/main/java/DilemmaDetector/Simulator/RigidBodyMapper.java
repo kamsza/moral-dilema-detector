@@ -12,7 +12,6 @@ public class RigidBodyMapper {
     //TODO get lane width from ontology? is it in centimeters
     public static final double LANE_WIDTH = PhysicsUtils.CmToMeters(300);
 
-
     public static List<Actor> createSurroundingActors(Model model) {
 
         Set leftLanes = model.getLanes().get(Model.Side.LEFT).entrySet();
@@ -20,7 +19,6 @@ public class RigidBodyMapper {
 
         int lastLeftLane = leftLanes.size();
         int lastRightLane = rightLanes.size();
-
 
         Map<Model.Side, ArrayList<Surrounding>> surrounding = model.getSurrounding();
         List<Actor> result = new LinkedList<>();
@@ -35,14 +33,14 @@ public class RigidBodyMapper {
 
             for (Surrounding s : pair.getValue()) {
                 RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(s, side, laneNumber, ActorType.SURROUNDING);
-                Actor surroundingActor = new Actor(s, rigidBody);
+                Actor surroundingActor = new Actor(s, rigidBody,true);
                 result.add(surroundingActor);
             }
         }
         return result;
     }
 
-    public static List<Actor> createActors(Model model) {
+    public static List<Actor> createActors(FactoryWrapper factoryWrapper, Model model) {
         Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
         Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
         Map<Lane, ArrayList<Non_living_entity>> obstaclesMap = model.getObjects();
@@ -57,19 +55,21 @@ public class RigidBodyMapper {
                 for (Vehicle vehicle : vehicleMap.get(lane)) {
                     if (vehicle != model.getVehicle()) {
                         RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber, ActorType.VEHICLE);
-                        Actor actor = new Actor(vehicle, rigidBody);
+                        Actor actor = new Actor(vehicle, rigidBody, true);
                         actor.setValueInDollars(RigidBodyMapper.getValueInDollars(vehicle));
                         result.add(actor);
                     }
                 }
                 for (Living_entity entity : livingEntityMap.get(lane)) {
                     RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber, ActorType.LIVING);
-                    result.add(new Actor(entity, rigidBody));
+                    result.add(new Actor(entity, rigidBody, true));
                 }
 
                 for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
+                    String obstacleName = obstacle.getOwlIndividual().getIRI().toString();
+                    boolean collidable = factoryWrapper.isCollidableObstacle(obstacleName);
                     RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(obstacle, side, laneNumber, ActorType.OBSTACLE);
-                    result.add(new Actor(obstacle, rigidBody));
+                    result.add(new Actor(obstacle, rigidBody, collidable));
                 }
             }
         }
