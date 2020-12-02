@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.*;
-import commonadapter.adapters.waymo.lidardata.Label;
+import commonadapter.adapters.waymo.logic.lidardata.Label;
 
 import java.io.File;
 

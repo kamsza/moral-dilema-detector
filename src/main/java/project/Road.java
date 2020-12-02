@@ -119,6 +119,40 @@ public interface Road extends WrappedIndividual {
 
 
     /* ***************************************************
+     * Property http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#average_speed
+     */
+
+    /**
+     * Gets all property values for the average_speed property.<p>
+     *
+     * @returns a collection of values for the average_speed property.
+     */
+    Collection<? extends Integer> getAverage_speed();
+
+    /**
+     * Checks if the class has a average_speed property value.<p>
+     *
+     * @return true if there is a average_speed property value.
+     */
+    boolean hasAverage_speed();
+
+    /**
+     * Adds a average_speed property value.<p>
+     *
+     * @param newAverage_speed the average_speed property value to be added
+     */
+    void addAverage_speed(Integer newAverage_speed);
+
+    /**
+     * Removes a average_speed property value.<p>
+     *
+     * @param oldAverage_speed the average_speed property value to be removed.
+     */
+    void removeAverage_speed(Integer oldAverage_speed);
+
+
+
+    /* ***************************************************
      * Property http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#end_angle
      */
      
@@ -149,6 +183,40 @@ public interface Road extends WrappedIndividual {
      * @param oldEnd_angle the end_angle property value to be removed.
      */
     void removeEnd_angle(Float oldEnd_angle);
+
+
+
+    /* ***************************************************
+     * Property http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#speed_limit
+     */
+
+    /**
+     * Gets all property values for the speed_limit property.<p>
+     *
+     * @returns a collection of values for the speed_limit property.
+     */
+    Collection<? extends Integer> getSpeed_limit();
+
+    /**
+     * Checks if the class has a speed_limit property value.<p>
+     *
+     * @return true if there is a speed_limit property value.
+     */
+    boolean hasSpeed_limit();
+
+    /**
+     * Adds a speed_limit property value.<p>
+     *
+     * @param newSpeed_limit the speed_limit property value to be added
+     */
+    void addSpeed_limit(Integer newSpeed_limit);
+
+    /**
+     * Removes a speed_limit property value.<p>
+     *
+     * @param oldSpeed_limit the speed_limit property value to be removed.
+     */
+    void removeSpeed_limit(Integer oldSpeed_limit);
 
 
 

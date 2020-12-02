@@ -113,6 +113,27 @@ public class DefaultRoad extends WrappedIndividualImpl implements Road {
 
 
     /* ***************************************************
+     * Data Property http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#average_speed
+     */
+
+    public Collection<? extends Integer> getAverage_speed() {
+		return getDelegate().getPropertyValues(getOwlIndividual(), Vocabulary.DATA_PROPERTY_AVERAGE_SPEED, Integer.class);
+    }
+
+    public boolean hasAverage_speed() {
+		return !getAverage_speed().isEmpty();
+    }
+
+    public void addAverage_speed(Integer newAverage_speed) {
+	    getDelegate().addPropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_AVERAGE_SPEED, newAverage_speed);
+    }
+
+    public void removeAverage_speed(Integer oldAverage_speed) {
+		getDelegate().removePropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_AVERAGE_SPEED, oldAverage_speed);
+    }
+
+
+    /* ***************************************************
      * Data Property http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#end_angle
      */
      
@@ -130,6 +151,27 @@ public class DefaultRoad extends WrappedIndividualImpl implements Road {
 
     public void removeEnd_angle(Float oldEnd_angle) {
 		getDelegate().removePropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_END_ANGLE, oldEnd_angle);
+    }
+
+
+    /* ***************************************************
+     * Data Property http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#speed_limit
+     */
+
+    public Collection<? extends Integer> getSpeed_limit() {
+		return getDelegate().getPropertyValues(getOwlIndividual(), Vocabulary.DATA_PROPERTY_SPEED_LIMIT, Integer.class);
+    }
+
+    public boolean hasSpeed_limit() {
+		return !getSpeed_limit().isEmpty();
+    }
+
+    public void addSpeed_limit(Integer newSpeed_limit) {
+	    getDelegate().addPropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_SPEED_LIMIT, newSpeed_limit);
+    }
+
+    public void removeSpeed_limit(Integer oldSpeed_limit) {
+		getDelegate().removePropertyValue(getOwlIndividual(), Vocabulary.DATA_PROPERTY_SPEED_LIMIT, oldSpeed_limit);
     }
 
 
