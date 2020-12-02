@@ -25,7 +25,10 @@ public class Vector2{
 
     public Vector2 getNormalized(){
         double m = this.getMagnitude();
-        return new Vector2(x/m, y/m);
+        if(m != 0)
+            return new Vector2(x/m, y/m);
+        else
+            return Vector2.zero();
     }
 
     public Vector2 add(Vector2 other){

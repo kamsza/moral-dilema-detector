@@ -12,9 +12,10 @@ public enum PhilosophyParameter {
     ANIMAL_LIFE("animalLife"),
     ANIMAL_SEVERE_INJURY("animalSevereInjury"),
     ANIMAL_LIGHTLY_INJURY("animalLightlyInjury"),
-    MATERIAL_VALUE_TABLE("materialValue"),
-    BREAKING_THE_LAW_TABLE("breakingTheLaw");
-
+    MATERIAL_VALUE("materialValue"),
+    BREAKING_THE_LAW("breakingTheLaw"),
+    TAKING_ACTION("takingAction"),
+    DILEMMA_THRESHOLD("dilemmaThreshold");
 
     private String parameter;
 

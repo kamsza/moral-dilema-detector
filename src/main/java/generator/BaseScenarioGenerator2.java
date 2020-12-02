@@ -59,13 +59,14 @@ public class BaseScenarioGenerator2 {
         Scenario scenario = factory.createScenario(ObjectNamer.getName("scenario"));
         model.setScenario(scenario);
 
+
         // add objects
         addRoad(model);
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-        addVehicle(model);
-//        addPedestrian(model);
+//        addVehicle(model);
+        addPedestrian(model);
 
         return model;
     }
@@ -91,24 +92,31 @@ public class BaseScenarioGenerator2 {
         float vehicleSpeed = (float) (0);
 
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
-
+//        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
 
         vehicle1.addDistance(3000F);
         vehicle1.addLength(500F);
         vehicle1.addWidth(200F);
         vehicle1.addIs_on_lane(lane);
+        lane.addLane_has_vehicle(vehicle1);
 
         vehicle1.addSpeedX(vehicleSpeed);
         vehicle1.addSpeedY(0F);
         vehicle1.addAccelerationY(0F);
         vehicle1.addAccelerationX(0F);
-        vehicle1.addValueInDollars(1000000F);
+        vehicle1.addValueInDollars(100000F);
 
         model.getVehicles().get(lane).add(vehicle1);
 
     }
 
     private void addPedestrian(Model model) {
+        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        addPedestrianOnLane(model, lane, 2000F);
+        addPedestrianOnLane(model, lane, 2200F);
+    }
+
+    private void addPedestrianOnLane(Model model, Lane lane, float distance){
         Person person = factory.createPerson(ObjectNamer.getName("person"));
         person.addSpeedY(0F);
         person.addSpeedX(0F);
@@ -116,10 +124,9 @@ public class BaseScenarioGenerator2 {
         person.addAccelerationY(0F);
         person.addWidth(50F);
         person.addLength(50F);
-        person.addDistance(3000F);
-//        person.addValueInDollars(10000F);
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        person.addDistance(distance);
         person.addIs_on_lane(lane);
+        lane.addLane_has_pedestrian(person);
         model.getEntities().get(lane).add(person);
     }
 
@@ -144,7 +151,7 @@ public class BaseScenarioGenerator2 {
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
 //        lanesCount = rand.nextInt(4) + 1;
-        lanesCount = 5;
+        lanesCount = 3;
         model.setLanesCount(lanesCount);
 
 
@@ -297,11 +304,10 @@ public class BaseScenarioGenerator2 {
         RandomPositioner randomPositioner = model.getRandomPositioner();
         //Assume that vehicle speed is in kmph
 //        vehicle.addSpeedX((float) (50 + rand.nextInt(90)));
-        vehicle.addSpeedX((float) (20));
+        vehicle.addSpeedX((float) (40));
         vehicle.addSpeedY(0F);
         vehicle.addAccelerationY(0F);
         vehicle.addAccelerationX(0F);
-
 
         vehicle.addDistance(0F);
         vehicle.addLength(sizeManager.getLength("car"));
@@ -312,6 +318,8 @@ public class BaseScenarioGenerator2 {
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
         Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
         vehicle.addIs_on_lane(lane);
+        lane.addLane_has_vehicle(vehicle);
+
         model.getVehicles().get(lane).add(vehicle);
         model.setDriver(driver);
         model.setPassengers(passengers);

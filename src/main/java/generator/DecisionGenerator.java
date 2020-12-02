@@ -1,53 +1,58 @@
 package generator;
 
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.*;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class DecisionGenerator {
     String baseIRI;
     MyFactory factory;
+    private Map<Decision, Action> actionByDecision;
 
     public DecisionGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
+        actionByDecision = new HashMap<>();
     }
 
     public void generate(Model model){
-        HashMap<Decision, Action> actionByDecision = new HashMap<>();
-        model.setActionByDecision(actionByDecision);
-//         adding decisions and actions for basic actions
-        Decision decision_1 = factory.createDecision(ObjectNamer.getName("decision"));
-        Turn_left action_1 = factory.createTurn_left(ObjectNamer.getName("turn_left"));
-        decision_1.addHas_action(action_1);
-        model.getScenario().addHas_decision(decision_1);
-        actionByDecision.put(decision_1, action_1);
+        actionByDecision.clear();
+        model.setActionByDecision(this.actionByDecision);
 
-        Decision decision_2 = factory.createDecision(ObjectNamer.getName("decision"));
-        Turn_right action_2 = factory.createTurn_right(ObjectNamer.getName("turn_right"));
-        decision_2.addHas_action(action_2);
-        model.getScenario().addHas_decision(decision_2);
-        actionByDecision.put(decision_2, action_2);
-
-        Decision decision_3 = factory.createDecision(ObjectNamer.getName("decision"));
-        Follow action_3 = factory.createFollow(ObjectNamer.getName("follow"));
-        decision_3.addHas_action(action_3);
-        model.getScenario().addHas_decision(decision_3);
-        actionByDecision.put(decision_3, action_3);
+        Follow follow = factory.createFollow(ObjectNamer.getName("follow"));
+        createDecision(follow, model);
+        Turn_left turn_left = factory.createTurn_left(ObjectNamer.getName("turn_left"));
+        createDecision(turn_left, model);
+        Turn_right turn_right = factory.createTurn_right(ObjectNamer.getName("turn_right"));
+        createDecision(turn_right, model);
+        Stop stop = factory.createStop(ObjectNamer.getName("stop"));
+        createDecision(stop, model);
 
 //        adding decisions and actions for changing lanes
         for(Model.Side side : model.getLanes().keySet()){
             for(Integer lane_number : model.getLanes().get(side).keySet()){
                 if(lane_number != 0) {
-                    Decision decision = factory.createDecision(ObjectNamer.getName("decision"));
                     String action_name = "change_lane_" + side.toString().toLowerCase() + "_by_" + lane_number;
-                    Action action = factory.createAction(ObjectNamer.getName(action_name));
-                    decision.addHas_action(action);
-                    model.getScenario().addHas_decision(decision);
-                    actionByDecision.put(decision, action);
+                    Change_lane action = factory.createChange_lane(ObjectNamer.getName(action_name));
+                    if(side == Model.Side.LEFT)
+                        action.addLane_change_by(lane_number);
+                    else if(side == Model.Side.RIGHT)
+                        action.addLane_change_by(-lane_number);
+                    createDecision(action, model);
                 }
             }
         }
+    }
+
+    private void createDecision(Action action, Model model){
+        Decision decision = factory.createDecision(ObjectNamer.getName("decision"));
+        decision.addHas_action(action);
+        model.getScenario().addHas_decision(decision);
+        this.actionByDecision.put(decision, action);
+    }
+
+    public Map<Decision, Action> getActionByDecision() {
+        return actionByDecision;
     }
 }

@@ -45,7 +45,6 @@ public class Model {
 
     public static final class Builder{
         private Scenario scenario;
-
         private int lanesCount;
         private Weather weather;
         private Time time;

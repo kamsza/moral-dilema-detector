@@ -1,47 +1,51 @@
 package DilemmaDetector.Consequences;
 
 import DilemmaDetector.Simulator.Actor;
+import DilemmaDetector.Simulator.FactoryWrapper;
 import DilemmaDetector.Simulator.PhysicsUtils;
 import DilemmaDetector.Simulator.RigidBody;
-import generator.Model;
 import project.Decision;
 import project.Living_entity;
 import project.MyFactory;
-import project.Vehicle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionConsequencePredictor {
     private IConsequenceContainer consequenceContainer;
-    private MyFactory factory;
-    private Model model;
+    private FactoryWrapper factoryWrapper;
 
-    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory, Model model) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory) {
         this.consequenceContainer = consequenceContainer;
-        this.factory = factory;
-        this.model = model;
+        this.factoryWrapper = new FactoryWrapper(factory);
+    }
+
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, FactoryWrapper factoryWrapper) {
+        this.consequenceContainer = consequenceContainer;
+        this.factoryWrapper = factoryWrapper;
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor, Actor other) {
-        List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
-
+        List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
         double speed = getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody());
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
-        double materialConsequenceValueOther = getMaterialConsequence(other, speed);
         for (Living_entity victim : individualVictims) {
-            ConsequenceType consequenceType = getHealthConsequenceType(
-                    getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
+            ConsequenceType consequenceType;
+            if (factoryWrapper.isPedestrian(victimActor)) {
+                consequenceType = getHealthConsequenceTypeForPedestrian(
+                        getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
+            } else {
+                consequenceType = getHealthConsequenceType(
+                        getCollisionSpeed(victimActor.getRigidBody(), other.getRigidBody()));
+            }
             if (consequenceType != ConsequenceType.NO_CONSEQUENCE) {
                 consequenceContainer.addHealthConsequence(decision, victim, consequenceType);
             }
         }
         consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
-        consequenceContainer.addMaterialConsequence(decision, other.getEntityName(), materialConsequenceValueOther);
     }
 
     public void createCollisionConsequences(Decision decision, Actor victimActor) {
-        List<Living_entity> individualVictims = getLivingEntitiesFromActor(victimActor);
+        List<Living_entity> individualVictims = factoryWrapper.getLivingEntitiesFromActor(victimActor);
 
         double speed = victimActor.getRigidBody().getSpeed().getMagnitude();
         double materialConsequenceValue = getMaterialConsequence(victimActor, speed);
@@ -53,7 +57,6 @@ public class CollisionConsequencePredictor {
             }
         }
         consequenceContainer.addMaterialConsequence(decision, victimActor.getEntityName(), materialConsequenceValue);
-
     }
 
     private double getCollisionSpeed(RigidBody victimRB, RigidBody otherRB) {
@@ -71,6 +74,26 @@ public class CollisionConsequencePredictor {
         else{
             return (int) Math.round(victimValue * (speed / criticalSpeed));
         }
+    }
+
+    private ConsequenceType getHealthConsequenceTypeForPedestrian(double speedOfCollision) {
+        double killProbability = pedestrianFatalInjuryProbability(speedOfCollision);
+        double severInjuryProbability = pedestrianSeverInjuryProbability(speedOfCollision);
+        double lightInjuryProbability = pedestrianMinorInjuryProbability(speedOfCollision);
+        double maxProbability = killProbability;
+        if (maxProbability < severInjuryProbability)
+            maxProbability = severInjuryProbability;
+        if (maxProbability < lightInjuryProbability)
+            maxProbability = lightInjuryProbability;
+
+        if (maxProbability == killProbability)
+            return ConsequenceType.KILLED;
+        if (maxProbability == severInjuryProbability)
+            return ConsequenceType.SEVERELY_INJURED;
+        if (maxProbability == lightInjuryProbability)
+            return ConsequenceType.LIGHTLY_INJURED;
+
+        return ConsequenceType.NO_CONSEQUENCE;
     }
 
     private ConsequenceType getHealthConsequenceType(double speedOfCollision) {
@@ -91,22 +114,6 @@ public class CollisionConsequencePredictor {
             return ConsequenceType.LIGHTLY_INJURED;
 
         return ConsequenceType.NO_CONSEQUENCE;
-    }
-
-    private List<Living_entity> getLivingEntitiesFromActor(Actor actor) {
-        Vehicle vehicle = factory.getVehicle(actor.getEntity());
-        Living_entity living_entity = factory.getLiving_entity(actor.getEntity());
-        List<Living_entity> result = new ArrayList<>();
-
-        if (vehicle != null) {
-//            System.out.println("Get victims from vehicle");
-            result.addAll(vehicle.getVehicle_has_passenger());
-            result.addAll(vehicle.getVehicle_has_driver());
-        } else if (living_entity != null) {
-            result.add(living_entity);
-        }
-
-        return result;
     }
 
     private double minorInjuryProbability(double speed) {
@@ -162,6 +169,51 @@ public class CollisionConsequencePredictor {
             probability = getProbabilityFromLinearFunction(90, 37.1, 115, 40.0, speed);
         } else {
             probability = getProbabilityFromLinearFunction(115, 40.0, speed, 40.0, speed);
+        }
+        return probability;
+    }
+
+    private double pedestrianFatalInjuryProbability(double speed) {
+        speed = PhysicsUtils.MetersToKmph(speed);
+        double probability;
+        if (speed < 35) {
+            probability = getProbabilityFromLinearFunction(0, 0, 35, 0.1, speed);
+        } else if (speed < 50) {
+            probability = getProbabilityFromLinearFunction(35, 0.1, 50, 0.4, speed);
+        } else if (speed < 65) {
+            probability = getProbabilityFromLinearFunction(50, 0.4, 65, 0.9, speed);
+        } else {
+            probability = getProbabilityFromLinearFunction(65, 0.9, 80, 1, speed);
+        }
+        return probability;
+    }
+
+    private double pedestrianMinorInjuryProbability(double speed) {
+        speed = PhysicsUtils.MetersToKmph(speed);
+        double probability;
+        if (speed < 35) {
+            probability = getProbabilityFromLinearFunction(0, 0, 35, 0.9, speed);
+        } else if (speed < 50) {
+            probability = getProbabilityFromLinearFunction(35, 0.9, 50, 0.6, speed);
+        } else if (speed < 65) {
+            probability = getProbabilityFromLinearFunction(50, 0.6, 65, 0.1, speed);
+        } else {
+            probability = getProbabilityFromLinearFunction(65, 0.6, 80, 0, speed);
+        }
+        return probability;
+    }
+
+    private double pedestrianSeverInjuryProbability(double speed) {
+        speed = PhysicsUtils.MetersToKmph(speed);
+        double probability;
+        if (speed < 35) {
+            probability = getProbabilityFromLinearFunction(0, 0, 35, 0.2, speed);
+        } else if (speed < 50) {
+            probability = getProbabilityFromLinearFunction(35, 0.2, 50, 0.7, speed);
+        } else if (speed < 65) {
+            probability = getProbabilityFromLinearFunction(50, 0.7, 65, 0.4, speed);
+        } else {
+            probability = getProbabilityFromLinearFunction(65, 0.4, 80, 0.1, speed);
         }
         return probability;
     }
