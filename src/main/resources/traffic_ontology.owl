@@ -3345,6 +3345,119 @@
     
 
 
+    <!-- JUNCTION-3489d3d5-2100-4cc9-bba2-2fefdff92330 -->
+
+    <owl:NamedIndividual rdf:about="JUNCTION-3489d3d5-2100-4cc9-bba2-2fefdff92330">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38380163535476</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381757650524378</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- JUNCTION-504b553d-9271-431f-8839-d1a16b8230e3 -->
+
+    <owl:NamedIndividual rdf:about="JUNCTION-504b553d-9271-431f-8839-d1a16b8230e3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38377062231302</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381764523684978</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- JUNCTION-cef25287-594a-4e0c-aa6b-d8c64df28f95 -->
+
+    <owl:NamedIndividual rdf:about="JUNCTION-cef25287-594a-4e0c-aa6b-d8c64df28f95">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38377967476845</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381763517856598</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- JUNCTION-d01c6d20-a384-455e-8542-97436055b0fd -->
+
+    <owl:NamedIndividual rdf:about="JUNCTION-d01c6d20-a384-455e-8542-97436055b0fd">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38379182852805</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381773576140404</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ROAD-57370f4c-a66d-4742-b9ab-6d7a66614fa1 -->
+
+    <owl:NamedIndividual rdf:about="ROAD-57370f4c-a66d-4742-b9ab-6d7a66614fa1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="JUNCTION-d01c6d20-a384-455e-8542-97436055b0fd"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="ROADATTRIBUTES-a39d9c18-21dd-4aa0-8669-1fd4b878265c"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="JUNCTION-cef25287-594a-4e0c-aa6b-d8c64df28f95"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">253.125</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ROAD-71495293-abc5-4362-9d33-034474b62848 -->
+
+    <owl:NamedIndividual rdf:about="ROAD-71495293-abc5-4362-9d33-034474b62848">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="JUNCTION-cef25287-594a-4e0c-aa6b-d8c64df28f95"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="JUNCTION-504b553d-9271-431f-8839-d1a16b8230e3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">111</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">168.75</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">354.375</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ROAD-db80b242-6270-4a0d-ac04-ba7a0bce7aeb -->
+
+    <owl:NamedIndividual rdf:about="ROAD-db80b242-6270-4a0d-ac04-ba7a0bce7aeb">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="JUNCTION-3489d3d5-2100-4cc9-bba2-2fefdff92330"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="ROADATTRIBUTES-f9b640fb-6e98-4b7c-a1ec-fc1a4e9be751"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="JUNCTION-cef25287-594a-4e0c-aa6b-d8c64df28f95"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">112</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">163.125</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">348.75</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ROADATTRIBUTES-a39d9c18-21dd-4aa0-8669-1fd4b878265c -->
+
+    <owl:NamedIndividual rdf:about="ROADATTRIBUTES-a39d9c18-21dd-4aa0-8669-1fd4b878265c">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- ROADATTRIBUTES-f9b640fb-6e98-4b7c-a1ec-fc1a4e9be751 -->
+
+    <owl:NamedIndividual rdf:about="ROADATTRIBUTES-f9b640fb-6e98-4b7c-a1ec-fc1a4e9be751">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction -->
 
     <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#scenario_with_junction">
@@ -3487,6 +3600,232 @@
     <owl:NamedIndividual rdf:about="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#waymo_vehicle_main">
         <rdf:type rdf:resource="http://webprotege.stanford.edu/vehicle"/>
         <BDGSqwMbfBgw7pUJ8IOnJ1:is_on_lane rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#waymo_lane_0"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-3bbb63d3-a9d5-46fb-9fa3-9bbe58b17eb3 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-3bbb63d3-a9d5-46fb-9fa3-9bbe58b17eb3">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38379182852805</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381773576140404</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-3c7f401c-c53c-4723-a194-a3e0dadbd495 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-3c7f401c-c53c-4723-a194-a3e0dadbd495">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38377967476845</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381763517856598</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-4a430c12-3962-420f-973e-0c5916d7b2ea -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-4a430c12-3962-420f-973e-0c5916d7b2ea">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38380163535476</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381757650524378</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-7de5fd20-f6a1-4d71-afa3-c645c8d4b11d -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-7de5fd20-f6a1-4d71-afa3-c645c8d4b11d">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38380163535476</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381757650524378</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-840ba8b6-fdaa-4724-a862-6c5a1eee318c -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-840ba8b6-fdaa-4724-a862-6c5a1eee318c">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38377062231302</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381764523684978</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-9e3177f3-1a63-405d-b36d-52a723d853c4 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-9e3177f3-1a63-405d-b36d-52a723d853c4">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38377967476845</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381763517856598</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-e4ab51cb-ea39-402a-a2b6-3f3e44ce867e -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-e4ab51cb-ea39-402a-a2b6-3f3e44ce867e">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38377062231302</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381764523684978</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/JUNCTION-f3a96ca9-fbe8-4d70-b70d-d180cb08f85d -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/JUNCTION-f3a96ca9-fbe8-4d70-b70d-d180cb08f85d">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#junction"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">48.38379182852805</BDGSqwMbfBgw7pUJ8IOnJ1:latitude>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#string">11.381773576140404</BDGSqwMbfBgw7pUJ8IOnJ1:longitude>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROAD-49a69298-adf3-407e-890a-9861bd6af1e2 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROAD-49a69298-adf3-407e-890a-9861bd6af1e2">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://www.w3.org/2003/11/JUNCTION-3c7f401c-c53c-4723-a194-a3e0dadbd495"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://www.w3.org/2003/11/JUNCTION-840ba8b6-fdaa-4724-a862-6c5a1eee318c"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">111</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">168.75</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">354.375</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROAD-723fec39-e4d6-4d79-9254-620a882803f1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROAD-723fec39-e4d6-4d79-9254-620a882803f1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://www.w3.org/2003/11/JUNCTION-7de5fd20-f6a1-4d71-afa3-c645c8d4b11d"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="http://www.w3.org/2003/11/ROADATTRIBUTES-fc3b9a18-ad85-4113-8a21-ca4da4ddff45"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://www.w3.org/2003/11/JUNCTION-3c7f401c-c53c-4723-a194-a3e0dadbd495"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">112</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">163.125</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">348.75</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROAD-874d8d5d-9c18-465a-88f5-80833ca71d00 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROAD-874d8d5d-9c18-465a-88f5-80833ca71d00">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://www.w3.org/2003/11/JUNCTION-3bbb63d3-a9d5-46fb-9fa3-9bbe58b17eb3"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="http://www.w3.org/2003/11/ROADATTRIBUTES-88c0a08c-705f-4900-aef4-c6dec6fb5afa"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://www.w3.org/2003/11/JUNCTION-3c7f401c-c53c-4723-a194-a3e0dadbd495"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">253.125</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROAD-8c860987-6fe7-46e5-a266-bdd557de0684 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROAD-8c860987-6fe7-46e5-a266-bdd557de0684">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://www.w3.org/2003/11/JUNCTION-4a430c12-3962-420f-973e-0c5916d7b2ea"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="http://www.w3.org/2003/11/ROADATTRIBUTES-16285296-12a1-4ee4-a2e5-018f17d80655"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://www.w3.org/2003/11/JUNCTION-9e3177f3-1a63-405d-b36d-52a723d853c4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">112</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">163.125</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">348.75</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROAD-b9e0ef68-abaf-4851-a4b6-0e13b9497da1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROAD-b9e0ef68-abaf-4851-a4b6-0e13b9497da1">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://www.w3.org/2003/11/JUNCTION-f3a96ca9-fbe8-4d70-b70d-d180cb08f85d"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:has_road_attributes rdf:resource="http://www.w3.org/2003/11/ROADATTRIBUTES-9d7f6a2c-06c6-4031-8da3-4c59fb4d1735"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://www.w3.org/2003/11/JUNCTION-9e3177f3-1a63-405d-b36d-52a723d853c4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">59</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">253.125</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROAD-fb8d247d-df34-404a-a86e-bff4871bd03e -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROAD-fb8d247d-df34-404a-a86e-bff4871bd03e">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ends rdf:resource="http://www.w3.org/2003/11/JUNCTION-9e3177f3-1a63-405d-b36d-52a723d853c4"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:starts rdf:resource="http://www.w3.org/2003/11/JUNCTION-e4ab51cb-ea39-402a-a2b6-3f3e44ce867e"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:average_speed rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">111</BDGSqwMbfBgw7pUJ8IOnJ1:average_speed>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:end_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">168.75</BDGSqwMbfBgw7pUJ8IOnJ1:end_angle>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:start_angle rdf:datatype="http://www.w3.org/2001/XMLSchema#float">354.375</BDGSqwMbfBgw7pUJ8IOnJ1:start_angle>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROADATTRIBUTES-16285296-12a1-4ee4-a2e5-018f17d80655 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROADATTRIBUTES-16285296-12a1-4ee4-a2e5-018f17d80655">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROADATTRIBUTES-88c0a08c-705f-4900-aef4-c6dec6fb5afa -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROADATTRIBUTES-88c0a08c-705f-4900-aef4-c6dec6fb5afa">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROADATTRIBUTES-9d7f6a2c-06c6-4031-8da3-4c59fb4d1735 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROADATTRIBUTES-9d7f6a2c-06c6-4031-8da3-4c59fb4d1735">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3.org/2003/11/ROADATTRIBUTES-fc3b9a18-ad85-4113-8a21-ca4da4ddff45 -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3.org/2003/11/ROADATTRIBUTES-fc3b9a18-ad85-4113-8a21-ca4da4ddff45">
+        <rdf:type rdf:resource="http://webprotege.stanford.edu/project/BDGSqwMbfBgw7pUJ8IOnJ1#road_attributes"/>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:bridge rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:bridge>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:controlled_access>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:ferry rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:ferry>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:motorway rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BDGSqwMbfBgw7pUJ8IOnJ1:motorway>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:service_area rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:service_area>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:toll rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:toll>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:tunnel rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:tunnel>
+        <BDGSqwMbfBgw7pUJ8IOnJ1:urban rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</BDGSqwMbfBgw7pUJ8IOnJ1:urban>
     </owl:NamedIndividual>
     
 

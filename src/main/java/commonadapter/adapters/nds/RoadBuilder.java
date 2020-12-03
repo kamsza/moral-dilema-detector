@@ -3,6 +3,7 @@ package commonadapter.adapters.nds;
 import adapter.JunctionPrx;
 import adapter.RoadAttributesPrx;
 import adapter.RoadPrx;
+import commonadapter.adapters.nds.lane.LaneTile;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
 import commonadapter.adapters.nds.routing.fixedAttributes.RoutingAttr;
@@ -31,7 +32,8 @@ public class RoadBuilder {
     }
 
     public static void main(String[] args) {
-        new RoadBuilder().buildRoads("src\\main\\resources\\nds\\routing\\routingTile_545555100.json");
+        //new RoadBuilder().buildRoads("src\\main\\resources\\nds\\routing\\routingTile_545555100.json");
+        new RoadBuilder().buildRoadsLaneTile("src\\main\\resources\\nds\\lane\\laneTile_545555100.json");
     }
 
     public void buildRoads(String jsonFilePath) {
@@ -69,10 +71,63 @@ public class RoadBuilder {
         }
     }
 
+
+    public void buildRoadsLaneTile(String jsonFilePath) {
+        try {
+            LaneTile laneTile = JsonDeserializer.getDeserializedLaneTile(jsonFilePath);
+            AtomicInteger laneNumber = new AtomicInteger(0);
+            laneTile
+                    .attributeMaps
+                    .attrMap
+                    .data
+                    .forEach(map -> addAttrMap());
+
+            map
+                    .attrValList
+                    .values
+                    .data
+                    .foreach(lane -> addLane());
+
+
+            proxyService.persistOntologyChanges();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
     private static String extractTileId(String jsonFilePath) {
         int size = jsonFilePath.length();
         return jsonFilePath.substring(size - 14, size - 5);
     }
+
+    private void addAttrMap() {
+
+
+
+    }
+
+    private void addLane(){
+
+        if(attrType == "LANE_GROUP"){
+            id
+           data
+            if (laneType == NORMAL_LANE)
+
+           - laneConnectivityElements
+           - hasLaneBoundries
+
+        }
+    }
+
+    private void addLaneBoundary(){
+        boundaryElements
+                parallelElements lub sequentialElements
+                data
+    }
+
+
+    private void add
 
     private void addLink(LinkData link, int roadNumber) {
         RoadPrx roadPrx = proxyService.createRoadPrx();
