@@ -25,6 +25,8 @@ public interface Lane extends BaseItem
 
     void setRoad(String roadId, com.zeroc.Ice.Current current);
 
+    void setLaneNumber(int laneNumber, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -122,6 +124,24 @@ public interface Lane extends BaseItem
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_setLaneNumber(Lane obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        int iceP_laneNumber;
+        iceP_laneNumber = istr.readInt();
+        inS.endReadParams();
+        obj.setLaneNumber(iceP_laneNumber, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
@@ -130,6 +150,7 @@ public interface Lane extends BaseItem
         "ice_ids",
         "ice_isA",
         "ice_ping",
+        "setLaneNumber",
         "setLeftSideBoundary",
         "setRightSideBoundary",
         "setRoad",
@@ -171,17 +192,21 @@ public interface Lane extends BaseItem
             }
             case 5:
             {
-                return _iceD_setLeftSideBoundary(this, in, current);
+                return _iceD_setLaneNumber(this, in, current);
             }
             case 6:
             {
-                return _iceD_setRightSideBoundary(this, in, current);
+                return _iceD_setLeftSideBoundary(this, in, current);
             }
             case 7:
             {
-                return _iceD_setRoad(this, in, current);
+                return _iceD_setRightSideBoundary(this, in, current);
             }
             case 8:
+            {
+                return _iceD_setRoad(this, in, current);
+            }
+            case 9:
             {
                 return _iceD_setWidth(this, in, current);
             }

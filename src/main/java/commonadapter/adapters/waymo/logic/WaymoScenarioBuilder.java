@@ -7,9 +7,11 @@ import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.ObjectPrx;
 import com.zeroc.Ice.Util;
 import commonadapter.CommunicationUtils;
+import commonadapter.adapters.waymo.logic.lidardata.Box;
 import commonadapter.adapters.waymo.logic.lidardata.Label;
 import commonadapter.adapters.waymo.logic.lidardata.LidarView;
 import commonadapter.adapters.waymo.logic.services.IceProxyService;
+import commonadapter.adapters.waymo.logic.services.LaneService;
 import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
 import org.swrlapi.drools.owl.individuals.I;
@@ -17,16 +19,19 @@ import org.swrlapi.drools.owl.individuals.I;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WaymoScenarioBuilder {
 
-    private String waymoJsonFilePath;
-    private IceProxyService proxyService;
+    private final String waymoJsonFilePath;
+    private final IceProxyService proxyService;
+    private final LaneService laneService;
 
     public WaymoScenarioBuilder(String waymoJsonFilePath) {
 
         this.waymoJsonFilePath = waymoJsonFilePath;
         this.proxyService = new IceProxyService();
+        this.laneService = new LaneService(this.proxyService);
     }
 
     public String createScenario()  {
@@ -34,14 +39,21 @@ public class WaymoScenarioBuilder {
         ScenarioPrx scenarioPrx = proxyService.createScenarioPrx();
 
         try {
+
             List<LidarView> lidarViews = getDeserializedLidarViews(waymoJsonFilePath);
+
+            this.laneService.initializeLanes(lidarViews.stream()
+                    .flatMap(lidarView -> lidarView.labels.stream()).collect(Collectors.toList()));
+
+            addMainVehicleToScenario(scenarioPrx);
+
             lidarViews.stream()
                     .flatMap(lidarView -> lidarView.labels.stream())
                     .forEach(label -> addEntityBasedOnLabel(scenarioPrx, label));
 
             proxyService.persistOntologyChanges();
 
-            Logger.printLogMessage("CREATED SCENARIO ID = " + scenarioPrx.getId(), LogMessageType.INFO);
+            Logger.printLogMessage("CREATED SCENARIO: ID = " + scenarioPrx.getId(), LogMessageType.INFO);
 
         } catch (Exception ex) {
 
@@ -72,10 +84,9 @@ public class WaymoScenarioBuilder {
         }
     }
 
-    private void addMainVehicleToScenario(ScenarioPrx scenarioPrx) {
+    private void addMainVehicleToScenario(ScenarioPrx scenarioPrx) throws IOException {
 
-        VehiclePrx mainVehiclePrx = proxyService.createVehiclePrx();
-
+        addEntityBasedOnLabel(scenarioPrx, getMainVehicleArtificialLabel());
     }
 
     private void addEntityBasedOnLabel(ScenarioPrx scenarioPrx, Label label) {
@@ -125,7 +136,7 @@ public class WaymoScenarioBuilder {
 
     private void assignLane(EntityPrx entityPrx, Label label) { // TODO
 
-        LanePrx lanePrx = proxyService.createLanePrx();
+        LanePrx lanePrx = laneService.getLaneForEntity(entityPrx, label);
         entityPrx.setLane(lanePrx.getId());
     }
 
@@ -148,8 +159,12 @@ public class WaymoScenarioBuilder {
         return mapper.readValue(new File(jsonFilePath), new TypeReference<List<LidarView>>(){});
     }
 
-    private Label getMainVehicleArtificialLabel() {
-        return new Label();
+    private Label getMainVehicleArtificialLabel() throws IOException {
+
+        String jsonFilePath = "src\\main\\resources\\waymo\\waymo-projected-lidar-label-artificial.json";
+        return new ObjectMapper().readValue(new File(jsonFilePath), new TypeReference<Label>(){});
     }
+
+
 
 }
