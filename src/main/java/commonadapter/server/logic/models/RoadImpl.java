@@ -33,21 +33,21 @@ public class RoadImpl extends BaseItemImpl implements Road {
     @Override
     public void setStarts(String roadPointId, Current current) {
         
-        project.Road_point roadPoint = (Road_point) ontologyService.loadItem(id).getWrappedIndividual();
+        project.Road_point roadPoint = (Road_point) ontologyService.loadItem(roadPointId).getWrappedIndividual();
         this.road.addStarts(roadPoint);
     }
 
     @Override
     public void setEnds(String roadPointId, Current current) {
 
-        project.Road_point roadPoint = (Road_point) ontologyService.loadItem(id).getWrappedIndividual();
+        project.Road_point roadPoint = (Road_point) ontologyService.loadItem(roadPointId).getWrappedIndividual();
         this.road.addEnds(roadPoint);
     }
 
     @Override
     public void setRoadAttributes(String roadAttributesId, Current current) {
 
-        project.Road_attributes attributes = (Road_attributes) ontologyService.loadItem(id, ItemType.ROADATTRIBUTES).getWrappedIndividual();
+        project.Road_attributes attributes = (Road_attributes) ontologyService.loadItem(roadAttributesId, ItemType.ROADATTRIBUTES).getWrappedIndividual();
         this.road.addHas_road_attributes(attributes);
     }
 
