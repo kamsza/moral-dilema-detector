@@ -5,7 +5,6 @@ import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
 import DilemmaDetector.Simulator.Actor;
-import DilemmaDetector.Simulator.RigidBodyMapper;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
@@ -21,7 +20,6 @@ import visualization.Visualization;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,7 +27,7 @@ public class Main {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Model getModelFromGenerator(OWLFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -37,7 +35,7 @@ public class Main {
         return model;
     }
 
-    public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
+    public static Model getModelFromReader(OWLFactory factory, int number) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
         Model model = scenarioReader.getModel(number);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -57,7 +55,7 @@ public class Main {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
-        MyFactory factory = new MyFactory(ontology);
+        OWLFactory factory = new OWLFactory(ontology);
         MoralDilemmaDetector.Builder builder = new MoralDilemmaDetector.Builder();
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();

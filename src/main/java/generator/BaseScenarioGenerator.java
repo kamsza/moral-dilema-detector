@@ -1,14 +1,11 @@
 package generator;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.Animal;
 import project.Driver;
 import project.Lane;
 import project.Living_entity;
-import project.MyFactory;
+import project.OWLFactory;
 import project.Non_living_entity;
-import project.On_the_lane;
-import project.On_the_road;
 import project.Passenger;
 import project.Person;
 import project.Road_type;
@@ -22,14 +19,13 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
 public class BaseScenarioGenerator {
     private String baseIRI;
-    private MyFactory factory;
+    private OWLFactory factory;
 
     private Random rand;
     private RandomSubclassGenerator subclassGenerator;
@@ -42,7 +38,7 @@ public class BaseScenarioGenerator {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
     }
 
-    public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
+    public BaseScenarioGenerator(OWLFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
         this.rand = new Random();

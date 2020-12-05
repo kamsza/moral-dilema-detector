@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
-import project.MyFactory;
+import project.OWLFactory;
 import project.Scenario;
 import project.Time;
 import project.Vehicle;
@@ -29,7 +29,7 @@ public class Compare {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
         compareSolutions(ontology, manager);
-        MyFactory factory = new MyFactory(ontology);
+        OWLFactory factory = new OWLFactory(ontology);
         RandomSubclassGenerator subclassGenerator = new RandomSubclassGenerator(factory);
         Scenario s = factory.createScenario("A");
         Time t = factory.createTime("T");
@@ -48,7 +48,7 @@ public class Compare {
         System.out.println("OWLAPI TIME: " + (System.nanoTime() - startTime) / 1000000);
 
         startTime = System.nanoTime();
-        MyFactory factory = new MyFactory(ontology);
+        OWLFactory factory = new OWLFactory(ontology);
         Scenario s = factory.createScenario("scenarioJAVA");
         factory.saveOwlOntology();
         System.out.println("JAVA TIME: " + (System.nanoTime() - startTime) / 1000000);

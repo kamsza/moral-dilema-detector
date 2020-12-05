@@ -3,10 +3,12 @@ package commonadapter.adapters.waymo.logic.services;
 import adapter.EntityPrx;
 import adapter.Lane;
 import adapter.LanePrx;
+import adapter.RoadPrx;
 import commonadapter.adapters.waymo.logic.lidardata.Label;
 import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +34,7 @@ public class LaneService {
         return lanes.get(laneNo);
     }
 
-    public void initializeLanes(List<Label> labels) {
+    public void initializeLanes(List<Label> labels, @Nullable String roadId) {
 
         Double maxY = labels.stream()
                 .map(label -> label.box.centerY)
@@ -52,10 +54,19 @@ public class LaneService {
             LanePrx newLanePrx = iceProxyService.createLanePrx();
             newLanePrx.setWidth(FIXED_LANE_WIDTH);
             newLanePrx.setLaneNumber(i);
+
+            if (roadId != null)
+                placeLaneOnRoad(newLanePrx, roadId);
+
             lanes.put(i, newLanePrx);
 
             Logger.printLogMessage("created lane no. " + i + ": " + newLanePrx.getId(), LogMessageType.INFO);
         }
+    }
+
+    public void placeLaneOnRoad(LanePrx lanePrx, String roadId) {
+
+        lanePrx.setRoad(roadId);
     }
 
     private int calculateLaneNumber(Double centerY) {

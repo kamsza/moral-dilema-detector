@@ -7,7 +7,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 public class OntologyUtils {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Model getModelFromGenerator(OWLFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -23,8 +23,8 @@ public class OntologyUtils {
         return model;
     }
 
-    public static MyFactory getMyFactoryInstance() throws OWLOntologyCreationException {
-        return new MyFactory(getOntologyInstance());
+    public static OWLFactory getMyFactoryInstance() throws OWLOntologyCreationException {
+        return new OWLFactory(getOntologyInstance());
     }
 
     public static OWLOntology getOntologyInstance() throws OWLOntologyCreationException {

@@ -123,11 +123,7 @@ module adapter
 
   interface Manager
   {
-    string load(string itemId, ItemType type);
-
     string create(ItemType type);
-
-
 
     void persist();
   };
