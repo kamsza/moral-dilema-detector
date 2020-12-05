@@ -6,7 +6,7 @@ import DilemmaDetector.Simulator.RigidBody;
 import generator.Model;
 import project.Decision;
 import project.Living_entity;
-import project.MyFactory;
+import project.OWLFactory;
 import project.Vehicle;
 
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class CollisionConsequencePredictor {
     private IConsequenceContainer consequenceContainer;
-    private MyFactory factory;
+    private OWLFactory factory;
     private Model model;
 
-    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, MyFactory factory, Model model) {
+    public CollisionConsequencePredictor(IConsequenceContainer consequenceContainer, OWLFactory factory, Model model) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         this.model = model;

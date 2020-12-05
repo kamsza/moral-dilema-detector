@@ -1,5 +1,6 @@
 package commonadapter.adapters.nds;
 
+import adapter.BaseItemPrx;
 import adapter.JunctionPrx;
 import adapter.RoadAttributesPrx;
 import adapter.RoadPrx;
@@ -31,19 +32,16 @@ public class RoadBuilder {
     private static final float maxAngleDegree = 360f;
     private static final float angleCoefficient = 64f;
     private IceProxyNds proxyService;
+    private final String routingTileFilePath;
 
-    public RoadBuilder() {
+    public RoadBuilder(String routingTileFilePath) {
         this.proxyService = new IceProxyNds();
+        this.routingTileFilePath = routingTileFilePath;
     }
 
-    public static void main(String[] args) {
-        //new RoadBuilder().buildRoads("src\\main\\resources\\nds\\routing\\routingTile_545555100.json");
-        new RoadBuilder().buildRoadsLaneTile("src\\main\\resources\\nds\\lane\\laneTile_545555100.json");
-    }
-
-    public void buildRoads(String jsonFilePath) {
+    public List<String> buildRoads() {
         try {
-            RoutingTile routingTile = JsonDeserializer.getDeserializedRoutingTile(jsonFilePath);
+            RoutingTile routingTile = JsonDeserializer.getDeserializedRoutingTile(this.routingTileFilePath);
             AtomicInteger roadNumber = new AtomicInteger(0);
             routingTile
                     .links
@@ -51,7 +49,7 @@ public class RoadBuilder {
                     .data
                     .forEach(link ->  addLink(link, roadNumber.getAndIncrement()));
 
-            String tileId = extractTileId(jsonFilePath);
+            String tileId = extractTileId(this.routingTileFilePath);
             routingTile
                     .simpleIntersection
                     .simpleIntersection
@@ -74,6 +72,7 @@ public class RoadBuilder {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return roadPrxList.stream().map(BaseItemPrx::getId).collect(Collectors.toList());
     }
 
 

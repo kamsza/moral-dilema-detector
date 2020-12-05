@@ -31,33 +31,15 @@ public class IceProxyNds {
         return RoadPrx.checkedCast(basePrx);
     }
 
-    public RoadPrx getRoadPrx(String roadId) {
-        String loadedRoadId = managerPrx.load(roadId, ItemType.ROAD);
-        ObjectPrx basePrx = getBasePrx(loadedRoadId);
-        return RoadPrx.checkedCast(basePrx);
-    }
-
     public JunctionPrx createJunctionPrx() {
         String junctionId = managerPrx.create(ItemType.JUNCTION);
         ObjectPrx basePrx = getBasePrx(junctionId);
         return JunctionPrx.checkedCast(basePrx);
     }
 
-    public JunctionPrx getJunctionPrx(String junctionId) {
-        String loadedJunctionId = managerPrx.create(ItemType.JUNCTION);
-        ObjectPrx basePrx = getBasePrx(loadedJunctionId);
-        return JunctionPrx.checkedCast(basePrx);
-    }
-
     public RoadAttributesPrx createRoadAttributesPrx() {
         String roadAttributesId = managerPrx.create(ItemType.ROADATTRIBUTES);
         ObjectPrx basePrx = getBasePrx(roadAttributesId);
-        return RoadAttributesPrx.checkedCast(basePrx);
-    }
-
-    public RoadAttributesPrx getRoadAttributesPrx(String roadAttrId) {
-        String loadedRoadAttributesId = managerPrx.load(roadAttrId, ItemType.ROADATTRIBUTES);
-        ObjectPrx basePrx = getBasePrx(loadedRoadAttributesId);
         return RoadAttributesPrx.checkedCast(basePrx);
     }
 

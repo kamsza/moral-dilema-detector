@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 // Module detecting if we cannot avoid losing material value
 public class MaterialValueModule implements IMoralDilemmaDetectorModule {
-    private MyFactory factory;
+    private OWLFactory factory;
 
-    public MaterialValueModule(MyFactory factory) {
+    public MaterialValueModule(OWLFactory factory) {
         this.factory = factory;
     }
 

@@ -75,9 +75,10 @@ public class ServerDashboard extends JFrame implements ActionListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
             owlFilePath = chooser.getSelectedFile().getAbsolutePath();
+            startServerButton.setVisible(true);
         }
 
-        startServerButton.setVisible(true);
+
 
     }
 
@@ -89,6 +90,7 @@ public class ServerDashboard extends JFrame implements ActionListener {
 
         serverThread.start();
 
+        startServerButton.setVisible(false);
         stopServerButton.setVisible(true);
     }
 

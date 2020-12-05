@@ -51,23 +51,23 @@ public class ScenarioModifier {
 
     public void modifyScenario(String jsonFilePath, String id)  {
 
-        String scenarioId = managerPrx.load(id, ItemType.SCENARIO);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(scenarioId));
-        scenarioPrx = ScenarioPrx.checkedCast(basePrx);
-
-        try {
-            List<LidarView> lidarViews = getDeserializedLidarViews(jsonFilePath);
-            lidarViews.stream()
-                    .flatMap(lidarView -> lidarView.labels.stream())
-                    .forEach(this::addEntityBasedOnLabel);
-
-            managerPrx.persist();
-
-            System.out.println("CREATED SCENARIO ID = " + scenarioId);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        String scenarioId = managerPrx.load(id, ItemType.SCENARIO);
+//        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(scenarioId));
+//        scenarioPrx = ScenarioPrx.checkedCast(basePrx);
+//
+//        try {
+//            List<LidarView> lidarViews = getDeserializedLidarViews(jsonFilePath);
+//            lidarViews.stream()
+//                    .flatMap(lidarView -> lidarView.labels.stream())
+//                    .forEach(this::addEntityBasedOnLabel);
+//
+//            managerPrx.persist();
+//
+//            System.out.println("CREATED SCENARIO ID = " + scenarioId);
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
 
     }
 
