@@ -25,25 +25,6 @@ public class ManagerImpl implements Manager {
     }
 
     @Override
-    public String load(String itemId, ItemType type, Current current) {
-
-//        // else
-//        String id = "";
-//        BaseItemImpl loadedItem = null;
-//
-//
-//        loadedItem = ontologyService.loadItem(itemId, type);
-//        id = loadedItem.getId();
-//        current.adapter.add(loadedItem, new Identity(id, GLOBAL_ICE_CATEGORY));
-
-
-
-
-        return "";
-    }
-
-
-    @Override
     public String create(ItemType type, Current current) {
 
         String id = "";

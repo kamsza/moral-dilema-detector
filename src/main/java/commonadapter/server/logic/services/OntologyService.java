@@ -1,11 +1,13 @@
 package commonadapter.server.logic.services;
 
+import adapter.BaseItemPrx;
 import adapter.ItemType;
 import commonadapter.server.logic.exceptions.OntologyItemCreationException;
 import commonadapter.server.logic.exceptions.OntologyItemLoadingException;
 import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
 import commonadapter.server.logic.models.*;
+import javafx.util.Pair;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -27,7 +29,7 @@ public class OntologyService {
 
     private String ontologyFilePath;
 
-    private Map<String, BaseItemImpl> loadedItems;
+    private Map<String, Pair<BaseItemImpl, Boolean>> loadedItems;
 
     public OntologyService(String ontologyFilePath) {
 
@@ -93,7 +95,7 @@ public class OntologyService {
                 break;
         }
 
-        loadedItems.put(item.getId(), item);
+        loadedItems.put(item.getId(), new Pair<>(item, true));
 
         return item;
     }
@@ -105,7 +107,7 @@ public class OntologyService {
     public BaseItemImpl loadItem(String id, @Nullable ItemType type) {
 
         if (checkIfLoaded(id)) {
-            return loadedItems.get(id);
+            return loadedItems.get(id).getKey();
         }
 
         if (type == null)
@@ -149,7 +151,7 @@ public class OntologyService {
                 break;
         }
 
-        loadedItems.put(item.getId(), item);
+        loadedItems.put(item.getId(), new Pair<>(item, false));
 
         return item;
     }
@@ -162,10 +164,12 @@ public class OntologyService {
 
             StringBuffer sb = new StringBuffer();
 
-            loadedItems.keySet().forEach(id -> {
-                sb.append(id);
-                sb.append("\n");
-            });
+            loadedItems.entrySet()
+                    .forEach(entry -> sb
+                            .append(entry.getKey())
+                            .append(" RMI Object: ")
+                            .append(entry.getValue().getValue())
+                            .append("\n"));
 
             Logger.printLogMessage(sb.toString(), LogMessageType.INFO);
 

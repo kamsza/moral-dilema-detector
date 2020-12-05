@@ -32,9 +32,7 @@ public class RoadImpl extends BaseItemImpl implements Road {
 
     @Override
     public void setStarts(String roadPointId, Current current) {
-
-
-
+        
         project.Road_point roadPoint = (Road_point) ontologyService.loadItem(id).getWrappedIndividual();
         this.road.addStarts(roadPoint);
     }
