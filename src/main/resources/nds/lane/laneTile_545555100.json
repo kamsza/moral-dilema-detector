@@ -226,6 +226,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 50,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 9,
                                   "destLaneConnectorId": 12
@@ -234,7 +235,94 @@
                               }
                             ]
                           },
-                          "hasLaneBoundaries": false
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]
@@ -296,6 +384,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 50,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 8,
                                   "destLaneConnectorId": 9
@@ -304,7 +393,94 @@
                               }
                             ]
                           },
-                          "hasLaneBoundaries": false
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]
@@ -366,6 +542,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 50,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 12,
                                   "destLaneConnectorId": 20
@@ -374,7 +551,94 @@
                               }
                             ]
                           },
-                          "hasLaneBoundaries": false
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]
@@ -430,6 +694,7 @@
                         "__objectChoice": {
                           "id": 51,
                           "hasReferenceAcrossFeatures": false,
+                          "speedLimit": 60,
                           "numLaneConnectivityElements": 1,
                           "laneConnectivityElements": {
                             "data": [
@@ -444,7 +709,94 @@
                               }
                             ]
                           },
-                          "hasLaneBoundaries": false
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]
@@ -500,6 +852,7 @@
                         "__objectChoice": {
                           "id": 41,
                           "hasReferenceAcrossFeatures": false,
+                          "speedLimit": 60,
                           "numLaneConnectivityElements": 1,
                           "laneConnectivityElements": {
                             "data": [
@@ -514,7 +867,94 @@
                               }
                             ]
                           },
-                          "hasLaneBoundaries": false
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]
@@ -576,6 +1016,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 60,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 21,
                                   "destLaneConnectorId": 5
@@ -697,6 +1138,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 70,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 5,
                                   "destLaneConnectorId": 3
@@ -706,6 +1148,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 70,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 5,
                                   "destLaneConnectorId": 4
@@ -714,7 +1157,94 @@
                               }
                             ]
                           },
-                          "hasLaneBoundaries": false
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]

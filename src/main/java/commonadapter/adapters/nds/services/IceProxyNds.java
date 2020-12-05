@@ -19,6 +19,12 @@ public class IceProxyNds {
         }
     }
 
+    public LanePrx createLanePrx() {
+        String laneId = managerPrx.create(ItemType.LANE);
+        ObjectPrx basePrx = getBasePrx(laneId);
+        return LanePrx.checkedCast(basePrx);
+    }
+
     public RoadPrx createRoadPrx() {
         String roadId = managerPrx.create(ItemType.ROAD);
         ObjectPrx basePrx = getBasePrx(roadId);

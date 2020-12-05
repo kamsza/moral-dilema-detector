@@ -95,6 +95,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": false,
+                                "speedLimit": 50,
                                 "hasGeometry": false
                               }
                             ]
@@ -174,6 +175,7 @@
                         "__objectChoice": {
                           "id": 200,
                           "hasReferenceAcrossFeatures": false,
+                          "speedLimit": 50,
                           "numLaneConnectivityElements": 1,
                           "laneConnectivityElements": {
                             "data": [
@@ -250,6 +252,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 30,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 6,
                                   "destLaneConnectorId": 7

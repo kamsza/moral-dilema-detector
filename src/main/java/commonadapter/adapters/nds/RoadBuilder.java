@@ -3,7 +3,10 @@ package commonadapter.adapters.nds;
 import adapter.JunctionPrx;
 import adapter.RoadAttributesPrx;
 import adapter.RoadPrx;
+import com.google.common.collect.Lists;
 import commonadapter.adapters.nds.lane.LaneTile;
+import commonadapter.adapters.nds.lane.attrMaps.MapAttrElement;
+import commonadapter.adapters.nds.lane.attrMaps.ValueObjectChoice;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
 import commonadapter.adapters.nds.routing.fixedAttributes.RoutingAttr;
@@ -17,6 +20,8 @@ import commonadapter.logging.Logger;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RoadBuilder {
 
@@ -76,18 +81,20 @@ public class RoadBuilder {
         try {
             LaneTile laneTile = JsonDeserializer.getDeserializedLaneTile(jsonFilePath);
             AtomicInteger laneNumber = new AtomicInteger(0);
-            laneTile
-                    .attributeMaps
-                    .attrMap
-                    .data
-                    .forEach(map -> addAttrMap());
+            List<MapAttrElement> data = laneTile.attributeMaps.attrMap.data;
+            List<LaneRep> laneReps = data.stream()
+                    .map(e->e.values4OneFeature.data)
+                    .flatMap(d->d.stream())
+                    .map(f->f.attrValList.values.data)
+                    .flatMap(v->v.stream())
+                    .filter(e->e.attrType.equals("LANE_GROUP"))
+                    .map(e->e.valueObjectChoice)
+                    .map(c -> new LaneRep(c.laneConnectivityElements, c.hasLaneBoundaries, c.boundaryElements))
+                    .collect(Collectors.toList());
 
-            map
-                    .attrValList
-                    .values
-                    .data
-                    .foreach(lane -> addLane());
+         laneReps.forEach(rep->{
 
+         });
 
             proxyService.persistOntologyChanges();
         } catch (IOException ex) {
@@ -101,33 +108,19 @@ public class RoadBuilder {
         return jsonFilePath.substring(size - 14, size - 5);
     }
 
-    private void addAttrMap() {
-
-
+    private void addLaneGroup() {
 
     }
 
     private void addLane(){
 
-        if(attrType == "LANE_GROUP"){
-            id
-           data
-            if (laneType == NORMAL_LANE)
-
-           - laneConnectivityElements
-           - hasLaneBoundries
-
-        }
     }
+
 
     private void addLaneBoundary(){
-        boundaryElements
-                parallelElements lub sequentialElements
-                data
+
     }
 
-
-    private void add
 
     private void addLink(LinkData link, int roadNumber) {
         RoadPrx roadPrx = proxyService.createRoadPrx();

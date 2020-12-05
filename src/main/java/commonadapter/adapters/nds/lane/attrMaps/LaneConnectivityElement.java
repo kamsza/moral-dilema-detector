@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
         "laneType",
         "hasLaneConnectivity",
+        "speedLimit",
         "laneConnectivity",
         "hasGeometry"
 })
@@ -16,6 +17,8 @@ public class LaneConnectivityElement {
     public String laneType;
     @JsonProperty("hasLaneConnectivity")
     public Boolean hasLaneConnectivity;
+    @JsonProperty("speedLimit")
+    public Integer speedLimit;
     @JsonProperty("laneConnectivity")
     public LaneConnectivity laneConnectivity;
     @JsonProperty("hasGeometry")

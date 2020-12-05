@@ -139,6 +139,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 60,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 2,
                                   "destLaneConnectorId": 4
@@ -148,6 +149,7 @@
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 60,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 3,
                                   "destLaneConnectorId": 5
