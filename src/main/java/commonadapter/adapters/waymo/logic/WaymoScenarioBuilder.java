@@ -66,26 +66,6 @@ public class WaymoScenarioBuilder {
 
     }
 
-    public void updateScenario(String scenarioId)  {
-
-        ScenarioPrx scenarioPrx = proxyService.getScenarioPrx(scenarioId);
-
-        try {
-            List<LidarView> lidarViews = getDeserializedLidarViews(waymoJsonFilePath);
-            lidarViews.stream()
-                    .flatMap(lidarView -> lidarView.labels.stream())
-                    .forEach(label -> addEntityBasedOnLabel(scenarioPrx, label));
-
-            proxyService.persistOntologyChanges();
-
-            Logger.printLogMessage("UPDATED SCENARIO ID = " + scenarioPrx.getId(), LogMessageType.INFO);
-
-        } catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-    }
-
     private void addMainVehicleToScenario(ScenarioPrx scenarioPrx) throws IOException {
 
         addEntityBasedOnLabel(scenarioPrx, getMainVehicleArtificialLabel());
