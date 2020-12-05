@@ -92,6 +92,20 @@ public class IceProxyService {
         return LanePrx.checkedCast(basePrx);
     }
 
+    public RoadPrx createRoadPrx() {
+
+        String itemId = managerPrx.create(ItemType.ROAD);
+        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(itemId));
+        return RoadPrx.checkedCast(basePrx);
+    }
+
+    public RoadPrx getRoadPrx(String itemId) {
+
+        String loadedItemId = managerPrx.load(itemId, ItemType.ROAD);
+        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
+        return RoadPrx.checkedCast(basePrx);
+    }
+
     public void persistOntologyChanges() {
 
         managerPrx.persist();

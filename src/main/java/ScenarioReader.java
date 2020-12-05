@@ -12,13 +12,13 @@ import java.util.*;
 public class ScenarioReader {
     private OWLOntologyManager ontologyManager;
     private OWLOntology ontology;
-    private MyFactory factory;
+    private OWLFactory factory;
     public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
 
     public ScenarioReader() throws OWLOntologyCreationException {
         this.ontologyManager = OWLManager.createOWLOntologyManager();
         this.ontology = this.ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
-        this.factory = new MyFactory(ontology);
+        this.factory = new OWLFactory(ontology);
     }
 
     public Model getModel(int scenarioNumber) {

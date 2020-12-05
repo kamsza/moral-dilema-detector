@@ -8,14 +8,13 @@ import generator.BaseScenarioGenerator2;
 import generator.DecisionGenerator;
 import generator.Model;
 import org.apache.commons.lang3.StringUtils;
-import org.nfunk.jep.function.Str;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Decision;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +24,7 @@ public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static MyFactory getFactory() {
+    public static OWLFactory getFactory() {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = null;
         try {
@@ -34,11 +33,11 @@ public class OntologyLogic {
             System.err.println("Problem during loading ontology");
             e.printStackTrace();
         }
-        return new MyFactory(ontology);
+        return new OWLFactory(ontology);
     }
 
     // na razie na sztywno korzystamy z BaseScenarioGenerator2
-    public static Model getModelFromGenerator(MyFactory factory) {
+    public static Model getModelFromGenerator(OWLFactory factory) {
         BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = null;
         try {
@@ -58,7 +57,7 @@ public class OntologyLogic {
         return model;
     }
 
-    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
+    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, OWLFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
                 new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);

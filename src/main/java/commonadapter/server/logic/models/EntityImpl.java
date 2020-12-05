@@ -1,21 +1,24 @@
 package commonadapter.server.logic.models;
 
 import adapter.Entity;
+import adapter.ItemType;
 import com.zeroc.Ice.Current;
-import project.MyFactory;
+import commonadapter.server.logic.services.OntologyService;
+import org.protege.owl.codegeneration.WrappedIndividual;
+import project.Lane;
 
 public abstract class EntityImpl extends BaseItemImpl implements Entity {
 
     protected project.Entity entity;
 
-    public EntityImpl(String id, MyFactory owlFactory) {
-        super(id, owlFactory);
+    public EntityImpl(String id, OntologyService ontologyService) {
+        super(id, ontologyService);
     }
 
     @Override
     public void setLane(String laneId, Current current) {
 
-        project.Lane lane = owlFactory.getLane(laneId);
+        project.Lane lane = (Lane) ontologyService.loadItem(laneId, ItemType.LANE).getWrappedIndividual();
         this.entity.addIs_on_lane(lane);
     }
 
@@ -53,5 +56,10 @@ public abstract class EntityImpl extends BaseItemImpl implements Entity {
     @Override
     public void setSpeedY(float speedY, Current current) {
         this.entity.addSpeedY(speedY);
+    }
+
+    @Override
+    public WrappedIndividual getWrappedIndividual() {
+        return entity;
     }
 }

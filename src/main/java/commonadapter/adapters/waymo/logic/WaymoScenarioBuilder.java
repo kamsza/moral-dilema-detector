@@ -16,6 +16,7 @@ import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
 import org.swrlapi.drools.owl.individuals.I;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -34,7 +35,7 @@ public class WaymoScenarioBuilder {
         this.laneService = new LaneService(this.proxyService);
     }
 
-    public String createScenario()  {
+    public String createScenario(@Nullable String roadId)  {
 
         ScenarioPrx scenarioPrx = proxyService.createScenarioPrx();
 
@@ -43,7 +44,8 @@ public class WaymoScenarioBuilder {
             List<LidarView> lidarViews = getDeserializedLidarViews(waymoJsonFilePath);
 
             this.laneService.initializeLanes(lidarViews.stream()
-                    .flatMap(lidarView -> lidarView.labels.stream()).collect(Collectors.toList()));
+                    .flatMap(lidarView -> lidarView.labels.stream()).collect(Collectors.toList()),
+                    roadId);
 
             addMainVehicleToScenario(scenarioPrx);
 
@@ -134,7 +136,7 @@ public class WaymoScenarioBuilder {
         return cyclistPrx;
     }
 
-    private void assignLane(EntityPrx entityPrx, Label label) { // TODO
+    private void assignLane(EntityPrx entityPrx, Label label) {
 
         LanePrx lanePrx = laneService.getLaneForEntity(entityPrx, label);
         entityPrx.setLane(lanePrx.getId());
@@ -164,7 +166,4 @@ public class WaymoScenarioBuilder {
         String jsonFilePath = "src\\main\\resources\\waymo\\waymo-projected-lidar-label-artificial.json";
         return new ObjectMapper().readValue(new File(jsonFilePath), new TypeReference<Label>(){});
     }
-
-
-
 }

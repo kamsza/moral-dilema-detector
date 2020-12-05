@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.MyFactory;
+import project.OWLFactory;
 import visualization.Visualization;
 
 import java.io.File;
@@ -26,7 +26,7 @@ public class GeneratorTest {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
 
-        MyFactory factory = new MyFactory(ontology);
+        OWLFactory factory = new OWLFactory(ontology);
         String baseIRI = "http://webprotege.stanford.edu/";
 
         BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);

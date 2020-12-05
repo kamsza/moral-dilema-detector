@@ -127,8 +127,6 @@ module adapter
 
     string create(ItemType type);
 
-
-
     void persist();
   };
 
