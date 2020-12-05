@@ -161,6 +161,42 @@ public interface LanePrx extends BaseItemPrx
         return f;
     }
 
+    default void setLaneNumber(int laneNumber)
+    {
+        setLaneNumber(laneNumber, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void setLaneNumber(int laneNumber, java.util.Map<String, String> context)
+    {
+        _iceI_setLaneNumberAsync(laneNumber, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLaneNumberAsync(int laneNumber)
+    {
+        return _iceI_setLaneNumberAsync(laneNumber, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> setLaneNumberAsync(int laneNumber, java.util.Map<String, String> context)
+    {
+        return _iceI_setLaneNumberAsync(laneNumber, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_laneNumber -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_setLaneNumberAsync(int iceP_laneNumber, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "setLaneNumber", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeInt(iceP_laneNumber);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

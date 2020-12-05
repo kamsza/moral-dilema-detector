@@ -37,6 +37,7 @@ module adapter
     void setLeftSideBoundary(string boundaryId);
     void setRightSideBoundary(string boundaryId);
     void setRoad(string roadId);
+    void setLaneNumber(int laneNumber);
   };
 
   interface LaneBoundary extends BaseItem

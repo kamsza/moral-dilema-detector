@@ -1,7 +1,6 @@
 package commonadapter.server.logic.models;
 
 import adapter.Lane;
-import adapter.LaneBoundary;
 import com.zeroc.Ice.Current;
 import project.MyFactory;
 
@@ -42,7 +41,8 @@ public class LaneImpl extends BaseItemImpl implements Lane {
     }
 
     @Override
-    public String getId(com.zeroc.Ice.Current current) {
-        return null;
+    public void setLaneNumber(int laneNumber, Current current) {
+
+        this.lane.addLane_number(laneNumber);
     }
 }
