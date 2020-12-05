@@ -50,6 +50,7 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
         createdScenarioIdTextField = new JFormattedTextField();
         createdScenarioIdTextField.setBounds(20, 230, 400, 50);
         createdScenarioIdTextField.setEditable(false);
+        createdScenarioIdTextField.setVisible(false);
         add(createdScenarioIdTextField);
 
     }
@@ -102,6 +103,7 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
         }
 
         createdScenarioIdTextField.setText(createdScenarioId);
+        createdScenarioIdTextField.setVisible(true);
 
     }
 
