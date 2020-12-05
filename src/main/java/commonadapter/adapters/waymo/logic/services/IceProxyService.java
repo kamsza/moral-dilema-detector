@@ -29,24 +29,11 @@ public class IceProxyService {
         return ScenarioPrx.checkedCast(basePrx);
     }
 
-    public ScenarioPrx getScenarioPrx(String itemId) {
-
-        String loadedItemId = managerPrx.load(itemId, ItemType.SCENARIO);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
-        return ScenarioPrx.checkedCast(basePrx);
-    }
 
     public PedestrianPrx createPedestrianPrx() {
 
         String itemId = managerPrx.create(ItemType.PEDESTRIAN);
         ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(itemId));
-        return PedestrianPrx.checkedCast(basePrx);
-    }
-
-    public PedestrianPrx getPedestrianPrx(String itemId) {
-
-        String loadedItemId = managerPrx.load(itemId, ItemType.PEDESTRIAN);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
         return PedestrianPrx.checkedCast(basePrx);
     }
 
@@ -57,24 +44,10 @@ public class IceProxyService {
         return VehiclePrx.checkedCast(basePrx);
     }
 
-    public VehiclePrx getVehiclePrx(String itemId) {
-
-        String loadedItemId = managerPrx.load(itemId, ItemType.VEHICLE);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
-        return VehiclePrx.checkedCast(basePrx);
-    }
-
     public CyclistPrx createCyclistPrx() {
 
         String itemId = managerPrx.create(ItemType.CYCLIST);
         ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(itemId));
-        return CyclistPrx.checkedCast(basePrx);
-    }
-
-    public CyclistPrx getCyclistPrx(String itemId) {
-
-        String loadedItemId = managerPrx.load(itemId, ItemType.CYCLIST);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
         return CyclistPrx.checkedCast(basePrx);
     }
 
@@ -85,24 +58,10 @@ public class IceProxyService {
         return LanePrx.checkedCast(basePrx);
     }
 
-    public LanePrx getLanePrx(String itemId) {
-
-        String loadedItemId = managerPrx.load(itemId, ItemType.LANE);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
-        return LanePrx.checkedCast(basePrx);
-    }
-
     public RoadPrx createRoadPrx() {
 
         String itemId = managerPrx.create(ItemType.ROAD);
         ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(itemId));
-        return RoadPrx.checkedCast(basePrx);
-    }
-
-    public RoadPrx getRoadPrx(String itemId) {
-
-        String loadedItemId = managerPrx.load(itemId, ItemType.ROAD);
-        ObjectPrx basePrx = communicator.stringToProxy(CommunicationUtils.getInternetAddress(loadedItemId));
         return RoadPrx.checkedCast(basePrx);
     }
 
