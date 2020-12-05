@@ -1,6 +1,5 @@
 package DilemmaDetector.Consequences;
 
-import DilemmaDetector.ParameterizedPhilosophy;
 import project.*;
 
 import java.util.HashMap;
@@ -8,17 +7,17 @@ import java.util.List;
 
 public class DecisionCostCalculator {
     private IConsequenceContainer consequenceContainer;
-    private MyFactory factory;
+    private OWLFactory factory;
     private CustomPhilosophy customPhilosophy;
 
 
-    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory, CustomPhilosophy customPhilosophy) {
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, OWLFactory factory, CustomPhilosophy customPhilosophy) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         this.customPhilosophy = customPhilosophy;
     }
 
-    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory) {
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, OWLFactory factory) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         customPhilosophy = CustomPhilosophy.getSimplestPhilosophy();

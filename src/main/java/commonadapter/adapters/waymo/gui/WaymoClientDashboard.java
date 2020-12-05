@@ -6,21 +6,22 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class WaymoClientDashboard extends JFrame implements ActionListener {
 
     private String waymoJsonFilePath;
 
     private JButton selectWaymoDataButton;
-    private JComboBox<String> availableScenarioIdsComboBox;
     private JButton generateButton;
-    private JLabel createdScenarioIdLabel;
     private JTextField createdScenarioIdTextField;
+    private JTextField roadIdTextField;
+
 
 
     public WaymoClientDashboard() {
 
-        setSize(460, 300);
+        setSize(460, 500);
         setResizable(false);
         setTitle("Common Scenario Adapter - Waymo Client");
         setLayout(null);
@@ -30,19 +31,26 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
 
     private void prepareDashboard() {
 
-        selectWaymoDataButton = new JButton("Select file with ontology");
+        selectWaymoDataButton = new JButton("Select file with lidar labels");
         selectWaymoDataButton.setBounds(20, 20, 400, 50);
         selectWaymoDataButton.addActionListener(this);
         add(selectWaymoDataButton);
 
+        roadIdTextField = new JFormattedTextField();
+        roadIdTextField.setBounds(20, 90, 400, 50);
+        roadIdTextField.setEditable(true);
+        add(roadIdTextField);
+
         generateButton = new JButton("Generate");
-        generateButton.setBounds(20, 90, 400, 50);
+        generateButton.setBounds(20, 160, 400, 50);
         generateButton.addActionListener(this);
-        //generateButton.setVisible(true);
+        generateButton.setVisible(false);
         add(generateButton);
 
         createdScenarioIdTextField = new JFormattedTextField();
-        createdScenarioIdTextField.setBounds(20, 160, 400, 50);
+        createdScenarioIdTextField.setBounds(20, 230, 400, 50);
+        createdScenarioIdTextField.setEditable(false);
+        createdScenarioIdTextField.setVisible(false);
         add(createdScenarioIdTextField);
 
     }
@@ -71,6 +79,7 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
             waymoJsonFilePath = chooser.getSelectedFile().getAbsolutePath();
+            generateButton.setVisible(true);
         }
 
     }
@@ -79,18 +88,22 @@ public class WaymoClientDashboard extends JFrame implements ActionListener {
 
         WaymoScenarioBuilder builder = new WaymoScenarioBuilder(waymoJsonFilePath);
 
-        String enteredText = createdScenarioIdTextField.getText();
+        String enteredText = roadIdTextField.getText();
+
+        String createdScenarioId = "";
 
         if (enteredText.isEmpty()) {
 
-            String createdScenarioId = builder.createScenario();
-            createdScenarioIdTextField.setText(createdScenarioId);
+            createdScenarioId = builder.createScenario(null);
+
         } else {
 
-            builder.updateScenario(enteredText);
+            createdScenarioId = builder.createScenario(roadIdTextField.getText());
+
         }
 
-
+        createdScenarioIdTextField.setText(createdScenarioId);
+        createdScenarioIdTextField.setVisible(true);
 
     }
 

@@ -3,15 +3,15 @@ package DilemmaDetector.Modules;
 import DilemmaDetector.IMoralDilemmaDetectorModule;
 import generator.Model;
 import project.*;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.util.ArrayList;
 
 // Module detecting if we cannot avoid killing someone
 public class KilledModule implements IMoralDilemmaDetectorModule {
-    private MyFactory factory;
+    private OWLFactory factory;
 
-    public KilledModule(MyFactory factory) {
+    public KilledModule(OWLFactory factory) {
         this.factory = factory;
     }
 
