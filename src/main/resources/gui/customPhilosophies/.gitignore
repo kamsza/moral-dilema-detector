@@ -1,0 +1,8 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+# And the future releases default philosophies
+!Fatalism.json
+!Personalism.json
+!Vitalism.json

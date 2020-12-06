@@ -4,8 +4,8 @@ import DilemmaDetector.Consequences.DecisionCostCalculator;
 import DilemmaDetector.Consequences.IConsequenceContainer;
 import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
+import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
-import DilemmaDetector.Simulator.RigidBodyMapper;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
 import org.swrlapi.parser.SWRLParseException;
@@ -21,7 +21,6 @@ import visualization.Visualization;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,15 +37,15 @@ public class Main {
     }
 
     public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
-        ScenarioReader scenarioReader = new ScenarioReader();
+        ScenarioReader scenarioReader = new ScenarioReader(factory);
         Model model = scenarioReader.getModel(number);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
     }
 
-    public static Model getModelUsingModelBuilder(Model scenarioModel) throws FileNotFoundException, OWLOntologyCreationException {
-        scenarioModel = new ScenarioFactory(scenarioModel)
+    public static Model getModelUsingModelBuilder(Model scenarioModel, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+        scenarioModel = new ScenarioFactory(scenarioModel, factory)
                     .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
 //                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
         return scenarioModel;
@@ -73,24 +72,23 @@ public class Main {
 
         for(int i=0; i<1; i++) {
 //            Model scenarioModel = getModelFromGenerator(factory);
-            Model scenarioModel = getModelFromReader(factory,197);
+            Model scenarioModel = getModelFromReader(factory,235);
+
+//            new ScenarioFactory(scenarioModel, factory)
+//                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
 
             Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
             Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
-
-            int lastLeftLane  = leftLanes.size();
-            int lastRightLane = rightLanes.size();
-
 
             Visualization.getImage(scenarioModel);
 
             System.out.println(scenarioModel.getScenario().getOwlIndividual());
             IConsequenceContainer consequenceContainer = new ConsequenceContainer(factory);
             CollisionConsequencePredictor collisionConsequencePredictor =
-                    new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
+                    new CollisionConsequencePredictor(consequenceContainer, factory);
 
-            SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);
-            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll(lastLeftLane, lastRightLane);
+            SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor, factory);
+            Map<Decision, Set<Actor>> collidedEntities = simulatorEngine.simulateAll();
             System.out.println("Collided entities:");
             for(Map.Entry<Decision, Set<Actor>> entry : collidedEntities.entrySet()){
                 for(Actor actor : entry.getValue()){
@@ -112,7 +110,7 @@ public class Main {
 //                factory.saveOwlOntology();
 //            } catch (OWLOntologyStorageException ignored) {
 //            }
-//            Visualization.getImage(scenarioModel);
+            Visualization.getImage(scenarioModel);
         }
     }
 

@@ -35,7 +35,8 @@ public class DecisionTester {
 
         while (currentTime < 10) {
             currentTime += TIME_PART;
-            actionsApplier.CarChangeLanes(car, Sunny.class, 0, -10, 25);
+            // you probably need Factory now to create Sunny
+            // actionsApplier.CarChangeLanes(car, Sunny.class, 0, -10, 25);
 //            BasicActionsApplier.CarTurning(car, Sunny.class, true);
 //            BasicActionsApplier.CarBreaking(car, Sunny.class);
             everyTickAction(TIME_PART);
