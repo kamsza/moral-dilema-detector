@@ -1,11 +1,14 @@
 package commonadapter.adapters.nds.gui;
 
+import commonadapter.adapters.nds.NdsUtils;
 import commonadapter.adapters.nds.RoadBuilder;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +21,14 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
     private final int blockWidth = 400;
     private final int baseWidth = 460;
     private final int baseHeight = 6 * marginSize + 3 * blockHeight;
+    private final int labelHeight = 25;
 
     private JButton selectRoutingTileButton;
     private JButton selectLaneTileButton;
     private JButton generateButton;
     private JTextArea createdRoadTextField;
     private JTextArea createdLaneTextField;
+    private JLabel label;
 
     public NdsClientDashboard() {
         setSize(baseWidth, baseHeight);
@@ -31,7 +36,7 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         setTitle("Common Scenario Adapter - NDS Client");
         setLayout(null);
 
-        prepareDashboard();
+        prepareBasicDashboard();
     }
 
     private JButton createButton(String description, Position pos) {
@@ -41,6 +46,7 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         add(button);
         return button;
     }
+
     private JTextArea createArea(Position pos) {
         JTextArea field = new JTextArea();
         field.setBounds(pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight());
@@ -48,21 +54,44 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         return field;
     }
 
-    private void prepareDashboard() {
+    private JLabel createLabel(String description, Position pos, Color color) {
+        JLabel label = new JLabel();
+        label.setBounds(pos.getX(), pos.getY(), pos.getWidth(), pos.getHeight());
+        label.setText(description);
+        label.setForeground(color);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        label.setFont(new Font(label.getFont().getName(), Font.BOLD, 16));
+        add(label);
+        return label;
+    }
+
+    private void prepareBasicDashboard() {
         selectRoutingTileButton = createButton("Select file with NDS RoutingTile",
                 new Position(marginSize, marginSize, blockWidth, blockHeight));
         selectLaneTileButton = createButton("Select file with NDS LaneTile",
                 new Position(marginSize, 2 * marginSize + blockHeight, blockWidth, blockHeight));
         generateButton = createButton("Generate",
                 new Position(marginSize, 3 * marginSize + 2 * blockHeight, blockWidth, blockHeight));
+        generateButton.setEnabled(false);
+    }
+
+    private void prepareErrorDashboard() {
+        setSize(baseWidth, baseHeight + labelHeight + marginSize * 2);
+
+        label = createLabel("RoutingTile and LaneTile must have the same ID",
+                new Position(marginSize, 4 * marginSize + 3 * blockHeight, blockWidth, blockHeight), Color.RED);
     }
 
     private void prepareNewDashboard(int numberOfRoadIds, int numberOfLaneIds) {
         int singleLineSize = 20;
-        setSize(baseWidth, baseHeight + singleLineSize * (numberOfRoadIds + numberOfLaneIds) + marginSize * 2);
-        createdRoadTextField = createArea(new Position(marginSize, 4 * marginSize + 3 * blockHeight,
+        setSize(baseWidth, baseHeight + labelHeight + singleLineSize * (numberOfRoadIds + numberOfLaneIds) + marginSize * 3);
+
+        label = createLabel("GUIDs of generated roads and lanes",
+                new Position(marginSize, 4 * marginSize + 3 * blockHeight, blockWidth, blockHeight), Color.BLACK);
+        createdRoadTextField = createArea(new Position(marginSize, 5 * marginSize + 3 * blockHeight + labelHeight,
                 blockWidth, singleLineSize * numberOfRoadIds));
-        createdLaneTextField = createArea(new Position(marginSize,5 * marginSize + 3 * blockHeight + singleLineSize * numberOfRoadIds,
+        createdLaneTextField = createArea(new Position(marginSize, 6 * marginSize + 3 * blockHeight + labelHeight + singleLineSize * numberOfRoadIds,
                 blockWidth, singleLineSize * numberOfLaneIds));
     }
 
@@ -86,15 +115,45 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         return null;
     }
 
+    private void updateGenerateButton() {
+        if (roadTileFilePath != null && laneTileFilePath != null) generateButton.setEnabled(true);
+    }
+
     private void selectRoutingTileAction() {
         this.roadTileFilePath = selectNdsFileAction("NDS routing tile");
+        updateGenerateButton();
     }
 
     private void selectLaneTileAction() {
         this.laneTileFilePath = selectNdsFileAction("NDS lane tile");
+        updateGenerateButton();
+    }
+
+    private void refresh() {
+        if (label != null) {
+            remove(label);
+        }
+        if (createdRoadTextField != null) {
+            remove(createdRoadTextField);
+        }
+        if (createdLaneTextField != null) {
+            remove(createdLaneTextField);
+        }
+    }
+
+    private boolean arePathsValid() {
+        String roadTileId = NdsUtils.extractTileId(roadTileFilePath);
+        String laneTileId = NdsUtils.extractTileId(laneTileFilePath);
+        return (roadTileId.equals(laneTileId));
     }
 
     private void generateAction() {
+        refresh();
+        if (!arePathsValid()) {
+            prepareErrorDashboard();
+            return;
+        }
+
         RoadBuilder builder = new RoadBuilder(roadTileFilePath, laneTileFilePath);
         List<String> createdRoadIds = builder.buildRoads();
         List<String> createdLaneIds = builder.buildLanes();
@@ -110,5 +169,4 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
                 .collect(Collectors.joining("\n"));
         createdLaneTextField.setText(createdLaneIdString);
     }
-
 }

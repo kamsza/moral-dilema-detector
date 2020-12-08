@@ -49,7 +49,7 @@ public class RoadBuilder {
                     .data
                     .forEach(link -> addLink(link, roadNumber.getAndIncrement()));
 
-            String tileId = extractTileId(this.routingTileFilePath);
+            String tileId = NdsUtils.extractTileId(this.routingTileFilePath);
             routingTile
                     .simpleIntersection
                     .simpleIntersection
@@ -101,11 +101,6 @@ public class RoadBuilder {
             e.printStackTrace();
         }
         return lanePrxList.stream().map(BaseItemPrx::getId).collect(Collectors.toList());
-    }
-
-    private static String extractTileId(String jsonFilePath) {
-        int size = jsonFilePath.length();
-        return jsonFilePath.substring(size - 14, size - 5);
     }
 
     private void addLink(LinkData link, int roadNumber) {
