@@ -694,13 +694,13 @@
                         "__objectChoice": {
                           "id": 51,
                           "hasReferenceAcrossFeatures": false,
-                          "speedLimit": 60,
                           "numLaneConnectivityElements": 1,
                           "laneConnectivityElements": {
                             "data": [
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 60,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 4,
                                   "destLaneConnectorId": 2
@@ -852,13 +852,13 @@
                         "__objectChoice": {
                           "id": 41,
                           "hasReferenceAcrossFeatures": false,
-                          "speedLimit": 60,
                           "numLaneConnectivityElements": 1,
                           "laneConnectivityElements": {
                             "data": [
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 60,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 3,
                                   "destLaneConnectorId": 10

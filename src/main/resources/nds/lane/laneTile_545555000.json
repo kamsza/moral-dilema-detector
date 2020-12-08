@@ -175,13 +175,13 @@
                         "__objectChoice": {
                           "id": 200,
                           "hasReferenceAcrossFeatures": false,
-                          "speedLimit": 50,
                           "numLaneConnectivityElements": 1,
                           "laneConnectivityElements": {
                             "data": [
                               {
                                 "laneType": "NORMAL_LANE",
                                 "hasLaneConnectivity": true,
+                                "speedLimit": 50,
                                 "laneConnectivity": {
                                   "sourceLaneConnectorId": 5,
                                   "destLaneConnectorId": 6
