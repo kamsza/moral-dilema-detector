@@ -1,13 +1,10 @@
 package commonadapter.adapters.nds;
 
-import adapter.BaseItemPrx;
-import adapter.JunctionPrx;
-import adapter.RoadAttributesPrx;
-import adapter.RoadPrx;
+import adapter.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import commonadapter.adapters.nds.lane.LaneTile;
-import commonadapter.adapters.nds.lane.attrMaps.MapAttrElement;
-import commonadapter.adapters.nds.lane.attrMaps.ValueObjectChoice;
+import commonadapter.adapters.nds.lane.attrMaps.*;
 import commonadapter.adapters.nds.routing.RoutingTile;
 import commonadapter.adapters.nds.routing.fixedAttributes.AttributeData;
 import commonadapter.adapters.nds.routing.fixedAttributes.RoutingAttr;
@@ -27,16 +24,19 @@ import java.util.stream.Stream;
 public class RoadBuilder {
 
     private List<RoadPrx> roadPrxList = new ArrayList<>();
+    private List<LanePrx> lanePrxList = new ArrayList<>();
     private List<Set<IntersectionPoint>> roadPointsList = new ArrayList<>();
     private List<Coordinates> startOfRoadCoordinates = new ArrayList<>();
     private static final float maxAngleDegree = 360f;
     private static final float angleCoefficient = 64f;
     private IceProxyNds proxyService;
     private final String routingTileFilePath;
+    private final String laneTileFilePath;
 
-    public RoadBuilder(String routingTileFilePath) {
+    public RoadBuilder(String routingTileFilePath, String laneTileFilePath) {
         this.proxyService = new IceProxyNds();
         this.routingTileFilePath = routingTileFilePath;
+        this.laneTileFilePath = laneTileFilePath;
     }
 
     public List<String> buildRoads() {
@@ -47,7 +47,7 @@ public class RoadBuilder {
                     .links
                     .link
                     .data
-                    .forEach(link ->  addLink(link, roadNumber.getAndIncrement()));
+                    .forEach(link -> addLink(link, roadNumber.getAndIncrement()));
 
             String tileId = extractTileId(this.routingTileFilePath);
             routingTile
@@ -58,7 +58,7 @@ public class RoadBuilder {
 
             roadNumber.set(0);
             roadPointsList.forEach(intersectionsOfRoad ->
-                addEndOfRoad(intersectionsOfRoad, roadNumber.getAndIncrement()));
+                    addEndOfRoad(intersectionsOfRoad, roadNumber.getAndIncrement()));
 
 
             roadNumber.set(0);
@@ -75,51 +75,38 @@ public class RoadBuilder {
         return roadPrxList.stream().map(BaseItemPrx::getId).collect(Collectors.toList());
     }
 
-
-    public void buildRoadsLaneTile(String jsonFilePath) {
+    public List<String> buildLanes() {
         try {
-            LaneTile laneTile = JsonDeserializer.getDeserializedLaneTile(jsonFilePath);
+            LaneTile laneTile = JsonDeserializer.getDeserializedLaneTile(laneTileFilePath);
             AtomicInteger laneNumber = new AtomicInteger(0);
-            List<MapAttrElement> data = laneTile.attributeMaps.attrMap.data;
-            List<LaneRep> laneReps = data.stream()
-                    .map(e->e.values4OneFeature.data)
-                    .flatMap(d->d.stream())
-                    .map(f->f.attrValList.values.data)
-                    .flatMap(v->v.stream())
-                    .filter(e->e.attrType.equals("LANE_GROUP"))
-                    .map(e->e.valueObjectChoice)
-                    .map(c -> new LaneRep(c.laneConnectivityElements, c.hasLaneBoundaries, c.boundaryElements))
-                    .collect(Collectors.toList());
+            laneTile.attributeMaps.attrMap.data.stream()
+                    .map(e -> e.values4OneFeature.data)
+                    .flatMap(Collection::stream)
+                    .forEach(element -> {
+                        ObjectMapper mapper = new ObjectMapper();
+                        ObjectChoice featureObjectChoice = mapper.convertValue(element.feature.objectChoice, ObjectChoice.class);
+                        Integer linkNumber = featureObjectChoice.linkId;
 
-         laneReps.forEach(rep->{
-
-         });
+                        element.attrValList.values.data.stream()
+                                .filter(e -> e.attrType.equals("LANE_GROUP"))
+                                .map(e -> e.valueObjectChoice)
+                                .forEach(c -> {
+                                    addLane(linkNumber, laneNumber.get());
+                                    if (c.hasLaneBoundaries) addLaneBoundaries(c.boundaryElements, laneNumber.getAndIncrement());
+                                });
+                    });
 
             proxyService.persistOntologyChanges();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+        return lanePrxList.stream().map(BaseItemPrx::getId).collect(Collectors.toList());
     }
 
     private static String extractTileId(String jsonFilePath) {
         int size = jsonFilePath.length();
         return jsonFilePath.substring(size - 14, size - 5);
     }
-
-    private void addLaneGroup() {
-
-    }
-
-    private void addLane(){
-
-    }
-
-
-    private void addLaneBoundary(){
-
-    }
-
 
     private void addLink(LinkData link, int roadNumber) {
         RoadPrx roadPrx = proxyService.createRoadPrx();
@@ -180,6 +167,21 @@ public class RoadBuilder {
 
         roadPrxList.get(roadNumber).setRoadAttributes(roadAttrPrx.getId());
         Logger.printLogMessage("Added road attributes to road with number: " + roadNumber, LogMessageType.INFO);
+    }
+
+    private void addLane(int roadNumber, int laneNumber) {
+        LanePrx lanePrx = proxyService.createLanePrx();
+
+        String roadId = roadPrxList.get(roadNumber).getId();
+        lanePrx.setRoad(roadId);
+
+        lanePrxList.add(laneNumber, lanePrx);
+    }
+
+    private void addLaneBoundaries(BoundaryElements boundaryElements, int laneNumber) {
+
+//        lanePrxList.get(laneNumber).setLeftSideBoundary();
+//        lanePrxList.get(laneNumber).setRightSideBoundary();
     }
 
     private static float calculateAngle(int number) {
