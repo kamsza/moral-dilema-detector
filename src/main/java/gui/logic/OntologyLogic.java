@@ -6,6 +6,7 @@ import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
+import gui.OrderOfDecisionsWindow;
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -18,6 +19,7 @@ import project.MyFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.*;
 
 public class OntologyLogic {
@@ -101,9 +103,6 @@ public class OntologyLogic {
         }
     }
 
-
-    // optymalnie jechać cały nie wykonywać manewrów,
-    // jeśli konieczny to preferowane są w prawo ze względu na ruch prawostronny
     public static String getOptimumDecision(Map<String, Integer> decisionCosts) {
         ArrayList<String> decisionsWithMinimalCost = new ArrayList<>();
         int currentMinimum = Integer.MAX_VALUE;
@@ -122,8 +121,33 @@ public class OntologyLogic {
             return decisionsWithMinimalCost.get(0);
         }
 
-        List<String> preferableOrderOfDecisions = List.of("follow",
-                "change_lane_right_by_", "change_lane_left_by_", "turn_right", "turn_left");
+        List<String> orderFromFile = OrderOfDecisionsWindow.getOrderFromFile(OrderOfDecisionsWindow.pathToCustomOrder);
+
+
+        List<String> preferableOrderOfDecisions = new ArrayList<>();
+        for(String decision : orderFromFile){
+            switch (decision){
+                case "Follow":
+                    preferableOrderOfDecisions.add("follow");
+                    break;
+                case "Stop":
+                    preferableOrderOfDecisions.add("stop");
+                    break;
+                case "Change lanes by right":
+                    preferableOrderOfDecisions.add("change_lane_right_by_");
+                    break;
+                case "Change lanes by left":
+                    preferableOrderOfDecisions.add("change_lane_left_by_");
+                    break;
+                case "Turn right":
+                    preferableOrderOfDecisions.add("turn_right");
+                    break;
+                case "Turn left":
+                    preferableOrderOfDecisions.add("turn_left");
+                    break;
+                default:
+            }
+        }
 
         for (String pattern : preferableOrderOfDecisions) {
             String decision = getDecisionThatSatisfyPattern(decisionsWithMinimalCost, pattern);
