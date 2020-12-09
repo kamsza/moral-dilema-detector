@@ -47,7 +47,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JScrollPane jScrollPaneWithMoralResult;
     private JTable jTableWithBestDecision;
     private JScrollPane jScrollPaneWithBestDecision;
-
+    private JButton jButtonSetOrderOfDecisions;
 
     /// CONST
     private final String NO_FILE_SELECTED = "No file selected";
@@ -56,7 +56,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
             "Scenario with crosswalk"));
     private final int IMAGE_WIDTH = 820;
     private final int IMAGE_HEIGHT = 400;
-    private final int CENTER_CUSTOM_PHILOSOPHIES = 100;
+    private final int CENTER_CUSTOM_PHILOSOPHIES = 90;
     private final String PATH_CUSTOM_PHILOSOPHIES = "\\src\\main\\resources\\gui\\customPhilosophies\\";
     private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Blank_scenario.png";
     private final int oneRowJTableHeight = 48;
@@ -123,23 +123,28 @@ public class DashboardWindow extends JFrame implements ActionListener {
         add(jLabelSelectPhilosophyPrompt);
 
         jButtonAddCustomPhilosophy = new JButton("Add new");
-        jButtonAddCustomPhilosophy.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 520, 500, 100, 30);
+        jButtonAddCustomPhilosophy.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 570, 500, 150, 30);
         jButtonAddCustomPhilosophy.addActionListener(this);
         add(jButtonAddCustomPhilosophy);
 
         jComboBoxCustomPhilosophies = new JComboBox(getCustomPhilosophiesNames().toArray());
-        jComboBoxCustomPhilosophies.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 500, 300, 30);
+        jComboBoxCustomPhilosophies.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 500, 200, 30);
         add(jComboBoxCustomPhilosophies);
 
         jButtonCustomPhilosophyShowDetails = new JButton("Show details");
-        jButtonCustomPhilosophyShowDetails.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
+        jButtonCustomPhilosophyShowDetails.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 500, 150, 30);
         jButtonCustomPhilosophyShowDetails.addActionListener(this);
         add(jButtonCustomPhilosophyShowDetails);
 
         jButtonCalculate = new JButton("Calculate");
-        jButtonCalculate.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 530, 200, 30);
+        jButtonCalculate.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 530, 300, 30);
         jButtonCalculate.addActionListener(this);
         add(jButtonCalculate);
+
+        jButtonSetOrderOfDecisions = new JButton("Set order of decision");
+        jButtonSetOrderOfDecisions.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
+        jButtonSetOrderOfDecisions.addActionListener(this);
+        add(jButtonSetOrderOfDecisions);
 
         jLabelBestDecision = new JLabel("");
         jLabelBestDecision.setBounds(50, 600, 400, 30);
@@ -156,6 +161,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
         if (eventSource == jButtonGenerateScenario) jButtonGenerateScenarioAction();
         if (eventSource == jButtonAddCustomPhilosophy) jButtonAddCustomPhilosophyAction();
         if (eventSource == jButtonCalculate) jButtonCalculateAction();
+        if (eventSource == jButtonSetOrderOfDecisions) jButtonSetOrderOfDecisionsAction();
+
     }
 
     private void jButtonCustomPhilosophyShowDetailsAction() {
@@ -225,6 +232,12 @@ public class DashboardWindow extends JFrame implements ActionListener {
         collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
         OntologyLogic.saveOwlOntology(factory);
     }
+
+    private void jButtonSetOrderOfDecisionsAction(){
+        OrderOfDecisionsWindow orderOfDecisionsWindow = new OrderOfDecisionsWindow(this);
+        orderOfDecisionsWindow.setVisible(true);
+    }
+
 
     private void jButtonAddCustomPhilosophyAction() {
         CustomPhilosophyWindow customPhilosophyWindow = new AddCustomPhilosophyWindow(this);
