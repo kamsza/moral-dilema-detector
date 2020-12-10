@@ -37,9 +37,14 @@ public class BaseScenarioGenerator {
     private int lanesCount;
     private int mainVehicleLaneId;
     private float roadDist = 6400F;
+    private float surroundingMaxLength = 100000F;
 
     public BaseScenarioGenerator() throws FileNotFoundException, OWLOntologyCreationException {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
+    }
+
+    public BaseScenarioGenerator(String ontologyFilepath) throws FileNotFoundException, OWLOntologyCreationException {
+        this(MyFactorySingleton.getFactory(ontologyFilepath), MyFactorySingleton.baseIRI);
     }
 
     public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
@@ -62,8 +67,7 @@ public class BaseScenarioGenerator {
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
-//        addPedestrian(model);
-//        addVehicle(model);
+
         return model;
     }
 
@@ -240,13 +244,15 @@ public class BaseScenarioGenerator {
 
         // is alongside whole road
         if(rand.nextInt(10) <= 7)  {
-            Surrounding surrounding = createSurrounding(0F, roadDist);
+            Surrounding surrounding = createSurrounding(0F, surroundingMaxLength);
             surroundingList.add(surrounding);
         }
         // is on part of the road
         else {
             for(float x = -1 * roadDist/2; x < roadDist/2;){
-                float length = 4800 * rand.nextFloat();
+                float length = 500F + 4800 * rand.nextFloat();
+                if(x + length > roadDist/2)
+                    length = surroundingMaxLength;
                 float dist = x + length/2;
                 surroundingList.add(createSurrounding(dist, length));
                 x += length;

@@ -17,6 +17,10 @@ public class ModelBuilder {
     private RandomPositioner randomPositioner;
     private MyFactory factory;
 
+    public ModelBuilder(Model model) throws FileNotFoundException, OWLOntologyCreationException {
+        this(model, MyFactorySingleton.getFactory());
+    }
+
     public ModelBuilder(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
         this.factory = factory;
@@ -112,6 +116,13 @@ public class ModelBuilder {
         return this;
     }
 
+    public ModelBuilder addOvertakenVehicle(double prob) {
+        if(rand.nextDouble() > prob)
+            return this;
+
+        return addOvertakenVehicle();
+    }
+
     public ModelBuilder addOvertakenVehicle() {
         if(model.getRoadType().getLanes_count().iterator().next() == 1 || model.getRoadType().getLanes_count().iterator().next() -1 == model.getRoadType().getMain_vehicle_lane_id().iterator().next())
             return this;
@@ -132,6 +143,13 @@ public class ModelBuilder {
 
         vehicle = fillDataProps(vehicle, distance, name);
         return addVehicle(vehicle, laneNo, distance);
+    }
+
+    public ModelBuilder addApproachedVehicle(double prob) {
+        if(rand.nextDouble() > prob)
+            return this;
+
+        return addApproachedVehicle();
     }
 
     public ModelBuilder addApproachedVehicle() {
