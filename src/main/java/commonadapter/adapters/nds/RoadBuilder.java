@@ -31,12 +31,17 @@ public class RoadBuilder {
     private static final float angleCoefficient = 64f;
     private IceProxyNds proxyService;
     private final String routingTileFilePath;
-    private final String laneTileFilePath;
+    private String laneTileFilePath;
 
     public RoadBuilder(String routingTileFilePath, String laneTileFilePath) {
         this.proxyService = new IceProxyNds();
         this.routingTileFilePath = routingTileFilePath;
         this.laneTileFilePath = laneTileFilePath;
+    }
+
+    public RoadBuilder(String routingTileFilePath) {
+        this.proxyService = new IceProxyNds();
+        this.routingTileFilePath = routingTileFilePath;
     }
 
     public List<String> buildRoads() {

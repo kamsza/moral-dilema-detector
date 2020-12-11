@@ -8,7 +8,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,15 +19,17 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
     private final int blockHeight = 50;
     private final int blockWidth = 400;
     private final int baseWidth = 460;
-    private final int baseHeight = 6 * marginSize + 3 * blockHeight;
+    private final int baseHeight = 7 * marginSize + 4 * blockHeight;
     private final int labelHeight = 25;
 
     private JButton selectRoutingTileButton;
     private JButton selectLaneTileButton;
-    private JButton generateButton;
+    private JButton generateRoadsButton;
+    private JButton generateFullButton;
     private JTextArea createdRoadTextField;
     private JTextArea createdLaneTextField;
     private JLabel label;
+
 
     public NdsClientDashboard() {
         setSize(baseWidth, baseHeight);
@@ -38,6 +39,7 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
 
         prepareBasicDashboard();
     }
+
 
     private JButton createButton(String description, Position pos) {
         JButton button = new JButton(description);
@@ -66,41 +68,57 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         return label;
     }
 
+
     private void prepareBasicDashboard() {
         selectRoutingTileButton = createButton("Select file with NDS RoutingTile",
                 new Position(marginSize, marginSize, blockWidth, blockHeight));
         selectLaneTileButton = createButton("Select file with NDS LaneTile",
                 new Position(marginSize, 2 * marginSize + blockHeight, blockWidth, blockHeight));
-        generateButton = createButton("Generate",
+        generateRoadsButton = createButton("Generate roads",
                 new Position(marginSize, 3 * marginSize + 2 * blockHeight, blockWidth, blockHeight));
-        generateButton.setEnabled(false);
+        generateFullButton = createButton("Generate roads and lanes",
+                new Position(marginSize, 4 * marginSize + 3 * blockHeight, blockWidth, blockHeight));
+        generateRoadsButton.setEnabled(false);
+        generateFullButton.setEnabled(false);
     }
 
-    private void prepareErrorDashboard() {
+    private void prepareErrorDashboard(String errorMessage) {
         setSize(baseWidth, baseHeight + labelHeight + marginSize * 2);
 
-        label = createLabel("RoutingTile and LaneTile must have the same ID",
-                new Position(marginSize, 4 * marginSize + 3 * blockHeight, blockWidth, blockHeight), Color.RED);
+        label = createLabel(errorMessage,
+                new Position(marginSize, 5 * marginSize + 4 * blockHeight, blockWidth, blockHeight), Color.RED);
     }
 
-    private void prepareNewDashboard(int numberOfRoadIds, int numberOfLaneIds) {
+    private void prepareRoadsDashboard(int numberOfRoadIds) {
+        int singleLineSize = 20;
+        setSize(baseWidth, baseHeight + labelHeight + singleLineSize * numberOfRoadIds + marginSize * 3);
+
+        label = createLabel("GUIDs of generated roads",
+                new Position(marginSize, 5 * marginSize + 4 * blockHeight, blockWidth, blockHeight), Color.BLACK);
+        createdRoadTextField = createArea(new Position(marginSize, 6 * marginSize + 4 * blockHeight + labelHeight,
+                blockWidth, singleLineSize * numberOfRoadIds));
+    }
+
+    private void prepareFullDashboard(int numberOfRoadIds, int numberOfLaneIds) {
         int singleLineSize = 20;
         setSize(baseWidth, baseHeight + labelHeight + singleLineSize * (numberOfRoadIds + numberOfLaneIds) + marginSize * 3);
 
         label = createLabel("GUIDs of generated roads and lanes",
-                new Position(marginSize, 4 * marginSize + 3 * blockHeight, blockWidth, blockHeight), Color.BLACK);
-        createdRoadTextField = createArea(new Position(marginSize, 5 * marginSize + 3 * blockHeight + labelHeight,
+                new Position(marginSize, 5 * marginSize + 4 * blockHeight, blockWidth, blockHeight), Color.BLACK);
+        createdRoadTextField = createArea(new Position(marginSize, 6 * marginSize + 4 * blockHeight + labelHeight,
                 blockWidth, singleLineSize * numberOfRoadIds));
-        createdLaneTextField = createArea(new Position(marginSize, 6 * marginSize + 3 * blockHeight + labelHeight + singleLineSize * numberOfRoadIds,
+        createdLaneTextField = createArea(new Position(marginSize, 7 * marginSize + 4 * blockHeight + labelHeight + singleLineSize * numberOfRoadIds,
                 blockWidth, singleLineSize * numberOfLaneIds));
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
         if (eventSource == selectRoutingTileButton) selectRoutingTileAction();
         if (eventSource == selectLaneTileButton) selectLaneTileAction();
-        if (eventSource == generateButton) generateAction();
+        if (eventSource == generateRoadsButton) generateRoadsAction();
+        if (eventSource == generateFullButton) generateFullAction();
     }
 
     private String selectNdsFileAction(String description) {
@@ -115,19 +133,66 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         return null;
     }
 
-    private void updateGenerateButton() {
-        if (roadTileFilePath != null && laneTileFilePath != null) generateButton.setEnabled(true);
-    }
-
     private void selectRoutingTileAction() {
         this.roadTileFilePath = selectNdsFileAction("NDS routing tile");
-        updateGenerateButton();
+        updateGenerateRoadsButton();
+        updateGenerateFullButton();
     }
 
     private void selectLaneTileAction() {
         this.laneTileFilePath = selectNdsFileAction("NDS lane tile");
-        updateGenerateButton();
+        updateGenerateFullButton();
     }
+
+    private void updateGenerateRoadsButton() {
+        if (roadTileFilePath != null) generateRoadsButton.setEnabled(true);
+    }
+
+    private void updateGenerateFullButton() {
+        if (roadTileFilePath != null && laneTileFilePath != null) generateFullButton.setEnabled(true);
+    }
+
+    private void generateRoadsAction() {
+        refresh();
+        if (!validateRoadFile()) {
+            return;
+        }
+
+        RoadBuilder builder = new RoadBuilder(roadTileFilePath);
+        List<String> createdRoadIds = builder.buildRoads();
+        prepareRoadsDashboard(createdRoadIds.size());
+
+        String createdRoadsIdString = createdRoadIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("\n"));
+        createdRoadTextField.setText(createdRoadsIdString);
+    }
+
+    private void generateFullAction() {
+        refresh();
+        if (!validateFullFiles()) {
+            return;
+        }
+        if (!validateTileIds()) {
+            return;
+        }
+
+        RoadBuilder builder = new RoadBuilder(roadTileFilePath, laneTileFilePath);
+        List<String> createdRoadIds = builder.buildRoads();
+        List<String> createdLaneIds = builder.buildLanes();
+        prepareFullDashboard(createdRoadIds.size(), createdLaneIds.size());
+
+        String createdRoadsIdString = createdRoadIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("\n"));
+        createdRoadTextField.setText(createdRoadsIdString);
+
+        String createdLaneIdString = createdLaneIds.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining("\n"));
+        createdLaneTextField.setText(createdLaneIdString);
+    }
+
 
     private void refresh() {
         if (label != null) {
@@ -139,34 +204,47 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         if (createdLaneTextField != null) {
             remove(createdLaneTextField);
         }
+        repaint();
+        revalidate();
     }
 
-    private boolean arePathsValid() {
+    private boolean validateRoadFile() {
+        String maybeRoutingTile = NdsUtils.extractRoadTileName(roadTileFilePath);
+
+        if (maybeRoutingTile.equals("routingTile")) {
+            return true;
+        } else {
+            prepareErrorDashboard("Wrong file chosen for routing tile");
+            return false;
+        }
+    }
+
+    private boolean validateFullFiles() {
+        String maybeRoutingTile = NdsUtils.extractRoadTileName(roadTileFilePath);
+        String maybeLaneTile = NdsUtils.extractLaneTileName(laneTileFilePath);
+
+        if (maybeRoutingTile.equals("routingTile") && maybeLaneTile.equals("laneTile")) {
+            return true;
+        } else if (!maybeRoutingTile.equals("routingTile") && !maybeLaneTile.equals("laneTile")) {
+            prepareErrorDashboard("Wrong files chosen for both routing and lane tile");
+            return false;
+        } else if (!maybeRoutingTile.equals("routingTile") && maybeLaneTile.equals("laneTile")) {
+            prepareErrorDashboard("Wrong file chosen for routing tile");
+            return false;
+        } else if (maybeRoutingTile.equals("routingTile") && !maybeLaneTile.equals("laneTile")) {
+            prepareErrorDashboard("Wrong file chosen for lane tile");
+            return false;
+        }
+        return false;
+    }
+
+    private boolean validateTileIds() {
         String roadTileId = NdsUtils.extractTileId(roadTileFilePath);
         String laneTileId = NdsUtils.extractTileId(laneTileFilePath);
-        return (roadTileId.equals(laneTileId));
-    }
-
-    private void generateAction() {
-        refresh();
-        if (!arePathsValid()) {
-            prepareErrorDashboard();
-            return;
+        if (!roadTileId.equals(laneTileId)) {
+            prepareErrorDashboard("RoutingTile and LaneTile must have the same ID");
+            return false;
         }
-
-        RoadBuilder builder = new RoadBuilder(roadTileFilePath, laneTileFilePath);
-        List<String> createdRoadIds = builder.buildRoads();
-        List<String> createdLaneIds = builder.buildLanes();
-        prepareNewDashboard(createdRoadIds.size(), createdLaneIds.size());
-
-        String createdRoadsIdString = createdRoadIds.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining("\n"));
-        createdRoadTextField.setText(createdRoadsIdString);
-
-        String createdLaneIdString = createdLaneIds.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining("\n"));
-        createdLaneTextField.setText(createdLaneIdString);
+        return true;
     }
 }
