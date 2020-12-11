@@ -3,7 +3,9 @@ package gui;
 import DilemmaDetector.Consequences.*;
 import DilemmaDetector.Simulator.Actor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import generator.DecisionGenerator;
 import generator.Model;
+import generatorGUI.GeneratorWindowForDilemmaDetector;
 import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +50,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JTable jTableWithBestDecision;
     private JScrollPane jScrollPaneWithBestDecision;
     private JButton jButtonSetOrderOfDecisions;
+    private GeneratorWindowForDilemmaDetector generatorGui;
 
     /// CONST
     private final String NO_FILE_SELECTED = "No file selected";
@@ -219,10 +222,19 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonGenerateScenarioAction() {
-        // TODO
-        // różne rodzaje w zależności od comboboxa z rodzajami, na razie na sztywno
-        scenarioModel = OntologyLogic.getModelFromGenerator(factory);
+        this.generatorGui = new GeneratorWindowForDilemmaDetector(this, factory);
+        generatorGui.setVisible(true);
+
+    }
+
+
+    public void getModelFromWrapper(Model model) {
+
+        Model scenarioModel = model;
+        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, OntologyLogic.baseIRI);
+        decisionGenerator.generate(model);
         pictureName = Visualization.getImage(scenarioModel);
+        generatorGui.dispose();
         jLabelImageScenario.setIcon(
                 getImageIcon(System.getProperty("user.dir")
                         + "\\src\\main\\resources\\vis_out\\"
@@ -231,6 +243,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         consequenceContainer = new ConsequenceContainer(factory);
         collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
         OntologyLogic.saveOwlOntology(factory);
+
     }
 
     private void jButtonSetOrderOfDecisionsAction(){
