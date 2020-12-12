@@ -7,6 +7,7 @@ import generator.DecisionGenerator;
 import generator.Model;
 import generator.MyFactorySingleton;
 import generatorGUI.GeneratorWindowForDilemmaDetector;
+import gui.logic.DecisionCost;
 import gui.logic.OntologyLogic;
 
 import org.apache.commons.io.FileUtils;
@@ -345,15 +346,25 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 }
 
                 int numberOfDecisions = decisionCosts.size();
+                ArrayList<DecisionCost> sortedCosts = new ArrayList<>();
+                for(String decisionName : decisionCosts.keySet()){
+                    int cost = decisionCosts.get(decisionName);
+                    for(int i=0; i<sortedCosts.size(); i++){
+                        if(sortedCosts.get(i).getDecisionCost() > cost); break;
+                    }
+                    sortedCosts.add(new DecisionCost(prepareDecisionNameToDisplay(decisionName), cost));
+                }
+
                 if (jTableWithResults != null) {
                     DefaultTableModel defaultTableModel = (DefaultTableModel) jTableWithResults.getModel();
                     while (defaultTableModel.getRowCount() > 0) {
                         defaultTableModel.removeRow(0);
                     }
-                    for (String decisionName : decisionCosts.keySet()) {
+
+                    for (DecisionCost decisionCost : sortedCosts) {
                         Object[] row = new Object[2];
-                        row[0] = prepareDecisionNameToDisplay(decisionName);
-                        row[1] = decisionCosts.get(decisionName);
+                        row[0] = decisionCost.getDecisionName();
+                        row[1] = decisionCost.getDecisionCost();
                         defaultTableModel.addRow(row);
                     }
 
@@ -366,9 +377,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     String[] columnNames = {"Action", "Moral cost"};
                     Object[][] data = new Object[numberOfDecisions][2];
                     int i = 0;
-                    for (String decisionName : decisionCosts.keySet()) {
-                        data[i][0] = prepareDecisionNameToDisplay(decisionName);
-                        data[i][1] = decisionCosts.get(decisionName);
+                    for (DecisionCost decisionCost : sortedCosts) {
+                        data[i][0] = decisionCost.getDecisionName();
+                        data[i][1] = decisionCost.getDecisionCost();
                         i++;
                     }
                     DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
