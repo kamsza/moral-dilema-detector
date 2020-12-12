@@ -26,6 +26,7 @@ public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
     public static final String defaultPathToOntology = "src/main/resources/traffic_ontology.owl";
+    //public static final String defaultPathToOntology = "src/main/resources/ontologies/traffic_ontology.owl";
 
 
     public static MyFactory getFactory(String pathToOwlFile) {
@@ -71,11 +72,10 @@ public class OntologyLogic {
         try {
             new ScenarioFactory(model, factory)
                     .pedestrianOnCrossing(new int[]{10}, new double[]{1});
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.err.println("File not found in generating");
             e.printStackTrace();
-        }
-        catch (OWLOntologyCreationException e){
+        } catch (OWLOntologyCreationException e) {
             System.err.println("Cannot create ontology");
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class OntologyLogic {
         return collidedEntities;
     }
 
-    public static void saveOwlOntology(MyFactory factory){
+    public static void saveOwlOntology(MyFactory factory) {
         try {
             factory.saveOwlOntology();
         } catch (OWLOntologyStorageException e) {
@@ -125,8 +125,8 @@ public class OntologyLogic {
 
 
         List<String> preferableOrderOfDecisions = new ArrayList<>();
-        for(String decision : orderFromFile){
-            switch (decision){
+        for (String decision : orderFromFile) {
+            switch (decision) {
                 case "Follow":
                     preferableOrderOfDecisions.add("follow");
                     break;

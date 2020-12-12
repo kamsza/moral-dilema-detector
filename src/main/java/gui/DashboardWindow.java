@@ -5,11 +5,15 @@ import DilemmaDetector.Simulator.Actor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import generator.DecisionGenerator;
 import generator.Model;
+import generator.MyFactorySingleton;
 import generatorGUI.GeneratorWindowForDilemmaDetector;
 import gui.logic.OntologyLogic;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.prompt.PromptSupport;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Decision;
 import project.MyFactory;
 import visualization.Visualization;
@@ -24,7 +28,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
@@ -189,11 +196,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
                 warningWindow.setVisible(true);
             } else {
-                   factory = OntologyLogic.getFactory(pathToOwlFile);
+                factory = OntologyLogic.getFactory(pathToOwlFile);
                 try {
                     scenarioModel = OntologyLogic.getModelFromOntology(factory, jTextFieldScenarioName.getText());
-                }
-                catch(IllegalArgumentException exception){
+                } catch (IllegalArgumentException exception) {
                     WarningWindow warningWindow = new WarningWindow(this, "There is no such scenario in owl file");
                     warningWindow.setVisible(true);
                     return;
@@ -231,22 +237,36 @@ public class DashboardWindow extends JFrame implements ActionListener {
     public void getModelFromWrapper(Model model) {
 
         Model scenarioModel = model;
-        DecisionGenerator decisionGenerator = new DecisionGenerator(factory, OntologyLogic.baseIRI);
-        decisionGenerator.generate(model);
-        pictureName = Visualization.getImage(scenarioModel);
-        generatorGui.dispose();
-        jLabelImageScenario.setIcon(
-                getImageIcon(System.getProperty("user.dir")
-                        + "\\src\\main\\resources\\vis_out\\"
-                        + pictureName));
+        DecisionGenerator decisionGenerator = null;
+        try {
+            decisionGenerator = new DecisionGenerator(MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology), OntologyLogic.baseIRI);
 
-        consequenceContainer = new ConsequenceContainer(factory);
-        collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
-        OntologyLogic.saveOwlOntology(factory);
+            decisionGenerator.generate(model);
+            pictureName = Visualization.getImage(scenarioModel);
+            generatorGui.dispose();
+            jLabelImageScenario.setIcon(
+                    getImageIcon(System.getProperty("user.dir")
+                            + "\\src\\main\\resources\\vis_out\\"
+                            + pictureName));
+
+            consequenceContainer = new ConsequenceContainer(MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology));
+            collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology), scenarioModel);
+            //OntologyLogic.saveOwlOntology(factory);
+            //
+            FileOutputStream outputStream = null;
+            outputStream = FileUtils.openOutputStream(new File(OntologyLogic.defaultPathToOntology), false);
+            factory.getOwlOntology().getOWLOntologyManager().saveOntology(factory.getOwlOntology(), outputStream);
+
+            model.export(OntologyLogic.defaultPathToOntology, true);
+        } catch (OWLOntologyCreationException | IOException | OWLOntologyStorageException ex) {
+            System.err.println(ex);
+
+        }
+
 
     }
 
-    private void jButtonSetOrderOfDecisionsAction(){
+    private void jButtonSetOrderOfDecisionsAction() {
         OrderOfDecisionsWindow orderOfDecisionsWindow = new OrderOfDecisionsWindow(this);
         orderOfDecisionsWindow.setVisible(true);
     }
@@ -419,15 +439,15 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private String prepareDecisionNameToDisplay(String s) {
-        if(s.startsWith("stop")) return "Stop";
-        if(s.startsWith("turn_right")) return "Turn right";
-        if(s.startsWith("turn_left")) return "Turn left";
-        if(s.startsWith("follow")) return "Follow";
+        if (s.startsWith("stop")) return "Stop";
+        if (s.startsWith("turn_right")) return "Turn right";
+        if (s.startsWith("turn_left")) return "Turn left";
+        if (s.startsWith("follow")) return "Follow";
 
         int byIndex = s.indexOf("by");
-        String ending = s.substring(byIndex+3);
+        String ending = s.substring(byIndex + 3);
         String correctNumber = StringUtils.substringBefore(ending, "_");
-        String snakeCaseResult = StringUtils.substringBefore(s,"by") + "by_" + correctNumber;
+        String snakeCaseResult = StringUtils.substringBefore(s, "by") + "by_" + correctNumber;
         return changeSnakeCase(snakeCaseResult);
     }
 
