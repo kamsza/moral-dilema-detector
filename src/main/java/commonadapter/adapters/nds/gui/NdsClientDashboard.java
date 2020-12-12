@@ -160,7 +160,12 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
 
         RoadBuilder builder = new RoadBuilder(roadTileFilePath);
         List<String> createdRoadIds = builder.buildRoads();
-        prepareRoadsDashboard(createdRoadIds.size());
+        if (createdRoadIds != null) {
+            prepareRoadsDashboard(createdRoadIds.size());
+        } else {
+            prepareErrorDashboard("Corrupted routing tile file. Please provide valid one.");
+            return;
+        }
 
         String createdRoadsIdString = createdRoadIds.stream()
                 .map(String::valueOf)
@@ -180,7 +185,15 @@ public class NdsClientDashboard extends JFrame implements ActionListener {
         RoadBuilder builder = new RoadBuilder(roadTileFilePath, laneTileFilePath);
         List<String> createdRoadIds = builder.buildRoads();
         List<String> createdLaneIds = builder.buildLanes();
-        prepareFullDashboard(createdRoadIds.size(), createdLaneIds.size());
+        if (createdRoadIds != null && createdLaneIds != null) {
+            prepareFullDashboard(createdRoadIds.size(), createdLaneIds.size());
+        } else if (createdRoadIds == null) {
+            prepareErrorDashboard("Routing tile file is corrupted. Please provide valid one.");
+            return;
+        } else if (createdLaneIds == null) {
+            prepareErrorDashboard("Lane tile file is corrupted. Please provide valid one.");
+            return;
+        }
 
         String createdRoadsIdString = createdRoadIds.stream()
                 .map(String::valueOf)

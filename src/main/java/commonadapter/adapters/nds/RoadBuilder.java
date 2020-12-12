@@ -14,6 +14,7 @@ import commonadapter.adapters.nds.routing.simpleIntersection.IntersectionData;
 import commonadapter.adapters.nds.services.IceProxyNds;
 import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
+import org.drools.core.rule.QueryArgument;
 
 import java.io.IOException;
 import java.util.*;
@@ -76,6 +77,9 @@ public class RoadBuilder {
             proxyService.persistOntologyChanges();
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (NullPointerException e) {
+            Logger.printLogMessage("Bad input file", LogMessageType.ERROR);
+            return null;
         }
         return roadPrxList.stream().map(BaseItemPrx::getId).collect(Collectors.toList());
     }
@@ -89,34 +93,31 @@ public class RoadBuilder {
                     .flatMap(Collection::stream)
                     .forEach(element -> {
                         ObjectMapper mapper = new ObjectMapper();
-                        try {
-                            ObjectChoice featureObjectChoice = mapper.convertValue(element.feature.objectChoice, ObjectChoice.class);
-                            Integer linkNumber = featureObjectChoice.linkId;
-                            Integer roadLineNumber = featureObjectChoice.roadGeoLineId;
+                        ObjectChoice featureObjectChoice = mapper.convertValue(element.feature.objectChoice, ObjectChoice.class);
+                        Integer linkNumber = featureObjectChoice.linkId;
+                        Integer roadLineNumber = featureObjectChoice.roadGeoLineId;
 
-                            element.attrValList.values.data.stream()
-                                    .filter(e -> e.attrType.equals("LANE_GROUP"))
-                                    .map(e -> e.valueObjectChoice)
-                                    .forEach(c -> {
-                                        if(linkNumber != null){
-                                            addLane(linkNumber, laneNumber.get());
-                                        }
-                                        else if(roadLineNumber != null){
-                                            addLane(roadLineNumber, laneNumber.get());
-                                        }
-                                        if (c.hasLaneBoundaries) addLaneBoundaries(c.boundaryElements, laneNumber.getAndIncrement());
-                                    });
-                        }
-                        catch(IllegalArgumentException e){
-                            e.printStackTrace();
-                            Logger.printLogMessage("Bad input file", LogMessageType.ERROR);
-                            System.exit(-1);
-                        }
+                        element.attrValList.values.data.stream()
+                                .filter(e -> e.attrType.equals("LANE_GROUP"))
+                                .map(e -> e.valueObjectChoice)
+                                .forEach(c -> {
+                                    if (linkNumber != null) {
+                                        addLane(linkNumber, laneNumber.get());
+                                    } else if (roadLineNumber != null) {
+                                        addLane(roadLineNumber, laneNumber.get());
+                                    }
+                                    if (c.hasLaneBoundaries) {
+                                        addLaneBoundaries(c.boundaryElements, laneNumber.getAndIncrement());
+                                    }
+                                });
                     });
 
             proxyService.persistOntologyChanges();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            Logger.printLogMessage("Bad input file", LogMessageType.ERROR);
+            return null;
         }
         return lanePrxList.stream().map(BaseItemPrx::getId).collect(Collectors.toList());
     }
@@ -196,30 +197,23 @@ public class RoadBuilder {
 
         AtomicInteger i = new AtomicInteger(0);
 
-        List<String> boundaryTypes = new ArrayList<String>();
-        List<String> boundaryColors = new ArrayList<String>();
-        List<String> boundaryMaterial = new ArrayList<String>();
-
+        List<String> boundaryTypes = new ArrayList<>();
+        List<String> boundaryColors = new ArrayList<>();
+        List<String> boundaryMaterial = new ArrayList<>();
 
         boundaryElements
                 .data.stream()
-                .map(d -> d)
-                .forEach(e-> {
-                    System.out.println(e);
-                    System.out.println(i.getAndIncrement());
-                });
-
-               // .map(d -> d.data)
-               /* .flatMap(Collection::stream)
+                .map(d -> d.parallelElements.data)
+                .flatMap(Collection::stream)
                 .map(p -> p.sequentialElements.data)
                 .flatMap(Collection::stream)
                 .forEach(element -> {
                     boundaryTypes.add(element.type);
                     boundaryColors.add(element.color);
-                    boundaryMaterial.add(element.laneBoundaryMaterial);*/
-                //});
+                    boundaryMaterial.add(element.laneBoundaryMaterial);
+                });
 
-        /*laneLeftBoundaryPrx.setType(boundaryTypes.get(laneNumber));
+        laneLeftBoundaryPrx.setType(boundaryTypes.get(laneNumber));
         laneLeftBoundaryPrx.setColor(boundaryColors.get(laneNumber));
         laneLeftBoundaryPrx.setMaterial(boundaryMaterial.get(laneNumber));
 
@@ -228,7 +222,7 @@ public class RoadBuilder {
         laneRightBoundaryPrx.setMaterial(boundaryMaterial.get(laneNumber + 1));
 
         lanePrxList.get(laneNumber).setLeftSideBoundary(laneLeftBoundaryPrx.getId());
-        lanePrxList.get(laneNumber).setRightSideBoundary(laneRightBoundaryPrx.getId());*/
+        lanePrxList.get(laneNumber).setRightSideBoundary(laneRightBoundaryPrx.getId());
     }
 
     private static float calculateAngle(int number) {
