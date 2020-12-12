@@ -17,7 +17,7 @@ public abstract class CustomPhilosophyWindow extends JFrame {
     protected JTable jTable;
     protected JScrollPane jScrollPane;
     protected DashboardWindow dashboardWindow;
-    private String[] columnNames = {"Parameter", "Moral value", ""};
+    private String[] columnNames = {"Parameter", "Moral value"};
 
     public CustomPhilosophyWindow(DashboardWindow dashboardWindow){
         setSize(430, 450);
@@ -31,18 +31,18 @@ public abstract class CustomPhilosophyWindow extends JFrame {
     protected Object[][] prepareData(CustomPhilosophy customPhilosophy) {
         HashMap<PhilosophyParameter, Integer> parameters = customPhilosophy.getParameters();
         Object[][] data = {
-                {"Human life inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE), "Info"},
-                {"Human life outside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIFE_OUTSIDE_MAIN_VEHICLE), "Info"},
-                {"Human severe injury inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_SEVERE_INJURY_INSIDE_MAIN_VEHICLE), "Info"},
-                {"Human severe injury outside main vehicle", parameters.get(PhilosophyParameter.HUMAN_SEVERE_INJURY_OUTSIDE_MAIN_VEHICLE), "Info"},
-                {"Human lightly injury inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIGHTLY_INJURY_INSIDE_MAIN_VEHICLE), "Info"},
-                {"Human lightly injury outside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIGHTLY_INJURY_OUTSIDE_MAIN_VEHICLE), "Info"},
-                {"Animal life", parameters.get(PhilosophyParameter.ANIMAL_LIFE), "Info"},
-                {"Animal severe injury", parameters.get(PhilosophyParameter.ANIMAL_SEVERE_INJURY), "Info"},
-                {"Animal lightly injury", parameters.get(PhilosophyParameter.ANIMAL_LIGHTLY_INJURY), "Info"},
-                {"Material damages per 1000$", parameters.get(PhilosophyParameter.MATERIAL_VALUE), "Info"},
-                {"Taking action", parameters.get(PhilosophyParameter.TAKING_ACTION), "Info"},
-                {"Dilemma threshold", parameters.get(PhilosophyParameter.DILEMMA_THRESHOLD), "Info"}
+                {"Human life inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIFE_INSIDE_MAIN_VEHICLE)},
+                {"Human life outside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIFE_OUTSIDE_MAIN_VEHICLE)},
+                {"Human severe injury inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_SEVERE_INJURY_INSIDE_MAIN_VEHICLE)},
+                {"Human severe injury outside main vehicle", parameters.get(PhilosophyParameter.HUMAN_SEVERE_INJURY_OUTSIDE_MAIN_VEHICLE)},
+                {"Human lightly injury inside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIGHTLY_INJURY_INSIDE_MAIN_VEHICLE)},
+                {"Human lightly injury outside main vehicle", parameters.get(PhilosophyParameter.HUMAN_LIGHTLY_INJURY_OUTSIDE_MAIN_VEHICLE)},
+                {"Animal life", parameters.get(PhilosophyParameter.ANIMAL_LIFE)},
+                {"Animal severe injury", parameters.get(PhilosophyParameter.ANIMAL_SEVERE_INJURY)},
+                {"Animal lightly injury", parameters.get(PhilosophyParameter.ANIMAL_LIGHTLY_INJURY)},
+                {"Material damages per 1000$", parameters.get(PhilosophyParameter.MATERIAL_VALUE)},
+                {"Taking action", parameters.get(PhilosophyParameter.TAKING_ACTION)},
+                {"Dilemma threshold", parameters.get(PhilosophyParameter.DILEMMA_THRESHOLD)}
         };
         return data;
     }
@@ -62,20 +62,16 @@ public abstract class CustomPhilosophyWindow extends JFrame {
             private static final long serialVersionUID = 1L;
 
             public boolean isCellEditable(int row, int column) {
-                return column == 2 || column == 1;
+                return column == 1;
             }
         };
         return defaultTableModel;
     }
 
-    protected void prepareJTableToEditing(DefaultTableModel model) {
+    protected void prepareJTableToEditing() {
         jTable.setSurrendersFocusOnKeystroke(true);
         TableColumnModel tableColumnModel = jTable.getColumnModel();
         tableColumnModel.getColumn(1).setCellEditor(new SpinnerEditor());
-
-        tableColumnModel.getColumn(2).setCellRenderer(new ClientsTableButtonRenderer());
-        ClientsTableRendererInfo clientsTableRendererInfo = new ClientsTableRendererInfo(new JCheckBox(), model);
-        tableColumnModel.getColumn(2).setCellEditor(clientsTableRendererInfo);
 
         tableColumnModel.getColumn(0).setPreferredWidth(250);
         tableColumnModel.getColumn(1).setPreferredWidth(75);

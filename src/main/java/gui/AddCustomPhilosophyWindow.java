@@ -25,7 +25,7 @@ public class AddCustomPhilosophyWindow extends CustomPhilosophyWindow implements
         Object[][] data = prepareData(CustomPhilosophy.getSimplestPhilosophy());
         DefaultTableModel model = getDefaultTableModel(data);
         jTable = new JTable(model);
-        prepareJTableToEditing(model);
+        prepareJTableToEditing();
 
         jScrollPane = new JScrollPane(jTable);
         jScrollPane.setBounds(10, 10, 400, 200);
