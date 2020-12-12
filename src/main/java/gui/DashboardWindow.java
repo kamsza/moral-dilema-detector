@@ -58,6 +58,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JScrollPane jScrollPaneWithBestDecision;
     private JButton jButtonSetOrderOfDecisions;
     private GeneratorWindowForDilemmaDetector generatorGui;
+    private JLabel jLabelStartingPrompt;
+
 
     /// CONST
     private final String NO_FILE_SELECTED = "No file selected";
@@ -68,7 +70,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private final int IMAGE_HEIGHT = 400;
     private final int CENTER_CUSTOM_PHILOSOPHIES = 90;
     private final String PATH_CUSTOM_PHILOSOPHIES = "\\src\\main\\resources\\gui\\customPhilosophies\\";
-    private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Blank_scenario.png";
+    private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Example_scenario.png";
     private final int oneRowJTableHeight = 48;
 
 
@@ -98,6 +100,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
         jButtonLoadFromFile = new JButton("Load scenario from file");
         jButtonLoadFromFile.setBounds(20, 10, 400, 30);
+        jButtonLoadFromFile.setToolTipText("Default file is: " + OntologyLogic.defaultPathToOntology);
         jButtonLoadFromFile.addActionListener(this);
         add(jButtonLoadFromFile);
 
@@ -111,27 +114,35 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jButtonLoadScenario.addActionListener(this);
         add(jButtonLoadScenario);
 
+        /*
         jComboBoxScenarios = new JComboBox(POSSIBLE_SCENARIOS_LIST.toArray());
         jComboBoxScenarios.setBounds(440, 10, 400, 30);
         add(jComboBoxScenarios);
+        */
 
-        jButtonGenerateScenario = new JButton("Generate");
+        jButtonGenerateScenario = new JButton("Use scenario generator");
         jButtonGenerateScenario.setBounds(440, 40, 400, 30);
         jButtonGenerateScenario.addActionListener(this);
         add(jButtonGenerateScenario);
 
         jLabelImageScenario = new JLabel(getStartingImageIcon());
         jLabelImageScenario.setBounds(20, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
+        jLabelImageScenario.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        jLabelStartingPrompt = new JLabel("Example scenario - load or generate scenario");
+        jLabelImageScenario.add(jLabelStartingPrompt);
         add(jLabelImageScenario);
+
 
         jCheckBoxEnableBraking = new JCheckBox("Enable braking", true);
         jCheckBoxEnableBraking.setBounds(20, 490, 150, 20);
         add(jCheckBoxEnableBraking);
 
+        /*
         jLabelSelectPhilosophyPrompt = new JLabel("Select custom philosophy");
         jLabelSelectPhilosophyPrompt.setBounds(50, 515, 200, 30);
         add(jLabelSelectPhilosophyPrompt);
-
+         */
         jButtonAddCustomPhilosophy = new JButton("Add new");
         jButtonAddCustomPhilosophy.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 570, 500, 150, 30);
         jButtonAddCustomPhilosophy.addActionListener(this);
@@ -188,6 +199,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonLoadScenarioAction() {
+        jLabelStartingPrompt.setVisible(false);
         if (StringUtils.isBlank(jTextFieldScenarioName.getText())) {
             WarningWindow warningWindow = new WarningWindow(this, "Enter scenario name");
             warningWindow.setVisible(true);
@@ -225,9 +237,12 @@ public class DashboardWindow extends JFrame implements ActionListener {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
         } else
             pathToOwlFile = "";
+        jButtonLoadFromFile.setToolTipText("File: " + OntologyLogic.defaultPathToOntology+ " is loaded");
+
     }
 
     private void jButtonGenerateScenarioAction() {
+        jLabelStartingPrompt.setVisible(false);
         this.generatorGui = new GeneratorWindowForDilemmaDetector(this, factory);
         generatorGui.setVisible(true);
 
