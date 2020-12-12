@@ -4,12 +4,16 @@ import generator.BaseScenarioGenerator;
 import generator.Model;
 import gui.DashboardWindow;
 import gui.logic.OntologyLogic;
+import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -58,13 +62,16 @@ public class GeneratorWindowForDilemmaDetector extends JFrame implements ActionL
 
         try {
             BaseScenarioGenerator generator;
-            generator = new BaseScenarioGenerator(factory, OntologyLogic.baseIRI);
+            generator = new BaseScenarioGenerator(OntologyLogic.defaultPathToOntology);
             model = generator.generate();
             scenarioTypePanel.addScenario(model);
             randomObjectsPanel.addRandomElements(model);
 
-
-        } catch (OWLOntologyCreationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException ex) {
+            FileOutputStream outputStream = null;
+            outputStream = FileUtils.openOutputStream(new File(OntologyLogic.defaultPathToOntology), false);
+            factory.getOwlOntology().getOWLOntologyManager().saveOntology(factory.getOwlOntology(), outputStream);
+            model.export(OntologyLogic.defaultPathToOntology, true);
+        } catch (OWLOntologyCreationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | OWLOntologyStorageException ex) {
             showExceptionWindow(ex.getMessage());
         }
         dashboardWindow.getModelFromWrapper(model);

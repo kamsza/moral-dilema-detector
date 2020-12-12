@@ -285,6 +285,8 @@ public class ScenarioReader {
             s = factory.getRailway(surroundingName);
         else if (factory.getRoad_sign_post(surroundingName) != null)
             s = factory.getRoad_sign_post(surroundingName);
+        else if (factory.getRock(surroundingName) != null)
+            s = factory.getRock(surroundingName);
         else if (factory.getSecurity_side_barrier(surroundingName) != null)
             s = factory.getSecurity_side_barrier(surroundingName);
         else if (factory.getStreet_lamp(surroundingName) != null)
