@@ -153,19 +153,9 @@ def get_worlds():
     #     'Town07',
     # ]
 
-default_world = 'Town01'
 
 class Model:
     def __init__(self):
-        print("Compiling worlds")
-        client.load_world('Town01')
-        client.load_world('Town02')
-        client.load_world('Town03')
-        client.load_world('Town04')
-        client.load_world('Town05')
-        client.load_world('Town06')
-        client.load_world('Town07')
-        print("Setting world to default: %s" % default_world)
         self.__cache = refresh_cache()
 
     def get_actors(self):
