@@ -112,3 +112,6 @@ hs_err_pid*
 
 # generated images
 src/main/resources/vis_out/*
+
+# virtual env
+venv/

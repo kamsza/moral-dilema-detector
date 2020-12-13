@@ -39,6 +39,7 @@ class Controller:
     def spawn_actor(self, trans: Transform, blueprint):
         actor = Actor(blueprint, trans)
         self.__model.spawn_actor(actor)
+        print("Actor spawned")
 
     def spawn_actor(self, xl, yl, zl, xr, yr, zr, blueprint):
         rot = Rotation(xr, yr, zr)
@@ -46,12 +47,16 @@ class Controller:
         trans = Transform(rot, loc)
         actor = Actor(blueprint, trans)
         self.__model.spawn_actor(actor)
+        print("Actor spawned")
 
     def set_world(self, world):
         self.__model.load_world(world)
 
     def get_actors(self):
-        self.__model.get_actors()
+        return self.__model.get_actors()
+
+    def get_spawn_points(self):
+        return self.__model.get_spawn_points()
 
 
 class TransformNotSpawnPointException(Exception):

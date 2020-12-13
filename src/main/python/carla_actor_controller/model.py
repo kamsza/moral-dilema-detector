@@ -1,7 +1,8 @@
 from time import sleep
 
-from carla import Client, Transform as cTransform, Location as cLocation, Rotation as cRotation, Actor as cActor\
+from carla import Client, Transform as cTransform, Location as cLocation, Rotation as cRotation, Actor as cActor \
     , ActorBlueprint as cBlueprint
+
 host = 'localhost'
 port = 2000
 client = Client(host, port)
@@ -16,7 +17,7 @@ def refresh_cache():
     blueprints = world.get_blueprint_library()
     vehicles = [x.id for x in blueprints.filter('vehicle')]
     pedestrians = [x.id for x in blueprints.filter('walker')]
-    blueprints_ids = [x for x in vehicles+pedestrians]
+    blueprints_ids = [x for x in vehicles + pedestrians]
     actor_list = [x for x in world.get_actors() if x.type_id in blueprints_ids]
     return {
         'ACTORS': [convert_carla_actor(actor) for actor in actor_list],
@@ -46,6 +47,12 @@ class Location:
     def get_z(self):
         return self.__z
 
+    def __str__(self):
+        return "x: %f\ty: %f\tz: %f" % (self.__x, self.__y, self.__z)
+
+    def __repr__(self):
+        return "x: %f\ty: %f\tz: %f" % (self.__x, self.__y, self.__z)
+
 
 class Rotation:
     def __init__(self, x, y, z):
@@ -61,6 +68,12 @@ class Rotation:
 
     def get_z(self):
         return self.__z
+
+    def __str__(self):
+        return "x: %f\ty: %f\tz: %f" % (self.__x, self.__y, self.__z)
+
+    def __repr__(self):
+        return "x: %f\ty: %f\tz: %f" % (self.__x, self.__y, self.__z)
 
 
 class Transform:
@@ -80,6 +93,12 @@ class Transform:
         cRot = cRotation(roll=rot.get_x(), pitch=rot.get_y(), yaw=rot.get_z())
         cLoc = cLocation(x=loc.get_x(), y=loc.get_y(), z=loc.get_z())
         return cTransform(rotation=cRot, location=cLoc)
+
+    def __str__(self):
+        return "%s, %s" % (str(self.__location), str(self.__rotation))
+
+    def __repr__(self):
+        return "(%s; %s)" % (str(self.__location), str(self.__rotation))
 
 
 class Actor:
@@ -123,19 +142,30 @@ def convert_carla_actor(actor: cActor):
 
 
 def get_worlds():
-    return [
-        'Town01',
-        'Town02',
-        'Town03',
-        'Town04',
-        'Town05',
-        'Town06',
-        'Town07',
-    ]
+    return client.get_available_maps()
+    # return [
+    #     'Town01',
+    #     'Town02',
+    #     'Town03',
+    #     'Town04',
+    #     'Town05',
+    #     'Town06',
+    #     'Town07',
+    # ]
 
+default_world = 'Town01'
 
 class Model:
     def __init__(self):
+        print("Compiling worlds")
+        client.load_world('Town01')
+        client.load_world('Town02')
+        client.load_world('Town03')
+        client.load_world('Town04')
+        client.load_world('Town05')
+        client.load_world('Town06')
+        client.load_world('Town07')
+        print("Setting world to default: %s" % default_world)
         self.__cache = refresh_cache()
 
     def get_actors(self):
@@ -143,7 +173,7 @@ class Model:
         return self.__cache['ACTORS']
 
     def get_blueprints(self):
-        return self.__cache['VEHICLES']+self.__cache['PEDESTRIANS']
+        return self.__cache['VEHICLES'] + self.__cache['PEDESTRIANS']
 
     def get_vehicles_blueprints(self):
         return self.__cache['VEHICLES']
@@ -205,7 +235,7 @@ class Model:
         self.__cache = refresh_cache()
 
 
-model = Model()
+# model = Model()
 
 if __name__ == '__main__':
     print([x for x in model.get_actors()].__len__())

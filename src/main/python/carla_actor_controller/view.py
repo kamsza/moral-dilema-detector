@@ -1,13 +1,21 @@
+import threading
+
 from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.textinput import TextInput
+from kivy.uix.popup import Popup
 
 from carla_actor_controller.controller import Controller
 from carla_actor_controller.model import Model
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+from carla_reader import CarlaReader
+
+from scenario_describer.ScenarioGeneratror import Generator as ScenarioGenerator
+from common.strings import DEFAULT_CARLA_VEHICLE, DEFAULT_CARLA_PEDESTRIAN, DEFAULT_CARLA_CYCLIST
 
 
 class ScrollPanel(ScrollView):
@@ -40,6 +48,12 @@ class CreateActorLayout(GridLayout):
             )
         except RuntimeError:
             print("Actor creation has field possible in world collision check Transform")
+            popup = Popup(title="Actor creation failed",
+                          content=Label(text="Actor creation has field possible in world collision check Transform\n Press ESC to continue."),
+                          auto_dismiss=True)
+            popup.open()
+        finally:
+            self.back_to_main()
 
     def back_to_main(self):
         self.__manager.clear_widgets()
@@ -55,9 +69,9 @@ class CreateActorLayout(GridLayout):
         print(self.__person_blueprint)
         print("Vehicle")
         print(self.__vehicle_blueprint)
+        print("Spawnpoints")
+        print(str(controller.get_spawn_points()))
         self.cols = 2
-
-        ti_blueprint = TextInput()
 
         ti_pos_x = TextInput()
         ti_pos_y = TextInput()
@@ -66,9 +80,6 @@ class CreateActorLayout(GridLayout):
         ti_rot_roll = TextInput()
         ti_rot_pitch = TextInput()
         ti_rot_yaw = TextInput()
-
-        self.add_widget(Label(text="Blueprint"))
-        self.add_widget(ti_blueprint)
 
         self.add_widget(Label(text="Position X"))
         self.add_widget(ti_pos_x)
@@ -88,15 +99,33 @@ class CreateActorLayout(GridLayout):
         self.add_widget(Label(text="Position Yaw"))
         self.add_widget(ti_rot_yaw)
 
-        btn_create = Button(text="Create")
-        btn_main_page = Button(text="Main page")
-        btn_create.bind(on_press=lambda e: self.on_create(
-            ti_blueprint.text,
+        btn_create_vehicle = Button(text="Create vehicle")
+        btn_create_vehicle.bind(on_press=lambda e: self.on_create(
+            DEFAULT_CARLA_VEHICLE,
             (ti_pos_x.text, ti_pos_y.text, ti_pos_z.text),
             (ti_rot_roll.text, ti_rot_pitch.text, ti_rot_yaw.text)
         ))
+
+        btn_create_cyclist = Button(text="Create cyclist")
+        btn_create_cyclist.bind(on_press=lambda e: self.on_create(
+            DEFAULT_CARLA_CYCLIST,
+            (ti_pos_x.text, ti_pos_y.text, ti_pos_z.text),
+            (ti_rot_roll.text, ti_rot_pitch.text, ti_rot_yaw.text)
+        ))
+
+        btn_create_pedestrian = Button(text="Create pedestrian")
+        btn_create_pedestrian.bind(on_press=lambda e: self.on_create(
+            DEFAULT_CARLA_PEDESTRIAN,
+            (ti_pos_x.text, ti_pos_y.text, ti_pos_z.text),
+            (ti_rot_roll.text, ti_rot_pitch.text, ti_rot_yaw.text)
+        ))
+
+        btn_main_page = Button(text="Main page")
         btn_main_page.bind(on_press=lambda e: self.back_to_main())
-        self.add_widget(btn_create)
+
+        self.add_widget(btn_create_vehicle)
+        self.add_widget(btn_create_cyclist)
+        self.add_widget(btn_create_pedestrian)
         self.add_widget(btn_main_page)
 
 
@@ -146,6 +175,10 @@ class CreateActorScreen(Screen):
 
 
 class MainLayout(GridLayout):
+    class OntologyThread(threading.Thread):
+        def run(self):
+            MainLayout.generate_ontology()
+
     def navigate_change_world(self, event):
         self.__manager.clear_widgets()
         self.__manager.add_widget(ChangeWorldScreen(self.__controller, self.__manager))
@@ -154,24 +187,39 @@ class MainLayout(GridLayout):
         self.__manager.clear_widgets()
         self.__manager.add_widget(CreateActorScreen(self.__controller, self.__manager))
 
+    @staticmethod
+    def generate_ontology():
+        cr = CarlaReader.CarlaReader()
+        ScenarioGenerator(cr.get_snapshot())
+
+    def ontology_thread_start(self):
+        self.OntologyThread().start()
+        self.__controller.refresh_model()
+
+    def generate_and_print_actors_summary(self):
+        print("Number of actors is %d" % len(self.__controller.get_actors()))
+
     def __init__(self, controller: Controller, manager: ScreenManager, **kwargs):
         super().__init__(**kwargs)
         self.__controller = controller
         self.__manager = manager
         self.cols = 1
+        self.ontology_thread = None
 
         self.change_world_btn = Button(text="Change world")
-        self.actor_modify_btn = Button(text="Move actor")
         self.create_actor_btn = Button(text="Create actor")
-        self.print_actors_list_btn = Button(text="Print actors")
+        self.generate_ontology_btn = Button(text="Generate ontology")
+        self.print_raport_btn = Button(text="Print actors summary")
 
         self.change_world_btn.bind(on_press=self.navigate_change_world)
         self.create_actor_btn.bind(on_press=self.navigate_create_actor)
-        self.print_actors_list_btn.bind(on_press=lambda e: print(controller.get_actors()))
+        self.generate_ontology_btn.bind(on_press=lambda e: self.ontology_thread_start())
+        self.print_raport_btn.bind(on_press=lambda e: self.generate_and_print_actors_summary())
+
         self.add_widget(self.change_world_btn)
-        self.add_widget(self.actor_modify_btn)
         self.add_widget(self.create_actor_btn)
-        self.add_widget(self.print_actors_list_btn)
+        self.add_widget(self.generate_ontology_btn)
+        self.add_widget(self.print_raport_btn)
 
 
 class MainScreen(Screen):
