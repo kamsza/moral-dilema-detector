@@ -140,6 +140,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         add(jCheckBoxEnableBraking);
 
         jCheckBoxSaveResultsInOntology = new JCheckBox("Save results to ontology", true);
+        jCheckBoxSaveResultsInOntology.setToolTipText("<html>It's recommended option to persist results. <br> Based on that You may create SWRL rules in Protege</html>");
         jCheckBoxSaveResultsInOntology.setBounds(20, 520, 180, 20);
         add(jCheckBoxSaveResultsInOntology);
 
