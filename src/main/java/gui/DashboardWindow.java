@@ -83,7 +83,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();
     private boolean isAnyCustomPhilosophy = true;
-    private String pathToOwlFile = "";
+    private String pathToOwlFile = System.getProperty("user.dir") + "\\" + OntologyLogic.defaultPathToOntology;
 
 
     public DashboardWindow() {
@@ -236,10 +236,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
+            jButtonLoadFromFile.setToolTipText("File: " + pathToOwlFile + " is loaded");
         } else
             pathToOwlFile = "";
-        jButtonLoadFromFile.setToolTipText("File: " + OntologyLogic.defaultPathToOntology+ " is loaded");
-
     }
 
     private void jButtonGenerateScenarioAction() {
@@ -255,7 +254,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
         Model scenarioModel = model;
         DecisionGenerator decisionGenerator = null;
         try {
-            decisionGenerator = new DecisionGenerator(MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology), OntologyLogic.baseIRI);
+            factory = MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology);
+            decisionGenerator = new DecisionGenerator(factory, OntologyLogic.baseIRI);
 
             decisionGenerator.generate(model);
             pictureName = Visualization.getImage(scenarioModel);
@@ -265,8 +265,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
                             + "\\src\\main\\resources\\vis_out\\"
                             + pictureName));
 
-            consequenceContainer = new ConsequenceContainer(MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology));
-            collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology), scenarioModel);
+            consequenceContainer = new ConsequenceContainer(factory);
+            collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
             //OntologyLogic.saveOwlOntology(factory);
             //
             FileOutputStream outputStream = null;
@@ -308,8 +308,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
 
 
-                DecisionCostCalculator decisionCostCalculator =
-                        new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
+                DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
 
 
                 for (Decision decision : collidedEntities.keySet()) {
@@ -347,20 +346,19 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
                 int numberOfDecisions = decisionCosts.size();
                 ArrayList<DecisionCost> sortedCosts = new ArrayList<>();
-                for(String decisionName : decisionCosts.keySet()){
+                for (String decisionName : decisionCosts.keySet()) {
                     int cost = decisionCosts.get(decisionName);
                     int i = 0;
-                    while(i < sortedCosts.size()){
-                        if(sortedCosts.get(i).getDecisionCost() < cost){
+                    while (i < sortedCosts.size()) {
+                        if (sortedCosts.get(i).getDecisionCost() < cost) {
                             i++;
-                        }
-                        else{
+                        } else {
                             break;
                         }
                     }
-                    sortedCosts.add(i,new DecisionCost(prepareDecisionNameToDisplay(decisionName), cost));
+                    sortedCosts.add(i, new DecisionCost(prepareDecisionNameToDisplay(decisionName), cost));
                 }
-                for(DecisionCost dc : sortedCosts){
+                for (DecisionCost dc : sortedCosts) {
                     System.out.println(dc.getDecisionName() + " " + dc.getDecisionCost());
                 }
 
