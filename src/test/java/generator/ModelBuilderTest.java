@@ -102,7 +102,7 @@ public class ModelBuilderTest {
     private ArrayList<Object> getAllEntities(Model model) {
         ArrayList<Object> entities = new ArrayList<>();
 
-        for(ArrayList<Living_entity> lane_entities : model.getEntities().values())
+        for(ArrayList<Living_entity> lane_entities : model.getMainRoad().getEntities().values())
             entities.addAll(lane_entities);
 
         return entities;
@@ -111,7 +111,7 @@ public class ModelBuilderTest {
     private ArrayList<Object> getAllVehicles(Model model) {
         ArrayList<Object> vehicles = new ArrayList<>();
 
-        for(ArrayList<Vehicle> lane_vehicles : model.getVehicles().values())
+        for(ArrayList<Vehicle> lane_vehicles : model.getMainRoad().getVehicles().values())
             vehicles.addAll(lane_vehicles);
 
         return vehicles;
@@ -120,7 +120,7 @@ public class ModelBuilderTest {
     private ArrayList<Object> getAllObjects(Model model) {
         ArrayList<Object> objects = new ArrayList<>();
 
-        for(ArrayList<Non_living_entity> object : model.getObjects().values())
+        for(ArrayList<Non_living_entity> object : model.getMainRoad().getObjects().values())
             objects.addAll(object);
 
         return objects;

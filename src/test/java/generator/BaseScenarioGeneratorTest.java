@@ -28,7 +28,7 @@ public class BaseScenarioGeneratorTest {
         assertThat(model.getScenario(), instanceOf(Scenario.class));
         assertThat(model.getWeather(), instanceOf(Weather.class));
         assertThat(model.getTime(), instanceOf(Time.class));
-        assertThat(model.getRoadType(), instanceOf(Road_type.class));
+        assertThat(model.getMainRoad().getRoadType(), instanceOf(Road_type.class));
         assertThat(model.getDriver(), instanceOf(Driver.class));
         assertThat(model.getVehicle(), instanceOf(Car.class));
         Map<Model.Side, ArrayList<Surrounding>> surrounding = model.getSurrounding();
