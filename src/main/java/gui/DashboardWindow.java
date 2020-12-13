@@ -29,10 +29,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
@@ -52,6 +50,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
     private JCheckBox jCheckBoxEnableBraking;
+    private JCheckBox jCheckBoxSaveResultsInOntology;
     private JTable jTableWithResults;
     private JTable jTableWithMoralResult;
     private JScrollPane jScrollPaneWithMoralResult;
@@ -79,6 +78,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private Map<Decision, Set<Actor>> collidedEntities;
     private Model scenarioModel;
     private MyFactory factory;
+    private MyFactory factoryForCalculator;
     private String pictureName;
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();
@@ -136,8 +136,12 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
 
         jCheckBoxEnableBraking = new JCheckBox("Enable braking", true);
-        jCheckBoxEnableBraking.setBounds(20, 490, 150, 20);
+        jCheckBoxEnableBraking.setBounds(20, 500, 180, 20);
         add(jCheckBoxEnableBraking);
+
+        jCheckBoxSaveResultsInOntology = new JCheckBox("Save results to ontology", true);
+        jCheckBoxSaveResultsInOntology.setBounds(20, 520, 180, 20);
+        add(jCheckBoxSaveResultsInOntology);
 
         /*
         jLabelSelectPhilosophyPrompt = new JLabel("Select custom philosophy");
@@ -218,6 +222,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     return;
                 }
 
+                DecisionGenerator decisionGenerator = new DecisionGenerator(factory, OntologyLogic.baseIRI);
+                decisionGenerator.generate(scenarioModel);
+
                 pictureName = Visualization.getImage(scenarioModel);
                 jLabelImageScenario.setIcon(
                         getImageIcon(System.getProperty("user.dir")
@@ -226,7 +233,30 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
                 consequenceContainer = new ConsequenceContainer(factory);
                 collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+                consequenceContainer.saveConsequencesToOntology();
+
+                saveToOntologyAccordingToCheckbox();
+
+
             }
+        }
+    }
+
+    private void saveToOntologyAccordingToCheckbox() {
+        factoryForCalculator = factory;
+        if (jCheckBoxSaveResultsInOntology.isSelected()) {
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = FileUtils.openOutputStream(new File(OntologyLogic.defaultPathToOntology), false);
+                factory.getOwlOntology().getOWLOntologyManager().saveOntology(factory.getOwlOntology(), outputStream);
+
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (OWLOntologyStorageException e) {
+                e.printStackTrace();
+            }
+        } else {
+            factory = OntologyLogic.getFactory(OntologyLogic.defaultPathToOntology);
         }
     }
 
@@ -267,16 +297,12 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
             consequenceContainer = new ConsequenceContainer(factory);
             collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
-            //OntologyLogic.saveOwlOntology(factory);
-            //
-            FileOutputStream outputStream = null;
-            outputStream = FileUtils.openOutputStream(new File(OntologyLogic.defaultPathToOntology), false);
-            factory.getOwlOntology().getOWLOntologyManager().saveOntology(factory.getOwlOntology(), outputStream);
+            consequenceContainer.saveConsequencesToOntology();
 
-            model.export(OntologyLogic.defaultPathToOntology, true);
-        } catch (OWLOntologyCreationException | IOException | OWLOntologyStorageException ex) {
+            saveToOntologyAccordingToCheckbox();
+
+        } catch (OWLOntologyCreationException | IOException ex) {
             System.err.println(ex);
-
         }
 
 
@@ -308,7 +334,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
 
 
-                DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
+                DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(consequenceContainer, factoryForCalculator, customPhilosophy);
 
 
                 for (Decision decision : collidedEntities.keySet()) {
