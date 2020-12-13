@@ -199,17 +199,23 @@ public class RoadBuilder {
     }
 
     private void addLaneBoundaries(BoundaryElements boundaryElements, int firstLaneInGroupNumber) {
-        List<SequentialElement> sequentialElements = boundaryElements
-                .data.stream()
-                .filter(e -> e.laneBoundarySource.equals("INTERNAL"))
-                .map(d -> d.parallelElements.data)
+        final List<BoundaryElement> boundaryList = boundaryElements.data;
+        for (int i=0; i<boundaryList.size(); i++) {
+            if (boundaryList.get(i).laneBoundarySource.equals("INTERNAL_SHARED")) {
+                BoundaryElement nextBoundary = boundaryList.get(i+1);
+                boundaryList.set(i, nextBoundary);
+            }
+        }
+
+        List<SequentialElement> sequentialElements = boundaryList.stream()
+                .map(e -> e.parallelElements.data)
                 .flatMap(Collection::stream)
                 .map(p -> p.sequentialElements.data)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
         AtomicInteger laneNumber = new AtomicInteger(firstLaneInGroupNumber);
-        IntStream.range(0, lanePrxList.size() - firstLaneInGroupNumber)
+        IntStream.range(0, (lanePrxList.size() - firstLaneInGroupNumber) * 2 - 1)
                 .filter(n -> n % 2 == 0)
                 .mapToObj(sequentialElements::get)
                 .forEach(element -> {
@@ -222,7 +228,7 @@ public class RoadBuilder {
                 });
 
         laneNumber.set(firstLaneInGroupNumber);
-        IntStream.range(0, lanePrxList.size() - firstLaneInGroupNumber)
+        IntStream.range(0, (lanePrxList.size() - firstLaneInGroupNumber) * 2)
                 .filter(n -> n % 2 == 1)
                 .mapToObj(sequentialElements::get)
                 .forEach(element -> {
