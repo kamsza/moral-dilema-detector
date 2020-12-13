@@ -1,0 +1,90 @@
+{
+  "coordWidth": 11,
+  "header": {
+    "contentMask": {
+      "hasFixedRoadAttributeSetList": true,
+      "hasSimpleIntersectionList": true,
+      "hasLinkList": false,
+      "hasRouteUpLinkList": false,
+      "hasRouteDownLinkList": false,
+      "hasLinkToTileList": false,
+      "hasLinkIdRangeList": false,
+      "hasSimpleIntersectionIdRangeList": false,
+      "hasAttributeMaps": false,
+      "hasExternalTileIdList": true
+    },
+    "fixedRoadAttributeSetListOffset": 14,
+    "simpleIntersectionOffset": 18,
+    "externalTileIdListOffset": 28
+  },
+  "fixedRoadAttributeSetList": {
+    "numAttributeSets": 1,
+    "attributeList": {
+      "data": [
+        {
+          "sharedAttr": {
+            "priorityRoadClass": 0,
+            "linkType": "NO_SPECIAL",
+            "travelDirection": "IN_POSITIVE_DIRECTION",
+            "ferry": false,
+            "tunnel": false,
+            "bridge": false,
+            "toll": "IN_NO_DIRECTION",
+            "controlledAccess": true,
+            "serviceArea": false
+          },
+          "routingAttr": {
+            "functionalRoadClass": 0,
+            "urban": false,
+            "complexIntersection": false,
+            "pluralJunction": false,
+            "motorway": true
+          }
+        }
+      ]
+    }
+  },
+  "simpleIntersection": {
+    "coordWidth": 11,
+    "numIntersections": 1,
+    "simpleIntersection": {
+      "data": [
+        {
+          "coordWidth": 11,
+          "position": {
+            "numBits": 11,
+            "dx": -677,
+            "dy": 971
+          },
+          "numLinks": 1,
+          "connectedLinks": {
+            "data": [
+              {
+                "isExternalLinkReference": true,
+                "linkReferenceChoice": {
+                  "isExternalLinkReference": true,
+                  "__objectChoice": {
+                    "extTileIdx": 0,
+                    "tileExternalLinkReference": {
+                      "positiveLinkDirection": false,
+                      "linkId": 0
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "externalTileIdList": {
+    "numTileIds": 2,
+    "tileId": {
+      "data": [
+        545554860,
+        545554861
+      ]
+    }
+  }
+}

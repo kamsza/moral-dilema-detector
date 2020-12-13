@@ -1,0 +1,335 @@
+{
+  "header": {
+    "contentMask": {
+      "hasAttributeMaps": true,
+      "hasExternalTileIdList": false
+    },
+    "attributeMapsOffset": 9
+  },
+  "metadata": {
+    "baseTileHeight": 45819
+  },
+  "attributeMaps": {
+    "numMaps": 2,
+    "attrTypeRef": {
+      "data": [
+        {
+          "numAttrCodes": 1,
+          "attributeTypeCodes": {
+            "data": [
+              "LANE_GROUP"
+            ]
+          },
+          "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+          "attrTypeOffset": 27
+        },
+        {
+          "numAttrCodes": 2,
+          "attributeTypeCodes": {
+            "data": [
+              "IS_CARPOOL_LANE",
+              "LANE_RANGE_MASK"
+            ]
+          },
+          "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+          "attrTypeOffset": 57
+        }
+      ]
+    },
+    "attrMap": {
+      "data": [
+        {
+          "attrRefHeader": {
+            "numAttrCodes": 1,
+            "attributeTypeCodes": {
+              "data": [
+                "LANE_GROUP"
+              ]
+            },
+            "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+            "attrTypeOffset": 27
+          },
+          "attrMapType": "VALUES_TO_ONE_FEATURE",
+          "numEntries": 1,
+          "values4OneFeature": {
+            "data": [
+              {
+                "attrRefHeader": {
+                  "numAttrCodes": 1,
+                  "attributeTypeCodes": {
+                    "data": [
+                      "LANE_GROUP"
+                    ]
+                  },
+                  "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+                  "attrTypeOffset": 27
+                },
+                "feature": {
+                  "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "roadGeoLineId": 0
+                  }
+                },
+                "attrValList": {
+                  "attrRefHeader": {
+                    "numAttrCodes": 1,
+                    "attributeTypeCodes": {
+                      "data": [
+                        "LANE_GROUP"
+                      ]
+                    },
+                    "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+                    "attrTypeOffset": 27
+                  },
+                  "values": {
+                    "data": [
+                      {
+                        "attrType": "LANE_GROUP",
+                        "__objectChoice": {
+                          "id": 4,
+                          "hasReferenceAcrossFeatures": true,
+                          "reference": {
+                            "numSourceFeatures": 1,
+                            "numDestFeatures": 1,
+                            "sourceGuidanceFeatureReference": {
+                              "data": [
+                                {
+                                  "guidanceFeatureType": "IS_ROAD_GEO_LINE",
+                                  "roadGeoLineReference": {
+                                    "isExternalRoadGeoLineReference": true,
+                                    "roadGeoLineReferenceChoice": {
+                                      "isExternalRoadGeoLineReference": true,
+                                      "__objectChoice": {
+                                        "extTileIdx": 1,
+                                        "tileExternalRoadGeoLineReference": {
+                                          "positiveLinkDirection": true,
+                                          "roadGeoLineId": 0
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "destGuidanceFeatureReference": {
+                              "data": [
+                                {
+                                  "guidanceFeatureType": "IS_ROAD_GEO_LINE",
+                                  "roadGeoLineReference": {
+                                    "isExternalRoadGeoLineReference": false,
+                                    "roadGeoLineReferenceChoice": {
+                                      "isExternalRoadGeoLineReference": false,
+                                      "__objectChoice": {
+                                        "positiveLinkDirection": true,
+                                        "roadGeoLineId": 0
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "numLaneConnectivityElements": 2,
+                          "laneConnectivityElements": {
+                            "data": [
+                              {
+                                "laneType": "NORMAL_LANE",
+                                "hasLaneConnectivity": true,
+                                "speedLimit": 50,
+                                "laneConnectivity": {
+                                  "sourceLaneConnectorId": 4,
+                                  "destLaneConnectorId": 6
+                                },
+                                "hasGeometry": false
+                              },
+                              {
+                                "laneType": "NORMAL_LANE",
+                                "hasLaneConnectivity": true,
+                                "speedLimit": 50,
+                                "laneConnectivity": {
+                                  "sourceLaneConnectorId": 5,
+                                  "destLaneConnectorId": 7
+                                },
+                                "hasGeometry": false
+                              }
+                            ]
+                          },
+                          "hasLaneBoundaries": true,
+                          "boundaryElements": {
+                            "data": [
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL_SHARED"
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "LONG_DASHED_LINE",
+                                            "openToCurbSide": true,
+                                            "openToMiddleSide": true,
+                                            "hasColor": true,
+                                            "color": "YELLOW",
+                                            "hasBoundaryMaterial": true,
+                                            "laneBoundaryMaterial": "PAINTED_VIBRATION_DIVIDER",
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "laneBoundarySource": "INTERNAL",
+                                "numParallelElements": 1,
+                                "parallelElements": {
+                                  "data": [
+                                    {
+                                      "numSequentialElements": 1,
+                                      "sequentialElements": {
+                                        "data": [
+                                          {
+                                            "type": "SINGLE_SOLID_LINE",
+                                            "openToCurbSide": false,
+                                            "openToMiddleSide": false,
+                                            "hasColor": false,
+                                            "hasBoundaryMaterial": false,
+                                            "laneRange": {
+                                              "type": "COMPLETE_RANGE"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "hasGeometry": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "attrRefHeader": {
+            "numAttrCodes": 2,
+            "attributeTypeCodes": {
+              "data": [
+                "IS_CARPOOL_LANE",
+                "LANE_RANGE_MASK"
+              ]
+            },
+            "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+            "attrTypeOffset": 57
+          },
+          "attrMapType": "VALUES_TO_ONE_FEATURE",
+          "numEntries": 1,
+          "values4OneFeature": {
+            "data": [
+              {
+                "attrRefHeader": {
+                  "numAttrCodes": 2,
+                  "attributeTypeCodes": {
+                    "data": [
+                      "IS_CARPOOL_LANE",
+                      "LANE_RANGE_MASK"
+                    ]
+                  },
+                  "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+                  "attrTypeOffset": 57
+                },
+                "feature": {
+                  "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "roadGeoLineId": 0
+                  }
+                },
+                "attrValList": {
+                  "attrRefHeader": {
+                    "numAttrCodes": 2,
+                    "attributeTypeCodes": {
+                      "data": [
+                        "IS_CARPOOL_LANE",
+                        "LANE_RANGE_MASK"
+                      ]
+                    },
+                    "referenceType": "ROUTING_ROAD_GEO_LINE_DIRECTED",
+                    "attrTypeOffset": 57
+                  },
+                  "values": {
+                    "data": [
+                      {
+                        "attrType": "IS_CARPOOL_LANE"
+                      },
+                      {
+                        "attrType": "LANE_RANGE_MASK",
+                        "__objectChoice": {
+                          "hasLaneGroupId": true,
+                          "laneGroupId": 4,
+                          "numLanes": 2,
+                          "ranges": {
+                            "data": [
+                              {
+                                "type": "NO_RANGE"
+                              },
+                              {
+                                "type": "COMPLETE_RANGE"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
