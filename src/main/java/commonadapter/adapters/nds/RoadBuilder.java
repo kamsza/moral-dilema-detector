@@ -192,6 +192,7 @@ public class RoadBuilder {
                 .forEach(e -> {
                     LanePrx lanePrx = proxyService.createLanePrx();
                     lanePrx.setRoad(roadId);
+                    roadPrxList.get(roadNumber).setSpeedLimit(e.speedLimit);
                     lanePrxList.add(laneNumber.getAndIncrement(), lanePrx);
                     Logger.printLogMessage("Added lane with number: " + laneNumber.get(), LogMessageType.INFO);
                 });
