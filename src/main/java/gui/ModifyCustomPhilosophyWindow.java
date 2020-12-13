@@ -78,7 +78,6 @@ public class ModifyCustomPhilosophyWindow extends CustomPhilosophyWindow impleme
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        dashboardWindow.updateCustomPhilosophiesList();
         setVisible(false);
         dispose();
     }
