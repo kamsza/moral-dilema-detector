@@ -15,10 +15,10 @@ public class RigidBodyMapper {
     public static List<Actor> createSurroundingActors(Model model) {
         Set leftLanes = new HashSet();
         Set rightLanes = new HashSet();
-        if(model.getLanes().containsKey(Model.Side.LEFT))
-            leftLanes = model.getLanes().get(Model.Side.LEFT).entrySet();
-        if(model.getLanes().containsKey(Model.Side.RIGHT))
-            rightLanes = model.getLanes().get(Model.Side.RIGHT).entrySet();
+        if(model.getMainRoad().getLanes().containsKey(Model.Side.LEFT))
+            leftLanes = model.getMainRoad().getLanes().get(Model.Side.LEFT).entrySet();
+        if(model.getMainRoad().getLanes().containsKey(Model.Side.RIGHT))
+            rightLanes = model.getMainRoad().getLanes().get(Model.Side.RIGHT).entrySet();
 
         int lastLeftLane = leftLanes.size();
         int lastRightLane = rightLanes.size();
@@ -44,13 +44,13 @@ public class RigidBodyMapper {
     }
 
     public static List<Actor> createActors(FactoryWrapper factoryWrapper, Model model) {
-        Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getVehicles();
-        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getEntities();
-        Map<Lane, ArrayList<Non_living_entity>> obstaclesMap = model.getObjects();
+        Map<Lane, ArrayList<Vehicle>> vehicleMap = model.getMainRoad().getVehicles();
+        Map<Lane, ArrayList<Living_entity>> livingEntityMap = model.getMainRoad().getEntities();
+        Map<Lane, ArrayList<Non_living_entity>> obstaclesMap = model.getMainRoad().getObjects();
 
         List<Actor> result = new LinkedList<>();
 
-        for (Map.Entry<Model.Side, TreeMap<Integer, Lane>> parentPair : model.getLanes().entrySet()) {
+        for (Map.Entry<Model.Side, TreeMap<Integer, Lane>> parentPair : model.getMainRoad().getLanes().entrySet()) {
             Model.Side side = parentPair.getKey();
             for (Map.Entry childPair : (parentPair.getValue()).entrySet()) {
                 Integer laneNumber = (Integer) childPair.getKey();

@@ -79,14 +79,14 @@ public class RandomPositioner {
 
     public Lane getLane(Model model, int laneNo) {
         Lane lane;
-        int mainVehicleLaneId = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+        int mainVehicleLaneId = model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next();
 
         if (laneNo == mainVehicleLaneId)
-            lane = model.getLanes().get(Model.Side.CENTER).get(0);
+            lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
         else if (laneNo < mainVehicleLaneId)
-            lane = model.getLanes().get(Model.Side.LEFT).get(mainVehicleLaneId - laneNo);
+            lane = model.getMainRoad().getLanes().get(Model.Side.LEFT).get(mainVehicleLaneId - laneNo);
         else
-            lane = model.getLanes().get(Model.Side.RIGHT).get(laneNo - mainVehicleLaneId);
+            lane = model.getMainRoad().getLanes().get(Model.Side.RIGHT).get(laneNo - mainVehicleLaneId);
 
         return lane;
     }

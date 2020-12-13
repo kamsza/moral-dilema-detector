@@ -60,6 +60,9 @@ public class Main {
 //            new ScenarioFactory(scenarioModel, factory)
 //                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
 
+            Set leftLanes = scenarioModel.getMainRoad().getLanes().get(Model.Side.LEFT).entrySet();
+            Set rightLanes =  scenarioModel.getMainRoad().getLanes().get(Model.Side.RIGHT).entrySet();
+
             Visualization.getImage(scenarioModel);
 
             System.out.println(scenarioModel.getScenario().getOwlIndividual());

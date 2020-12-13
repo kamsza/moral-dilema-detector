@@ -132,7 +132,7 @@ public class ModelBuilder {
         model.getMainRoad().getRoadType().addLeft_lanes_count(lanesMovingLeft + 1);
         model.getMainRoad().getRoadType().addRight_lanes_count(lanesMovingRight - 1);
 
-        Pair<String, Vehicle> randomVehicle = getRandomVehicle();
+        Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
         String name = randomVehicle.getKey();
         Vehicle vehicle = randomVehicle.getValue();
 
