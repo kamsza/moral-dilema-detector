@@ -29,7 +29,7 @@ public class GeneratorWindowForDilemmaDetector extends JFrame implements ActionL
         this.dashboardWindow = dashboardWindow;
         this.factory = factory;
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(1000, 700);
         this.setResizable(false);
         this.setTitle("Road scenario generator");

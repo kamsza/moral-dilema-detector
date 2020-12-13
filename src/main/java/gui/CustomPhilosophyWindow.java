@@ -24,7 +24,7 @@ public abstract class CustomPhilosophyWindow extends JFrame {
         setResizable(false);
         setTitle("Moral dilemma detector");
         setLayout(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.dashboardWindow = dashboardWindow;
     }
 
