@@ -349,10 +349,19 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 ArrayList<DecisionCost> sortedCosts = new ArrayList<>();
                 for(String decisionName : decisionCosts.keySet()){
                     int cost = decisionCosts.get(decisionName);
-                    for(int i=0; i<sortedCosts.size(); i++){
-                        if(sortedCosts.get(i).getDecisionCost() > cost); break;
+                    int i = 0;
+                    while(i < sortedCosts.size()){
+                        if(sortedCosts.get(i).getDecisionCost() < cost){
+                            i++;
+                        }
+                        else{
+                            break;
+                        }
                     }
-                    sortedCosts.add(new DecisionCost(prepareDecisionNameToDisplay(decisionName), cost));
+                    sortedCosts.add(i,new DecisionCost(prepareDecisionNameToDisplay(decisionName), cost));
+                }
+                for(DecisionCost dc : sortedCosts){
+                    System.out.println(dc.getDecisionName() + " " + dc.getDecisionCost());
                 }
 
                 if (jTableWithResults != null) {
