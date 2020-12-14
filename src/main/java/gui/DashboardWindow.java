@@ -8,6 +8,7 @@ import generator.Model;
 import generator.MyFactorySingleton;
 import generatorGUI.GeneratorWindowForDilemmaDetector;
 import gui.logic.DecisionCost;
+import gui.logic.FactoryReflection;
 import gui.logic.OntologyLogic;
 
 import org.apache.commons.io.FileUtils;
@@ -257,7 +258,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 e.printStackTrace();
             }
         } else {
-            factory = OntologyLogic.getFactory(OntologyLogic.defaultPathToOntology);
+            FactoryReflection.changeFactorySingletonToNull();
         }
     }
 
