@@ -60,6 +60,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JButton jButtonSetOrderOfDecisions;
     private GeneratorWindowForDilemmaDetector generatorGui;
     private JLabel jLabelStartingPrompt;
+    private JLabel jLabelScenarioName;
 
 
     /// CONST
@@ -123,9 +124,14 @@ public class DashboardWindow extends JFrame implements ActionListener {
         */
 
         jButtonGenerateScenario = new JButton("Use scenario generator");
-        jButtonGenerateScenario.setBounds(440, 40, 400, 30);
+        jButtonGenerateScenario.setBounds(440, 10, 400, 30);
         jButtonGenerateScenario.addActionListener(this);
         add(jButtonGenerateScenario);
+
+        jLabelScenarioName = new JLabel();
+        jLabelScenarioName.setBounds(440, 40, 400, 30);
+        add(jLabelScenarioName);
+        jLabelScenarioName.setVisible(false);
 
         jLabelImageScenario = new JLabel(getStartingImageIcon());
         jLabelImageScenario.setBounds(20, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -284,6 +290,10 @@ public class DashboardWindow extends JFrame implements ActionListener {
     public void getModelFromWrapper(Model model) {
 
         Model scenarioModel = model;
+        jLabelScenarioName.setVisible(true);
+        String scenarioName = model.getScenario().getOwlIndividual().toString();
+        scenarioName = scenarioName.substring(1, scenarioName.length() - 1);
+        jLabelScenarioName.setText("Generated scenario: " + scenarioName);
         DecisionGenerator decisionGenerator = null;
         try {
             factory = MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology);
