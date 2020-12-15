@@ -21,7 +21,7 @@ public class OptionsPanel extends JPanel implements ActionListener, ValueHandler
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         JLabel optionsLabel = new JLabel("Options", SwingConstants.CENTER);
-        optionsLabel.setBounds(50, 0, 900, 30);
+        optionsLabel.setBounds(0, 0, 900, 30);
         this.add(optionsLabel);
 
         JButton loadOntologyButton = new JButton("change");

@@ -89,7 +89,7 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         probabilitiesLabel.setBounds(150, 0, 80, 30);
         probabilitiesPanel.add(probabilitiesLabel);
 
-        probabilityTextField.setBounds(230, 3, 170, 24);
+        probabilityTextField.setBounds(230, 4, 170, 22);
         probabilitiesPanel.add(probabilityTextField);
 
         checkbox.addItemListener(e -> {
@@ -110,14 +110,14 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         dirPanel.setLayout(null);
         dirPanel.setBounds(450, y, 400, 30);
 
-        JLabel outputDirLabel = new JLabel("Output dir:");
+        JLabel outputDirLabel = new JLabel("output dir:");
         outputDirLabel.setBounds(0, 0, 80, 30);
         dirPanel.add(outputDirLabel);
 
         label.setBounds(80, 0, 200, 30);
         dirPanel.add(label);
 
-        button.setBounds(310, 0, 90, 24);
+        button.setBounds(310, 4, 90, 22);
         dirPanel.add(button);
 
         checkbox.addItemListener(e -> {

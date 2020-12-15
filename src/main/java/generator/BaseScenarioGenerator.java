@@ -71,6 +71,21 @@ public class BaseScenarioGenerator {
         return model;
     }
 
+    public Model generate(int lanesNo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        // create scenario
+        Model model = new Model();
+        Scenario scenario = factory.createScenario(ObjectNamer.getName("scenario"));
+        model.setScenario(scenario);
+
+        // add objects
+        addRoad(model, lanesNo);
+        addEnvData(model);
+        addSurrounding(model);
+        addMainVehicle(model);
+
+        return model;
+    }
+
     private void addVehicle(Model model) {
         Vehicle vehicle1;
         float entitySize;
@@ -141,12 +156,16 @@ public class BaseScenarioGenerator {
     }
 
     private void addRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        this.addRoad(model, rand.nextInt(4) + 1);
+    }
+
+    private void addRoad(Model model, int lanesNo) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Map<Model.Side, TreeMap<Integer, Lane>> lanes = new HashMap<>();
         Map<Lane, ArrayList<Living_entity>> entities = new HashMap<>();
         Map<Lane, ArrayList<Non_living_entity>> objects = new HashMap<>();
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
 
-        lanesCount = rand.nextInt(4) + 1;
+        lanesCount = lanesNo;
         model.setLanesCount(lanesCount);
 
         model.setRandomPositioner(new RandomPositioner(lanesCount));

@@ -9,7 +9,7 @@ public class ProbRand {
      * Each element can be taken with probability prob
      * Probabilities in prob array must sum to 1 or less
      */
-    static int randInt(int[] arr, double[] prob) {
+    public static int randInt(int[] arr, double[] prob) {
         Random rand = new Random();
         int n = arr.length;
 
@@ -36,5 +36,13 @@ public class ProbRand {
             if(prefix[i-1] < r && prefix[i] >= r)
                 return arr[i-1];
         return -1;
+    }
+
+    public static int randInt(int maxVal, double[] prob) {
+        int[] arr = new int[maxVal];
+        for(int i = 0; i < maxVal; i++)
+            arr[i] = i+1;
+
+        return randInt(arr, prob);
     }
 }

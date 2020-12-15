@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class AdditionalSettingsPanel extends ScenarioPanel implements ActionListener {
 
@@ -15,12 +14,18 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
     private JCheckBox saveInOriginalFileCheckbox;
     private JCheckBox createVisualizationCheckbox;
 
-    private JLabel ontologyOutDir;
-    private JLabel visualizationOutDir;
+    private JLabel ontologyOutDirLabel;
+    private JLabel visualizationOutDirLabel;
+
+    private JButton ontologyDirChangeButton;
+    private JButton visualizationDirChangeButton;
+
+    private String ontologyOutDir = "src\\main\\resources\\ontologies";
+    private String visualizationOutDir = "src\\main\\resources\\vis_out";
 
     public AdditionalSettingsPanel() {
         this.setLayout(null);
-        this.setBounds(40, 740, 900, 150);
+        this.setBounds(40, 740, 900, 180);
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         JLabel scenarioTypeLabel = new JLabel("Additional settings", SwingConstants.CENTER);
@@ -40,23 +45,30 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
         saveInOriginalFileCheckbox.setBounds(50, 80, 350, 30);
         this.add(saveInOriginalFileCheckbox);
 
-        ontologyOutDir = new JLabel("aaaaaaaaaaa");
-        JButton ontologyDirChangeButton = new JButton("change");
+        JCheckBox changeOntologyOutDirCheckbox = new JCheckBox("change output directory");
+        changeOntologyOutDirCheckbox.setBounds(50, 110, 350, 30);
+        this.add(changeOntologyOutDirCheckbox);
+
+        ontologyOutDirLabel = new JLabel(ontologyOutDir);
+        ontologyDirChangeButton = new JButton("change");
         ontologyDirChangeButton.addActionListener(this);
-        this.add(getDirPanel(80, ontologyOutDir, ontologyDirChangeButton, saveInOriginalFileCheckbox));
+        this.add(getDirPanel(110, ontologyOutDirLabel, ontologyDirChangeButton, changeOntologyOutDirCheckbox));
 
         createVisualizationCheckbox = new JCheckBox("create visualization");
-        createVisualizationCheckbox.setBounds(50, 110, 350, 30);
+        createVisualizationCheckbox.setBounds(50, 140, 350, 30);
         this.add(createVisualizationCheckbox);
 
-        visualizationOutDir = new JLabel("bbbbbbbbbbbbbbbbbbbbbbbb");
-        JButton visualizationDirChangeButton = new JButton("change");
+        visualizationOutDirLabel = new JLabel(visualizationOutDir);
+        visualizationDirChangeButton = new JButton("change");
         visualizationDirChangeButton.addActionListener(this);
-        this.add(getDirPanel(110, visualizationOutDir, visualizationDirChangeButton, createVisualizationCheckbox));
+        this.add(getDirPanel(140, visualizationOutDirLabel, visualizationDirChangeButton, createVisualizationCheckbox));
 
         disableInputFields();
     }
 
+    public boolean getChangeLaneNoCheckbox() {
+        return setLanesNoCheckbox.isSelected();
+    }
 
     public boolean getOverrideOriginalFileCheckbox() {
         return saveInOriginalFileCheckbox.isSelected();
@@ -66,8 +78,33 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
         return createVisualizationCheckbox.isSelected();
     }
 
+    public int getMaxLanesSpinnerValue() { return getJSpinnerValue(maxLanesSpinner); }
+
+    public double[] getMaxLanesTextFieldValue() { return getProbabilities(maxLanesTextField); }
+
+    public String getOntologyOutputDir() { return ontologyOutDir; }
+
+    public String getVisualizationOutDir() { return visualizationOutDir; }
+
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        Object eventSource = actionEvent.getSource();
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Choose output directory");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String dirPath = chooser.getSelectedFile().getAbsolutePath();
+            String shortenDirPath = (dirPath.length() > 25) ? "... " + dirPath.substring(dirPath.length()-25) : dirPath;
+            if (eventSource == ontologyDirChangeButton) {
+                ontologyOutDirLabel.setText(shortenDirPath);
+                ontologyOutDir = dirPath;
+            }
+
+            else if (eventSource == visualizationDirChangeButton) {
+                visualizationOutDirLabel.setText(shortenDirPath);
+                visualizationOutDir = dirPath;
+            }
+        }
     }
 }

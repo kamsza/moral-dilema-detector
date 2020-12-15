@@ -2,6 +2,7 @@ package generatorGUI;
 
 import generator.BaseScenarioGenerator;
 import generator.Model;
+import generator.ProbRand;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import visualization.Visualization;
@@ -28,12 +29,12 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
         this.setTitle("Road scenario generator");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = Math.min((int)(screenSize.width * 0.9), 1040);
-        int height = Math.min((int)(screenSize.height * 0.9), 950);
+        int height = Math.min((int)(screenSize.height * 0.9), 960);
         this.setPreferredSize(new Dimension(width, height));
-        this.setMaximumSize(new Dimension(1040, 950));
+        this.setMaximumSize(new Dimension(1040, 960));
 
         JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 20));
-        contentPanel.setPreferredSize(new Dimension(1000, 900));
+        contentPanel.setPreferredSize(new Dimension(1000, 915));
         this.add(contentPanel);
 
         JScrollPane scrollPane = new JScrollPane(contentPanel);
@@ -52,7 +53,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
         contentPanel.add(randomObjectsPanel);
 
         additionalSettingsPanel = new AdditionalSettingsPanel();
-        additionalSettingsPanel.setPreferredSize(new Dimension(900, 150));
+        additionalSettingsPanel.setPreferredSize(new Dimension(900, 180));
         contentPanel.add(additionalSettingsPanel);
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
@@ -100,15 +101,21 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
             for (int i = 0; i < scenariosNo; i++) {
                 BaseScenarioGenerator generator;
                 generator = new BaseScenarioGenerator(ontologyFilepath);
-                model = generator.generate();
+                if(additionalSettingsPanel.getChangeLaneNoCheckbox()) {
+                    int lanesNo = ProbRand.randInt(additionalSettingsPanel.getMaxLanesSpinnerValue(), additionalSettingsPanel.getMaxLanesTextFieldValue());
+                    model = generator.generate(lanesNo);
+                }
+                else {
+                    model = generator.generate();
+                }
 
                 scenarioTypePanel.addScenario(model);
                 randomObjectsPanel.addRandomElements(model);
                 if (additionalSettingsPanel.getCreateVisualizationCheckbox())
-                    Visualization.getImage(model);
+                    Visualization.getImage(model, additionalSettingsPanel.getVisualizationOutDir());
             }
             if(scenariosNo > 0)
-                model.export(ontologyFilepath, additionalSettingsPanel.getOverrideOriginalFileCheckbox());
+                model.export(ontologyFilepath, additionalSettingsPanel.getOverrideOriginalFileCheckbox(), additionalSettingsPanel.getOntologyOutputDir());
         } catch (OWLOntologyCreationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException | OWLOntologyStorageException ex) {
             showExceptionWindow(ex.getMessage());
         }
@@ -121,6 +128,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
         optionsPanel.disableComponents();
         scenarioTypePanel.disableComponents();
         randomObjectsPanel.disableComponents();
+        additionalSettingsPanel.disableComponents();
     }
 
     private void enableComponents() {
@@ -130,5 +138,6 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
         optionsPanel.enableComponents();
         scenarioTypePanel.enableComponents();
         randomObjectsPanel.enableComponents();
+        additionalSettingsPanel.enableComponents();
     }
 }
