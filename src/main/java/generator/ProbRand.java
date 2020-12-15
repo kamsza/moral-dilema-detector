@@ -9,7 +9,7 @@ public class ProbRand {
      * Each element can be taken with probability prob
      * Probabilities in prob array must sum to 1 or less
      */
-    static int randInt(int[] arr, double[] prob) {
+    public static int randInt(int[] arr, double[] prob) {
         Random rand = new Random();
         int n = arr.length;
 
@@ -24,7 +24,7 @@ public class ProbRand {
             throw new IllegalArgumentException("Sum of probabilities must be less than or equal to 1.0");
 
         if(rand.nextDouble() > probSum)
-            return -1;
+            return 0;
 
         int[] prefix = new int[n+1];
         prefix[0] = 0;
@@ -35,6 +35,14 @@ public class ProbRand {
         for (int i = 1; i <= n; i++)
             if(prefix[i-1] < r && prefix[i] >= r)
                 return arr[i-1];
-        return -1;
+        return 0;
+    }
+
+    public static int randInt(int maxVal, double[] prob) {
+        int[] arr = new int[maxVal];
+        for(int i = 0; i < maxVal; i++)
+            arr[i] = i+1;
+
+        return randInt(arr, prob);
     }
 }

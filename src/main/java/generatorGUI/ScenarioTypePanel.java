@@ -32,69 +32,71 @@ class ScenarioTypePanel extends ScenarioPanel {
 
     public ScenarioTypePanel() {
         this.setLayout(null);
-        this.setBounds(40, 200, 900, 290);
+        this.setBounds(40, 200, 900, 230);
+        this.setBackground( new Color(237, 245, 252));
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         JLabel scenarioTypeLabel = new JLabel("Choose type of scenario", SwingConstants.CENTER);
-        scenarioTypeLabel.setBounds(0, 10, 400, 30);
+        scenarioTypeLabel.setBounds(0, 0, 400, 30);
         this.add(scenarioTypeLabel);
 
         animalScenarioCheckbox = new JCheckBox("animal on the road");
-        animalScenarioCheckbox.setBounds(50, 50, 300, 30);
+        animalScenarioCheckbox.setBounds(50, 40, 300, 30);
         this.add(animalScenarioCheckbox);
 
         carApproachingCheckbox = new JCheckBox("car approaching another vehicle");
-        carApproachingCheckbox.setBounds(50, 90, 300, 30);
+        carApproachingCheckbox.setBounds(50, 70, 300, 30);
         this.add(carApproachingCheckbox);
 
         carOvertakingCheckbox = new JCheckBox("car overtaking another vehicle");
-        carOvertakingCheckbox.setBounds(50, 130, 300, 30);
+        carOvertakingCheckbox.setBounds(50, 100, 300, 30);
         this.add(carOvertakingCheckbox);
 
         humanIllegallyCrossingCheckbox = new JCheckBox("human illegaly crossing the road");
-        humanIllegallyCrossingCheckbox.setBounds(50, 170, 300, 30);
+        humanIllegallyCrossingCheckbox.setBounds(50, 130, 300, 30);
         this.add(humanIllegallyCrossingCheckbox);
 
         humanOnPedestrianCrossingCheckbox = new JCheckBox("human on pedestrian crossing");
-        humanOnPedestrianCrossingCheckbox.setBounds(50, 210, 300, 30);
+        humanOnPedestrianCrossingCheckbox.setBounds(50, 160, 300, 30);
         this.add(humanOnPedestrianCrossingCheckbox);
 
         obstacleCheckbox = new JCheckBox("obstacle on the road");
-        obstacleCheckbox.setBounds(50, 250, 300, 30);
+        obstacleCheckbox.setBounds(50, 190, 300, 30);
         this.add(obstacleCheckbox);
 
         JLabel probabilitiesLabel = new JLabel("Set probabilities", SwingConstants.CENTER);
-        probabilitiesLabel.setBounds(450, 10, 450, 30);
+        probabilitiesLabel.setBounds(450, 0, 450, 30);
         this.add(probabilitiesLabel);
 
         maxAnimalsSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 15,1));
         animalsProbabilityTextField = new TextField();
-        JPanel animalsProbabilityPanel = getProbabilitiesPanel(50, maxAnimalsSpinner, animalsProbabilityTextField, animalScenarioCheckbox);
+        JPanel animalsProbabilityPanel = getProbabilitiesPanel(40, maxAnimalsSpinner, animalsProbabilityTextField, animalScenarioCheckbox);
         this.add(animalsProbabilityPanel);
 
         carApproachingProbabilityTextField = new TextField();
-        JPanel carApproachingProbabilityPanel = getProbabilityPanel(90, carApproachingProbabilityTextField, carApproachingCheckbox);
+        JPanel carApproachingProbabilityPanel = getProbabilityPanel(70, carApproachingProbabilityTextField, carApproachingCheckbox);
         this.add(carApproachingProbabilityPanel);
 
         carOvertakingProbabilityTextField = new TextField();
-        JPanel carOvertakingProbabilityPanel = getProbabilityPanel(130, carOvertakingProbabilityTextField, carOvertakingCheckbox);
+        JPanel carOvertakingProbabilityPanel = getProbabilityPanel(100, carOvertakingProbabilityTextField, carOvertakingCheckbox);
         this.add(carOvertakingProbabilityPanel);
 
         maxIllegalHumansSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 15,1));
         illegalHumansProbabilityTextField = new TextField();
-        JPanel illegalHumansProbabilityPanel = getProbabilitiesPanel(170, maxIllegalHumansSpinner, illegalHumansProbabilityTextField, humanIllegallyCrossingCheckbox);
+        JPanel illegalHumansProbabilityPanel = getProbabilitiesPanel(130, maxIllegalHumansSpinner, illegalHumansProbabilityTextField, humanIllegallyCrossingCheckbox);
         this.add(illegalHumansProbabilityPanel);
 
         maxHumansOnPedCrossSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 15,1));
         humansOnPedCrossProbabilityTextField = new TextField();
-        JPanel humansOnPedCrossProbabilityPanel = getProbabilitiesPanel(210, maxHumansOnPedCrossSpinner, humansOnPedCrossProbabilityTextField, humanOnPedestrianCrossingCheckbox);
+        JPanel humansOnPedCrossProbabilityPanel = getProbabilitiesPanel(160, maxHumansOnPedCrossSpinner, humansOnPedCrossProbabilityTextField, humanOnPedestrianCrossingCheckbox);
         this.add(humansOnPedCrossProbabilityPanel);
 
         maxObstaclesSpinner = new JSpinner(new SpinnerNumberModel(1, 0, 15,1));
         obstaclesProbabilityTextField = new TextField();
-        JPanel obstaclesProbabilityPanel = getProbabilitiesPanel(250, maxObstaclesSpinner, obstaclesProbabilityTextField, obstacleCheckbox);
+        JPanel obstaclesProbabilityPanel = getProbabilitiesPanel(190, maxObstaclesSpinner, obstaclesProbabilityTextField, obstacleCheckbox);
         this.add(obstaclesProbabilityPanel);
 
+        setComponentsBackground();
         disableInputFields();
     }
 
