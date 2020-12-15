@@ -37,7 +37,7 @@ import java.util.List;
 
 public class DashboardWindow extends JFrame implements ActionListener {
 
-    private JButton jButtonLoadFromFile;
+    private JButton jButtonChooseFile;
     private JTextField jTextFieldScenarioName;
     private JButton jButtonLoadScenario;
     private JComboBox jComboBoxScenarios;
@@ -101,11 +101,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
         setTitle("Moral dilemma detector");
         setLayout(null);
 
-        jButtonLoadFromFile = new JButton("Load scenario from file");
-        jButtonLoadFromFile.setBounds(20, 10, 400, 30);
-        jButtonLoadFromFile.setToolTipText("Default file is: " + OntologyLogic.defaultPathToOntology);
-        jButtonLoadFromFile.addActionListener(this);
-        add(jButtonLoadFromFile);
+        jButtonChooseFile = new JButton("Choose file with ontology");
+        jButtonChooseFile.setBounds(20, 10, 400, 30);
+        jButtonChooseFile.setToolTipText("Default file is: " + OntologyLogic.defaultPathToOntology);
+        jButtonChooseFile.addActionListener(this);
+        add(jButtonChooseFile);
 
         jTextFieldScenarioName = new JTextField("");
         jTextFieldScenarioName.setBounds(20, 40, 300, 30);
@@ -189,7 +189,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
-        if (eventSource == jButtonLoadFromFile) jButtonLoadFromFileAction();
+        if (eventSource == jButtonChooseFile) jButtonChooseFileAction();
         if (eventSource == jButtonLoadScenario) jButtonLoadScenarioAction();
         if (eventSource == jButtonCustomPhilosophyShowDetails) jButtonCustomPhilosophyShowDetailsAction();
         if (eventSource == jButtonGenerateScenario) jButtonGenerateScenarioAction();
@@ -268,13 +268,13 @@ public class DashboardWindow extends JFrame implements ActionListener {
         }
     }
 
-    private void jButtonLoadFromFileAction() {
+    private void jButtonChooseFileAction() {
         JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jFileChooser.setFileFilter(new FileNameExtensionFilter("OWL files", "owl"));
 
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
-            jButtonLoadFromFile.setToolTipText("File: " + pathToOwlFile + " is loaded");
+            jButtonChooseFile.setToolTipText("File: " + pathToOwlFile + " is loaded");
         } else
             pathToOwlFile = "";
     }
