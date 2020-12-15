@@ -101,7 +101,9 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
 
     public int getMaxLanesSpinnerValue() { return getJSpinnerValue(maxLanesSpinner); }
 
-    public double[] getMaxLanesTextFieldValue() { return getProbabilities(maxLanesTextField); }
+    public double[] getMaxLanesTextFieldValue() {
+        String errMsg = "Probabilities in lanes count field must sum up to 1";
+        return getProbabilities(maxLanesTextField, true, errMsg); }
 
     public String getOntologyOutputDir() { return ontologyOutDir; }
 

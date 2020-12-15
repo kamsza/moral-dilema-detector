@@ -24,7 +24,7 @@ public class ProbRand {
             throw new IllegalArgumentException("Sum of probabilities must be less than or equal to 1.0");
 
         if(rand.nextDouble() > probSum)
-            return -1;
+            return 0;
 
         int[] prefix = new int[n+1];
         prefix[0] = 0;
@@ -35,7 +35,7 @@ public class ProbRand {
         for (int i = 1; i <= n; i++)
             if(prefix[i-1] < r && prefix[i] >= r)
                 return arr[i-1];
-        return -1;
+        return 0;
     }
 
     public static int randInt(int maxVal, double[] prob) {

@@ -74,6 +74,23 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         }
     }
 
+    protected double[] getProbabilities(TextField textField, boolean mustSumTo1, String errMsg) {
+        try {
+            double[] prob = ArrayUtils.toPrimitive(Arrays.stream(textField.getText().split(",")).map(Double::valueOf).toArray(Double[]::new));
+            double sum = 0;
+            for(int i = 0; i < prob.length; i++)
+                sum += prob[i];
+            if(mustSumTo1 && sum < 0.99) {
+                showExceptionWindow(errMsg);
+                throw new IllegalArgumentException();
+            }
+            return prob;
+        } catch(NumberFormatException ex) {
+            showExceptionWindow("Wrong format of probability value");
+            throw new IllegalArgumentException();
+        }
+    }
+
     protected double getProbability(TextField textField) {
         try {
             return Double.parseDouble(textField.getText());

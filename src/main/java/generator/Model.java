@@ -306,9 +306,14 @@ public class Model {
 
     public void export(boolean overrideFile) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         String template = "src\\main\\resources\\ontologies\\traffic_ontology.owl";
-        String outDir = "src\\main\\resources\\ontologies";
-        export(template, overrideFile, outDir);
+        export(template, overrideFile);
     }
+
+    public void export(String filepath, boolean overrideFile) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
+        String outDir = "src\\main\\resources\\ontologies";
+        export(filepath, overrideFile, outDir);
+    }
+
 
     public void export(String filepath, boolean overrideFile, String outputDir) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         MyFactory factory = MyFactorySingleton.getFactory();
