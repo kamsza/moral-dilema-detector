@@ -85,7 +85,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();
     private boolean isAnyCustomPhilosophy = true;
-    private String pathToOwlFile = System.getProperty("user.dir") + "\\" + OntologyLogic.defaultPathToOntology;
+    private String pathToOwlFile = OntologyLogic.defaultPathToOntology;
 
 
     public DashboardWindow() {
@@ -221,7 +221,6 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
                 warningWindow.setVisible(true);
             } else {
-                factory = OntologyLogic.getFactory(pathToOwlFile);
                 try {
                     scenarioModel = OntologyLogic.getModelFromOntology(factory, jTextFieldScenarioName.getText());
                 } catch (IllegalArgumentException exception) {
@@ -275,8 +274,12 @@ public class DashboardWindow extends JFrame implements ActionListener {
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
             jButtonChooseFile.setToolTipText("File: " + pathToOwlFile + " is loaded");
-        } else
-            pathToOwlFile = "";
+            OntologyLogic.defaultPathToOntology = pathToOwlFile;
+            factory = OntologyLogic.getFactory(pathToOwlFile);
+            FactoryReflection.changeFactorySingletonToNull();
+
+
+        }
     }
 
     private void jButtonGenerateScenarioAction() {

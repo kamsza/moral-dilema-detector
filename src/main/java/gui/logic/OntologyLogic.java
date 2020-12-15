@@ -25,7 +25,7 @@ import java.util.*;
 public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
-    public static final String defaultPathToOntology = "src/main/resources/traffic_ontology.owl";
+    public static String defaultPathToOntology = System.getProperty("user.dir") + "\\src\\main\\resources\\traffic_ontology.owl";
     //public static final String defaultPathToOntology = "src/main/resources/ontologies/traffic_ontology.owl";
 
 
