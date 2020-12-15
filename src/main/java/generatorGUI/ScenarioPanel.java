@@ -105,6 +105,31 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         return probabilitiesPanel;
     }
 
+    protected JPanel getDirPanel(int y, JLabel label, JButton button, JCheckBox checkbox) {
+        JPanel dirPanel = new JPanel();
+        dirPanel.setLayout(null);
+        dirPanel.setBounds(450, y, 400, 30);
+
+        JLabel outputDirLabel = new JLabel("Output dir:");
+        outputDirLabel.setBounds(0, 0, 80, 30);
+        dirPanel.add(outputDirLabel);
+
+        label.setBounds(80, 0, 200, 30);
+        dirPanel.add(label);
+
+        button.setBounds(310, 0, 90, 24);
+        dirPanel.add(button);
+
+        checkbox.addItemListener(e -> {
+            outputDirLabel.setEnabled(checkbox.isSelected());
+            label.setEnabled(checkbox.isSelected());
+            button.setEnabled(checkbox.isSelected());
+        });
+
+        return dirPanel;
+    }
+
+
     private void updateProbability(JSpinner maxValue, TextField probabilityTextField) {
         int jSpinnerValue = getJSpinnerValue(maxValue);
         probabilityTextField.setText(getDefaultProbabilities(jSpinnerValue));
