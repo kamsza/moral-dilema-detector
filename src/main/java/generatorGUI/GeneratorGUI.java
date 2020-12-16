@@ -28,13 +28,14 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
     public GeneratorGUI() {
         this.setTitle("Road scenario generator");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = Math.min((int)(screenSize.width * 0.9), 1040);
-        int height = Math.min((int)(screenSize.height * 0.9), 960);
+        int width = Math.min((int)(screenSize.width * 0.95), 1040);
+        int height = Math.min((int)(screenSize.height * 0.95), 880);
         this.setPreferredSize(new Dimension(width, height));
-        this.setMaximumSize(new Dimension(1040, 960));
+        this.setMaximumSize(new Dimension(1040, 880));
 
         JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 200, 20));
-        contentPanel.setPreferredSize(new Dimension(1000, 915));
+        contentPanel.setPreferredSize(new Dimension(1000, 835));
+        contentPanel.setBackground( new Color(209, 215, 230));
         this.add(contentPanel);
 
         JScrollPane scrollPane = new JScrollPane(contentPanel);
@@ -45,19 +46,20 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
         contentPanel.add(optionsPanel);
 
         scenarioTypePanel = new ScenarioTypePanel();
-        scenarioTypePanel.setPreferredSize(new Dimension(900, 290));
+        scenarioTypePanel.setPreferredSize(new Dimension(900, 230));
         contentPanel.add(scenarioTypePanel);
 
         randomObjectsPanel = new RandomObjectsPanel();
-        randomObjectsPanel.setPreferredSize(new Dimension(900, 210));
+        randomObjectsPanel.setPreferredSize(new Dimension(900, 170));
         contentPanel.add(randomObjectsPanel);
 
         additionalSettingsPanel = new AdditionalSettingsPanel();
-        additionalSettingsPanel.setPreferredSize(new Dimension(900, 180));
+        additionalSettingsPanel.setPreferredSize(new Dimension(900, 200));
         contentPanel.add(additionalSettingsPanel);
 
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setPreferredSize(new Dimension(900, 30));
+        buttonPanel.setBackground( new Color(0,0,0,0));
         generateButton = new JButton("generate");
         generateButton.setPreferredSize(new Dimension( 300, 30));
         generateButton.addActionListener(this);

@@ -19,6 +19,7 @@ public class OptionsPanel extends JPanel implements ActionListener, ValueHandler
     public OptionsPanel() {
         this.setLayout(null);
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
+        this.setBackground( new Color(237, 245, 252));
 
         JLabel optionsLabel = new JLabel("Options", SwingConstants.CENTER);
         optionsLabel.setBounds(0, 0, 900, 30);
@@ -45,6 +46,9 @@ public class OptionsPanel extends JPanel implements ActionListener, ValueHandler
         scenariosNoSpinner = new JSpinner(scenariosNoValue);
         scenariosNoSpinner.setBounds(750, 43, 100, 24);
         this.add(scenariosNoSpinner);
+
+        Arrays.stream(this.getComponents())
+                .forEach(c -> c.setBackground(new Color(247, 249, 251)));
     }
 
     @Override

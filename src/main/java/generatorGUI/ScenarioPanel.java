@@ -44,6 +44,16 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         enableList.clear();
     }
 
+    protected void setComponentsBackground() {
+        Arrays.stream(this.getComponents())
+                .forEach(c -> c.setBackground(new Color(237, 245, 252)));
+
+        Arrays.stream(this.getComponents())
+                .filter(c -> c instanceof JPanel)
+                .map(JPanel.class::cast)
+                .forEach(c -> Arrays.stream(c.getComponents())
+                        .forEach(d -> d.setBackground(new Color(247, 249, 251))));
+    }
 
     protected int[] getObjectsNumbers(JSpinner jSpinner) {
         int maxValue;
@@ -95,13 +105,17 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         checkbox.addItemListener(e -> {
             maxObjectsLabel.setEnabled(checkbox.isSelected());
             maxValue.setEnabled(checkbox.isSelected());
+            maxValue.setVisible(checkbox.isSelected());
             probabilitiesLabel.setEnabled(checkbox.isSelected());
             probabilityTextField.setEnabled(checkbox.isSelected());
-            probabilityTextField.setText("1");
+            probabilityTextField.setVisible(checkbox.isSelected());
+            if(probabilityTextField.getText().isEmpty())
+                probabilityTextField.setText("1");
         });
 
         maxValue.addChangeListener(e -> updateProbability(maxValue, probabilityTextField));
-
+        maxValue.setVisible(checkbox.isSelected());
+        probabilityTextField.setVisible(checkbox.isSelected());
         return probabilitiesPanel;
     }
 
@@ -124,8 +138,9 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
             outputDirLabel.setEnabled(checkbox.isSelected());
             label.setEnabled(checkbox.isSelected());
             button.setEnabled(checkbox.isSelected());
+            dirPanel.setVisible(checkbox.isSelected());
         });
-
+        dirPanel.setVisible(false);
         return dirPanel;
     }
 
@@ -161,9 +176,11 @@ abstract class ScenarioPanel extends JPanel implements ValueHandler {
         checkbox.addItemListener(e -> {
             probabilitiesLabel.setEnabled(checkbox.isSelected());
             probabilityTextField.setEnabled(checkbox.isSelected());
-            probabilityTextField.setText("0.1");
+            probabilityTextField.setVisible(checkbox.isSelected());
+            if(probabilityTextField.getText().isEmpty())
+                probabilityTextField.setText("0.1");
         });
-
+        probabilityTextField.setVisible(checkbox.isSelected());
         return probabilitiesPanel;
     }
 }
