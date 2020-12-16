@@ -6,6 +6,10 @@ import commonadapter.logging.Logger;
 class Coordinates {
     private Double latitude;
     private Double longitude;
+    private static double coeffX = 2147483648.0;
+    private static double coeffY = 1073741824.0;
+    private static int scaleX = 180;
+    private static int scaleY = 90;
 
     public Coordinates(double longitude, double latitude) {
         this.longitude = longitude;
@@ -120,8 +124,8 @@ class Coordinates {
         double x = tileCenterCoordinates.getLongitude();
         double y = tileCenterCoordinates.getLatitude();
 
-        long decimalX = (long) (((x / 180) * 2147483648.0) + x_shift);
-        long decimalY = (long) (((y / 90) * 1073741824.0) + y_shift);
+        long decimalX = (long) (((x / scaleX) * coeffX) + x_shift);
+        long decimalY = (long) (((y / scaleY) * coeffY) + y_shift);
 
         return convertToCoordinates(decimalX, decimalY);
     }
@@ -142,11 +146,11 @@ class Coordinates {
     }
 
     private static Coordinates convertToCoordinates(long x, long y) {
-        double coorXratio = x / 2147483648.0;
-        double coorYratio = y / 1073741824.0;
+        double coorXratio = x / coeffX;
+        double coorYratio = y / coeffY;
 
-        double coorX = coorXratio * 180;
-        double coorY = coorYratio * 90;
+        double coorX = coorXratio * scaleX;
+        double coorY = coorYratio * scaleY;
 
         return new Coordinates(coorX, coorY);
     }
