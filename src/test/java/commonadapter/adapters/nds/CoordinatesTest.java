@@ -8,7 +8,8 @@ import static org.junit.Assert.assertEquals;
 public class CoordinatesTest {
 
 
-    @Test public void calculateTileCoordinates(){
+    @Test
+    public void calculateTileCoordinates(){
 
         Coordinates test1 = new Coordinates(11.66748046875,48.09814453125);
         Coordinates test2 = new Coordinates(11.6455078125,48.1201171875);

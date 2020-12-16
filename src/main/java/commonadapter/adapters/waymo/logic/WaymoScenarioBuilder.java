@@ -118,7 +118,7 @@ public class WaymoScenarioBuilder {
 
     private void assignLane(EntityPrx entityPrx, Label label) {
 
-        LanePrx lanePrx = laneService.getLaneForEntity(entityPrx, label);
+        LanePrx lanePrx = laneService.getLaneForEntity(label);
         entityPrx.setLane(lanePrx.getId());
     }
 
