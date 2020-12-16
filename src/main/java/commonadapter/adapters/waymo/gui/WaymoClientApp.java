@@ -9,3 +9,4 @@ public class WaymoClientApp {
         waymoClientDashboard.setVisible(true);
     }
 }
+
