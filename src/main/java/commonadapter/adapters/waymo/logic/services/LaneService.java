@@ -28,7 +28,7 @@ public class LaneService {
         lanes = new HashMap<>();
     }
 
-    public LanePrx getLaneForEntity(EntityPrx entityPrx, Label label) {
+    public LanePrx getLaneForEntity(Label label) {
 
         int laneNo = calculateLaneNumber(label.box.centerY);
         return lanes.get(laneNo);
@@ -69,7 +69,7 @@ public class LaneService {
         lanePrx.setRoad(roadId);
     }
 
-    private int calculateLaneNumber(Double centerY) {
+    public int calculateLaneNumber(Double centerY) {
 
         boolean right = centerY < 0;
 
