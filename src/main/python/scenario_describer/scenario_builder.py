@@ -54,7 +54,7 @@ class ScenarioBuilder:
         self.__managerPrx = connector.get_manager()
         # self.__proxy = proxy
 
-        self.__create_scenario()
+        self.scPrx = self.__create_scenario()
         self.__create_delimiter(snapshot.get_delimiters())
         self.__create_junction(snapshot.get_junctions())
         self.__create_lane_boundary(snapshot.get_laneboundary())
@@ -62,11 +62,11 @@ class ScenarioBuilder:
         #self.__create_road_point(snapshot.get_road_points())
         self.__create_road(snapshot.get_roads())
         self.__create_lane(snapshot.get_lanes())
-        self.__managerPrx.persist()
 
         self.__create_vehicles(snapshot.get_vehicles())
         self.__create_cyclist(snapshot.get_cyclists())
         self.__create_pedestrian(snapshot.get_pedestrians())
+        self.__managerPrx.persist()
         print("ontology persisted")
 
     def __create_scenario(self):
@@ -75,6 +75,7 @@ class ScenarioBuilder:
         scenarioPrx = adapter_ice.ScenarioPrx.checkedCast(basePrx)
         self.__ids[KEY_SCENARIO].append(scenario)
         self.__proxies_by_ids[scenario] = scenarioPrx
+        return scenarioPrx
 
     def __create_vehicles(self, vehicles: list[obj.Vehicle]):
         self.__create_entity(vehicles, adapter_ice.ItemType.VEHICLE, adapter_ice.VehiclePrx, KEY_VEHICLE)
@@ -127,6 +128,14 @@ class ScenarioBuilder:
 
             self.__ids[ids_key].append(entity_id)
             self.__proxies_by_ids[entity_id] = extended_proxy
+            if ids_key == KEY_VEHICLE:
+                self.scPrx.addVehicle(entity_id)
+            elif ids_key == KEY_PEDESTRIAN:
+                self.scPrx.addPedestrian(entity_id)
+            elif ids_key == KEY_CYCLIST:
+                self.scPrx.addCyclist(entity_id)
+            else:
+                pass
 
     def __create_road_point(self, roadpoints: list[obj.RoadPoint], item_type,
                             proxy_object, ids_key):

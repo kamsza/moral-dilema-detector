@@ -44,7 +44,7 @@ class MapCreator:
     road_points = set()
 
     def __init__(self, _map, start_waypoint, distance):
-        self.__map = _map
+        self.map = _map
         self.start_waypoint = start_waypoint
         self.distance = distance
         self.create_road(start_waypoint)
@@ -118,7 +118,7 @@ class MapCreator:
 
     def create_lane_boundary(self, way_point, right):
         def open_drive_to_nds_boundary_type(odt):
-            open_drive_typ = str(odt)
+            open_drive_typ = repr(odt)
             if open_drive_typ == "Broken":
                 return "LONG_DASHED_LINE"
             elif open_drive_typ =="Solid":
@@ -141,7 +141,7 @@ class MapCreator:
                 return "OTHER"
         print("generating boundary")
         if right:
-            right_material_opt = way_point.get_right_lane()
+            #right_material_opt = way_point.get_right_lane()
             right_material = "UNKNOWN"
             self.boundary_id += 1
             return obj.LaneBoundary(
@@ -151,7 +151,7 @@ class MapCreator:
                 "BOUNDARY_" + str(self.boundary_id)
             )
         else:
-            left_material_opt = way_point.get_right_lane()
+            #left_material_opt = way_point.get_right_lane()
             left_material = "UNKNOWN"
             self.boundary_id += 1
             return obj.LaneBoundary(
@@ -230,7 +230,7 @@ class MapCreator:
             else:
                 return str(-long) + 'E'
 
-        location = self.__map.transform_to_geolocation(wp.transform.location)
+        location = self.map.transform_to_geolocation(wp.transform.location)
         if wp.is_junction:
             return obj.Junction("",
                                 latitude_convert_to_string(location.latitude),
@@ -246,4 +246,7 @@ class MapCreator:
         # g_loc = self.__map.transform_to_geolocation(location)
         x = location.x
         y = location.y
-        return math.asin(y/(x**2 + y**2))
+        if x == 0 and y == 0: return 0
+        if x < 0 and y >= 0: return math.acos(x/math.sqrt(x**2 + y**2)) + math.pi
+        elif y >= 0: return math.acos(x/math.sqrt(x**2 + y**2))
+        else: return math.asin(x/math.sqrt(x**2 + y**2)) + math.pi/2
