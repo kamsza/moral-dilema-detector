@@ -46,33 +46,35 @@ public class OrderOfDecisionsWindow extends JFrame implements ActionListener {
         jTable = new JTable(tableModel);
         jTable.setRowSelectionInterval(0, 0);
 
+        int shift = 38;
+
         jScrollPane = new JScrollPane(jTable);
         jScrollPane.setBounds(10, 10, 400, 160);
         add(jScrollPane);
 
         jButtonMoveDown = new JButton("Move down");
-        jButtonMoveDown.setBounds(80, 200, 100, 30);
+        jButtonMoveDown.setBounds(80+shift, 200, 100, 30);
         jButtonMoveDown.addActionListener(this);
         add(jButtonMoveDown);
 
 
         jButtonMoveUp = new JButton("Move up");
-        jButtonMoveUp.setBounds(180, 200, 100, 30);
+        jButtonMoveUp.setBounds(180+shift, 200, 100, 30);
         jButtonMoveUp.addActionListener(this);
         add(jButtonMoveUp);
 
         jButtonReturnToDefaultOrder = new JButton("Return to default  order");
-        jButtonReturnToDefaultOrder.setBounds(80, 250, 200, 30);
+        jButtonReturnToDefaultOrder.setBounds(80+shift, 250, 200, 30);
         jButtonReturnToDefaultOrder.addActionListener(this);
         add(jButtonReturnToDefaultOrder);
 
         jButtonDiscard = new JButton("Discard");
-        jButtonDiscard.setBounds(80, 300, 100, 30);
+        jButtonDiscard.setBounds(80+shift, 300, 100, 30);
         jButtonDiscard.addActionListener(this);
         add(jButtonDiscard);
 
         jButtonSave = new JButton("Save");
-        jButtonSave.setBounds(180, 300, 100, 30);
+        jButtonSave.setBounds(180+shift, 300, 100, 30);
         jButtonSave.addActionListener(this);
         add(jButtonSave);
 
