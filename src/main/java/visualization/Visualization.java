@@ -83,8 +83,8 @@ public class Visualization {
             System.out.println("Unable to create visualization for: " + model.toString());
         } finally {
             vs.frame.dispose();
+            vs = null;
         }
         return pictureName;
     }
-
 }
