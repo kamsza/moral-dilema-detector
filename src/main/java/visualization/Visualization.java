@@ -67,17 +67,24 @@ public class Visualization {
      * @return filename with picture
      */
     public static String getImage(Model model) {
+        return getImage(model, "");
+    }
+
+    public static String getImage(Model model, String outputDir) {
         Visualization vs = new Visualization(model);
         String pictureName=null;
         vs.frame.pack();
         try {
-            pictureName = ImageHandler.saveImage(vs.background);
+            if(outputDir.isEmpty())
+                pictureName = ImageHandler.saveImage(vs.background);
+            else
+                pictureName = ImageHandler.saveImage(vs.background, outputDir);
         } catch (IOException ex) {
             System.out.println("Unable to create visualization for: " + model.toString());
         } finally {
             vs.frame.dispose();
+            vs = null;
         }
         return pictureName;
     }
-
 }
