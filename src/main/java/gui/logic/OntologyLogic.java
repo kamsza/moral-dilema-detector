@@ -19,7 +19,6 @@ import project.MyFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.*;
 
 public class OntologyLogic {
@@ -45,7 +44,7 @@ public class OntologyLogic {
 
         ScenarioReader scenarioReader = new ScenarioReader(factory);
         int scenarioNumber = Integer.parseInt(StringUtils.substringBefore(scenarioName, "_"));
-        Model model = scenarioReader.getModel(scenarioNumber);
+        Model model = scenarioReader.getModelWithVisualisation(scenarioNumber);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;

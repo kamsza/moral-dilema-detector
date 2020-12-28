@@ -35,7 +35,7 @@ public class ScenarioReader {
         return factory;
     }
 
-    public Model getModel(int scenarioNumber) {
+    public Model getModel(int scenarioNumber){
         Scenario scenario = getScenarioFromOntology(scenarioNumber);
         System.out.println(scenario);
         if (scenario == null){
@@ -100,8 +100,12 @@ public class ScenarioReader {
                 setObjects(objects).
                 setSurrounding(surrounding).build();
 
-        Visualization.getImage(model);
+        return model;
+    }
 
+    public Model getModelWithVisualisation(int scenarioNumber) {
+        Model model = getModel(scenarioNumber);
+        Visualization.getImage(model);
         return model;
     }
 
@@ -225,7 +229,7 @@ public class ScenarioReader {
 
     public static void main(String[] args) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
-        scenarioReader.getModel(230);
+        scenarioReader.getModelWithVisualisation(230);
     }
 
     private Weather getWeatherAsSpecificClass(String weatherName){
