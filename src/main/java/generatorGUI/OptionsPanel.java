@@ -15,43 +15,40 @@ public class OptionsPanel extends JPanel implements ActionListener, ValueHandler
     private JLabel ontologyFileNameLabel;
     private JSpinner scenariosNoSpinner;
 
-    private JCheckBox saveInOriginalFileCheckbox;
-    private JCheckBox createVisualizationCheckbox;
 
     public OptionsPanel() {
         this.setLayout(null);
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
-        this.setSize(900, 140);
+        this.setBackground( new Color(237, 245, 252));
+
+        JLabel optionsLabel = new JLabel("Options", SwingConstants.CENTER);
+        optionsLabel.setBounds(0, 0, 900, 30);
+        this.add(optionsLabel);
 
         JButton loadOntologyButton = new JButton("change");
-        loadOntologyButton.setBounds(450, 13, 90, 24);
+        loadOntologyButton.setBounds(320, 43, 90, 24);
         loadOntologyButton.addActionListener(this);
         this.add(loadOntologyButton);
 
         JLabel ontologyFileTitleLabel = new JLabel("Ontology file:", SwingConstants.LEFT);
-        ontologyFileTitleLabel.setBounds(50, 10, 100, 30);
+        ontologyFileTitleLabel.setBounds(50, 40, 100, 30);
         this.add(ontologyFileTitleLabel);
 
         ontologyFileNameLabel = new JLabel("traffic_ontology.owl", SwingConstants.LEFT);
-        ontologyFileNameLabel.setBounds(150, 10, 250, 30);
+        ontologyFileNameLabel.setBounds(150, 40, 250, 30);
         this.add(ontologyFileNameLabel);
 
         JLabel scenariosNoLabel = new JLabel("Number of scenarios to create:", SwingConstants.LEFT);
-        scenariosNoLabel.setBounds(50, 40, 200, 30);
+        scenariosNoLabel.setBounds(550, 40, 200, 30);
         this.add(scenariosNoLabel);
 
         SpinnerModel scenariosNoValue = new SpinnerNumberModel(1, 0, 10000000,1);
         scenariosNoSpinner = new JSpinner(scenariosNoValue);
-        scenariosNoSpinner.setBounds(250, 43, 100, 24);
+        scenariosNoSpinner.setBounds(750, 43, 100, 24);
         this.add(scenariosNoSpinner);
 
-        saveInOriginalFileCheckbox = new JCheckBox("override original file");
-        saveInOriginalFileCheckbox.setBounds(50, 70, 500, 30);
-        this.add(saveInOriginalFileCheckbox);
-
-        createVisualizationCheckbox = new JCheckBox("create visualization");
-        createVisualizationCheckbox.setBounds(50, 100, 400, 30);
-        this.add(createVisualizationCheckbox);
+        Arrays.stream(this.getComponents())
+                .forEach(c -> c.setBackground(new Color(247, 249, 251)));
     }
 
     @Override
@@ -69,7 +66,7 @@ public class OptionsPanel extends JPanel implements ActionListener, ValueHandler
             }
             else {
                 String filepath = jFileChooser.getSelectedFile().getAbsolutePath();
-                String shortenFilepath = (filepath.length() > 35) ? "... " + filepath.substring(filepath.length()-35) : filepath;
+                String shortenFilepath = (filepath.length() > 25) ? "... " + filepath.substring(filepath.length()-25) : filepath;
                 ontologyFileNameLabel.setText(shortenFilepath);
                 ontologyFilepath = filepath;
             }
@@ -84,13 +81,6 @@ public class OptionsPanel extends JPanel implements ActionListener, ValueHandler
         return getJSpinnerValue(scenariosNoSpinner);
     }
 
-    public boolean getOverrideOriginalFileCheckbox() {
-        return saveInOriginalFileCheckbox.isSelected();
-    }
-
-    public boolean getCreateVisualizationCheckbox() {
-        return createVisualizationCheckbox.isSelected();
-    }
 
     public void disableComponents() {
         Arrays.stream(this.getComponents())

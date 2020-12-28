@@ -116,22 +116,28 @@ class ImageHandler {
      * @return filename with saved picture
      */
     public static String saveImage(JPanel p) throws IOException {
+        String currentDirectory = System.getProperty("user.dir");
+        String dirPath = currentDirectory + "\\src\\main\\resources\\vis_out";
+
+        return saveImage(p, dirPath);
+    }
+
+    public static String saveImage(JPanel p, String outputDir) throws IOException {
         BufferedImage img = new BufferedImage(p.getWidth(), p.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = img.createGraphics();
         p.paint(g2d);
         g2d.dispose();
-        String currentDirectory = System.getProperty("user.dir");
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd_MM_yyyy__HH_mm_ss");
         LocalDateTime now = LocalDateTime.now();
         String currentTime = dtf.format(now);
         String filename = "vis__" + currentTime + ".png";
 
-        String filePath = currentDirectory + "/src/main/resources/vis_out/" + filename;
+        String filePath = outputDir + "\\" +  filename;
         int counter = 1;
         while(Files.exists(Paths.get(filePath))) {
             filename = "vis__" + currentTime + "_" + counter + ".png";
-            filePath = currentDirectory + "/src/main/resources/vis_out/" + filename;
+            filePath = outputDir + "\\" + filename;
             counter++;
         }
 
