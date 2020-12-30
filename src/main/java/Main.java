@@ -2,7 +2,6 @@ import DilemmaDetector.Consequences.CollisionConsequencePredictor;
 import DilemmaDetector.Consequences.ConsequenceContainer;
 import DilemmaDetector.Consequences.DecisionCostCalculator;
 import DilemmaDetector.Consequences.IConsequenceContainer;
-import DilemmaDetector.Modules.*;
 import DilemmaDetector.MoralDilemmaDetector;
 import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
@@ -38,7 +37,7 @@ public class Main {
 
     public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader(factory);
-        Model model = scenarioReader.getModel(number);
+        Model model = scenarioReader.getModelWithVisualisation(number);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
         decisionGenerator.generate(model);
         return model;
@@ -63,11 +62,6 @@ public class Main {
 
         MoralDilemmaDetector mdd = builder
 //                .addModule(new SWRLInferredModule(ontology, factory))
-                .addModule(new KilledModule(factory))
-                .addModule(new LightlyInjuredModule(factory))
-                .addModule(new SeverelyInjuredModule(factory))
-                .addModule(new InjuredModule(factory))
-                //.addModule(new MaterialValueModule(factory))
                 .build();
 
         for(int i=0; i<1; i++) {

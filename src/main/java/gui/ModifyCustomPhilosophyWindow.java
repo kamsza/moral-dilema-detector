@@ -31,7 +31,7 @@ public class ModifyCustomPhilosophyWindow extends CustomPhilosophyWindow impleme
         Object[][] data = prepareData(customPhilosophy);
         DefaultTableModel model = getDefaultTableModel(data);
         jTable = new JTable(model);
-        prepareJTableToEditing(model);
+        prepareJTableToEditing();
 
         jScrollPane = new JScrollPane(jTable);
         jScrollPane.setBounds(10, 40, 400, 200);
@@ -78,7 +78,6 @@ public class ModifyCustomPhilosophyWindow extends CustomPhilosophyWindow impleme
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        dashboardWindow.updateCustomPhilosophiesList();
         setVisible(false);
         dispose();
     }

@@ -3,11 +3,19 @@ package gui;
 import DilemmaDetector.Consequences.*;
 import DilemmaDetector.Simulator.Actor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import generator.DecisionGenerator;
 import generator.Model;
+import generator.MyFactorySingleton;
+import generatorGUI.GeneratorWindowForDilemmaDetector;
+import gui.logic.DecisionCost;
+import gui.logic.FactoryReflection;
 import gui.logic.OntologyLogic;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.prompt.PromptSupport;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Decision;
 import project.MyFactory;
 import visualization.Visualization;
@@ -22,13 +30,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 public class DashboardWindow extends JFrame implements ActionListener {
 
-    private JButton jButtonLoadFromFile;
+    private JButton jButtonChooseFile;
     private JTextField jTextFieldScenarioName;
     private JButton jButtonLoadScenario;
     private JComboBox jComboBoxScenarios;
@@ -42,11 +51,16 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private JLabel jLabelSelectPhilosophyPrompt;
     private JScrollPane jScrollPaneWithResults;
     private JCheckBox jCheckBoxEnableBraking;
+    private JCheckBox jCheckBoxSaveResultsInOntology;
     private JTable jTableWithResults;
     private JTable jTableWithMoralResult;
     private JScrollPane jScrollPaneWithMoralResult;
     private JTable jTableWithBestDecision;
     private JScrollPane jScrollPaneWithBestDecision;
+    private JButton jButtonSetOrderOfDecisions;
+    private GeneratorWindowForDilemmaDetector generatorGui;
+    private JLabel jLabelStartingPrompt;
+    private JLabel jLabelScenarioName;
 
 
     /// CONST
@@ -56,9 +70,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
             "Scenario with crosswalk"));
     private final int IMAGE_WIDTH = 820;
     private final int IMAGE_HEIGHT = 400;
-    private final int CENTER_CUSTOM_PHILOSOPHIES = 100;
+    private final int CENTER_CUSTOM_PHILOSOPHIES = 90;
     private final String PATH_CUSTOM_PHILOSOPHIES = "\\src\\main\\resources\\gui\\customPhilosophies\\";
-    private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Blank_scenario.png";
+    private final String PATH_BLANK_SCENARIO = "\\src\\main\\resources\\gui\\Example_scenario.png";
     private final int oneRowJTableHeight = 48;
 
 
@@ -66,11 +80,12 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private Map<Decision, Set<Actor>> collidedEntities;
     private Model scenarioModel;
     private MyFactory factory;
+    private MyFactory factoryForCalculator;
     private String pictureName;
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();
     private boolean isAnyCustomPhilosophy = true;
-    private String pathToOwlFile = "";
+    private String pathToOwlFile = OntologyLogic.defaultPathToOntology;
 
 
     public DashboardWindow() {
@@ -86,10 +101,11 @@ public class DashboardWindow extends JFrame implements ActionListener {
         setTitle("Moral dilemma detector");
         setLayout(null);
 
-        jButtonLoadFromFile = new JButton("Load scenario from file");
-        jButtonLoadFromFile.setBounds(20, 10, 400, 30);
-        jButtonLoadFromFile.addActionListener(this);
-        add(jButtonLoadFromFile);
+        jButtonChooseFile = new JButton("Choose file with ontology");
+        jButtonChooseFile.setBounds(20, 10, 400, 30);
+        jButtonChooseFile.setToolTipText("Default file is: " + OntologyLogic.defaultPathToOntology);
+        jButtonChooseFile.addActionListener(this);
+        add(jButtonChooseFile);
 
         jTextFieldScenarioName = new JTextField("");
         jTextFieldScenarioName.setBounds(20, 40, 300, 30);
@@ -101,45 +117,68 @@ public class DashboardWindow extends JFrame implements ActionListener {
         jButtonLoadScenario.addActionListener(this);
         add(jButtonLoadScenario);
 
+        /*
         jComboBoxScenarios = new JComboBox(POSSIBLE_SCENARIOS_LIST.toArray());
         jComboBoxScenarios.setBounds(440, 10, 400, 30);
         add(jComboBoxScenarios);
+        */
 
-        jButtonGenerateScenario = new JButton("Generate");
-        jButtonGenerateScenario.setBounds(440, 40, 400, 30);
+        jButtonGenerateScenario = new JButton("Use scenario generator");
+        jButtonGenerateScenario.setBounds(440, 10, 400, 30);
         jButtonGenerateScenario.addActionListener(this);
         add(jButtonGenerateScenario);
 
+        jLabelScenarioName = new JLabel();
+        jLabelScenarioName.setBounds(440, 40, 400, 30);
+        add(jLabelScenarioName);
+        jLabelScenarioName.setVisible(false);
+
         jLabelImageScenario = new JLabel(getStartingImageIcon());
         jLabelImageScenario.setBounds(20, 80, IMAGE_WIDTH, IMAGE_HEIGHT);
+        jLabelImageScenario.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        jLabelStartingPrompt = new JLabel("Example scenario - load or generate scenario");
+        jLabelImageScenario.add(jLabelStartingPrompt);
         add(jLabelImageScenario);
 
+
         jCheckBoxEnableBraking = new JCheckBox("Enable braking", true);
-        jCheckBoxEnableBraking.setBounds(20, 490, 150, 20);
+        jCheckBoxEnableBraking.setBounds(20, 500, 180, 20);
         add(jCheckBoxEnableBraking);
 
+        jCheckBoxSaveResultsInOntology = new JCheckBox("Save results to ontology", true);
+        jCheckBoxSaveResultsInOntology.setToolTipText("<html>It's recommended option to persist results. <br> Based on that You may create SWRL rules in Protege</html>");
+        jCheckBoxSaveResultsInOntology.setBounds(20, 520, 180, 20);
+        add(jCheckBoxSaveResultsInOntology);
+
+        /*
         jLabelSelectPhilosophyPrompt = new JLabel("Select custom philosophy");
         jLabelSelectPhilosophyPrompt.setBounds(50, 515, 200, 30);
         add(jLabelSelectPhilosophyPrompt);
-
+         */
         jButtonAddCustomPhilosophy = new JButton("Add new");
-        jButtonAddCustomPhilosophy.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 520, 500, 100, 30);
+        jButtonAddCustomPhilosophy.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 570, 500, 150, 30);
         jButtonAddCustomPhilosophy.addActionListener(this);
         add(jButtonAddCustomPhilosophy);
 
         jComboBoxCustomPhilosophies = new JComboBox(getCustomPhilosophiesNames().toArray());
-        jComboBoxCustomPhilosophies.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 500, 300, 30);
+        jComboBoxCustomPhilosophies.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 500, 200, 30);
         add(jComboBoxCustomPhilosophies);
 
         jButtonCustomPhilosophyShowDetails = new JButton("Show details");
-        jButtonCustomPhilosophyShowDetails.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
+        jButtonCustomPhilosophyShowDetails.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 500, 150, 30);
         jButtonCustomPhilosophyShowDetails.addActionListener(this);
         add(jButtonCustomPhilosophyShowDetails);
 
         jButtonCalculate = new JButton("Calculate");
-        jButtonCalculate.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 530, 200, 30);
+        jButtonCalculate.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 420, 530, 300, 30);
         jButtonCalculate.addActionListener(this);
         add(jButtonCalculate);
+
+        jButtonSetOrderOfDecisions = new JButton("Set order of decision");
+        jButtonSetOrderOfDecisions.setBounds(CENTER_CUSTOM_PHILOSOPHIES + 220, 530, 200, 30);
+        jButtonSetOrderOfDecisions.addActionListener(this);
+        add(jButtonSetOrderOfDecisions);
 
         jLabelBestDecision = new JLabel("");
         jLabelBestDecision.setBounds(50, 600, 400, 30);
@@ -150,12 +189,14 @@ public class DashboardWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object eventSource = e.getSource();
-        if (eventSource == jButtonLoadFromFile) jButtonLoadFromFileAction();
+        if (eventSource == jButtonChooseFile) jButtonChooseFileAction();
         if (eventSource == jButtonLoadScenario) jButtonLoadScenarioAction();
         if (eventSource == jButtonCustomPhilosophyShowDetails) jButtonCustomPhilosophyShowDetailsAction();
         if (eventSource == jButtonGenerateScenario) jButtonGenerateScenarioAction();
         if (eventSource == jButtonAddCustomPhilosophy) jButtonAddCustomPhilosophyAction();
         if (eventSource == jButtonCalculate) jButtonCalculateAction();
+        if (eventSource == jButtonSetOrderOfDecisions) jButtonSetOrderOfDecisionsAction();
+
     }
 
     private void jButtonCustomPhilosophyShowDetailsAction() {
@@ -171,6 +212,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private void jButtonLoadScenarioAction() {
+        jLabelStartingPrompt.setVisible(false);
         if (StringUtils.isBlank(jTextFieldScenarioName.getText())) {
             WarningWindow warningWindow = new WarningWindow(this, "Enter scenario name");
             warningWindow.setVisible(true);
@@ -179,15 +221,16 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 WarningWindow warningWindow = new WarningWindow(this, "Select owl file");
                 warningWindow.setVisible(true);
             } else {
-                   factory = OntologyLogic.getFactory(pathToOwlFile);
                 try {
                     scenarioModel = OntologyLogic.getModelFromOntology(factory, jTextFieldScenarioName.getText());
-                }
-                catch(IllegalArgumentException exception){
+                } catch (IllegalArgumentException exception) {
                     WarningWindow warningWindow = new WarningWindow(this, "There is no such scenario in owl file");
                     warningWindow.setVisible(true);
                     return;
                 }
+
+                DecisionGenerator decisionGenerator = new DecisionGenerator(factory, OntologyLogic.baseIRI);
+                decisionGenerator.generate(scenarioModel);
 
                 pictureName = Visualization.getImage(scenarioModel);
                 jLabelImageScenario.setIcon(
@@ -197,34 +240,94 @@ public class DashboardWindow extends JFrame implements ActionListener {
 
                 consequenceContainer = new ConsequenceContainer(factory);
                 collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+                consequenceContainer.saveConsequencesToOntology();
+
+                saveToOntologyAccordingToCheckbox();
+
+
             }
         }
     }
 
-    private void jButtonLoadFromFileAction() {
+    private void saveToOntologyAccordingToCheckbox() {
+        factoryForCalculator = factory;
+        if (jCheckBoxSaveResultsInOntology.isSelected()) {
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = FileUtils.openOutputStream(new File(OntologyLogic.defaultPathToOntology), false);
+                factory.getOwlOntology().getOWLOntologyManager().saveOntology(factory.getOwlOntology(), outputStream);
+
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (OWLOntologyStorageException e) {
+                e.printStackTrace();
+            }
+        } else {
+            FactoryReflection.changeFactorySingletonToNull();
+        }
+    }
+
+    private void jButtonChooseFileAction() {
         JFileChooser jFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jFileChooser.setFileFilter(new FileNameExtensionFilter("OWL files", "owl"));
 
         if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             pathToOwlFile = jFileChooser.getSelectedFile().getAbsolutePath();
-        } else
-            pathToOwlFile = "";
+            jButtonChooseFile.setToolTipText("File: " + pathToOwlFile + " is loaded");
+            OntologyLogic.defaultPathToOntology = pathToOwlFile;
+            factory = OntologyLogic.getFactory(pathToOwlFile);
+            FactoryReflection.changeFactorySingletonToNull();
+
+
+        }
     }
 
     private void jButtonGenerateScenarioAction() {
-        // TODO
-        // różne rodzaje w zależności od comboboxa z rodzajami, na razie na sztywno
-        scenarioModel = OntologyLogic.getModelFromGenerator(factory);
-        pictureName = Visualization.getImage(scenarioModel);
-        jLabelImageScenario.setIcon(
-                getImageIcon(System.getProperty("user.dir")
-                        + "\\src\\main\\resources\\vis_out\\"
-                        + pictureName));
+        jLabelStartingPrompt.setVisible(false);
+        this.generatorGui = new GeneratorWindowForDilemmaDetector(this, factory);
+        generatorGui.setVisible(true);
 
-        consequenceContainer = new ConsequenceContainer(factory);
-        collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
-        OntologyLogic.saveOwlOntology(factory);
     }
+
+
+    public void getModelFromWrapper(Model model) {
+
+        Model scenarioModel = model;
+        jLabelScenarioName.setVisible(true);
+        String scenarioName = model.getScenario().getOwlIndividual().toString();
+        scenarioName = scenarioName.substring(1, scenarioName.length() - 1);
+        jLabelScenarioName.setText("Generated scenario: " + scenarioName);
+        DecisionGenerator decisionGenerator = null;
+        try {
+            factory = MyFactorySingleton.getFactory(OntologyLogic.defaultPathToOntology);
+            decisionGenerator = new DecisionGenerator(factory, OntologyLogic.baseIRI);
+
+            decisionGenerator.generate(model);
+            pictureName = Visualization.getImage(scenarioModel);
+            generatorGui.dispose();
+            jLabelImageScenario.setIcon(
+                    getImageIcon(System.getProperty("user.dir")
+                            + "\\src\\main\\resources\\vis_out\\"
+                            + pictureName));
+
+            consequenceContainer = new ConsequenceContainer(factory);
+            collidedEntities = OntologyLogic.getCollidedEntities(consequenceContainer, factory, scenarioModel);
+            consequenceContainer.saveConsequencesToOntology();
+
+            saveToOntologyAccordingToCheckbox();
+
+        } catch (OWLOntologyCreationException | IOException ex) {
+            System.err.println(ex);
+        }
+
+
+    }
+
+    private void jButtonSetOrderOfDecisionsAction() {
+        OrderOfDecisionsWindow orderOfDecisionsWindow = new OrderOfDecisionsWindow(this);
+        orderOfDecisionsWindow.setVisible(true);
+    }
+
 
     private void jButtonAddCustomPhilosophyAction() {
         CustomPhilosophyWindow customPhilosophyWindow = new AddCustomPhilosophyWindow(this);
@@ -246,8 +349,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 CustomPhilosophy customPhilosophy = getCustomPhilosophyByName(philosophyName);
 
 
-                DecisionCostCalculator decisionCostCalculator =
-                        new DecisionCostCalculator(consequenceContainer, factory, customPhilosophy);
+                DecisionCostCalculator decisionCostCalculator = new DecisionCostCalculator(consequenceContainer, factoryForCalculator, customPhilosophy);
 
 
                 for (Decision decision : collidedEntities.keySet()) {
@@ -284,15 +386,33 @@ public class DashboardWindow extends JFrame implements ActionListener {
                 }
 
                 int numberOfDecisions = decisionCosts.size();
+                ArrayList<DecisionCost> sortedCosts = new ArrayList<>();
+                for (String decisionName : decisionCosts.keySet()) {
+                    int cost = decisionCosts.get(decisionName);
+                    int i = 0;
+                    while (i < sortedCosts.size()) {
+                        if (sortedCosts.get(i).getDecisionCost() < cost) {
+                            i++;
+                        } else {
+                            break;
+                        }
+                    }
+                    sortedCosts.add(i, new DecisionCost(prepareDecisionNameToDisplay(decisionName), cost));
+                }
+                for (DecisionCost dc : sortedCosts) {
+                    System.out.println(dc.getDecisionName() + " " + dc.getDecisionCost());
+                }
+
                 if (jTableWithResults != null) {
                     DefaultTableModel defaultTableModel = (DefaultTableModel) jTableWithResults.getModel();
                     while (defaultTableModel.getRowCount() > 0) {
                         defaultTableModel.removeRow(0);
                     }
-                    for (String decisionName : decisionCosts.keySet()) {
+
+                    for (DecisionCost decisionCost : sortedCosts) {
                         Object[] row = new Object[2];
-                        row[0] = prepareDecisionNameToDisplay(decisionName);
-                        row[1] = decisionCosts.get(decisionName);
+                        row[0] = decisionCost.getDecisionName();
+                        row[1] = decisionCost.getDecisionCost();
                         defaultTableModel.addRow(row);
                     }
 
@@ -305,9 +425,9 @@ public class DashboardWindow extends JFrame implements ActionListener {
                     String[] columnNames = {"Action", "Moral cost"};
                     Object[][] data = new Object[numberOfDecisions][2];
                     int i = 0;
-                    for (String decisionName : decisionCosts.keySet()) {
-                        data[i][0] = prepareDecisionNameToDisplay(decisionName);
-                        data[i][1] = decisionCosts.get(decisionName);
+                    for (DecisionCost decisionCost : sortedCosts) {
+                        data[i][0] = decisionCost.getDecisionName();
+                        data[i][1] = decisionCost.getDecisionCost();
                         i++;
                     }
                     DefaultTableModel defaultTableModel = new DefaultTableModel(data, columnNames) {
@@ -393,15 +513,15 @@ public class DashboardWindow extends JFrame implements ActionListener {
     }
 
     private String prepareDecisionNameToDisplay(String s) {
-        if(s.startsWith("stop")) return "Stop";
-        if(s.startsWith("turn_right")) return "Turn right";
-        if(s.startsWith("turn_left")) return "Turn left";
-        if(s.startsWith("follow")) return "Follow";
+        if (s.startsWith("stop")) return "Stop";
+        if (s.startsWith("turn_right")) return "Turn right";
+        if (s.startsWith("turn_left")) return "Turn left";
+        if (s.startsWith("follow")) return "Follow";
 
         int byIndex = s.indexOf("by");
-        String ending = s.substring(byIndex+3);
+        String ending = s.substring(byIndex + 3);
         String correctNumber = StringUtils.substringBefore(ending, "_");
-        String snakeCaseResult = StringUtils.substringBefore(s,"by") + "by_" + correctNumber;
+        String snakeCaseResult = StringUtils.substringBefore(s, "by") + "by_" + correctNumber;
         return changeSnakeCase(snakeCaseResult);
     }
 

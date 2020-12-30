@@ -1,5 +1,6 @@
 package DilemmaDetector.Simulator;
 
+import DilemmaDetector.GeneratedClassesMocks;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,12 +14,8 @@ import static org.mockito.Mockito.when;
 public class ActorTest {
     
     private Actor createMockActor(String name){
-        Entity entityMock = mock(Entity.class);
-        OWLNamedIndividual owlNamedIndividualMock = mock(OWLNamedIndividual.class);
-        IRI iriMock = mock(IRI.class);
-        when(owlNamedIndividualMock.getIRI()).thenReturn(iriMock);
-        when(iriMock.toString()).thenReturn(name);
-        when(entityMock.getOwlIndividual()).thenReturn(owlNamedIndividualMock);
+        GeneratedClassesMocks gcm = new GeneratedClassesMocks();
+        Entity entityMock = gcm.createWrappedIndividualMock(name, "Entity");
         return new Actor(entityMock, mock(RigidBody.class), true);
     }
 
