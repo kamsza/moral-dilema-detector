@@ -1,11 +1,9 @@
 package DilemmaDetector.Simulator;
 
 import DilemmaDetector.GeneratedClassesMocks;
-import com.google.common.collect.Lists;
 import generator.Model;
 import org.junit.Assert;
 import org.junit.Before;
-import org.kie.internal.runtime.beliefs.Mode;
 import project.*;
 import org.junit.Test;
 
@@ -27,6 +25,7 @@ public class RigidBodyMapperTest {
 
     private FactoryWrapper factoryWrapperMock;
     private Model modelMock;
+    private Lane laneMock;
 
     public <T extends Entity> T createEntityMock(String name, String className){
         T entity = generatedClassesMocks.createWrappedIndividualMock(name, className);
@@ -76,41 +75,19 @@ public class RigidBodyMapperTest {
         modelMock = mock(Model.class);
 
         Map<Model.Side, TreeMap<Integer, Lane>> laneMapMock = new HashMap<>();
-        Lane lane0 = generatedClassesMocks.createLaneMock("lane1");
+        laneMock = generatedClassesMocks.createLaneMock("lane1");
         TreeMap<Integer, Lane> centerLinesMapMock = new TreeMap<>();
-        centerLinesMapMock.put(0, lane0);
+        centerLinesMapMock.put(0, laneMock);
         laneMapMock.put(Model.Side.CENTER, centerLinesMapMock);
         when(modelMock.getLanes()).thenReturn(laneMapMock);
-
-        Map<Lane, ArrayList<Vehicle>> vehicleMapMock = new HashMap<>();
-        Vehicle vehicle = createEntityMock("vehicle1", "Vehicle");
-        ArrayList<Vehicle> arrayListVehicle = new ArrayList<>();
-        arrayListVehicle.add(vehicle);
-        vehicleMapMock.put(lane0, arrayListVehicle);
-        when(modelMock.getVehicles()).thenReturn(vehicleMapMock);
-
-        Map<Lane, ArrayList<Living_entity>> livingEntityMapMock = new HashMap<>();
-        Living_entity livingEntity = createEntityMock("person_1", "Living_entity");
-        ArrayList<Living_entity> arrayListLivingEntity = new ArrayList<>();
-        arrayListLivingEntity.add(livingEntity);
-        livingEntityMapMock.put(lane0, arrayListLivingEntity);
-        when(modelMock.getEntities()).thenReturn(livingEntityMapMock);
-
-        Map<Lane, ArrayList<Non_living_entity>> entityMapMock = new HashMap<>();
-        Non_living_entity entity = createEntityMock("stone_1", "Non_living_entity");
-        ArrayList<Non_living_entity> arrayListEntity = new ArrayList<>();
-        arrayListEntity.add(entity);
-        entityMapMock.put(lane0, arrayListEntity);
-        when(modelMock.getObjects()).thenReturn(entityMapMock);
-
     }
 
     @Test
     public void MapperGenerateRigidBodyForMainVehicle(){
         Vehicle entity = createEntityMock("Entity_1", "Vehicle");
         RigidBody rigidBody = RigidBodyMapper.rigidBodyForMainVehicle(entity);
-        Assert.assertEquals(mockAccX*3.6*3600, rigidBody.getAcceleration().x, 0.01);
-        Assert.assertEquals(mockAccY*3.6*3600, rigidBody.getAcceleration().y, 0.01);
+        Assert.assertEquals(PhysicsUtils.Kmph2ToMps2(mockAccX), rigidBody.getAcceleration().x, 0.01);
+        Assert.assertEquals(PhysicsUtils.Kmph2ToMps2(mockAccY), rigidBody.getAcceleration().y, 0.01);
         Assert.assertEquals(mockSpeedX/3.6, rigidBody.getSpeed().x, 0.1);
         Assert.assertEquals(mockSpeedY/3.6, rigidBody.getSpeed().y, 0.1);
         Assert.assertEquals(mockWidth/100, rigidBody.getWidth(), 0.1);
@@ -119,12 +96,69 @@ public class RigidBodyMapperTest {
     }
 
     @Test
-    public void MapperCreatesActors(){
-        List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
-        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("vehicle1")));
-        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("person_1")));
-        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("stone_1")));
+    public void MapperCreatesVehicleActor(){
+        Map<Lane, ArrayList<Vehicle>> vehicleMapMock = new HashMap<>();
+        Vehicle vehicle = createEntityMock("vehicle1", "Vehicle");
+        ArrayList<Vehicle> arrayListVehicle = new ArrayList<>();
+        arrayListVehicle.add(vehicle);
+        vehicleMapMock.put(laneMock, arrayListVehicle);
+        when(modelMock.getVehicles()).thenReturn(vehicleMapMock);
 
-        Assert.assertEquals(3, actors.size());
+        List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
+
+        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("vehicle1")));
+        Assert.assertEquals(1, actors.size());
+    }
+
+    @Test
+    public void MapperCreatesLivingEntityActor(){
+        Map<Lane, ArrayList<Living_entity>> livingEntityMapMock = new HashMap<>();
+        Living_entity livingEntity = createEntityMock("person_1", "Living_entity");
+        ArrayList<Living_entity> arrayListLivingEntity = new ArrayList<>();
+        arrayListLivingEntity.add(livingEntity);
+        livingEntityMapMock.put(laneMock, arrayListLivingEntity);
+        when(modelMock.getEntities()).thenReturn(livingEntityMapMock);
+
+        List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
+
+        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("person_1")));
+        Assert.assertEquals(1, actors.size());
+    }
+
+    @Test
+    public void MapperCreatesObjectActor(){
+        Map<Lane, ArrayList<Non_living_entity>> entityMapMock = new HashMap<>();
+        Non_living_entity entity = createEntityMock("stone_1", "Non_living_entity");
+        ArrayList<Non_living_entity> arrayListEntity = new ArrayList<>();
+        arrayListEntity.add(entity);
+        entityMapMock.put(laneMock, arrayListEntity);
+        when(modelMock.getObjects()).thenReturn(entityMapMock);
+
+        List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
+
+        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("stone_1")));
+        Assert.assertEquals(1, actors.size());
+    }
+
+    @Test
+    public void MapperCreatesSurroundingObjects(){
+        Map<Model.Side, ArrayList<Surrounding>> surroundingMapMock = new HashMap<>();
+
+        Surrounding surrounding = createEntityMock("surrounding_1", "Surrounding");
+        ArrayList<Surrounding> surroundingList = new ArrayList<>();
+        surroundingList.add(surrounding);
+        surroundingMapMock.put(Model.Side.LEFT, surroundingList);
+
+        Surrounding surrounding2 = createEntityMock("surrounding_2", "Surrounding");
+        ArrayList<Surrounding> surroundingList2 = new ArrayList<>();
+        surroundingList2.add(surrounding2);
+        surroundingMapMock.put(Model.Side.RIGHT, surroundingList2);
+        when(modelMock.getSurrounding()).thenReturn(surroundingMapMock);
+
+        List<Actor> actors = RigidBodyMapper.createSurroundingActors(modelMock);
+
+        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("surrounding_1")));
+        Assert.assertTrue(actors.stream().anyMatch((a)->a.getEntityName().equals("surrounding_2")));
+        Assert.assertEquals(2, actors.size());
     }
 }

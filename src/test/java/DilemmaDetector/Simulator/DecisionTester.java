@@ -1,11 +1,4 @@
-package DilemmaDetector.Simulator.Test;
-
-import DilemmaDetector.Simulator.BasicActionsApplier;
-import DilemmaDetector.Simulator.ChangeLaneActionApplier;
-import DilemmaDetector.Simulator.RigidBody;
-import DilemmaDetector.Simulator.Vector2;
-import generator.BaseScenarioGenerator;
-import project.Sunny;
+package DilemmaDetector.Simulator;
 
 public class DecisionTester {
     private RigidBody car = new RigidBody();

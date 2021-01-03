@@ -2,19 +2,13 @@ import DilemmaDetector.Consequences.CollisionConsequencePredictor;
 import DilemmaDetector.Consequences.ConsequenceContainer;
 import DilemmaDetector.Consequences.DecisionCostCalculator;
 import DilemmaDetector.Consequences.IConsequenceContainer;
-import DilemmaDetector.MoralDilemmaDetector;
 import DilemmaDetector.ScenarioReader;
 import DilemmaDetector.Simulator.Actor;
 import DilemmaDetector.Simulator.SimulatorEngine;
 import generator.*;
-import org.swrlapi.parser.SWRLParseException;
 import project.*;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.swrlapi.factory.SWRLAPIFactory;
-import org.swrlapi.sqwrl.SQWRLQueryEngine;
-import org.swrlapi.sqwrl.SQWRLResult;
-import org.swrlapi.sqwrl.exceptions.SQWRLException;
 import visualization.Visualization;
 
 import java.io.File;
@@ -56,13 +50,8 @@ public class Main {
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
         MyFactory factory = new MyFactory(ontology);
-        MoralDilemmaDetector.Builder builder = new MoralDilemmaDetector.Builder();
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
-
-        MoralDilemmaDetector mdd = builder
-//                .addModule(new SWRLInferredModule(ontology, factory))
-                .build();
 
         for(int i=0; i<1; i++) {
 //            Model scenarioModel = getModelFromGenerator(factory);
@@ -70,9 +59,6 @@ public class Main {
 
 //            new ScenarioFactory(scenarioModel, factory)
 //                    .pedestrianOnCrossing(new int[]{10}, new double[]{1});
-
-            Set leftLanes = scenarioModel.getLanes().get(Model.Side.LEFT).entrySet();
-            Set rightLanes =  scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet();
 
             Visualization.getImage(scenarioModel);
 
@@ -98,7 +84,6 @@ public class Main {
             }
 
 //            consequenceContainer.saveConsequencesToOntology();
-            System.out.println(mdd.detectMoralDilemma(scenarioModel));
 
 //            try {
 //                factory.saveOwlOntology();
@@ -106,15 +91,5 @@ public class Main {
 //            }
             Visualization.getImage(scenarioModel);
         }
-    }
-
-
-    public static void testQuery(OWLOntology ontology) throws SQWRLException, SWRLParseException {
-
-        // Create SQWRL query engine using the SWRLAPI
-        SQWRLQueryEngine queryEngine = SWRLAPIFactory.createSQWRLQueryEngine(ontology);
-
-        // Create and execute a SQWRL query using the SWRLAPI
-        SQWRLResult result = queryEngine.runSQWRLQuery("q1","webprotege:scenario(?s) -> sqwrl:select(?s)");
     }
 }

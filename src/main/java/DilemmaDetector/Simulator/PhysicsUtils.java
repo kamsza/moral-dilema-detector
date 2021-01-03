@@ -13,8 +13,8 @@ public class PhysicsUtils {
         return n * 3.6;
     }
 
-    public static double Mps2ToKmph2(double n) {
-        return n*3.6*3600;
+    public static double Kmph2ToMps2(double n) {
+        return n/3.6/3600;
     }
 
     public static Vector2 GetRelativeSpeed(Vector2 vec1, Vector2 vec2)
