@@ -82,8 +82,8 @@ public class RigidBodyMapper {
 
         double accelX, accelY, speedX, speedY, width, length;
 
-        accelX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelX"));
-        accelY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelY"));
+        accelX = PhysicsUtils.Mps2ToKmph2(getProperty(mainVehicle, "accelX"));
+        accelY = PhysicsUtils.Mps2ToKmph2(getProperty(mainVehicle, "accelY"));
         speedX = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedX"));
         speedY = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));

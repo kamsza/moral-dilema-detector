@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import project.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -270,5 +271,7 @@ public class GeneratedClassesMocks {
         doReturn(laneMockRight).when(factory).getLane(IRI_PREFIX + "1_lane_right_1");
         return factory;
     }
+
+
 
 }

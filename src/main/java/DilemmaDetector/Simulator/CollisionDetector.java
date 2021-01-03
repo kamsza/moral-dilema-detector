@@ -41,25 +41,6 @@ public class CollisionDetector {
         return collidedActors;
     }
 
-    public boolean detectOutOfRoad(Actor mainVehicle){
-        boolean outOfRoad = false;
-        int lastLaneLeft =  scenarioModel.getLanes().get(Model.Side.LEFT).entrySet().size() + 1;
-        int lastLaneRight = scenarioModel.getLanes().get(Model.Side.RIGHT).entrySet().size() + 1;
-
-        double leftBorderY = lastLaneLeft * RigidBodyMapper.LANE_WIDTH;
-        double rightBorderY = lastLaneRight * RigidBodyMapper.LANE_WIDTH * (-1);
-
-        double vehicleY = mainVehicle.getRigidBody().getPosition().y;
-
-        if (vehicleY > leftBorderY || vehicleY < rightBorderY){
-            System.out.println("Main vehicle out of road ");
-            outOfRoad = true;
-        }
-        return outOfRoad;
-    }
-
-
-
     public boolean detectCollisionWithRigidBodyInMoment(RigidBody rigidBody, String entityName) {
         boolean isCollision = false;
         double rigidBodyWidth = rigidBody.getWidth();
@@ -81,8 +62,6 @@ public class CollisionDetector {
         double yDistance = Math.abs(rigidBody.getPosition().y - mainVehicle.getPosition().y);
         return new Vector2(xDistance, yDistance);
     }
-
-
 }
 
 
