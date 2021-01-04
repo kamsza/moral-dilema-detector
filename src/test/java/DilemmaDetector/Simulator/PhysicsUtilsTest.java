@@ -31,4 +31,11 @@ public class PhysicsUtilsTest {
         Assert.assertEquals(new Vector2(-10,-5), PhysicsUtils.GetRelativeSpeed(new Vector2(0,0), new Vector2(10,5)));
         Assert.assertEquals(new Vector2(20,20), PhysicsUtils.GetRelativeSpeed(new Vector2(40,10), new Vector2(20,-10)));
     }
+
+    @Test
+    public void Kmph2ToMps2Test(){
+        Assert.assertEquals(0, PhysicsUtils.Kmph2ToMps2(0), 0);
+        Assert.assertEquals(1, PhysicsUtils.Kmph2ToMps2(12960), 0);
+        Assert.assertEquals(1082.76639, PhysicsUtils.Kmph2ToMps2(14032652.54), 0.01);
+    }
 }

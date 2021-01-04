@@ -13,9 +13,12 @@ public class RigidBodyMapper {
     public static final double LANE_WIDTH = PhysicsUtils.CmToMeters(300);
 
     public static List<Actor> createSurroundingActors(Model model) {
-
-        Set leftLanes = model.getLanes().get(Model.Side.LEFT).entrySet();
-        Set rightLanes = model.getLanes().get(Model.Side.RIGHT).entrySet();
+        Set leftLanes = new HashSet();
+        Set rightLanes = new HashSet();
+        if(model.getLanes().containsKey(Model.Side.LEFT))
+            leftLanes = model.getLanes().get(Model.Side.LEFT).entrySet();
+        if(model.getLanes().containsKey(Model.Side.RIGHT))
+            rightLanes = model.getLanes().get(Model.Side.RIGHT).entrySet();
 
         int lastLeftLane = leftLanes.size();
         int lastRightLane = rightLanes.size();
@@ -52,24 +55,29 @@ public class RigidBodyMapper {
             for (Map.Entry childPair : (parentPair.getValue()).entrySet()) {
                 Integer laneNumber = (Integer) childPair.getKey();
                 Lane lane = (Lane) childPair.getValue();
-                for (Vehicle vehicle : vehicleMap.get(lane)) {
-                    if (vehicle != model.getVehicle()) {
-                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber, ActorType.VEHICLE);
-                        Actor actor = new Actor(vehicle, rigidBody, true);
-                        actor.setValueInDollars(RigidBodyMapper.getValueInDollars(vehicle));
-                        result.add(actor);
+                if (vehicleMap != null && vehicleMap.containsKey(lane)){
+                    for (Vehicle vehicle : vehicleMap.get(lane)) {
+                        if (vehicle != model.getVehicle()) {
+                            RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(vehicle, side, laneNumber, ActorType.VEHICLE);
+                            Actor actor = new Actor(vehicle, rigidBody, true);
+                            actor.setValueInDollars(RigidBodyMapper.getValueInDollars(vehicle));
+                            result.add(actor);
+                        }
                     }
                 }
-                for (Living_entity entity : livingEntityMap.get(lane)) {
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber, ActorType.LIVING);
-                    result.add(new Actor(entity, rigidBody, true));
+                if (livingEntityMap != null && livingEntityMap.containsKey(lane)) {
+                    for (Living_entity entity : livingEntityMap.get(lane)) {
+                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(entity, side, laneNumber, ActorType.LIVING);
+                        result.add(new Actor(entity, rigidBody, true));
+                    }
                 }
-
-                for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
-                    String obstacleName = obstacle.getOwlIndividual().getIRI().toString();
-                    boolean collidable = factoryWrapper.isCollidableObstacle(obstacleName);
-                    RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(obstacle, side, laneNumber, ActorType.OBSTACLE);
-                    result.add(new Actor(obstacle, rigidBody, collidable));
+                if (obstaclesMap != null && obstaclesMap.containsKey(lane)) {
+                    for (Non_living_entity obstacle : obstaclesMap.get(lane)) {
+                        String obstacleName = obstacle.getOwlIndividual().getIRI().toString();
+                        boolean collidable = factoryWrapper.isCollidableObstacle(obstacleName);
+                        RigidBody rigidBody = RigidBodyMapper.rigidBodyForEntity(obstacle, side, laneNumber, ActorType.OBSTACLE);
+                        result.add(new Actor(obstacle, rigidBody, collidable));
+                    }
                 }
             }
         }
@@ -82,8 +90,8 @@ public class RigidBodyMapper {
 
         double accelX, accelY, speedX, speedY, width, length;
 
-        accelX = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelX"));
-        accelY = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "accelY"));
+        accelX = PhysicsUtils.Kmph2ToMps2(getProperty(mainVehicle, "accelX"));
+        accelY = PhysicsUtils.Kmph2ToMps2(getProperty(mainVehicle, "accelY"));
         speedX = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedX"));
         speedY = PhysicsUtils.KmphToMeters(getProperty(mainVehicle, "speedY"));
         width = PhysicsUtils.CmToMeters(getProperty(mainVehicle, "width"));

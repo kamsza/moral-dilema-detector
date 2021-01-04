@@ -270,5 +270,4 @@ public class GeneratedClassesMocks {
         doReturn(laneMockRight).when(factory).getLane(IRI_PREFIX + "1_lane_right_1");
         return factory;
     }
-
 }
