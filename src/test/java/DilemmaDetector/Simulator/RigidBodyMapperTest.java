@@ -4,8 +4,8 @@ import DilemmaDetector.GeneratedClassesMocks;
 import generator.Model;
 import org.junit.Assert;
 import org.junit.Before;
-import project.*;
 import org.junit.Test;
+import project.*;
 
 import java.util.*;
 
