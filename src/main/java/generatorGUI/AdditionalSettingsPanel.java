@@ -1,10 +1,15 @@
 package generatorGUI;
 
+import generator.Model;
+import generator.ModelBuilder;
+import generator.ProbRand;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
+import java.io.FileNotFoundException;
 
 public class AdditionalSettingsPanel extends ScenarioPanel implements ActionListener {
 
@@ -31,7 +36,7 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
     public AdditionalSettingsPanel() {
         this.setLayout(null);
         this.setBounds(40, 740, 900, 200);
-        this.setBackground( new Color(237, 245, 252));
+        this.setBackground(new Color(237, 245, 252));
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         JLabel scenarioTypeLabel = new JLabel("Additional settings", SwingConstants.CENTER);
@@ -42,7 +47,7 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
         setLanesNoCheckbox.setBounds(50, 40, 300, 30);
         this.add(setLanesNoCheckbox);
 
-        maxLanesSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 5,1));
+        maxLanesSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 5, 1));
         maxLanesTextField = new TextField();
         JPanel maxLanesPanel = getProbabilitiesPanel(40, maxLanesSpinner, maxLanesTextField, setLanesNoCheckbox);
         this.add(maxLanesPanel);
@@ -51,8 +56,8 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
         addJunctionCheckbox.setBounds(50, 70, 300, 30);
         this.add(addJunctionCheckbox);
 
-        junctionSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 5,1));
-        junctionTextField= new TextField();
+        junctionSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 5, 1));
+        junctionTextField = new TextField();
         JPanel junctionPanel = getProbabilitiesPanel(70, junctionSpinner, junctionTextField, addJunctionCheckbox);
         this.add(junctionPanel);
 
@@ -65,9 +70,9 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
         this.add(changeOntologyOutDirCheckbox);
 
         saveInOriginalFileCheckbox.addItemListener(e -> {
-                    changeOntologyOutDirCheckbox.setSelected(false);
-                    changeOntologyOutDirCheckbox.setEnabled(!saveInOriginalFileCheckbox.isSelected());
-                });
+            changeOntologyOutDirCheckbox.setSelected(false);
+            changeOntologyOutDirCheckbox.setEnabled(!saveInOriginalFileCheckbox.isSelected());
+        });
 
         ontologyOutDirLabel = new JLabel(ontologyOutDir);
         ontologyDirChangeButton = new JButton("change");
@@ -99,15 +104,33 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
         return createVisualizationCheckbox.isSelected();
     }
 
-    public int getMaxLanesSpinnerValue() { return getJSpinnerValue(maxLanesSpinner); }
+    public int getMaxLanesSpinnerValue() {
+        return getJSpinnerValue(maxLanesSpinner);
+    }
 
     public double[] getMaxLanesTextFieldValue() {
         String errMsg = "Probabilities in lanes count field must sum up to 1";
-        return getProbabilities(maxLanesTextField, true, errMsg); }
+        return getProbabilities(maxLanesTextField, true, errMsg);
+    }
 
-    public String getOntologyOutputDir() { return ontologyOutDir; }
+    public String getOntologyOutputDir() {
+        return ontologyOutDir;
+    }
 
-    public String getVisualizationOutDir() { return visualizationOutDir; }
+    public String getVisualizationOutDir() {
+        return visualizationOutDir;
+    }
+
+    public boolean getJunctionCheckbox() {
+        return addJunctionCheckbox.isSelected();
+    }
+
+    public void addJunction(Model model) throws FileNotFoundException, OWLOntologyCreationException {
+        int roadsNum = ProbRand.randInt(getJSpinnerValue(junctionSpinner),
+                getProbabilities(junctionTextField, true, "Probabilities in lanes count field must sum up to 1"));
+        ModelBuilder mb = new ModelBuilder(model);
+        mb.addJunction(roadsNum);
+    }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
@@ -118,13 +141,11 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
 
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             String dirPath = chooser.getSelectedFile().getAbsolutePath();
-            String shortenDirPath = (dirPath.length() > 25) ? "... " + dirPath.substring(dirPath.length()-25) : dirPath;
+            String shortenDirPath = (dirPath.length() > 25) ? "... " + dirPath.substring(dirPath.length() - 25) : dirPath;
             if (eventSource == ontologyDirChangeButton) {
                 ontologyOutDirLabel.setText(shortenDirPath);
                 ontologyOutDir = dirPath;
-            }
-
-            else if (eventSource == visualizationDirChangeButton) {
+            } else if (eventSource == visualizationDirChangeButton) {
                 visualizationOutDirLabel.setText(shortenDirPath);
                 visualizationOutDir = dirPath;
             }

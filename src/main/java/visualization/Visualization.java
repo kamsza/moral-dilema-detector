@@ -43,7 +43,7 @@ public class Visualization {
 
         background.add(surroundingUp);
         background.add(road);
-        background.add(distanceMeter);
+//        background.add(distanceMeter);
         background.add(surroundingDown);
         background.add(bottomBar);
 
