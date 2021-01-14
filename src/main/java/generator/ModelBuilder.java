@@ -349,7 +349,7 @@ public class ModelBuilder {
     }
 
     private void fillJunctionRoadModel(RoadModel roadModel, String roadName) {
-        int carsNum = rand.nextInt(2);
+        int carsNum = rand.nextInt(3);
 
         Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
         Lane laneLeft = factory.createLane(ObjectNamer.getName(roadName + "_lane_left"));
@@ -358,7 +358,7 @@ public class ModelBuilder {
         ArrayList<Vehicle> vehiclesOnRightLane = new ArrayList<>();
 
 
-        for (int i = 0; i <= carsNum; i++) {
+        for (int i = 0; i < carsNum; i++) {
             String carName = ObjectNamer.getName("car");
             Vehicle vehicle = factory.createVehicle(carName);
 

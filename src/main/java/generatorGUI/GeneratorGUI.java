@@ -22,6 +22,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
     private OptionsPanel optionsPanel;
     private ScenarioTypePanel scenarioTypePanel;
     private RandomObjectsPanel randomObjectsPanel;
+    private AdditionalSettingsPanel additionalSettingsPanel;
     private JButton generateButton;
 
     public GeneratorGUI() {

@@ -5,6 +5,7 @@ import generator.Model;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import project.*;
 
 import java.util.*;
@@ -72,14 +73,14 @@ public class RigidBodyMapperTest {
     @Before
     public void Init(){
         factoryWrapperMock = mock(FactoryWrapper.class);
-        modelMock = mock(Model.class);
+        modelMock = mock(Model.class, Mockito.RETURNS_DEEP_STUBS);
 
         Map<Model.Side, TreeMap<Integer, Lane>> laneMapMock = new HashMap<>();
         laneMock = generatedClassesMocks.createLaneMock("lane1");
         TreeMap<Integer, Lane> centerLinesMapMock = new TreeMap<>();
         centerLinesMapMock.put(0, laneMock);
         laneMapMock.put(Model.Side.CENTER, centerLinesMapMock);
-        when(modelMock.getLanes()).thenReturn(laneMapMock);
+        when(modelMock.getMainRoad().getLanes()).thenReturn(laneMapMock);
     }
 
     @Test
@@ -102,7 +103,7 @@ public class RigidBodyMapperTest {
         ArrayList<Vehicle> arrayListVehicle = new ArrayList<>();
         arrayListVehicle.add(vehicle);
         vehicleMapMock.put(laneMock, arrayListVehicle);
-        when(modelMock.getVehicles()).thenReturn(vehicleMapMock);
+        when(modelMock.getMainRoad().getVehicles()).thenReturn(vehicleMapMock);
 
         List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
 
@@ -117,7 +118,7 @@ public class RigidBodyMapperTest {
         ArrayList<Living_entity> arrayListLivingEntity = new ArrayList<>();
         arrayListLivingEntity.add(livingEntity);
         livingEntityMapMock.put(laneMock, arrayListLivingEntity);
-        when(modelMock.getEntities()).thenReturn(livingEntityMapMock);
+        when(modelMock.getMainRoad().getEntities()).thenReturn(livingEntityMapMock);
 
         List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
 
@@ -132,7 +133,7 @@ public class RigidBodyMapperTest {
         ArrayList<Non_living_entity> arrayListEntity = new ArrayList<>();
         arrayListEntity.add(entity);
         entityMapMock.put(laneMock, arrayListEntity);
-        when(modelMock.getObjects()).thenReturn(entityMapMock);
+        when(modelMock.getMainRoad().getObjects()).thenReturn(entityMapMock);
 
         List<Actor> actors = RigidBodyMapper.createActors(factoryWrapperMock, modelMock);
 
