@@ -113,6 +113,8 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
 
                 scenarioTypePanel.addScenario(model);
                 randomObjectsPanel.addRandomElements(model);
+                if(additionalSettingsPanel.getJunctionCheckbox())
+                    additionalSettingsPanel.addJunction(model);
                 if (additionalSettingsPanel.getCreateVisualizationCheckbox())
                     Visualization.getImage(model, additionalSettingsPanel.getVisualizationOutDir());
             }

@@ -80,18 +80,18 @@ public class BaseScenarioGenerator2 {
         SizeManager sizeManager = model.getSizeManager();
         entitySize = sizeManager.getLength("truck");
 
-        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+        int laneNo = model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next();
 
         Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
 
         model.getScenario().addHas_vehicle(vehicle1);
 
         vehicle1.addVehicle_has_driver(driver1);
-        vehicle1.addVehicle_has_location(model.getRoadType());
+        vehicle1.addVehicle_has_location(model.getMainRoad().getRoadType());
 
         float vehicleSpeed = (float) (0);
 
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
 //        Lane lane = model.getLanes().get(Model.Side.LEFT).get(1);
 
         vehicle1.addDistance(3000F);
@@ -106,12 +106,12 @@ public class BaseScenarioGenerator2 {
         vehicle1.addAccelerationX(0F);
         vehicle1.addValueInDollars(100000F);
 
-        model.getVehicles().get(lane).add(vehicle1);
+        model.getMainRoad().getVehicles().get(lane).add(vehicle1);
 
     }
 
     private void addPedestrian(Model model) {
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
         addPedestrianOnLane(model, lane, 2000F);
         addPedestrianOnLane(model, lane, 2200F);
     }
@@ -127,7 +127,7 @@ public class BaseScenarioGenerator2 {
         person.addDistance(distance);
         person.addIs_on_lane(lane);
         lane.addLane_has_pedestrian(person);
-        model.getEntities().get(lane).add(person);
+        model.getMainRoad().getEntities().get(lane).add(person);
     }
 
     private void addEnvData(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -223,11 +223,14 @@ public class BaseScenarioGenerator2 {
         roadType.addRight_lanes_count(lanesCount - lanes_left.size());
 
         // add to model
-        model.setRoadType(roadType);
-        model.setLanes(lanes);
-        model.setEntities(entities);
-        model.setObjects(objects);
-        model.setVehicles(vehicles);
+        RoadModel mainRoad = new RoadModel();
+        mainRoad.setRoadType(roadType);
+        mainRoad.setLanes(lanes);
+        mainRoad.setEntities(entities);
+        mainRoad.setObjects(objects);
+        mainRoad.setVehicles(vehicles);
+
+        model.setMainRoad(mainRoad);
     }
 
     private void addSurrounding(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -295,7 +298,7 @@ public class BaseScenarioGenerator2 {
 
         // add object properties
         vehicle.addVehicle_has_driver(driver);
-        vehicle.addVehicle_has_location(model.getRoadType());
+        vehicle.addVehicle_has_location(model.getMainRoad().getRoadType());
         for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 
@@ -316,11 +319,11 @@ public class BaseScenarioGenerator2 {
 
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
         vehicle.addIs_on_lane(lane);
         lane.addLane_has_vehicle(vehicle);
 
-        model.getVehicles().get(lane).add(vehicle);
+        model.getMainRoad().getVehicles().get(lane).add(vehicle);
         model.setDriver(driver);
         model.setPassengers(passengers);
         model.setVehicle(vehicle);

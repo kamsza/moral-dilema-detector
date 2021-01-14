@@ -34,7 +34,7 @@ class BottomBar extends JPanel {
         // column 1
         String time = model.getTime().toString().replace("()", "").replace("_", " ");
         String weather = model.getWeather().toString().replace("()", "").replace("_", " ");
-        String speedLimit = model.getRoadType().getHas_speed_limit_kmph().iterator().next().toString();
+        String speedLimit = model.getMainRoad().getRoadType().getHas_speed_limit_kmph().iterator().next().toString();
         String mainVehicleSpeed = model.getVehicle().getSpeedX().iterator().next().toString();
 
         String labelStr = "<html> time: %s <br>weather: %s <br>speed limit: %s km/h <br>main vehicle speed: %s km/h";
@@ -67,10 +67,10 @@ class BottomBar extends JPanel {
     }
 
     private String getObjectsBeforeMainCar() {
-        Lane mainLane = model.getLanes().get(Model.Side.CENTER).get(0);
-        ArrayList<Non_living_entity> objects = model.getObjects().get(mainLane);
-        ArrayList<Vehicle> vehicles = model.getVehicles().get(mainLane);
-        ArrayList<Living_entity> entities = model.getEntities().get(mainLane);
+        Lane mainLane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
+        ArrayList<Non_living_entity> objects = model.getMainRoad().getObjects().get(mainLane);
+        ArrayList<Vehicle> vehicles = model.getMainRoad().getVehicles().get(mainLane);
+        ArrayList<Living_entity> entities = model.getMainRoad().getEntities().get(mainLane);
 
         TreeMap<Float, String> objectsBeforeCar = new TreeMap<>();
         objectsBeforeCar.putAll(getDistances(objects));

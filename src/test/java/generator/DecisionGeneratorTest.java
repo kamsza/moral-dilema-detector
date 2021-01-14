@@ -2,6 +2,7 @@ package generator;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
 import project.*;
 
@@ -34,7 +35,7 @@ public class DecisionGeneratorTest {
         String baseIRI = "anything";
         MyFactory factoryMock = mock(MyFactory.class);
         Change_lane changeLaneMock = mock(Change_lane.class);
-        Model modelMock = mock(Model.class);
+        Model modelMock = mock(Model.class, Mockito.RETURNS_DEEP_STUBS);
         Scenario scenarioMock = mock(Scenario.class);
 
         doNothing().when(changeLaneMock).addLane_change_by(anyInt());
@@ -49,7 +50,7 @@ public class DecisionGeneratorTest {
         doNothing().when(modelMock).setActionByDecision(anyMap());
 
         Map<Model.Side, TreeMap<Integer, Lane>> lanesMap = getExampleLaneMap(3, 2);
-        when(modelMock.getLanes()).thenReturn(lanesMap);
+        when(modelMock.getMainRoad().getLanes()).thenReturn(lanesMap);
 
         DecisionGenerator decisionGenerator = new DecisionGenerator(factoryMock, baseIRI);
         decisionGenerator.generate(modelMock);

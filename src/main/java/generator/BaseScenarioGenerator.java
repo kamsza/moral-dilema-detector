@@ -1,22 +1,7 @@
 package generator;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.Animal;
-import project.Driver;
-import project.Lane;
-import project.Living_entity;
-import project.MyFactory;
-import project.Non_living_entity;
-import project.On_the_lane;
-import project.On_the_road;
-import project.Passenger;
-import project.Person;
-import project.Road_type;
-import project.Scenario;
-import project.Surrounding;
-import project.Time;
-import project.Vehicle;
-import project.Weather;
+import project.*;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -63,7 +48,7 @@ public class BaseScenarioGenerator {
         model.setScenario(scenario);
 
         // add objects
-        addRoad(model);
+        addMainRoad(model);
         addEnvData(model);
         addSurrounding(model);
         addMainVehicle(model);
@@ -94,18 +79,18 @@ public class BaseScenarioGenerator {
         SizeManager sizeManager = model.getSizeManager();
         entitySize = sizeManager.getLength("truck");
 
-        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
+        int laneNo = model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next();
 
         Driver driver1 = factory.createDriver(ObjectNamer.getName("driver"));
 
         model.getScenario().addHas_vehicle(vehicle1);
 
         vehicle1.addVehicle_has_driver(driver1);
-        vehicle1.addVehicle_has_location(model.getRoadType());
+        vehicle1.addVehicle_has_location(model.getMainRoad().getRoadType());
 
         float vehicleSpeed = (float) (0);
 
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
 
 
         vehicle1.addDistance(3000F);
@@ -121,7 +106,7 @@ public class BaseScenarioGenerator {
         vehicle1.addIs_on_lane(lane);
         lane.addLane_has_vehicle(vehicle1);
 
-        model.getVehicles().get(lane).add(vehicle1);
+        model.getMainRoad().getVehicles().get(lane).add(vehicle1);
 
     }
 
@@ -135,10 +120,10 @@ public class BaseScenarioGenerator {
         person.addLength(50F);
         person.addDistance(3000F);
 //        person.addValueInDollars(10000F);
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
         person.addIs_on_lane(lane);
         lane.addLane_has_pedestrian(person);
-        model.getEntities().get(lane).add(person);
+        model.getMainRoad().getEntities().get(lane).add(person);
     }
 
     private void addEnvData(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -155,7 +140,7 @@ public class BaseScenarioGenerator {
         model.setTime(time);
     }
 
-    private void addRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private void addMainRoad(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         this.addRoad(model, rand.nextInt(4) + 1);
     }
 
@@ -231,11 +216,18 @@ public class BaseScenarioGenerator {
         roadType.addRight_lanes_count(lanesCount - lanes_left.size());
 
         // add to model
-        model.setRoadType(roadType);
-        model.setLanes(lanes);
-        model.setEntities(entities);
-        model.setObjects(objects);
-        model.setVehicles(vehicles);
+        Road roadEntity = factory.createRoad(ObjectNamer.getName("mainRoad"));
+        roadEntity.addEnd_angle(270F);
+
+        RoadModel mainRoad = new RoadModel();
+        mainRoad.setRoad(roadEntity);
+        mainRoad.setRoadType(roadType);
+        mainRoad.setLanes(lanes);
+        mainRoad.setEntities(entities);
+        mainRoad.setObjects(objects);
+        mainRoad.setVehicles(vehicles);
+
+        model.setMainRoad(mainRoad);
     }
 
     private void addSurrounding(Model model) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -305,7 +297,7 @@ public class BaseScenarioGenerator {
 
         // add object properties
         vehicle.addVehicle_has_driver(driver);
-        vehicle.addVehicle_has_location(model.getRoadType());
+        vehicle.addVehicle_has_location(model.getMainRoad().getRoadType());
         for (Passenger passenger : passengers)
             vehicle.addVehicle_has_passenger(passenger);
 
@@ -323,10 +315,10 @@ public class BaseScenarioGenerator {
 
         // add to model
         randomPositioner.addMainVehicle(mainVehicleLaneId, sizeManager.getLength("car"));
-        Lane lane = model.getLanes().get(Model.Side.CENTER).get(0);
+        Lane lane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
         vehicle.addIs_on_lane(lane);
         lane.addLane_has_vehicle(vehicle);
-        model.getVehicles().get(lane).add(vehicle);
+        model.getMainRoad().getVehicles().get(lane).add(vehicle);
         model.setDriver(driver);
         model.setPassengers(passengers);
         model.setVehicle(vehicle);

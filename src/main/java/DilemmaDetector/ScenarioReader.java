@@ -1,6 +1,7 @@
 package DilemmaDetector;
 
 import generator.Model;
+import generator.RoadModel;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -86,18 +87,20 @@ public class ScenarioReader {
         addLanesWithTheirObjects(leftLanesCount, Model.Side.LEFT, lanes, entities, objects, vehicles, scenarioNumber, mainVehicle);
         addLanesWithTheirObjects(rightLanesCount, Model.Side.RIGHT, lanes, entities, objects, vehicles, scenarioNumber, mainVehicle);
 
+        RoadModel mainRoad = new RoadModel();
+        mainRoad.setRoadType(roadType);
+        mainRoad.setLanes(lanes);
+        mainRoad.setVehicles(vehicles);
+        mainRoad.setEntities(entities);
+        mainRoad.setObjects(objects);
+
         Model model = new Model.Builder().
                 setScenario(scenario).
                 setWeather(weather).
-                setRoadType(roadType).
-                setLanes(lanes).
                 setTime(time).
                 setDriver(driver).
                 setVehicle(mainVehicle).
                 setPassengers(passengers).
-                setVehicles(vehicles).
-                setEntities(entities).
-                setObjects(objects).
                 setSurrounding(surrounding).build();
 
         return model;

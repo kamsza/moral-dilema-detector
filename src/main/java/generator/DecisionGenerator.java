@@ -30,8 +30,8 @@ public class DecisionGenerator {
         createDecision(stop, model);
 
 //        adding decisions and actions for changing lanes
-        for(Model.Side side : model.getLanes().keySet()){
-            for(Integer lane_number : model.getLanes().get(side).keySet()){
+        for(Model.Side side : model.getMainRoad().getLanes().keySet()){
+            for(Integer lane_number : model.getMainRoad().getLanes().get(side).keySet()){
                 if(lane_number != 0) {
                     String action_name = "change_lane_" + side.toString().toLowerCase() + "_by_" + lane_number;
                     Change_lane action = factory.createChange_lane(ObjectNamer.getName(action_name));
