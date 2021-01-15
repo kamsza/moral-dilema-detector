@@ -2,16 +2,17 @@ package commonadapter.server.logic.models;
 
 import adapter.BaseItem;
 import com.zeroc.Ice.Current;
-import project.MyFactory;
+import commonadapter.server.logic.services.OntologyService;
+import org.protege.owl.codegeneration.WrappedIndividual;
 
 public abstract class BaseItemImpl implements BaseItem {
 
     protected String id;
-    protected MyFactory owlFactory;
+    protected OntologyService ontologyService;
 
-    public BaseItemImpl(String id, MyFactory owlFactory) {
+    public BaseItemImpl(String id, OntologyService ontologyService) {
         this.id = id;
-        this.owlFactory = owlFactory;
+        this.ontologyService = ontologyService;
     }
 
     @Override
@@ -22,4 +23,6 @@ public abstract class BaseItemImpl implements BaseItem {
     public String getId() {
         return id;
     }
+
+    public abstract WrappedIndividual getWrappedIndividual();
 }

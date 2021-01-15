@@ -1,0 +1,277 @@
+{
+  "header": {
+    "contentMask": {
+      "hasAttributeMaps": true,
+      "hasExternalTileIdList": false
+    },
+    "attributeMapsOffset": 9
+  },
+  "metadata": {
+    "baseTileHeight": 45819
+  },
+  "attributeMaps": {
+    "numMaps": 2,
+    "attrTypeRef": {
+      "data": [
+        {
+          "numAttrCodes": 1,
+          "attributeTypeCodes": {
+            "data": [
+              "LANE_GROUP"
+            ]
+          },
+          "referenceType": "ROUTING_LINK_DIRECTED",
+          "attrTypeOffset": 27
+        },
+        {
+          "numAttrCodes": 2,
+          "attributeTypeCodes": {
+            "data": [
+              "VALIDITY_RANGE",
+              "LANE_GROUP"
+            ]
+          },
+          "referenceType": "ROUTING_LINK_DIRECTED",
+          "attrTypeOffset": 34
+        }
+      ]
+    },
+    "attrMap": {
+      "data": [
+        {
+          "attrRefHeader": {
+            "numAttrCodes": 1,
+            "attributeTypeCodes": {
+              "data": [
+                "LANE_GROUP"
+              ]
+            },
+            "referenceType": "ROUTING_LINK_DIRECTED",
+            "attrTypeOffset": 27
+          },
+          "attrMapType": "VALUES_TO_ONE_FEATURE",
+          "numEntries": 1,
+          "values4OneFeature": {
+            "data": [
+              {
+                "attrRefHeader": {
+                  "numAttrCodes": 1,
+                  "attributeTypeCodes": {
+                    "data": [
+                      "LANE_GROUP"
+                    ]
+                  },
+                  "referenceType": "ROUTING_LINK_DIRECTED",
+                  "attrTypeOffset": 27
+                },
+                "feature": {
+                  "referenceType": "ROUTING_LINK_DIRECTED",
+                  "__objectChoice": {
+                    "positiveLinkDirection": false,
+                    "linkId": 0
+                  }
+                },
+                "attrValList": {
+                  "attrRefHeader": {
+                    "numAttrCodes": 1,
+                    "attributeTypeCodes": {
+                      "data": [
+                        "LANE_GROUP"
+                      ]
+                    },
+                    "referenceType": "ROUTING_LINK_DIRECTED",
+                    "attrTypeOffset": 27
+                  },
+                  "values": {
+                    "data": [
+                      {
+                        "attrType": "LANE_GROUP",
+                        "__objectChoice": {
+                          "id": 100,
+                          "hasReferenceAcrossFeatures": false,
+                          "numLaneConnectivityElements": 1,
+                          "laneConnectivityElements": {
+                            "data": [
+                              {
+                                "laneType": "NORMAL_LANE",
+                                "hasLaneConnectivity": false,
+                                "speedLimit": 50,
+                                "hasGeometry": false
+                              }
+                            ]
+                          },
+                          "hasLaneBoundaries": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "attrRefHeader": {
+            "numAttrCodes": 2,
+            "attributeTypeCodes": {
+              "data": [
+                "VALIDITY_RANGE",
+                "LANE_GROUP"
+              ]
+            },
+            "referenceType": "ROUTING_LINK_DIRECTED",
+            "attrTypeOffset": 34
+          },
+          "attrMapType": "VALUES_TO_ONE_FEATURE",
+          "numEntries": 2,
+          "values4OneFeature": {
+            "data": [
+              {
+                "attrRefHeader": {
+                  "numAttrCodes": 2,
+                  "attributeTypeCodes": {
+                    "data": [
+                      "VALIDITY_RANGE",
+                      "LANE_GROUP"
+                    ]
+                  },
+                  "referenceType": "ROUTING_LINK_DIRECTED",
+                  "attrTypeOffset": 34
+                },
+                "feature": {
+                  "referenceType": "ROUTING_LINK_DIRECTED",
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "linkId": 0
+                  }
+                },
+                "attrValList": {
+                  "attrRefHeader": {
+                    "numAttrCodes": 2,
+                    "attributeTypeCodes": {
+                      "data": [
+                        "VALIDITY_RANGE",
+                        "LANE_GROUP"
+                      ]
+                    },
+                    "referenceType": "ROUTING_LINK_DIRECTED",
+                    "attrTypeOffset": 34
+                  },
+                  "values": {
+                    "data": [
+                      {
+                        "attrType": "VALIDITY_RANGE",
+                        "__objectChoice": {
+                          "startPosition": {
+                            "numVx4": 0
+                          },
+                          "endPosition": {
+                            "numVx4": 1
+                          }
+                        }
+                      },
+                      {
+                        "attrType": "LANE_GROUP",
+                        "__objectChoice": {
+                          "id": 200,
+                          "hasReferenceAcrossFeatures": false,
+                          "numLaneConnectivityElements": 1,
+                          "laneConnectivityElements": {
+                            "data": [
+                              {
+                                "laneType": "NORMAL_LANE",
+                                "hasLaneConnectivity": true,
+                                "speedLimit": 50,
+                                "laneConnectivity": {
+                                  "sourceLaneConnectorId": 5,
+                                  "destLaneConnectorId": 6
+                                },
+                                "hasGeometry": false
+                              }
+                            ]
+                          },
+                          "hasLaneBoundaries": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "attrRefHeader": {
+                  "numAttrCodes": 2,
+                  "attributeTypeCodes": {
+                    "data": [
+                      "VALIDITY_RANGE",
+                      "LANE_GROUP"
+                    ]
+                  },
+                  "referenceType": "ROUTING_LINK_DIRECTED",
+                  "attrTypeOffset": 34
+                },
+                "feature": {
+                  "referenceType": "ROUTING_LINK_DIRECTED",
+                  "__objectChoice": {
+                    "positiveLinkDirection": true,
+                    "linkId": 0
+                  }
+                },
+                "attrValList": {
+                  "attrRefHeader": {
+                    "numAttrCodes": 2,
+                    "attributeTypeCodes": {
+                      "data": [
+                        "VALIDITY_RANGE",
+                        "LANE_GROUP"
+                      ]
+                    },
+                    "referenceType": "ROUTING_LINK_DIRECTED",
+                    "attrTypeOffset": 34
+                  },
+                  "values": {
+                    "data": [
+                      {
+                        "attrType": "VALIDITY_RANGE",
+                        "__objectChoice": {
+                          "startPosition": {
+                            "numVx4": 1
+                          },
+                          "endPosition": {
+                            "numVx4": 2
+                          }
+                        }
+                      },
+                      {
+                        "attrType": "LANE_GROUP",
+                        "__objectChoice": {
+                          "id": 201,
+                          "hasReferenceAcrossFeatures": false,
+                          "numLaneConnectivityElements": 1,
+                          "laneConnectivityElements": {
+                            "data": [
+                              {
+                                "laneType": "NORMAL_LANE",
+                                "hasLaneConnectivity": true,
+                                "speedLimit": 30,
+                                "laneConnectivity": {
+                                  "sourceLaneConnectorId": 6,
+                                  "destLaneConnectorId": 7
+                                },
+                                "hasGeometry": false
+                              }
+                            ]
+                          },
+                          "hasLaneBoundaries": false
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

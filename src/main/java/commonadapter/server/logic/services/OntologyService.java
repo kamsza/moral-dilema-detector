@@ -1,11 +1,11 @@
 package commonadapter.server.logic.services;
 
 import adapter.ItemType;
-import commonadapter.server.logic.exceptions.OntologyItemCreationException;
 import commonadapter.server.logic.exceptions.OntologyItemLoadingException;
 import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
 import commonadapter.server.logic.models.*;
+import javafx.util.Pair;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -13,20 +13,26 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.MyFactory;
 
+import javax.annotation.Nullable;
+
+import static commonadapter.OntologyUtils.getPrefixedId;
+
 import java.io.File;
-import java.util.UUID;
+import java.util.*;
 
 public class OntologyService {
 
-    public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
 
-    private MyFactory owlFactory;
+    private MyFactory myFactory;
 
     private String ontologyFilePath;
+
+    private Map<String, Pair<BaseItemImpl, Boolean>> loadedItems;
 
     public OntologyService(String ontologyFilePath) {
 
         this.ontologyFilePath = ontologyFilePath;
+        this.loadedItems = new HashMap<>();
 
         try {
             prepareOntology();
@@ -40,113 +46,138 @@ public class OntologyService {
 
         File ontologyFile = new File(ontologyFilePath);
 
-
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(ontologyFile);
 
-        this.owlFactory = new MyFactory(ontology);
+        this.myFactory = new MyFactory(ontology);
     }
 
-    public BaseItemImpl createAndLoadItem(ItemType type) throws OntologyItemCreationException {
+    public BaseItemImpl createAndLoadItem(ItemType type) {
 
         BaseItemImpl item = null;
 
         String uuid = UUID.randomUUID().toString();
         String id = type.toString() + "-" + uuid;
 
-        try {
-            switch (type) {
-                case SCENARIO:
-                    item = new ScenarioImpl(id, owlFactory.createScenario(id), owlFactory);
-                    break;
-                case VEHICLE:
-                    item = new VehicleImpl(id, owlFactory.createVehicle(id), owlFactory);
-                    break;
-                case PEDESTRIAN:
-                    item = new PedestrianImpl(id, owlFactory.createPedestrian(id), owlFactory);
-                    break;
-                case CYCLIST:
-                    item = new CyclistImpl(id, owlFactory.createCyclist(id), owlFactory);
-                    break;
-                case LANE:
-                    item = new LaneImpl(id, owlFactory.createLane(id), owlFactory);
-                    break;
-                case ROAD:
-                    item = new RoadImpl(id, owlFactory.createRoad(id), owlFactory);
-                    break;
-                case DELIMITER:
-                    item = new DelimiterImpl(id, owlFactory.createDelimiter(id), owlFactory);
-                    break;
-                case JUNCTION:
-                    item = new JunctionImpl(id, owlFactory.createJunction(id), owlFactory);
-                    break;
-                case LANEBOUNDARY:
-                    item = new LaneBoundaryImpl(id, owlFactory.createLane_boundary(id), owlFactory);
-                    break;
-                case ROADATTRIBUTES:
-                    item = new RoadAttributesImpl(id, owlFactory.createRoad_attributes(id), owlFactory);
-                    break;
-            }
 
-        } catch (Exception ex) {
-
-            throw new OntologyItemCreationException(ex.getMessage());
+        switch (type) {
+            case SCENARIO:
+                item = new ScenarioImpl(id, myFactory.createScenario(id), this);
+                break;
+            case VEHICLE:
+                item = new VehicleImpl(id, myFactory.createVehicle(id), this);
+                break;
+            case PEDESTRIAN:
+                item = new PedestrianImpl(id, myFactory.createPedestrian(id), this);
+                break;
+            case CYCLIST:
+                item = new CyclistImpl(id, myFactory.createCyclist(id), this);
+                break;
+            case LANE:
+                item = new LaneImpl(id, myFactory.createLane(id), this);
+                break;
+            case ROAD:
+                item = new RoadImpl(id, myFactory.createRoad(id), this);
+                break;
+            case DELIMITER:
+                item = new DelimiterImpl(id, myFactory.createDelimiter(id), this);
+                break;
+            case JUNCTION:
+                item = new JunctionImpl(id, myFactory.createJunction(id), this);
+                break;
+            case LANEBOUNDARY:
+                item = new LaneBoundaryImpl(id, myFactory.createLane_boundary(id), this);
+                break;
+            case ROADATTRIBUTES:
+                item = new RoadAttributesImpl(id, myFactory.createRoad_attributes(id), this);
+                break;
         }
+
+        loadedItems.put(item.getId(), new Pair<>(item, true));
 
         return item;
     }
 
-    public BaseItemImpl loadItem(String id, ItemType type) throws OntologyItemLoadingException {
+    public BaseItemImpl loadItem(String id) {
+        return loadItem(id, null);
+    }
+
+    public BaseItemImpl loadItem(String id, @Nullable ItemType type) {
+
+        if (checkIfLoaded(id)) {
+            return loadedItems.get(id).getKey();
+        }
+
+        if (type == null)
+            throw new OntologyItemLoadingException("unable to load ontology item from file without declared type");
+
 
         BaseItemImpl item = null;
+        String prefixedId = getPrefixedId(id);
 
-        try {
-            switch (type) {
-                case SCENARIO:
-                    item = new ScenarioImpl(id, owlFactory.getScenario(IRI_PREFIX + id), owlFactory);
-                    break;
-                case VEHICLE:
-                    item = new VehicleImpl(id, owlFactory.getVehicle(id), owlFactory);
-                    break;
-                case PEDESTRIAN:
-                    item = new PedestrianImpl(id, owlFactory.getPedestrian(id), owlFactory);
-                    break;
-                case CYCLIST:
-                    item = new CyclistImpl(id, owlFactory.getCyclist(id), owlFactory);
-                    break;
-                case LANE:
-                    item = new LaneImpl(id, owlFactory.getLane(id), owlFactory);
-                    break;
-                case ROAD:
-                    item = new RoadImpl(id, owlFactory.getRoad(id), owlFactory);
-                    break;
-                case DELIMITER:
-                    item = new DelimiterImpl(id, owlFactory.getDelimiter(id), owlFactory);
-                    break;
-                case JUNCTION:
-                    item = new JunctionImpl(id, owlFactory.getJunction(id), owlFactory);
-                    break;
-                case LANEBOUNDARY:
-                    item = new LaneBoundaryImpl(id, owlFactory.getLane_boundary(id), owlFactory);
-                    break;
-                case ROADATTRIBUTES:
-                    item = new RoadAttributesImpl(id, owlFactory.getRoad_attributes(id), owlFactory);
-                    break;
-            }
 
-        } catch (Exception ex) {
-
-            throw new OntologyItemLoadingException(ex.getMessage());
+        switch (type) {
+            case SCENARIO:
+                item = new ScenarioImpl(id, myFactory.getScenario(prefixedId), this);
+                break;
+            case VEHICLE:
+                item = new VehicleImpl(id, myFactory.getVehicle(prefixedId), this);
+                break;
+            case PEDESTRIAN:
+                item = new PedestrianImpl(id, myFactory.getPedestrian(prefixedId), this);
+                break;
+            case CYCLIST:
+                item = new CyclistImpl(id, myFactory.getCyclist(prefixedId), this);
+                break;
+            case LANE:
+                item = new LaneImpl(id, myFactory.getLane(prefixedId), this);
+                break;
+            case ROAD:
+                item = new RoadImpl(id, myFactory.getRoad(prefixedId), this);
+                break;
+            case DELIMITER:
+                item = new DelimiterImpl(id, myFactory.getDelimiter(prefixedId), this);
+                break;
+            case JUNCTION:
+                item = new JunctionImpl(id, myFactory.getJunction(prefixedId), this);
+                break;
+            case LANEBOUNDARY:
+                item = new LaneBoundaryImpl(id, myFactory.getLane_boundary(prefixedId), this);
+                break;
+            case ROADATTRIBUTES:
+                item = new RoadAttributesImpl(id, myFactory.getRoad_attributes(prefixedId), this);
+                break;
         }
+
+        loadedItems.put(item.getId(), new Pair<>(item, false));
 
         return item;
     }
 
     public void persist() {
+
         try {
-            this.owlFactory.saveOwlOntology();
+
+            this.myFactory.saveOwlOntology();
+
+            StringBuffer sb = new StringBuffer();
+
+            loadedItems.entrySet()
+                    .forEach(entry -> sb
+                            .append(entry.getKey())
+                            .append(" RMI Object: ")
+                            .append(entry.getValue().getValue())
+                            .append("\n"));
+
+            Logger.printLogMessage(sb.toString(), LogMessageType.INFO);
+
         } catch (OWLOntologyStorageException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean checkIfLoaded(String itemId) {
+
+        return loadedItems.containsKey(itemId);
     }
 }

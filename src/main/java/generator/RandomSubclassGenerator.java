@@ -1,19 +1,12 @@
 package generator;
 
-import org.protege.owl.codegeneration.CodeGenerationRuntimeException;
 import org.protege.owl.codegeneration.impl.WrappedIndividualImpl;
-import org.protege.owl.codegeneration.inference.CodeGenerationInference;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import project.*;
 import project.impl.*;
-import visualization.Visualization;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;

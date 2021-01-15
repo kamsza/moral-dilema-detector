@@ -1,16 +1,19 @@
 package commonadapter.server.logic.models;
 
+import adapter.ItemType;
 import adapter.Road;
 import com.zeroc.Ice.Current;
-import commonadapter.server.logic.models.BaseItemImpl;
-import project.MyFactory;
+import commonadapter.server.logic.services.OntologyService;
+import org.protege.owl.codegeneration.WrappedIndividual;
+import project.Road_attributes;
+import project.Road_point;
 
 public class RoadImpl extends BaseItemImpl implements Road {
 
     private project.Road road;
 
-    public RoadImpl(String id, project.Road ontoRoad, MyFactory owlFactory) {
-        super(id, owlFactory);
+    public RoadImpl(String id, project.Road ontoRoad, OntologyService ontologyService) {
+        super(id, ontologyService);
         this.road = ontoRoad;
     }
 
@@ -28,22 +31,22 @@ public class RoadImpl extends BaseItemImpl implements Road {
 
     @Override
     public void setStarts(String roadPointId, Current current) {
-
-        project.Road_point roadPoint = owlFactory.getRoad_point(roadPointId);
+        
+        project.Road_point roadPoint = (Road_point) ontologyService.loadItem(roadPointId).getWrappedIndividual();
         this.road.addStarts(roadPoint);
     }
 
     @Override
     public void setEnds(String roadPointId, Current current) {
 
-        project.Road_point roadPoint = owlFactory.getRoad_point(roadPointId);
+        project.Road_point roadPoint = (Road_point) ontologyService.loadItem(roadPointId).getWrappedIndividual();
         this.road.addEnds(roadPoint);
     }
 
     @Override
     public void setRoadAttributes(String roadAttributesId, Current current) {
 
-        project.Road_attributes attributes = owlFactory.getRoad_attributes(roadAttributesId);
+        project.Road_attributes attributes = (Road_attributes) ontologyService.loadItem(roadAttributesId, ItemType.ROADATTRIBUTES).getWrappedIndividual();
         this.road.addHas_road_attributes(attributes);
     }
 
@@ -58,5 +61,8 @@ public class RoadImpl extends BaseItemImpl implements Road {
         this.road.addSpeed_limit(speedLimit);
     }
 
-
+    @Override
+    public WrappedIndividual getWrappedIndividual() {
+        return road;
+    }
 }

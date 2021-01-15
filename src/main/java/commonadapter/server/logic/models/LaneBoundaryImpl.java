@@ -2,14 +2,15 @@ package commonadapter.server.logic.models;
 
 import adapter.LaneBoundary;
 import com.zeroc.Ice.Current;
-import project.MyFactory;
+import commonadapter.server.logic.services.OntologyService;
+import org.protege.owl.codegeneration.WrappedIndividual;
 
 public class LaneBoundaryImpl extends BaseItemImpl implements LaneBoundary {
 
     private project.Lane_boundary laneBoundary;
 
-    public LaneBoundaryImpl(String id, project.Lane_boundary ontoLaneBoundary, MyFactory owlFactory) {
-        super(id, owlFactory);
+    public LaneBoundaryImpl(String id, project.Lane_boundary ontoLaneBoundary, OntologyService ontologyService) {
+        super(id, ontologyService);
         this.laneBoundary = ontoLaneBoundary;
     }
 
@@ -29,5 +30,10 @@ public class LaneBoundaryImpl extends BaseItemImpl implements LaneBoundary {
     public void setMaterial(String material, Current current) {
 
         this.laneBoundary.addMaterial(material);
+    }
+
+    @Override
+    public WrappedIndividual getWrappedIndividual() {
+        return laneBoundary;
     }
 }

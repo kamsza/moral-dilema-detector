@@ -2,15 +2,15 @@ package commonadapter.server.logic.models;
 
 import adapter.RoadAttributes;
 import com.zeroc.Ice.Current;
-import commonadapter.server.logic.models.BaseItemImpl;
-import project.MyFactory;
+import commonadapter.server.logic.services.OntologyService;
+import org.protege.owl.codegeneration.WrappedIndividual;
 
 public class RoadAttributesImpl extends BaseItemImpl implements RoadAttributes {
 
     private project.Road_attributes roadAttributes;
 
-    public RoadAttributesImpl(String id, project.Road_attributes ontoRoadAttributes, MyFactory owlFactory) {
-        super(id, owlFactory);
+    public RoadAttributesImpl(String id, project.Road_attributes ontoRoadAttributes, OntologyService ontologyService) {
+        super(id, ontologyService);
         this.roadAttributes = ontoRoadAttributes;
     }
 
@@ -60,5 +60,10 @@ public class RoadAttributesImpl extends BaseItemImpl implements RoadAttributes {
     public void setFerry(boolean isFerry, Current current) {
 
         this.roadAttributes.addFerry(isFerry);
+    }
+
+    @Override
+    public WrappedIndividual getWrappedIndividual() {
+        return roadAttributes;
     }
 }
