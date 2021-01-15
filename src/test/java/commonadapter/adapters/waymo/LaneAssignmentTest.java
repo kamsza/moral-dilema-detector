@@ -12,23 +12,20 @@ import static org.junit.Assert.assertEquals;
 public class LaneAssignmentTest {
 
     private LaneService laneService;
-
     private IceProxyService proxyService;
 
     @Before
     public void setup() {
-
         proxyService = mock(IceProxyService.class);
         laneService = new LaneService(proxyService);
     }
 
     @Test
     public void shouldCalculateLaneNumberForEntitiesOnTheLeft() {
-
         Double centerY0 = 400d; // left side
         Double centerY1 = 755d; // left side
         Double centerY2 = 1022d; // left side
-
+        
         int laneNo0 = laneService.calculateLaneNumber(centerY0);
         int laneNo1 = laneService.calculateLaneNumber(centerY1);
         int laneNo2 = laneService.calculateLaneNumber(centerY2);
