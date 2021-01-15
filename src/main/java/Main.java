@@ -21,7 +21,7 @@ public class Main {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Model getModelFromGenerator(OWLFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -29,7 +29,7 @@ public class Main {
         return model;
     }
 
-    public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
+    public static Model getModelFromReader(OWLFactory factory, int number) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader(factory);
         Model model = scenarioReader.getModelWithVisualisation(number);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -37,7 +37,7 @@ public class Main {
         return model;
     }
 
-    public static Model getModelUsingModelBuilder(Model scenarioModel, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+    public static Model getModelUsingModelBuilder(Model scenarioModel, OWLFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         scenarioModel = new ScenarioFactory(scenarioModel, factory)
                     .pedestrianOnCrossing(new int[]{1}, new double[]{1}).getModel();
 //                    .animalOnRoad(new int[]{1}, new double[]{1}).getModel();
@@ -49,7 +49,7 @@ public class Main {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
-        MyFactory factory = new MyFactory(ontology);
+        OWLFactory factory = new OWLFactory(ontology);
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();
 

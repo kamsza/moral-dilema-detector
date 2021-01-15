@@ -1,7 +1,7 @@
 package gui.logic;
 
 import generator.MyFactorySingleton;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.lang.reflect.Field;
 
@@ -20,7 +20,7 @@ public class FactoryReflection {
         }
     }
 
-    public static void changeFactorySingleton(MyFactory factory){
+    public static void changeFactorySingleton(OWLFactory factory){
         Field privateFactoryField = null;
         try {
             privateFactoryField = MyFactorySingleton.class.

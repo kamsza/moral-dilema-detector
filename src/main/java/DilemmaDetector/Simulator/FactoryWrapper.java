@@ -1,18 +1,14 @@
 package DilemmaDetector.Simulator;
 
-import generator.MyFactorySingleton;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.swrlapi.drools.owl.properties.P;
 import project.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FactoryWrapper {
-    private final MyFactory factory;
+    private final OWLFactory factory;
 
-    public FactoryWrapper(MyFactory factory) {
+    public FactoryWrapper(OWLFactory factory) {
         this.factory = factory;
     }
 

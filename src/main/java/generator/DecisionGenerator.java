@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class DecisionGenerator {
     String baseIRI;
-    MyFactory factory;
+    OWLFactory factory;
     private Map<Decision, Action> actionByDecision;
 
-    public DecisionGenerator(MyFactory factory, String baseIRI) {
+    public DecisionGenerator(OWLFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
         actionByDecision = new HashMap<>();

@@ -15,7 +15,7 @@ import java.util.*;
 public class ScenarioReader {
     private OWLOntologyManager ontologyManager;
     private OWLOntology ontology;
-    private MyFactory factory;
+    private OWLFactory factory;
     public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
 
     public ScenarioReader() throws OWLOntologyCreationException {
@@ -25,14 +25,14 @@ public class ScenarioReader {
     public ScenarioReader(String ontologyPath) throws OWLOntologyCreationException {
         this.ontologyManager = OWLManager.createOWLOntologyManager();
         this.ontology = this.ontologyManager.loadOntologyFromOntologyDocument(new File(ontologyPath));
-        this.factory = new MyFactory(ontology);
+        this.factory = new OWLFactory(ontology);
     }
 
-    public ScenarioReader(MyFactory factory){
+    public ScenarioReader(OWLFactory factory){
         this.factory = factory;
     }
 
-    public MyFactory getFactory() {
+    public OWLFactory getFactory() {
         return factory;
     }
 

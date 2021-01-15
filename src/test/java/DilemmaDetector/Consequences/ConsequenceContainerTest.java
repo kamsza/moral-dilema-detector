@@ -6,13 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import project.Decision;
 import project.Living_entity;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.util.Map;
 import java.util.Set;
 
 public class ConsequenceContainerTest {
-    MyFactory factory;
+    OWLFactory factory;
     Decision decision;
     Living_entity livingEntity;
     GeneratedClassesMocks generatedClassesMocks = new GeneratedClassesMocks();

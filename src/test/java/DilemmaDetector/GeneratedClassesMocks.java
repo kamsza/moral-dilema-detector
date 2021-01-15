@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class GeneratedClassesMocks {
     public static final String IRI_PREFIX = "http://www.w3.org/2003/11/";
-    private MyFactory factory = mock(MyFactory.class);
+    private OWLFactory factory = mock(OWLFactory.class);
 
     private OWLNamedIndividual getOwlNamedIndividualMock(String name) {
         OWLNamedIndividual owlNamedIndividualMock = mock(OWLNamedIndividual.class);
@@ -66,7 +66,7 @@ public class GeneratedClassesMocks {
         return mock;
     }
 
-    public MyFactory createFactoryMock() {
+    public OWLFactory createFactoryMock() {
         String className;
         String name;
         WrappedIndividual m;

@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Decision;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +28,7 @@ public class OntologyLogic {
     //public static final String defaultPathToOntology = "src/main/resources/ontologies/traffic_ontology.owl";
 
 
-    public static MyFactory getFactory(String pathToOwlFile) {
+    public static OWLFactory getFactory(String pathToOwlFile) {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = null;
         try {
@@ -37,10 +37,10 @@ public class OntologyLogic {
             System.err.println("Problem during loading ontology");
             e.printStackTrace();
         }
-        return new MyFactory(ontology);
+        return new OWLFactory(ontology);
     }
 
-    public static Model getModelFromOntology(MyFactory factory, String scenarioName) {
+    public static Model getModelFromOntology(OWLFactory factory, String scenarioName) {
 
         ScenarioReader scenarioReader = new ScenarioReader(factory);
         int scenarioNumber = Integer.parseInt(StringUtils.substringBefore(scenarioName, "_"));
@@ -52,7 +52,7 @@ public class OntologyLogic {
 
 
     // na razie na sztywno korzystamy z BaseScenarioGenerator
-    public static Model getModelFromGenerator(MyFactory factory) {
+    public static Model getModelFromGenerator(OWLFactory factory) {
         BaseScenarioGenerator generator = new BaseScenarioGenerator(factory, baseIRI);
         Model model = null;
         try {
@@ -84,7 +84,7 @@ public class OntologyLogic {
         return model;
     }
 
-    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
+    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, OWLFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
                 new CollisionConsequencePredictor(consequenceContainer, factory);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor, factory);
@@ -93,7 +93,7 @@ public class OntologyLogic {
         return collidedEntities;
     }
 
-    public static void saveOwlOntology(MyFactory factory) {
+    public static void saveOwlOntology(OWLFactory factory) {
         try {
             factory.saveOwlOntology();
         } catch (OWLOntologyStorageException e) {

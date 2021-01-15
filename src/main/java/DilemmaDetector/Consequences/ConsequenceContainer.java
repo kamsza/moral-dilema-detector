@@ -8,9 +8,9 @@ import java.util.*;
 public class ConsequenceContainer implements IConsequenceContainer {
     private Map<String, Map<ConsequenceType, Set<String>>> healthConsequencesByDecisionMap = new HashMap<>(); //<Decision, <Consequence, Set<VictimName>>>
     private Map<String, Map<String, Double>> materialConsequencesByDecisionMap = new HashMap<>(); //<Decision, <Entity, Value>>
-    private MyFactory factory;
+    private OWLFactory factory;
 
-    public ConsequenceContainer(MyFactory factory) {
+    public ConsequenceContainer(OWLFactory factory) {
         this.factory = factory;
     }
 

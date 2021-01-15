@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.MyFactory;
+import project.OWLFactory;
 
 import javax.annotation.Nullable;
 
@@ -23,7 +23,7 @@ import java.util.*;
 public class OntologyService {
 
 
-    private MyFactory myFactory;
+    private OWLFactory myFactory;
 
     private String ontologyFilePath;
 
@@ -49,7 +49,7 @@ public class OntologyService {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(ontologyFile);
 
-        this.myFactory = new MyFactory(ontology);
+        this.myFactory = new OWLFactory(ontology);
     }
 
     public BaseItemImpl createAndLoadItem(ItemType type) {

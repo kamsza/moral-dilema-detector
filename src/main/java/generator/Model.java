@@ -276,7 +276,7 @@ public class Model {
 
 
     public void export(String filepath, boolean overrideFile, String outputDir) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
-        MyFactory factory = MyFactorySingleton.getFactory();
+        OWLFactory factory = MyFactorySingleton.getFactory();
         String exportFilepath = filepath;
         if (!overrideFile) {
             String extension = ".owl";
