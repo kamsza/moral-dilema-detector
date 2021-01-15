@@ -6,8 +6,7 @@ import project.*;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ModelBuilder {
     private SizeManager sizeManager;
@@ -18,8 +17,12 @@ public class ModelBuilder {
     private MyFactory factory;
 
     public ModelBuilder(Model model) throws FileNotFoundException, OWLOntologyCreationException {
+        this(model, MyFactorySingleton.getFactory());
+    }
+
+    public ModelBuilder(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
-        this.factory = MyFactorySingleton.getFactory();
+        this.factory = factory;
         this.subclassGenerator = new RandomSubclassGenerator(factory);
         this.randomPositioner = model.getRandomPositioner();
         this.sizeManager = model.getSizeManager();
@@ -32,7 +35,7 @@ public class ModelBuilder {
 
     public ModelBuilder addAnimal(int[] objectsNum, double[] prob, boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int N = ProbRand.randInt(objectsNum, prob);
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             this.addAnimal(beforeMainCar);
         return this;
     }
@@ -42,11 +45,10 @@ public class ModelBuilder {
         int laneNo;
         float distance;
 
-        if(beforeMainCar) {
+        if (beforeMainCar) {
             laneNo = getLaneNo();
             distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
-        }
-        else{
+        } else {
             laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             distance = randomPositioner.getRandomDistance(laneNo, entitySize);
         }
@@ -60,7 +62,9 @@ public class ModelBuilder {
         Animal animal = subclassGenerator.generateAnimalSubclass(ObjectNamer.getName("animal"));
         animal = fillDataProps(animal, distance, "animal", 10, 5);
         animal.addValueInDollars(100F);
-        model.getEntities().get(lane).add(animal);
+        animal.addIs_on_lane(lane);
+        lane.addLane_has_pedestrian(animal);
+        model.getMainRoad().getEntities().get(lane).add(animal);
 
         return this;
     }
@@ -78,7 +82,7 @@ public class ModelBuilder {
                 break;
             case 2:
                 vehicle = factory.createMotorcycle(ObjectNamer.getName("vehicle"));
-                name= "motorcycle";
+                name = "motorcycle";
                 break;
             case 3:
                 vehicle = factory.createBicycle(ObjectNamer.getName("vehicle"));
@@ -96,8 +100,8 @@ public class ModelBuilder {
     public ModelBuilder addVehicles(int[] objectsNum, double[] prob) {
         int N = ProbRand.randInt(objectsNum, prob);
 
-        for(int i = 0; i < N; i++) {
-            Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
+        for (int i = 0; i < N; i++) {
+            Pair<String, Vehicle> randomVehicle = getRandomVehicle();
             String name = randomVehicle.getKey();
             Vehicle vehicle = randomVehicle.getValue();
             float entitySize = sizeManager.getLength(name);
@@ -110,36 +114,50 @@ public class ModelBuilder {
         return this;
     }
 
-    public ModelBuilder addOvertakenVehicle() {
-        if(model.getRoadType().getLanes_count().iterator().next() == 1 || model.getRoadType().getLanes_count().iterator().next() -1 == model.getRoadType().getMain_vehicle_lane_id().iterator().next())
+    public ModelBuilder addOvertakenVehicle(double prob) {
+        if (rand.nextDouble() > prob)
             return this;
 
-        int lanesMovingLeft = model.getRoadType().getLeft_lanes_count().iterator().next();
-        int lanesMovingRight = model.getRoadType().getRight_lanes_count().iterator().next();
-        model.getRoadType().removeLeft_lanes_count(lanesMovingLeft);
-        model.getRoadType().removeRight_lanes_count(lanesMovingRight);
-        model.getRoadType().addLeft_lanes_count(lanesMovingLeft + 1);
-        model.getRoadType().addRight_lanes_count(lanesMovingRight - 1);
+        return addOvertakenVehicle();
+    }
+
+    public ModelBuilder addOvertakenVehicle() {
+        if (model.getMainRoad().getRoadType().getLanes_count().iterator().next() == 1 || model.getMainRoad().getRoadType().getLanes_count().iterator().next() - 1 == model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next())
+            return this;
+
+        int lanesMovingLeft = model.getMainRoad().getRoadType().getLeft_lanes_count().iterator().next();
+        int lanesMovingRight = model.getMainRoad().getRoadType().getRight_lanes_count().iterator().next();
+        model.getMainRoad().getRoadType().removeLeft_lanes_count(lanesMovingLeft);
+        model.getMainRoad().getRoadType().removeRight_lanes_count(lanesMovingRight);
+        model.getMainRoad().getRoadType().addLeft_lanes_count(lanesMovingLeft + 1);
+        model.getMainRoad().getRoadType().addRight_lanes_count(lanesMovingRight - 1);
 
         Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
         String name = randomVehicle.getKey();
         Vehicle vehicle = randomVehicle.getValue();
 
-        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next() + 1;
+        int laneNo = model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next() + 1;
         float distance = rand.nextFloat() * 200 - 100F;
 
         vehicle = fillDataProps(vehicle, distance, name);
         return addVehicle(vehicle, laneNo, distance);
     }
 
+    public ModelBuilder addApproachedVehicle(double prob) {
+        if (rand.nextDouble() > prob)
+            return this;
+
+        return addApproachedVehicle();
+    }
+
     public ModelBuilder addApproachedVehicle() {
-        Pair<String, Vehicle>  randomVehicle = getRandomVehicle();
+        Pair<String, Vehicle> randomVehicle = getRandomVehicle();
         String name = randomVehicle.getKey();
         Vehicle vehicle = randomVehicle.getValue();
         float entitySize = sizeManager.getLength(name);
 
-        int laneNo = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
-        float distance =  randomPositioner.getRandomDistance(laneNo, entitySize, false);
+        int laneNo = model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next();
+        float distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
 
         vehicle = fillDataProps(vehicle, distance, name);
         return addVehicle(vehicle, laneNo, distance);
@@ -153,11 +171,11 @@ public class ModelBuilder {
         model.getScenario().addHas_vehicle(vehicle);
 
         vehicle.addVehicle_has_driver(driver);
-        vehicle.addVehicle_has_location(model.getRoadType());
+        vehicle.addVehicle_has_location(model.getMainRoad().getRoadType());
 
         float vehicleSpeed = (float) (50 + rand.nextInt(90));
 
-        if(laneNo < model.getRoadType().getLeft_lanes_count().iterator().next()) {
+        if (laneNo < model.getMainRoad().getRoadType().getLeft_lanes_count().iterator().next()) {
             vehicleSpeed *= -1;
         }
 
@@ -168,7 +186,9 @@ public class ModelBuilder {
         vehicle.addAccelerationX(0F);
         vehicle.addAccelerationY(0F);
 
-        model.getVehicles().get(vehicleLane).add(vehicle);
+        vehicle.addIs_on_lane(vehicleLane);
+        vehicleLane.addLane_has_vehicle(vehicle);
+        model.getMainRoad().getVehicles().get(vehicleLane).add(vehicle);
 
         return this;
     }
@@ -176,14 +196,14 @@ public class ModelBuilder {
     // CAR - OBSTACLE SCENARIOS
     public ModelBuilder addObstacle(int[] objectsNum, double[] prob) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int N = ProbRand.randInt(objectsNum, prob);
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             this.addObstacle(false);
         return this;
     }
 
     public ModelBuilder addObstacle(int[] objectsNum, double[] prob, boolean beforeMainCar) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         int N = ProbRand.randInt(objectsNum, prob);
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             this.addObstacle(beforeMainCar);
         return this;
     }
@@ -193,11 +213,10 @@ public class ModelBuilder {
         int laneNo;
         float distance;
 
-        if(beforeMainCar) {
+        if (beforeMainCar) {
             laneNo = getLaneNo();
             distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
-        }
-        else{
+        } else {
             laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             distance = randomPositioner.getRandomDistance(laneNo, entitySize);
         }
@@ -210,7 +229,9 @@ public class ModelBuilder {
 
         On_the_lane object = subclassGenerator.generateSurroundingOnLaneSubclass(ObjectNamer.getName("surrounding"));
         object = fillDataProps(object, distance, "obstacle");
-        model.getObjects().get(lane).add(object);
+        object.addIs_on_lane(lane);
+        lane.addLane_has_object(object);
+        model.getMainRoad().getObjects().get(lane).add(object);
 
         return this;
     }
@@ -222,7 +243,7 @@ public class ModelBuilder {
     }
 
     public ModelBuilder addPedestrianCrossing(int peopleCount) {
-        if(peopleCount == 0)
+        if (peopleCount == 0)
             return this;
 
         float distance = randomPositioner.getRandomDistance();
@@ -232,14 +253,9 @@ public class ModelBuilder {
         pedestrianCrossing.addDistance(distance);
         pedestrianCrossing = fillDataProps(pedestrianCrossing, distance, "pedestrian_crossing");
 
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.LEFT).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.CENTER).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
-
-        for (Map.Entry<Integer, Lane> lane : model.getLanes().get(Model.Side.RIGHT).entrySet())
-            model.getObjects().get(lane.getValue()).add(pedestrianCrossing);
+        for (Model.Side side : Model.Side.values()) {
+            addPedestrianCrossingOnLanes(pedestrianCrossing, side);
+        }
 
         while (peopleCount > 0) {
             int laneNo = randomPositioner.getRandomLaneNumber(1F);
@@ -249,9 +265,10 @@ public class ModelBuilder {
 
             Person person = factory.createPerson(ObjectNamer.getName("person"));
             person = fillDataProps(person, personDistance, "person", 7, 4);
-            model.getEntities().get(lane).add(person);
+            model.getMainRoad().getEntities().get(lane).add(person);
+            lane.addLane_has_pedestrian(person);
+            person.addIs_on_lane(lane);
         }
-
         return this;
     }
 
@@ -262,7 +279,7 @@ public class ModelBuilder {
 
     public ModelBuilder pedestrianJaywalking(int[] objectsNum, double[] prob, boolean beforeMainCar) {
         int N = ProbRand.randInt(objectsNum, prob);
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             pedestrianJaywalking(beforeMainCar);
         return this;
     }
@@ -272,11 +289,10 @@ public class ModelBuilder {
         int laneNo;
         float distance;
 
-        if(beforeMainCar) {
+        if (beforeMainCar) {
             laneNo = getLaneNo();
             distance = randomPositioner.getRandomDistance(laneNo, entitySize, false);
-        }
-        else{
+        } else {
             laneNo = randomPositioner.getRandomLaneNumber(entitySize);
             distance = randomPositioner.getRandomDistance(laneNo, entitySize);
         }
@@ -284,15 +300,80 @@ public class ModelBuilder {
         return pedestrianJaywalking(laneNo, distance);
     }
 
-    public ModelBuilder pedestrianJaywalking(int laneNo, float distance){
+    public ModelBuilder pedestrianJaywalking(int laneNo, float distance) {
         Lane lane = randomPositioner.getLane(model, laneNo);
 
         Person person = factory.createPerson(ObjectNamer.getName("person"));
         person = fillDataProps(person, distance, "person", 7, 4);
+        lane.addLane_has_pedestrian(person);
+        person.addIs_on_lane(lane);
+        model.getMainRoad().getEntities().get(lane).add(person);
 
-        model.getEntities().get(lane).add(person);
 
         return this;
+    }
+
+    // JUNCTION SCENARIO
+    public ModelBuilder addJunction(int roadsNum) {
+        Junction defaultJunction = factory.createJunction("junction");
+        defaultJunction.addLatitude("50.06_N");
+        defaultJunction.addLongitude("19.93_E");
+        return addJunction(defaultJunction, roadsNum);
+    }
+
+
+    public ModelBuilder addJunction(Junction junction, int roadsNum) {
+        model.setJunction(junction);
+
+        // for simplicity, junction can't have more than 3 roads
+        roadsNum = Math.min(roadsNum, 3);
+        ArrayList<RoadModel> otherRoads = new ArrayList<>();
+        List<Float> possibleAngles = new ArrayList<>(Arrays.asList(0F, 90F, 180F));
+
+        for (int i = 0; i < roadsNum; i++) {
+            String roadName = ObjectNamer.getName("road");
+            Road road = factory.createRoad(roadName);
+            road.addStarts(junction);
+            int randIndex = new Random().nextInt(possibleAngles.size());
+            road.addStart_angle(possibleAngles.remove(randIndex));
+
+            RoadModel roadModel = new RoadModel();
+            roadModel.setRoad(road);
+            fillJunctionRoadModel(roadModel, roadName);
+            otherRoads.add(roadModel);
+        }
+
+
+        model.setOtherRoads(otherRoads);
+        return this;
+    }
+
+    private void fillJunctionRoadModel(RoadModel roadModel, String roadName) {
+        int carsNum = rand.nextInt(3);
+
+        Map<Lane, ArrayList<Vehicle>> vehicles = new HashMap<>();
+        Lane laneLeft = factory.createLane(ObjectNamer.getName(roadName + "_lane_left"));
+        Lane laneRight = factory.createLane(ObjectNamer.getName(roadName + "_lane_right"));
+        ArrayList<Vehicle> vehiclesOnLeftLane = new ArrayList<>();
+        ArrayList<Vehicle> vehiclesOnRightLane = new ArrayList<>();
+
+
+        for (int i = 0; i < carsNum; i++) {
+            String carName = ObjectNamer.getName("car");
+            Vehicle vehicle = factory.createVehicle(carName);
+
+            if(i == 0) {
+                vehiclesOnLeftLane.add(vehicle);
+            } else {
+                vehiclesOnRightLane.add(vehicle);
+            }
+        }
+
+        vehicles.put(laneLeft, vehiclesOnLeftLane);
+        vehicles.put(laneRight, vehiclesOnRightLane);
+
+        roadModel.setVehicles(vehicles);
+
     }
 
     // AUXILIARY FUNCTIONS
@@ -301,7 +382,7 @@ public class ModelBuilder {
     }
 
 
-    private  <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
+    private <T extends Entity> T fillDataProps(T entity, float distance, String entityName, int maxSpeedX, int maxSpeedY) {
         entity = fillDataProps(entity, distance, entityName);
         entity.addSpeedX((float) rand.nextInt(2 * maxSpeedY) - maxSpeedY);
         entity.addSpeedY((float) rand.nextInt(2 * maxSpeedX) - maxSpeedX);
@@ -320,11 +401,20 @@ public class ModelBuilder {
     }
 
     private int getLaneNo() {
-        int mainCarLane = model.getRoadType().getMain_vehicle_lane_id().iterator().next();
-        int lanes = model.getRoadType().getLanes_count().iterator().next();
+        int mainCarLane = model.getMainRoad().getRoadType().getMain_vehicle_lane_id().iterator().next();
+        int lanes = model.getMainRoad().getRoadType().getLanes_count().iterator().next();
         int laneNo = mainCarLane - 1 + rand.nextInt(3);
-        if(laneNo < 0 || laneNo >= lanes)
+        if (laneNo < 0 || laneNo >= lanes)
             laneNo = mainCarLane;
         return laneNo;
+    }
+
+    private void addPedestrianCrossingOnLanes(On_the_road pedestrianCrossing, Model.Side side) {
+        for (Map.Entry<Integer, Lane> lane : model.getMainRoad().getLanes().get(side).entrySet()) {
+            Lane l = lane.getValue();
+            l.addLane_has_object(pedestrianCrossing);
+            pedestrianCrossing.addIs_on_lane(l);
+            model.getMainRoad().getObjects().get(lane.getValue()).add(pedestrianCrossing);
+        }
     }
 }

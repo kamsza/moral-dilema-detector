@@ -34,7 +34,7 @@ class BottomBar extends JPanel {
         // column 1
         String time = model.getTime().toString().replace("()", "").replace("_", " ");
         String weather = model.getWeather().toString().replace("()", "").replace("_", " ");
-        String speedLimit = model.getRoadType().getHas_speed_limit_kmph().iterator().next().toString();
+        String speedLimit = model.getMainRoad().getRoadType().getHas_speed_limit_kmph().iterator().next().toString();
         String mainVehicleSpeed = model.getVehicle().getSpeedX().iterator().next().toString();
 
         String labelStr = "<html> time: %s <br>weather: %s <br>speed limit: %s km/h <br>main vehicle speed: %s km/h";
@@ -51,26 +51,26 @@ class BottomBar extends JPanel {
         String labelStr2 = "<html> before main vehicle:";
         JLabel label2 = new JLabel(labelStr2);
         label2.setForeground(Color.WHITE);
-        label2.setBounds(Visualization.WIDTH *2/5, 0, 960,140);
+        label2.setBounds(Visualization.WIDTH *2/5 - 60, 0, 960,140);
         label2.setVerticalAlignment(JLabel.TOP);
         label2.setFont(new Font(label.getName(), Font.PLAIN, 26));
         this.add(label2);
 
         // column 3
-        String labelStr3 = "<html> <table style=\"width:300px\">" + getObjectsBeforeMainCar() + "</table>";
+        String labelStr3 = "<html> <table style=\"width:450px\">" + getObjectsBeforeMainCar() + "</table>";
         JLabel label3 = new JLabel(labelStr3);
         label3.setForeground(Color.WHITE);
-        label3.setBounds(Visualization.WIDTH * 3/5, 3, 960,140);
+        label3.setBounds(Visualization.WIDTH * 3/5 - 100, 3, 600,140);
         label3.setVerticalAlignment(JLabel.TOP);
         label3.setFont(new Font(label.getName(), Font.PLAIN, 20));
         this.add(label3);
     }
 
     private String getObjectsBeforeMainCar() {
-        Lane mainLane = model.getLanes().get(Model.Side.CENTER).get(0);
-        ArrayList<Non_living_entity> objects = model.getObjects().get(mainLane);
-        ArrayList<Vehicle> vehicles = model.getVehicles().get(mainLane);
-        ArrayList<Living_entity> entities = model.getEntities().get(mainLane);
+        Lane mainLane = model.getMainRoad().getLanes().get(Model.Side.CENTER).get(0);
+        ArrayList<Non_living_entity> objects = model.getMainRoad().getObjects().get(mainLane);
+        ArrayList<Vehicle> vehicles = model.getMainRoad().getVehicles().get(mainLane);
+        ArrayList<Living_entity> entities = model.getMainRoad().getEntities().get(mainLane);
 
         TreeMap<Float, String> objectsBeforeCar = new TreeMap<>();
         objectsBeforeCar.putAll(getDistances(objects));
@@ -78,7 +78,7 @@ class BottomBar extends JPanel {
         objectsBeforeCar.putAll(getDistances(entities));
 
         int i = 0;
-        String header = String.format("<tr><th style=\"width:150px\">%s</th>  <th style=\"width:150px\">%s</th>  <th style=\"width:150px\">%s</th></tr>", "name", "dist (m)", "speed (km/h)");
+        String header = String.format("<tr><th style=\"width:210px\">%s</th>  <th style=\"width:120px\">%s</th>  <th style=\"width:120px\">%s</th></tr>", "name", "dist (m)", "speed (km/h)");
         StringBuilder out = new StringBuilder(header);
         for (Map.Entry entry : objectsBeforeCar.entrySet()) {
             if(i++ > 3)
@@ -99,7 +99,7 @@ class BottomBar extends JPanel {
 
 
             if(o.getDistance().iterator().next() > 0) {
-                String label = String.format("<tr><th style=\"width:150px\">%s</th>  <th tyle=\"width:150px\">%.1f</th>  <th style=\"width:150px\">%s</th></tr>",
+                String label = String.format("<tr><th style=\"width:210px\">%s</th>  <th tyle=\"width:120px\">%.1f</th>  <th style=\"width:120px\">%s</th></tr>",
                         getObjectName(o),
                         o.getDistance().iterator().next() / 100,
                         speed);

@@ -30,7 +30,7 @@ public class Visualization {
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
         background.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        lanesNum = model.getRoadType().getLanes_count().iterator().next();
+        lanesNum = model.getMainRoad().getRoadType().getLanes_count().iterator().next();
         JPanel road = new RoadPanel(lanesNum * LANE_HEIGHT, model);
 
         int surroundingHeight = getSurroundingPanelHeight();
@@ -43,7 +43,7 @@ public class Visualization {
 
         background.add(surroundingUp);
         background.add(road);
-        background.add(distanceMeter);
+//        background.add(distanceMeter);
         background.add(surroundingDown);
         background.add(bottomBar);
 
@@ -67,17 +67,24 @@ public class Visualization {
      * @return filename with picture
      */
     public static String getImage(Model model) {
+        return getImage(model, "");
+    }
+
+    public static String getImage(Model model, String outputDir) {
         Visualization vs = new Visualization(model);
         String pictureName=null;
         vs.frame.pack();
         try {
-            pictureName = ImageHandler.saveImage(vs.background);
+            if(outputDir.isEmpty())
+                pictureName = ImageHandler.saveImage(vs.background);
+            else
+                pictureName = ImageHandler.saveImage(vs.background, outputDir);
         } catch (IOException ex) {
             System.out.println("Unable to create visualization for: " + model.toString());
         } finally {
             vs.frame.dispose();
+            vs = null;
         }
         return pictureName;
     }
-
 }

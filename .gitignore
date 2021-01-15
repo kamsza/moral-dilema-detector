@@ -113,5 +113,8 @@ hs_err_pid*
 # generated images
 src/main/resources/vis_out/*
 
+# ontology copies
+src/main/resources/ontologies/*
+
 # virtual env
 venv/

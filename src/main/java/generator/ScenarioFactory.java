@@ -1,6 +1,7 @@
 package generator;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import project.MyFactory;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +11,10 @@ public class ScenarioFactory {
 
     public ScenarioFactory(Model model) throws FileNotFoundException, OWLOntologyCreationException {
         this.modelBuilder = new ModelBuilder(model);
+    }
+    
+    public ScenarioFactory(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+        this.modelBuilder = new ModelBuilder(model, factory);
     }
 
     // CAR - ANIMAL SCENARIOS
@@ -29,8 +34,18 @@ public class ScenarioFactory {
         return this;
     }
 
+    public ScenarioFactory carApproaching(double probability) {
+        modelBuilder.addApproachedVehicle (probability);
+        return this;
+    }
+
     public ScenarioFactory carOvertaking() {
-//        modelBuilder.addOvertakenVehicle();
+        modelBuilder.addOvertakenVehicle();
+        return this;
+    }
+
+    public ScenarioFactory carOvertaking(double probability) {
+        modelBuilder.addOvertakenVehicle(probability);
         return this;
     }
 

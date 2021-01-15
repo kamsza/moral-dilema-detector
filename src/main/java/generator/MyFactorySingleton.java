@@ -14,10 +14,14 @@ public class MyFactorySingleton {
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
     public static MyFactory getFactory() throws FileNotFoundException, OWLOntologyCreationException {
+        String fileName = "traffic_ontology.owl";
+        String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
+        return getFactory(directoryPath + fileName);
+    }
+
+    public static MyFactory getFactory(String filepath) throws FileNotFoundException, OWLOntologyCreationException {
         if (factory == null) {
-            String fileName = "traffic_ontology.owl";
-            String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
-            File ontologyFile = new File(directoryPath + fileName);
+            File ontologyFile = new File(filepath);
             if (!ontologyFile.exists())
                 throw new FileNotFoundException("File: " + ontologyFile.getAbsolutePath() + " not found");
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

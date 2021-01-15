@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ConsequenceContainer implements IConsequenceContainer {
     private Map<String, Map<ConsequenceType, Set<String>>> healthConsequencesByDecisionMap = new HashMap<>(); //<Decision, <Consequence, Set<VictimName>>>
-    private Map<String, Map<String, Double>> materialConsequencesByDecisionMap = new HashMap<>();
+    private Map<String, Map<String, Double>> materialConsequencesByDecisionMap = new HashMap<>(); //<Decision, <Entity, Value>>
     private MyFactory factory;
 
     public ConsequenceContainer(MyFactory factory) {
@@ -27,27 +27,22 @@ public class ConsequenceContainer implements IConsequenceContainer {
         }
 
         for (String decisionName: materialConsequencesByDecisionMap.keySet()){
-            Set<Map.Entry<String, Double>> entries = materialConsequencesByDecisionMap.get(decisionName).entrySet();
-            Double sum = 0.0;
-            Material_consequence material_consequence = factory.createMaterial_consequence(ObjectNamer.getName("material_consequence"));
-            for(Map.Entry<String, Double> entityConsequence : entries){
-                sum += entityConsequence.getValue();
-                Entity entity = factory.getEntity(entityConsequence.getKey());
-                material_consequence.addMaterial_consequence_to(entity);
-            }
-            Decision decision = factory.getDecision(decisionName);
-            decision.addHas_consequence(material_consequence);
-            material_consequence.addHas_material_value(sum.floatValue());
+            saveMaterialConsequence(decisionName);
         }
     }
 
-    private void saveMaterialConsequence(String decisionName, String entityName, Double materialValue){
+    private void saveMaterialConsequence(String decisionName){
+        Set<Map.Entry<String, Double>> entries = materialConsequencesByDecisionMap.get(decisionName).entrySet();
+        Double sum = 0.0;
         Material_consequence material_consequence = factory.createMaterial_consequence(ObjectNamer.getName("material_consequence"));
-        material_consequence.addHas_material_value(materialValue.floatValue());
+        for(Map.Entry<String, Double> entityConsequence : entries){
+            sum += entityConsequence.getValue();
+            Entity entity = factory.getEntity(entityConsequence.getKey());
+            material_consequence.addMaterial_consequence_to(entity);
+        }
         Decision decision = factory.getDecision(decisionName);
         decision.addHas_consequence(material_consequence);
-        Entity entity = factory.getEntity(entityName);
-        material_consequence.addMaterial_consequence_to(entity);
+        material_consequence.addHas_material_value(sum.floatValue());
     }
 
     private void saveHealthConsequence(String decisionName, Health_consequence consequence, ConsequenceType consequenceType){

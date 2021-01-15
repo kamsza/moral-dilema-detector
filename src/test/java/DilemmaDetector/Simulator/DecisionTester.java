@@ -1,11 +1,4 @@
-package DilemmaDetector.Simulator.Test;
-
-import DilemmaDetector.Simulator.BasicActionsApplier;
-import DilemmaDetector.Simulator.ChangeLaneActionApplier;
-import DilemmaDetector.Simulator.RigidBody;
-import DilemmaDetector.Simulator.Vector2;
-import generator.BaseScenarioGenerator;
-import project.Sunny;
+package DilemmaDetector.Simulator;
 
 public class DecisionTester {
     private RigidBody car = new RigidBody();
@@ -35,7 +28,8 @@ public class DecisionTester {
 
         while (currentTime < 10) {
             currentTime += TIME_PART;
-            actionsApplier.CarChangeLanes(car, Sunny.class, 0, -10, 25);
+            // you probably need Factory now to create Sunny
+            // actionsApplier.CarChangeLanes(car, Sunny.class, 0, -10, 25);
 //            BasicActionsApplier.CarTurning(car, Sunny.class, true);
 //            BasicActionsApplier.CarBreaking(car, Sunny.class);
             everyTickAction(TIME_PART);
