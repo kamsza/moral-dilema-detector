@@ -27,7 +27,7 @@ public class Main {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static Model getModelFromGenerator(OWLFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static Model getModelFromGenerator(MyFactory factory) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = generator.generate();
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -35,7 +35,7 @@ public class Main {
         return model;
     }
 
-    public static Model getModelFromReader(OWLFactory factory, int number) throws OWLOntologyCreationException {
+    public static Model getModelFromReader(MyFactory factory, int number) throws OWLOntologyCreationException {
         ScenarioReader scenarioReader = new ScenarioReader();
         Model model = scenarioReader.getModel(number);
         DecisionGenerator decisionGenerator = new DecisionGenerator(factory, baseIRI);
@@ -55,7 +55,7 @@ public class Main {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(new File("src/main/resources/traffic_ontology.owl"));
 
-        OWLFactory factory = new OWLFactory(ontology);
+        MyFactory factory = new MyFactory(ontology);
         MoralDilemmaDetector.Builder builder = new MoralDilemmaDetector.Builder();
 
         //SWRLAPIFactory.createSWRLRuleEngine(ontology).infer();

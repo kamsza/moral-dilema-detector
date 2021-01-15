@@ -6,7 +6,6 @@ import com.zeroc.Ice.Current;
 import commonadapter.server.logic.services.OntologyService;
 import org.protege.owl.codegeneration.WrappedIndividual;
 import project.Cyclist;
-import project.OWLFactory;
 import project.Pedestrian;
 import project.Vehicle;
 

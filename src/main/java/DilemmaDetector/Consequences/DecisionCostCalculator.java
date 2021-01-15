@@ -7,17 +7,17 @@ import java.util.List;
 
 public class DecisionCostCalculator {
     private IConsequenceContainer consequenceContainer;
-    private OWLFactory factory;
+    private MyFactory factory;
     private CustomPhilosophy customPhilosophy;
 
 
-    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, OWLFactory factory, CustomPhilosophy customPhilosophy) {
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory, CustomPhilosophy customPhilosophy) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         this.customPhilosophy = customPhilosophy;
     }
 
-    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, OWLFactory factory) {
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         customPhilosophy = CustomPhilosophy.getSimplestPhilosophy();

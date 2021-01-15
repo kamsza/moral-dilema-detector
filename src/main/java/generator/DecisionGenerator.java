@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class DecisionGenerator {
     String baseIRI;
-    OWLFactory factory;
+    MyFactory factory;
 
-    public DecisionGenerator(OWLFactory factory, String baseIRI) {
+    public DecisionGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
     }

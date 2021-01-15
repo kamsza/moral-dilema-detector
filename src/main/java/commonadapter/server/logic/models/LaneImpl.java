@@ -6,10 +6,7 @@ import com.zeroc.Ice.Current;
 import commonadapter.server.logic.services.OntologyService;
 import org.protege.owl.codegeneration.WrappedIndividual;
 import project.Lane_boundary;
-import project.OWLFactory;
 import project.Road;
-
-import static commonadapter.OntologyUtils.getPrefixedId;
 
 public class LaneImpl extends BaseItemImpl implements Lane {
 

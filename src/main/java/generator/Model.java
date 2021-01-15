@@ -7,7 +7,7 @@ import project.Decision;
 import project.Driver;
 import project.Lane;
 import project.Living_entity;
-import project.OWLFactory;
+import project.MyFactory;
 import project.Non_living_entity;
 import project.Passenger;
 import project.Road_type;
@@ -298,7 +298,7 @@ public class Model {
     }
 
     public void export() throws FileNotFoundException, OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLFactory factory = MyFactorySingleton.getFactory();
+        MyFactory factory = MyFactorySingleton.getFactory();
         factory.saveOwlOntology();
     }
 

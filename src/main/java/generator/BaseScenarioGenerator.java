@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Driver;
 import project.Lane;
 import project.Living_entity;
-import project.OWLFactory;
+import project.MyFactory;
 import project.Non_living_entity;
 import project.Passenger;
 import project.Person;
@@ -25,7 +25,7 @@ import java.util.TreeMap;
 
 public class BaseScenarioGenerator {
     private String baseIRI;
-    private OWLFactory factory;
+    private MyFactory factory;
 
     private Random rand;
     private RandomSubclassGenerator subclassGenerator;
@@ -38,7 +38,7 @@ public class BaseScenarioGenerator {
         this(MyFactorySingleton.getFactory(), MyFactorySingleton.baseIRI);
     }
 
-    public BaseScenarioGenerator(OWLFactory factory, String baseIRI) {
+    public BaseScenarioGenerator(MyFactory factory, String baseIRI) {
         this.baseIRI = baseIRI;
         this.factory = factory;
         this.rand = new Random();

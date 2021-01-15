@@ -5,7 +5,6 @@ import adapter.Road;
 import com.zeroc.Ice.Current;
 import commonadapter.server.logic.services.OntologyService;
 import org.protege.owl.codegeneration.WrappedIndividual;
-import project.OWLFactory;
 import project.Road_attributes;
 import project.Road_point;
 

@@ -4,7 +4,6 @@ import adapter.LaneBoundary;
 import com.zeroc.Ice.Current;
 import commonadapter.server.logic.services.OntologyService;
 import org.protege.owl.codegeneration.WrappedIndividual;
-import project.OWLFactory;
 
 public class LaneBoundaryImpl extends BaseItemImpl implements LaneBoundary {
 

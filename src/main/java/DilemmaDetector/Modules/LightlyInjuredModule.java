@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 // Module detecting if we cannot avoid lightly injuring someone
 public class LightlyInjuredModule implements IMoralDilemmaDetectorModule {
-    private OWLFactory factory;
+    private MyFactory factory;
 
-    public LightlyInjuredModule(OWLFactory factory) {
+    public LightlyInjuredModule(MyFactory factory) {
         this.factory = factory;
     }
 

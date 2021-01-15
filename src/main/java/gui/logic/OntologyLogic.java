@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Decision;
-import project.OWLFactory;
+import project.MyFactory;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +24,7 @@ public class OntologyLogic {
 
     public static final String baseIRI = "http://webprotege.stanford.edu/";
 
-    public static OWLFactory getFactory() {
+    public static MyFactory getFactory() {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = null;
         try {
@@ -33,11 +33,11 @@ public class OntologyLogic {
             System.err.println("Problem during loading ontology");
             e.printStackTrace();
         }
-        return new OWLFactory(ontology);
+        return new MyFactory(ontology);
     }
 
     // na razie na sztywno korzystamy z BaseScenarioGenerator2
-    public static Model getModelFromGenerator(OWLFactory factory) {
+    public static Model getModelFromGenerator(MyFactory factory) {
         BaseScenarioGenerator2 generator = new BaseScenarioGenerator2(factory, baseIRI);
         Model model = null;
         try {
@@ -57,7 +57,7 @@ public class OntologyLogic {
         return model;
     }
 
-    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, OWLFactory factory, Model scenarioModel) {
+    public static Map<Decision, Set<Actor>> getCollidedEntities(IConsequenceContainer consequenceContainer, MyFactory factory, Model scenarioModel) {
         CollisionConsequencePredictor collisionConsequencePredictor =
                 new CollisionConsequencePredictor(consequenceContainer, factory, scenarioModel);
         SimulatorEngine simulatorEngine = new SimulatorEngine(scenarioModel, collisionConsequencePredictor);

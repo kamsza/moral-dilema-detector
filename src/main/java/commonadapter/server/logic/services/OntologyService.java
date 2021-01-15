@@ -1,8 +1,6 @@
 package commonadapter.server.logic.services;
 
-import adapter.BaseItemPrx;
 import adapter.ItemType;
-import commonadapter.server.logic.exceptions.OntologyItemCreationException;
 import commonadapter.server.logic.exceptions.OntologyItemLoadingException;
 import commonadapter.logging.LogMessageType;
 import commonadapter.logging.Logger;
@@ -13,7 +11,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.OWLFactory;
+import project.MyFactory;
 
 import javax.annotation.Nullable;
 
@@ -25,7 +23,7 @@ import java.util.*;
 public class OntologyService {
 
 
-    private OWLFactory owlFactory;
+    private MyFactory myFactory;
 
     private String ontologyFilePath;
 
@@ -51,7 +49,7 @@ public class OntologyService {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(ontologyFile);
 
-        this.owlFactory = new OWLFactory(ontology);
+        this.myFactory = new MyFactory(ontology);
     }
 
     public BaseItemImpl createAndLoadItem(ItemType type) {
@@ -64,34 +62,34 @@ public class OntologyService {
 
         switch (type) {
             case SCENARIO:
-                item = new ScenarioImpl(id, owlFactory.createScenario(id), this);
+                item = new ScenarioImpl(id, myFactory.createScenario(id), this);
                 break;
             case VEHICLE:
-                item = new VehicleImpl(id, owlFactory.createVehicle(id), this);
+                item = new VehicleImpl(id, myFactory.createVehicle(id), this);
                 break;
             case PEDESTRIAN:
-                item = new PedestrianImpl(id, owlFactory.createPedestrian(id), this);
+                item = new PedestrianImpl(id, myFactory.createPedestrian(id), this);
                 break;
             case CYCLIST:
-                item = new CyclistImpl(id, owlFactory.createCyclist(id), this);
+                item = new CyclistImpl(id, myFactory.createCyclist(id), this);
                 break;
             case LANE:
-                item = new LaneImpl(id, owlFactory.createLane(id), this);
+                item = new LaneImpl(id, myFactory.createLane(id), this);
                 break;
             case ROAD:
-                item = new RoadImpl(id, owlFactory.createRoad(id), this);
+                item = new RoadImpl(id, myFactory.createRoad(id), this);
                 break;
             case DELIMITER:
-                item = new DelimiterImpl(id, owlFactory.createDelimiter(id), this);
+                item = new DelimiterImpl(id, myFactory.createDelimiter(id), this);
                 break;
             case JUNCTION:
-                item = new JunctionImpl(id, owlFactory.createJunction(id), this);
+                item = new JunctionImpl(id, myFactory.createJunction(id), this);
                 break;
             case LANEBOUNDARY:
-                item = new LaneBoundaryImpl(id, owlFactory.createLane_boundary(id), this);
+                item = new LaneBoundaryImpl(id, myFactory.createLane_boundary(id), this);
                 break;
             case ROADATTRIBUTES:
-                item = new RoadAttributesImpl(id, owlFactory.createRoad_attributes(id), this);
+                item = new RoadAttributesImpl(id, myFactory.createRoad_attributes(id), this);
                 break;
         }
 
@@ -120,34 +118,34 @@ public class OntologyService {
 
         switch (type) {
             case SCENARIO:
-                item = new ScenarioImpl(id, owlFactory.getScenario(prefixedId), this);
+                item = new ScenarioImpl(id, myFactory.getScenario(prefixedId), this);
                 break;
             case VEHICLE:
-                item = new VehicleImpl(id, owlFactory.getVehicle(prefixedId), this);
+                item = new VehicleImpl(id, myFactory.getVehicle(prefixedId), this);
                 break;
             case PEDESTRIAN:
-                item = new PedestrianImpl(id, owlFactory.getPedestrian(prefixedId), this);
+                item = new PedestrianImpl(id, myFactory.getPedestrian(prefixedId), this);
                 break;
             case CYCLIST:
-                item = new CyclistImpl(id, owlFactory.getCyclist(prefixedId), this);
+                item = new CyclistImpl(id, myFactory.getCyclist(prefixedId), this);
                 break;
             case LANE:
-                item = new LaneImpl(id, owlFactory.getLane(prefixedId), this);
+                item = new LaneImpl(id, myFactory.getLane(prefixedId), this);
                 break;
             case ROAD:
-                item = new RoadImpl(id, owlFactory.getRoad(prefixedId), this);
+                item = new RoadImpl(id, myFactory.getRoad(prefixedId), this);
                 break;
             case DELIMITER:
-                item = new DelimiterImpl(id, owlFactory.getDelimiter(prefixedId), this);
+                item = new DelimiterImpl(id, myFactory.getDelimiter(prefixedId), this);
                 break;
             case JUNCTION:
-                item = new JunctionImpl(id, owlFactory.getJunction(prefixedId), this);
+                item = new JunctionImpl(id, myFactory.getJunction(prefixedId), this);
                 break;
             case LANEBOUNDARY:
-                item = new LaneBoundaryImpl(id, owlFactory.getLane_boundary(prefixedId), this);
+                item = new LaneBoundaryImpl(id, myFactory.getLane_boundary(prefixedId), this);
                 break;
             case ROADATTRIBUTES:
-                item = new RoadAttributesImpl(id, owlFactory.getRoad_attributes(prefixedId), this);
+                item = new RoadAttributesImpl(id, myFactory.getRoad_attributes(prefixedId), this);
                 break;
         }
 
@@ -160,7 +158,7 @@ public class OntologyService {
 
         try {
 
-            this.owlFactory.saveOwlOntology();
+            this.myFactory.saveOwlOntology();
 
             StringBuffer sb = new StringBuffer();
 

@@ -3,16 +3,16 @@ package DilemmaDetector.Modules;
 import DilemmaDetector.IMoralDilemmaDetectorModule;
 import generator.Model;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.OWLFactory;
+import project.MyFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.factory.SWRLAPIFactory;
 
 // Module detecting moral dilemmas using SWRL rules from ontology
 public class SWRLInferredModule implements IMoralDilemmaDetectorModule {
-    OWLFactory factory;
+    MyFactory factory;
     OWLOntology ontology;
 
-    public SWRLInferredModule(OWLOntology ontology, OWLFactory factory) {
+    public SWRLInferredModule(OWLOntology ontology, MyFactory factory) {
         this.factory = factory;
         this.ontology = ontology;
     }

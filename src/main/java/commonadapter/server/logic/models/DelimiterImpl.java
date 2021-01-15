@@ -3,7 +3,6 @@ package commonadapter.server.logic.models;
 import adapter.Delimiter;
 import commonadapter.server.logic.services.OntologyService;
 import org.protege.owl.codegeneration.WrappedIndividual;
-import project.OWLFactory;
 
 public class DelimiterImpl extends RoadPointImpl implements Delimiter {
 

@@ -2,7 +2,7 @@ package generator;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.OWLFactory;
+import project.MyFactory;
 import project.Passenger;
 
 import java.io.FileNotFoundException;
@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 public class BuildersTest {
     public static void main(String[] args) throws FileNotFoundException, OWLOntologyCreationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, OWLOntologyStorageException {
         BaseScenarioGenerator baseScenarioGenerator = new BaseScenarioGenerator();
-        OWLFactory factory = MyFactorySingleton.getFactory();
+        MyFactory factory = MyFactorySingleton.getFactory();
         RandomSubclassGenerator subclassGenerator = new RandomSubclassGenerator(factory);
 
 

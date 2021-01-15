@@ -3,7 +3,6 @@ package commonadapter.server.logic.models;
 import adapter.Junction;
 import commonadapter.server.logic.services.OntologyService;
 import org.protege.owl.codegeneration.WrappedIndividual;
-import project.OWLFactory;
 
 public class JunctionImpl extends RoadPointImpl implements Junction {
 

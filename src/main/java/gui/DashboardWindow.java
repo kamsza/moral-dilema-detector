@@ -8,7 +8,7 @@ import gui.logic.OntologyLogic;
 
 import org.apache.commons.lang3.StringUtils;
 import project.Decision;
-import project.OWLFactory;
+import project.MyFactory;
 import visualization.Visualization;
 
 import javax.imageio.ImageIO;
@@ -55,7 +55,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
     //business logic variables
     private Map<Decision, Set<Actor>> collidedEntities;
     private Model scenarioModel;
-    private OWLFactory factory;
+    private MyFactory factory;
     private String pictureName;
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();

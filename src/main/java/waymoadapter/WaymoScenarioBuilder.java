@@ -11,7 +11,7 @@ import java.io.File;
 
 public class WaymoScenarioBuilder {
 
-    private final OWLFactory factory;
+    private final MyFactory factory;
 
     private final Scenario scenario;
 
@@ -45,7 +45,7 @@ public class WaymoScenarioBuilder {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(copied);
 
-        this.factory = new OWLFactory(ontology);
+        this.factory = new MyFactory(ontology);
 
         // create scenario with one lane and main vehicle on it
         this.scenario = factory.createScenario(versionTag + "_waymo_scenario");

@@ -16,14 +16,14 @@ import java.util.stream.Stream;
 
 public class RandomSubclassGenerator {
     private final String iriPrefix = "http://webprotege.stanford.edu/";
-    private OWLFactory factory;
+    private MyFactory factory;
     private OWLOntology ontology;
     private OWLOntologyManager manager;
     private OWLReasoner reasoner;
     private OWLDataFactory dataFactory;
     private Random random;
 
-    public RandomSubclassGenerator(OWLFactory factory, OWLReasoner reasoner) {
+    public RandomSubclassGenerator(MyFactory factory, OWLReasoner reasoner) {
         this.ontology = factory.getOwlOntology();
         this.factory = factory;
         this.reasoner = reasoner;
@@ -32,7 +32,7 @@ public class RandomSubclassGenerator {
         random = new Random();
     }
 
-    public RandomSubclassGenerator(OWLFactory factory) {
+    public RandomSubclassGenerator(MyFactory factory) {
         this(factory, new StructuralReasonerFactory().createReasoner(factory.getOwlOntology()));
     }
 

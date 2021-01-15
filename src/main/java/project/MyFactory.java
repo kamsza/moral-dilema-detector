@@ -24,17 +24,17 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * Source Class: MyFactory<br>
  * @version generated on Sat Nov 21 14:40:16 CET 2020 by Michał Barczyk
  */
-public class OWLFactory implements CodeGenerationFactory {
+public class MyFactory implements CodeGenerationFactory {
     private OWLOntology ontology;
     private ProtegeJavaMapping javaMapping = new ProtegeJavaMapping();
     private FactoryHelper delegate;
     private CodeGenerationInference inference;
 
-    public OWLFactory(OWLOntology ontology) {
+    public MyFactory(OWLOntology ontology) {
 	    this(ontology, new SimpleInference(ontology));
     }
     
-    public OWLFactory(OWLOntology ontology, CodeGenerationInference inference) {
+    public MyFactory(OWLOntology ontology, CodeGenerationInference inference) {
         this.ontology = ontology;
         this.inference = inference;
         javaMapping.initialize(ontology, inference);

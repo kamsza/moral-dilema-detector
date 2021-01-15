@@ -15,7 +15,7 @@ public class ModelBuilder {
     private RandomSubclassGenerator subclassGenerator;
     private Model model;
     private RandomPositioner randomPositioner;
-    private OWLFactory factory;
+    private MyFactory factory;
 
     public ModelBuilder(Model model) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
