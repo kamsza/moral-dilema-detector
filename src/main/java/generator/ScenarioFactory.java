@@ -1,7 +1,7 @@
 package generator;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
@@ -13,7 +13,7 @@ public class ScenarioFactory {
         this.modelBuilder = new ModelBuilder(model);
     }
     
-    public ScenarioFactory(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+    public ScenarioFactory(Model model, OWLFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         this.modelBuilder = new ModelBuilder(model, factory);
     }
 

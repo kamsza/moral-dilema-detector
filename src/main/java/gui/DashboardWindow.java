@@ -17,7 +17,7 @@ import org.jdesktop.swingx.prompt.PromptSupport;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import project.Decision;
-import project.MyFactory;
+import project.OWLFactory;
 import visualization.Visualization;
 
 import javax.imageio.ImageIO;
@@ -79,8 +79,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
     //business logic variables
     private Map<Decision, Set<Actor>> collidedEntities;
     private Model scenarioModel;
-    private MyFactory factory;
-    private MyFactory factoryForCalculator;
+    private OWLFactory factory;
+    private OWLFactory factoryForCalculator;
     private String pictureName;
     private IConsequenceContainer consequenceContainer;
     private Map<String, Integer> decisionCosts = new HashMap<>();

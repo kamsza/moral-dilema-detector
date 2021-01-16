@@ -7,7 +7,7 @@ import gui.logic.OntologyLogic;
 import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import project.MyFactory;
+import project.OWLFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,9 +25,9 @@ public class GeneratorWindowForDilemmaDetector extends JFrame implements ActionL
     private SimpleAdditionalSettingsPanel simpleAdditionalSettingsPanel;
     private JButton generateButton;
     private DashboardWindow dashboardWindow;
-    private MyFactory factory;
+    private OWLFactory factory;
 
-    public GeneratorWindowForDilemmaDetector(DashboardWindow dashboardWindow, MyFactory factory) {
+    public GeneratorWindowForDilemmaDetector(DashboardWindow dashboardWindow, OWLFactory factory) {
         this.dashboardWindow = dashboardWindow;
         this.factory = factory;
 

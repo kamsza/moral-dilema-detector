@@ -9,17 +9,17 @@ import java.util.Set;
 
 public class DecisionCostCalculator {
     private IConsequenceContainer consequenceContainer;
-    private MyFactory factory;
+    private OWLFactory factory;
     private CustomPhilosophy customPhilosophy;
 
 
-    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory, CustomPhilosophy customPhilosophy) {
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, OWLFactory factory, CustomPhilosophy customPhilosophy) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         this.customPhilosophy = customPhilosophy;
     }
 
-    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, MyFactory factory) {
+    public DecisionCostCalculator(IConsequenceContainer consequenceContainer, OWLFactory factory) {
         this.consequenceContainer = consequenceContainer;
         this.factory = factory;
         customPhilosophy = CustomPhilosophy.getSimplestPhilosophy();

@@ -33,7 +33,7 @@ public class DecisionGeneratorTest {
     @Test
     public void generateActionByDecisionMapTest() {
         String baseIRI = "anything";
-        MyFactory factoryMock = mock(MyFactory.class);
+        OWLFactory factoryMock = mock(OWLFactory.class);
         Change_lane changeLaneMock = mock(Change_lane.class);
         Model modelMock = mock(Model.class, Mockito.RETURNS_DEEP_STUBS);
         Scenario scenarioMock = mock(Scenario.class);

@@ -5,7 +5,6 @@ import generator.Model;
 import project.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SimulatorEngine {
 
@@ -28,7 +27,7 @@ public class SimulatorEngine {
     private CollisionConsequencePredictor consequencePredictor;
     private FactoryWrapper factoryWrapper;
 
-    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor, MyFactory factory) {
+    public SimulatorEngine(Model model, CollisionConsequencePredictor consequencePredictor, OWLFactory factory) {
         this.model = model;
         this.consequencePredictor = consequencePredictor;
         this.mainVehicle = new Actor(model.getVehicle(), RigidBodyMapper.rigidBodyForMainVehicle(model.getVehicle()), true);

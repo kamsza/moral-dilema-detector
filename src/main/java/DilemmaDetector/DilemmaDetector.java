@@ -9,7 +9,7 @@ import generator.Model;
 import gui.logic.OntologyLogic;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import project.Decision;
-import project.MyFactory;
+import project.OWLFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class DilemmaDetector {
 
     private Model model = null;
     private CustomPhilosophy philosophy = new CustomPhilosophy();
-    private MyFactory factory = null;
+    private OWLFactory factory = null;
 
     private ScenarioReader scenarioReader = null;
     private SimulatorEngine simulatorEngine = null;

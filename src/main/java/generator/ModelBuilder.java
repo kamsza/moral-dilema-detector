@@ -14,13 +14,13 @@ public class ModelBuilder {
     private RandomSubclassGenerator subclassGenerator;
     private Model model;
     private RandomPositioner randomPositioner;
-    private MyFactory factory;
+    private OWLFactory factory;
 
     public ModelBuilder(Model model) throws FileNotFoundException, OWLOntologyCreationException {
         this(model, MyFactorySingleton.getFactory());
     }
 
-    public ModelBuilder(Model model, MyFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
+    public ModelBuilder(Model model, OWLFactory factory) throws FileNotFoundException, OWLOntologyCreationException {
         this.model = model;
         this.factory = factory;
         this.subclassGenerator = new RandomSubclassGenerator(factory);
