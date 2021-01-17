@@ -26,6 +26,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ValueHandler
     private JButton generateButton;
 
     public GeneratorGUI() {
+        System.out.println("Generator successfully started");
         this.setTitle("Road scenario generator");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = Math.min((int)(screenSize.width * 0.95), 1040);

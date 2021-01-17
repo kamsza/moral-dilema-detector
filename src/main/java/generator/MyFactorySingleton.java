@@ -15,7 +15,7 @@ public class MyFactorySingleton {
 
     public static MyFactory getFactory() throws FileNotFoundException, OWLOntologyCreationException {
         String fileName = "traffic_ontology.owl";
-        String directoryPath = System.getProperty("user.dir") + "\\src\\main\\resources\\";
+        String directoryPath = System.getProperty("user.dir") + "\\resources\\";
         return getFactory(directoryPath + fileName);
     }
 

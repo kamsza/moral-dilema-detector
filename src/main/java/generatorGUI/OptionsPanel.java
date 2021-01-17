@@ -1,5 +1,6 @@
 package generatorGUI;
 
+import static generator.DirectoryLocalization.ONTOLOGY_IN_DIR;
 import com.google.common.io.Files;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class OptionsPanel extends JPanel implements ActionListener, ValueHandler {
-    private String ontologyFilepath = "src/main/resources/traffic_ontology.owl";
+    private String ontologyFilepath = ONTOLOGY_IN_DIR + "traffic_ontology.owl";
 
     private JLabel ontologyFileNameLabel;
     private JSpinner scenariosNoSpinner;

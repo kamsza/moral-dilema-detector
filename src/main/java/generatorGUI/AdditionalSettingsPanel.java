@@ -1,5 +1,6 @@
 package generatorGUI;
 
+import static generator.DirectoryLocalization.*;
 import generator.Model;
 import generator.ModelBuilder;
 import generator.ProbRand;
@@ -30,8 +31,8 @@ public class AdditionalSettingsPanel extends ScenarioPanel implements ActionList
     private JButton ontologyDirChangeButton;
     private JButton visualizationDirChangeButton;
 
-    private String ontologyOutDir = "src\\main\\resources\\ontologies";
-    private String visualizationOutDir = "src\\main\\resources\\vis_out";
+    private String ontologyOutDir = ONTOLOGY_OUT_DIR;
+    private String visualizationOutDir = VIS_OUT_DIR;
 
     public AdditionalSettingsPanel() {
         this.setLayout(null);

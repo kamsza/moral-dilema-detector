@@ -1,5 +1,7 @@
 package generator;
 
+import static generator.DirectoryLocalization.ONTOLOGY_OUT_DIR;
+
 import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -265,12 +267,12 @@ public class Model {
     }
 
     public void export(boolean overrideFile) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
-        String template = "src\\main\\resources\\ontologies\\traffic_ontology.owl";
+        String template = ONTOLOGY_OUT_DIR + "traffic_ontology.owl";
         export(template, overrideFile);
     }
 
     public void export(String filepath, boolean overrideFile) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
-        String outDir = "src\\main\\resources\\ontologies";
+        String outDir = ONTOLOGY_OUT_DIR;
         export(filepath, overrideFile, outDir);
     }
 
@@ -280,7 +282,7 @@ public class Model {
         String exportFilepath = filepath;
         if (!overrideFile) {
             String extension = ".owl";
-            String template = outputDir + "\\traffic_ontology";
+            String template = outputDir + "traffic_ontology";
             exportFilepath = template + extension;
             int index = 1;
             while (new File(exportFilepath).exists()) {

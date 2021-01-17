@@ -1,5 +1,7 @@
 package visualization;
 
+import static generator.DirectoryLocalization.*;
+
 import project.Entity;
 
 import javax.imageio.ImageIO;
@@ -17,22 +19,23 @@ import java.util.Iterator;
 class ImageHandler {
     /**
      * Returns .png image as BufferedImage from resources/img
+     *
      * @name name of a file in format name.png
      */
     public static BufferedImage getImage(String name) {
-        String currentDirectory = System.getProperty("user.dir");
-        String filePath = currentDirectory + "/src/main/resources/img/" + name + ".png";
+        String filePath = IMG_DIR + name + ".png";
         BufferedImage image = null;
 
         try {
             File imageFile = new File(filePath);
 
-            if(imageFile.exists())
+            if (imageFile.exists())
                 image = ImageIO.read(imageFile);
             else {
-                String defaultFilePath = currentDirectory + "/src/main/resources/img/no_image.png";
+                String defaultFilePath = IMG_DIR + "no_image.png";
                 File defaultImageFile = new File(defaultFilePath);
                 image = ImageIO.read(defaultImageFile);
+                System.out.println(filePath);
                 System.out.println("VISUALIZER: no image for: " + name);
             }
         } catch (IOException e) {
@@ -52,15 +55,15 @@ class ImageHandler {
         int lastIdxDot = classFullName.lastIndexOf('.');
         String className = classFullName.substring(lastIdxDot + 1).replace("Default", "");
 
-        BufferedImage image =  getImage(className);
+        BufferedImage image = getImage(className);
 
         Iterator speedXit = e.getSpeedX().iterator();
         Iterator speedYit = e.getSpeedY().iterator();
-        if(speedXit.hasNext() && speedYit.hasNext()) {
-            double speedX =  Double.parseDouble(speedXit.next().toString());
-            double speedY =  Double.parseDouble(speedYit.next().toString());
+        if (speedXit.hasNext() && speedYit.hasNext()) {
+            double speedX = Double.parseDouble(speedXit.next().toString());
+            double speedY = Double.parseDouble(speedYit.next().toString());
             double angle = Math.atan2(speedY, speedX);
-            image = rotateImage(image, -1*angle);
+            image = rotateImage(image, -1 * angle);
         }
         return image;
     }
@@ -75,8 +78,8 @@ class ImageHandler {
     public static BufferedImage getImage(Entity e, double scale) {
         BufferedImage img = ImageHandler.getImage(e);
 
-        int newHeight = (int)(scale * img.getHeight());
-        int newWidth = (int)(scale * img.getWidth());
+        int newHeight = (int) (scale * img.getHeight());
+        int newWidth = (int) (scale * img.getWidth());
 
         Image tmp = img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
         BufferedImage dimg = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
@@ -89,11 +92,11 @@ class ImageHandler {
     }
 
     private static BufferedImage rotateImage(BufferedImage image, double angle) {
-        if(angle == 0)
+        if (angle == 0)
             return image;
         double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
         int w = image.getWidth(), h = image.getHeight();
-        int neww = (int)Math.floor(w*cos+h*sin), newh = (int) Math.floor(h * cos + w * sin);
+        int neww = (int) Math.floor(w * cos + h * sin), newh = (int) Math.floor(h * cos + w * sin);
         GraphicsConfiguration gc = getDefaultConfiguration();
         BufferedImage result = gc.createCompatibleImage(neww, newh, Transparency.TRANSLUCENT);
         Graphics2D g = result.createGraphics();
@@ -113,11 +116,12 @@ class ImageHandler {
     /**
      * Function exports JPanel as .png image file in format: vis__dd_MM_yyyy__HH_mm_ss
      * (where dd_MM_yyyy__HH_mm_ss is current date and time) to resources/vis_out directory
+     *
      * @return filename with saved picture
      */
     public static String saveImage(JPanel p) throws IOException {
         String currentDirectory = System.getProperty("user.dir");
-        String dirPath = currentDirectory + "\\src\\main\\resources\\vis_out";
+        String dirPath = currentDirectory + VIS_OUT_DIR;
 
         return saveImage(p, dirPath);
     }
@@ -133,11 +137,11 @@ class ImageHandler {
         String currentTime = dtf.format(now);
         String filename = "vis__" + currentTime + ".png";
 
-        String filePath = outputDir + "\\" +  filename;
+        String filePath = outputDir + filename;
         int counter = 1;
-        while(Files.exists(Paths.get(filePath))) {
+        while (Files.exists(Paths.get(filePath))) {
             filename = "vis__" + currentTime + "_" + counter + ".png";
-            filePath = outputDir + "\\" + filename;
+            filePath = outputDir + filename;
             counter++;
         }
 
