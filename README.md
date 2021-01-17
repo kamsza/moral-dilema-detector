@@ -19,5 +19,16 @@ java -jar MoralDilemmaDetector.jar
 ```  
 
 ## Scenario generator
+App is responsible for generating road scenarios which can contain moral dilemma for autonomous vehicle. Generated scenarios are saved into ontology file. Application provide also optional feature which enable to create simple visualization of scenario, which can be saved as PNG file.
+### Requirements
++ Installed [JDK 11](https://www.oracle.com/pl/java/technologies/javase-jdk11-downloads.html)
+### Usage
+1. Download precompiled binaries included in the [latest release.](https://github.com/kamsza/moral-dilema-detector/releases/latest)  
+2. Unpack generator.zip archive.
+3. Run **generator.jar** by clicking twice on it or run it via terminal using following command:
+
+```bash
+java -jar generator.jar
+```  
 
 ## Scenario generator from real data (NDS and Waymo datasets for now)
