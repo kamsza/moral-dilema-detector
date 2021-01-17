@@ -8,7 +8,8 @@ Application with GUI that uses generated scenarios to detect moral dilemmas. Sce
 The easiest way to run our system on your computer is to download precompiled binaries included in the [latest release.](https://github.com/kamsza/moral-dilema-detector/releases/latest)  
 1. Download MoralDilemmaDetector.zip.
 2. Unpack it and open MoralDilemmaDetector directory.
-3. Run MoralDilemmaDetector.jar by clicking twice on it.  
+3. Run MoralDilemmaDetector.jar by clicking twice on it.
+
 It might take a few seconds. You should see a following screen.
 
 <p align="center">
