@@ -2,10 +2,13 @@
 This project consits of 3 different modules.
 ## Moral dilemma detector
 Application with GUI that uses generated scenarios to detect moral dilemmas. Scenario generator is integrated so that you can generate new scenarios without leaving the app.
+### Requirements
++ Installed [JDK 11](https://www.oracle.com/pl/java/technologies/javase-jdk11-downloads.html)
 ### Usage
-**You need to have Java JDK installed, we recommend Java 11.**  
 The easiest way to run our system on your computer is to download precompiled binaries included in the [latest release.](https://github.com/kamsza/moral-dilema-detector/releases/latest)  
-Download MoralDilemmaDetector.zip, unpack it and run MoralDilemmaDetector.jar by doubleclicking on it.  
+1. Download MoralDilemmaDetector.zip.
+2. Unpack it and open MoralDilemmaDetector directory.
+3. Run MoralDilemmaDetector.jar by clicking twice on it.  
 It might take a few seconds. You should see a following screen.
 
 <p align="center">
@@ -14,7 +17,6 @@ It might take a few seconds. You should see a following screen.
 
 You might also run it from the terminal to get debug info. 
 ```bash
-cd MoralDilemmaDetector
 java -jar MoralDilemmaDetector.jar
 ```  
 
