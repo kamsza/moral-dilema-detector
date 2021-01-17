@@ -1,5 +1,5 @@
 # Moral dilemma detector
-This project consits of 3 different modules.
+This project consists of 3 different modules.
 ## Moral dilemma detector
 Application with GUI that uses generated scenarios to detect moral dilemmas. Scenario generator is integrated so that you can generate new scenarios without leaving the app.
 ### Requirements
