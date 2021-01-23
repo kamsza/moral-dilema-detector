@@ -11,10 +11,16 @@ public class SimpleAdditionalSettingsPanel extends ScenarioPanel {
 
     private TextField maxLanesTextField;
 
+    private JCheckBox evaluateMultipleScenarios;
+
+    private JSpinner numberOfScenariosSpinner;
+
+    private JTextField numberOfScenariosTextField;
+
 
     public SimpleAdditionalSettingsPanel() {
         this.setLayout(null);
-        this.setBounds(40, 740, 900, 100);
+        this.setBounds(40, 740, 900, 120);
         this.setBackground( new Color(237, 245, 252));
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
@@ -31,6 +37,14 @@ public class SimpleAdditionalSettingsPanel extends ScenarioPanel {
         JPanel maxLanesPanel = getProbabilitiesPanel(40, maxLanesSpinner, maxLanesTextField, setLanesNoCheckbox);
         this.add(maxLanesPanel);
 
+        evaluateMultipleScenarios = new JCheckBox("evaluate multiple scenarios");
+        evaluateMultipleScenarios.setBounds(50, 80, 300, 30);
+        this.add(evaluateMultipleScenarios);
+
+        numberOfScenariosSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 100,1));
+        numberOfScenariosSpinner.setBounds(530, 80, 50, 25);
+        this.add(numberOfScenariosSpinner);
+
         setComponentsBackground();
         disableInputFields();
     }
@@ -40,5 +54,10 @@ public class SimpleAdditionalSettingsPanel extends ScenarioPanel {
     }
 
     public int getMaxLanesSpinnerValue() { return getJSpinnerValue(maxLanesSpinner); }
+
+    public boolean getEvaluateMultipleScenariosCheckboxValue() {return evaluateMultipleScenarios.isSelected();}
+
+    public int getNumberOfScenariosSpinnerValue() { return getJSpinnerValue(numberOfScenariosSpinner); }
+
 
 }

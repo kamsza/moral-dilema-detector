@@ -285,6 +285,8 @@ public class DashboardWindow extends JFrame implements ActionListener {
     private void jButtonGenerateScenarioAction() {
         jLabelStartingPrompt.setVisible(false);
         this.generatorGui = new GeneratorWindowForDilemmaDetector(this, factory);
+        String philosophyName = jComboBoxCustomPhilosophies.getSelectedItem().toString() + ".json";
+        generatorGui.setCustomPhilosophy(getCustomPhilosophyByName(philosophyName));
         generatorGui.setVisible(true);
 
     }
@@ -507,7 +509,7 @@ public class DashboardWindow extends JFrame implements ActionListener {
         return customPhilosophy;
     }
 
-    private String getActionNameFromDecision(String decisionString) {
+    public static String getActionNameFromDecision(String decisionString) {
         String tmp = StringUtils.substringAfter(decisionString, "has_action: _");
         return StringUtils.substringBefore(tmp, ";");
     }
