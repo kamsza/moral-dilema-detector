@@ -35,3 +35,20 @@ java -jar generator.jar
 ```  
 
 ## Scenario generator from real data (NDS and Waymo datasets for now)
+### Usage
+1. Download precompiled binaries included in the [latest release.](https://github.com/kamsza/moral-dilema-detector/releases/latest)  
+2. Unpack CommonAdapter.zip archive.
+3. Run **server.jar** via terminal using following command:
+
+```bash
+java -jar ServerApp.jar
+```  
+4. Run NDS client and Waymo client via terminal using following commands:
+
+```bash
+java -jar WaymoClientApp.jar
+```  
+```bash
+java -jar NdsClientApp.jar
+```  
+5. Detailed instruction of launching Carla client is included in CommonAdapter.zip archive.
