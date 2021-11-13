@@ -28,7 +28,7 @@ public class ScenarioReader {
         this.factory = new OWLFactory(ontology);
     }
 
-    public ScenarioReader(OWLFactory factory){
+    public ScenarioReader(OWLFactory factory) {
         this.factory = factory;
     }
 
@@ -36,10 +36,10 @@ public class ScenarioReader {
         return factory;
     }
 
-    public Model getModel(int scenarioNumber){
+    public Model getModel(int scenarioNumber) {
         Scenario scenario = getScenarioFromOntology(scenarioNumber);
         System.out.println(scenario);
-        if (scenario == null){
+        if (scenario == null) {
             throw new IllegalArgumentException("No scenario with number " + scenarioNumber);
         }
 
@@ -101,7 +101,8 @@ public class ScenarioReader {
                 setDriver(driver).
                 setVehicle(mainVehicle).
                 setPassengers(passengers).
-                setSurrounding(surrounding).build();
+                setSurrounding(surrounding).
+                setMainRoad(mainRoad).build();
 
         return model;
     }
@@ -144,20 +145,20 @@ public class ScenarioReader {
                                   Map<Lane, ArrayList<Non_living_entity>> objects,
                                   Map<Lane, ArrayList<Vehicle>> vehicles,
                                   Vehicle mainVehicle, Lane lane) {
-        for(Vehicle v: lane.getLane_has_vehicle()) {
+        for (Vehicle v : lane.getLane_has_vehicle()) {
             String vehicleName = v.getOwlIndividual().getIRI().toString();
             if (!vehicleName.equals(mainVehicle.getOwlIndividual().getIRI().toString())) {
                 v = getVehicleAsSpecificClass(vehicleName);
                 vehicles.get(lane).add(v);
             }
         }
-        for(Living_entity entity: lane.getLane_has_pedestrian()){
+        for (Living_entity entity : lane.getLane_has_pedestrian()) {
             String entityName = entity.getOwlIndividual().getIRI().toString();
             entity = getEntityAsSpecificClass(entityName);
             entities.get(lane).add(entity);
         }
 
-        for(Non_living_entity object: lane.getLane_has_object()){
+        for (Non_living_entity object : lane.getLane_has_object()) {
             String objectName = object.getOwlIndividual().getIRI().toString();
             object = getObjectAsSpecificClass(objectName);
             objects.get(lane).add(object);
@@ -191,14 +192,14 @@ public class ScenarioReader {
         return factory.getDriver(IRI_PREFIX + String.valueOf(number) + "_driver");
     }
 
-    private void addSurroundingToList(List <Surrounding> surroundingList, Scenario scenario, Model.Side side){
+    private void addSurroundingToList(List<Surrounding> surroundingList, Scenario scenario, Model.Side side) {
         Collection<? extends Surrounding> surrounding = null;
         if (side == Model.Side.LEFT)
             surrounding = scenario.getHas_surrounding_left();
         else
             surrounding = scenario.getHas_surrounding_right();
 
-        for (Surrounding s: surrounding){
+        for (Surrounding s : surrounding) {
             String surroundingName = s.getOwlIndividual().getIRI().toString();
             s = getSurroundingAsSpecificClass(surroundingName);
             surroundingList.add(s);
@@ -218,16 +219,16 @@ public class ScenarioReader {
         return surrounding;
     }
 
-    private Lane getLane0FromOntology(int number){
+    private Lane getLane0FromOntology(int number) {
         return factory.getLane(IRI_PREFIX + String.valueOf(number) + "_lane_0");
     }
 
-    private Lane getLaneLeftFromOntology(int number, int laneNumber){
-        return factory.getLane(IRI_PREFIX +String.valueOf(number)+"_lane_left_"+laneNumber);
+    private Lane getLaneLeftFromOntology(int number, int laneNumber) {
+        return factory.getLane(IRI_PREFIX + String.valueOf(number) + "_lane_left_" + laneNumber);
     }
 
-    private Lane getLaneRightFromOntology(int number, int laneNumber){
-        return factory.getLane(IRI_PREFIX +String.valueOf(number)+"_lane_right_"+laneNumber);
+    private Lane getLaneRightFromOntology(int number, int laneNumber) {
+        return factory.getLane(IRI_PREFIX + String.valueOf(number) + "_lane_right_" + laneNumber);
     }
 
     public static void main(String[] args) throws OWLOntologyCreationException {
@@ -235,7 +236,7 @@ public class ScenarioReader {
         scenarioReader.getModelWithVisualisation(230);
     }
 
-    private Weather getWeatherAsSpecificClass(String weatherName){
+    private Weather getWeatherAsSpecificClass(String weatherName) {
         Weather w = factory.getWeather(weatherName);
 
         if (factory.getSunny(weatherName) != null)
@@ -254,7 +255,7 @@ public class ScenarioReader {
         return w;
     }
 
-    private Vehicle getVehicleAsSpecificClass(String vehicleName){
+    private Vehicle getVehicleAsSpecificClass(String vehicleName) {
         Vehicle v = factory.getVehicle(vehicleName);
 
         if (factory.getTruck(vehicleName) != null)
@@ -269,7 +270,7 @@ public class ScenarioReader {
         return v;
     }
 
-    private Surrounding getSurroundingAsSpecificClass(String surroundingName){
+    private Surrounding getSurroundingAsSpecificClass(String surroundingName) {
         Surrounding s = factory.getSurrounding(surroundingName);
 
         if (factory.getBushes(surroundingName) != null)
@@ -306,7 +307,7 @@ public class ScenarioReader {
         return s;
     }
 
-    private Living_entity getEntityAsSpecificClass(String entityName){
+    private Living_entity getEntityAsSpecificClass(String entityName) {
         Living_entity e = factory.getLiving_entity(entityName);
         if (factory.getPerson(entityName) != null)
             e = factory.getPerson(entityName);
@@ -320,9 +321,9 @@ public class ScenarioReader {
         return e;
     }
 
-    private Non_living_entity getObjectAsSpecificClass(String objectName){
+    private Non_living_entity getObjectAsSpecificClass(String objectName) {
         Non_living_entity object = factory.getNon_living_entity(objectName);
-        if( factory.getConcrete_barrier(objectName) != null)
+        if (factory.getConcrete_barrier(objectName) != null)
             object = factory.getConcrete_barrier(objectName);
         else if (factory.getPlastic_barrier(objectName) != null)
             object = factory.getPlastic_barrier(objectName);
